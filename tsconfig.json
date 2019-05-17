@@ -4,7 +4,8 @@
     "moduleResolution": "node",
     "lib": ["es2015"],
     "target": "esnext",
-    "outDir": "./build"
+    "outDir": "./build",
+    "declaration": true
   },
   "forceConsistentCasingInFileNames": true,
   "noImplicitReturns": true,

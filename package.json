@@ -2,11 +2,13 @@
   "name": "dank-twitch-irc",
   "version": "1.0.0",
   "description": "Twitch IRC library aimed at Node.JS",
-  "main": "index.js",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
   "scripts": {
     "build": "tsc",
     "lint": "eslint index.ts \"lib/**\" \"typings/**\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -r ./build"
   },
   "keywords": [],
   "author": "Ruben Anders",
