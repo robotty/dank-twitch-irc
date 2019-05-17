@@ -2,87 +2,17 @@ import {Memoize} from 'typescript-memoize';
 import * as Color from 'color';
 import * as moment from 'moment';
 import {Moment} from 'moment';
-
-export class TwitchBadge {
-    public name: string;
-    public version: number;
-
-    public constructor(name: string, version: number) {
-        this.name = name;
-        this.version = version;
-    }
-
-    public get isAdmin(): boolean {
-        return this.name === 'admin';
-    }
-
-    public get isBits(): boolean {
-        return this.name === 'bits';
-    }
-
-    public get isBroadcaster(): boolean {
-        return this.name === 'broadcaster';
-    }
-
-    public get isGlobalMod(): boolean {
-        return this.name === 'global_mod';
-    }
-
-    public get isModerator(): boolean {
-        return this.name === 'moderator';
-    }
-
-    public get isSubscriber(): boolean {
-        return this.name === 'subscriber';
-    }
-
-    public get isStaff(): boolean {
-        return this.name === 'staff';
-    }
-
-    public get isTurbo(): boolean {
-        return this.name === 'turbo';
-    }
-}
-
-export class TwitchBadgesList extends Array<TwitchBadge> {
-    public get hasAdmin(): boolean {
-        return this.find(e => e.isAdmin) !== undefined;
-    }
-
-    public get hasBits(): boolean {
-        return this.find(e => e.isBits) !== undefined;
-    }
-
-    public get hasBroadcaster(): boolean {
-        return this.find(e => e.isBroadcaster) !== undefined;
-    }
-
-    public get hasGlobalMod(): boolean {
-        return this.find(e => e.isGlobalMod) !== undefined;
-    }
-
-    public get hasModerator(): boolean {
-        return this.find(e => e.isModerator) !== undefined;
-    }
-
-    public get hasSubscriber(): boolean {
-        return this.find(e => e.isSubscriber) !== undefined;
-    }
-
-    public get hasStaff(): boolean {
-        return this.find(e => e.isStaff) !== undefined;
-    }
-
-    public get hasTurbo(): boolean {
-        return this.find(e => e.isTurbo) !== undefined;
-    }
-}
+import {TwitchBadgesList} from './badges';
+import {TwitchEmoteList} from './emotes';
+import {parseBadges, parseEmotes, parseMessage, parseTags} from './parser';
 
 export class IRCMessageTags extends Map<string, string | null> {
 
-    public constructor() {
+    private readonly ircMessage: IRCMessage;
+
+    public constructor(ircMessage: IRCMessage) {
         super();
+        this.ircMessage = ircMessage;
     }
 
     public getString(key: string): string | undefined {
@@ -124,33 +54,43 @@ export class IRCMessageTags extends Map<string, string | null> {
 
     @Memoize()
     public getBadges(key: string = 'badges'): TwitchBadgesList {
-        let badges = new TwitchBadgesList();
-        for (let badgeSrc of this.get(key).split(',')) {
-            let [badgeName, badgeVersionSrc] = badgeSrc.split('/', 1);
-            if (typeof badgeName === 'undefined' || typeof badgeVersionSrc === 'undefined') {
-                continue;
-            }
+        return parseBadges(this.getString(key));
+    }
 
-            let badgeVersion = parseInt(badgeVersionSrc);
-            if (isNaN(badgeVersion)) {
-                continue;
-            }
-
-            badges.push(new TwitchBadge(badgeName, badgeVersion));
-        }
-        return badges;
+    @Memoize()
+    public getEmotes(key: string = 'emotes'): TwitchEmoteList {
+        return parseEmotes(this.getString(key), this.ircMessage);
     }
 
 }
 
 export class IRCMessage {
 
-    public tags: IRCMessageTags;
+    public rawSource: string;
+    private readonly tagsSrc: string | undefined;
     public nickname: string;
     public username: string;
     public hostname: string;
     public command: string;
     public parameters: string[];
+
+    public constructor(rawSource: string, tagsSrc: string | undefined,
+                       nickname: string, username: string,
+                       hostname: string, command: string,
+                       parameters: string[]) {
+        this.rawSource = rawSource;
+        this.tagsSrc = tagsSrc;
+        this.nickname = nickname;
+        this.username = username;
+        this.hostname = hostname;
+        this.command = command;
+        this.parameters = parameters;
+    }
+
+    @Memoize()
+    public get tags(): IRCMessageTags {
+        return parseTags(this.tagsSrc, this);
+    }
 
     public get middleParameters(): string[] {
         return this.parameters.slice(0, this.parameters.length - 1);
@@ -177,17 +117,22 @@ export class IRCMessage {
         return param.slice(1);
     }
 
+    public static parse(messageSrc: string): IRCMessage | null {
+        return parseMessage(messageSrc);
+    }
+
 }
 
 export interface ChannelMessage {
     /**
      * channel that this message occurred in/was sent to
      */
-    channelName: string;
+    readonly channelName: string;
 }
 
 export interface MessageTypeDeclaration<MsgType> {
     command: string;
+
     construct(ircMessage: IRCMessage): MsgType;
 }
 

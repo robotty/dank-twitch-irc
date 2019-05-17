@@ -21,6 +21,7 @@ module.exports = {
         }],
         "semi": "off",
         "@typescript-eslint/semi": ["error"],
-        "@typescript-eslint/no-parameter-properties": ["off"]
+        "@typescript-eslint/no-parameter-properties": ["off"],
+        "eol-last": ["error"]
     }
 };

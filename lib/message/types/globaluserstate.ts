@@ -1,5 +1,6 @@
-import {IRCMessage, MessageTypeDeclaration, TwitchBadgesList} from '../message';
+import {IRCMessage, MessageTypeDeclaration} from '../message';
 import * as Color from 'color';
+import {TwitchBadgesList} from '../badges';
 
 export class GlobaluserstateMessage {
     public constructor(private ircMessage: IRCMessage) {
