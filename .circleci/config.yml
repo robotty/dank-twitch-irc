@@ -1,0 +1,36 @@
+# CircleCI configuration
+# see: https://circleci.com/docs/2.0/configuration-reference/
+
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:12
+    steps:
+      - checkout
+      # checkout does not update the submodules by default, but we dont need the c# height module
+      # for this job, so skip the submodule update.
+      - restore_cache:
+          name: Restore npm package cache
+          key: v1-dependency-cache-{{ checksum "./package.json" }}
+      - run:
+          name: Get web dependencies
+          command: npm i
+      - save_cache:
+          name: Save npm package cache
+          key: v1-dependency-cache-{{ checksum "./package.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: Lint typescript files
+          command: npm run lint
+      - run:
+          name: Assemble typescript files
+          command: npm run build
+
+# add one workflow that runs all jobs in parallel
+workflows:
+  version: 2
+  build-all:
+    jobs:
+      - build

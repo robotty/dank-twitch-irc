@@ -1,0 +1,42 @@
+{
+  "name": "dank-twitch-irc",
+  "version": "1.0.0",
+  "description": "Twitch IRC library aimed at Node.JS",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint index.ts lib/** typings/**",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Ruben Anders",
+  "license": "MIT",
+  "dependencies": {
+    "bottleneck": "^2.18.1",
+    "carrier": "^0.3.0",
+    "color": "^3.1.1",
+    "eventemitter3": "^3.1.2",
+    "irc-framework": "^4.3.0",
+    "lodash.sample": "^4.2.1",
+    "moment": "^2.24.0",
+    "p-event": "^4.1.0",
+    "p-timeout": "^3.1.0",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.7",
+    "semaphore-async-await": "^1.5.1",
+    "strongly-typed-events": "^1.4.10",
+    "typescript-memoize": "^1.0.0-alpha.3"
+  },
+  "devDependencies": {
+    "@types/color": "^3.0.0",
+    "@types/lodash": "^4.14.129",
+    "@types/node": "^12.0.0",
+    "@typescript-eslint/eslint-plugin": "^1.9.0",
+    "@typescript-eslint/parser": "^1.9.0",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "prettier": "^1.17.1",
+    "typescript": "^3.4.5"
+  }
+}
