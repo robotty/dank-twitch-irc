@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc",
     "lint": "eslint index.ts \"lib/**\" \"typings/**\"",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha -r ts-node/register \"lib/**/*.spec.ts\"",
     "clean": "rm -r ./build"
   },
   "keywords": [],
@@ -15,11 +15,13 @@
   "license": "MIT",
   "repository": "https://github.com/robotty/dank-twitch-irc",
   "dependencies": {
+    "@types/verror": "^1.10.3",
     "bottleneck": "^2.18.1",
     "carrier": "^0.3.0",
     "color": "^3.1.1",
+    "debug-logger": "^0.4.1",
     "eventemitter3": "^3.1.2",
-    "irc-framework": "^4.3.0",
+    "lodash.flatmap": "^4.5.0",
     "lodash.sample": "^4.2.1",
     "moment": "^2.24.0",
     "p-event": "^4.1.0",
@@ -28,18 +30,25 @@
     "request-promise-native": "^1.0.7",
     "semaphore-async-await": "^1.5.1",
     "strongly-typed-events": "^1.4.10",
-    "typescript-memoize": "^1.0.0-alpha.3"
+    "typescript-memoize": "^1.0.0-alpha.3",
+    "verror": "^1.10.0"
   },
   "devDependencies": {
+    "@types/chai": "^4.1.7",
     "@types/color": "^3.0.0",
     "@types/lodash": "^4.14.129",
+    "@types/lodash.flatmap": "^4.5.6",
+    "@types/mocha": "^5.2.6",
     "@types/node": "^12.0.0",
     "@typescript-eslint/eslint-plugin": "^1.9.0",
     "@typescript-eslint/parser": "^1.9.0",
+    "chai": "^4.2.0",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^4.3.0",
     "eslint-plugin-prettier": "^3.1.0",
+    "mocha": "^6.1.4",
     "prettier": "^1.17.1",
+    "ts-node": "^8.1.0",
     "typescript": "^3.4.5"
   }
 }

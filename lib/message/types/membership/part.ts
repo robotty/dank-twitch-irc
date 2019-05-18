@@ -1,8 +1,13 @@
-import {ChannelMessage, IRCMessage, MessageTypeDeclaration} from '../../message';
+import {ChannelMessage, IRCMessage, TwitchMessage} from '../../message';
 
-export class PartMessage implements ChannelMessage {
-    public constructor(private ircMessage: IRCMessage) {
+export class PartMessage extends TwitchMessage implements ChannelMessage {
+    public constructor(public ircMessage: IRCMessage) {
+        super();
     };
+
+    public static get command(): string {
+        return 'PART';
+    }
 
     public get channelName(): string {
         return this.ircMessage.channelName;
@@ -10,14 +15,5 @@ export class PartMessage implements ChannelMessage {
 
     public get partedUsername(): string {
         return this.ircMessage.nickname;
-    }
-
-    public static get typeDescription(): MessageTypeDeclaration<PartMessage> {
-        return {
-            command: 'PART',
-            construct(ircMessage: IRCMessage): PartMessage {
-                return new PartMessage(ircMessage);
-            }
-        };
     }
 }

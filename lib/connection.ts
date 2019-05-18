@@ -1,73 +1,91 @@
-import {TLSSocket} from 'tls';
 import * as tls from 'tls';
+import { TLSSocket } from 'tls';
 import * as carrier from 'carrier';
-import * as pTimeout from 'p-timeout';
-import {ircLineParser as parseIRCMessage, Message} from 'irc-framework';
+import { ClientConfiguration } from './client';
+import { parseMessage } from './message/parser';
+import { IRCMessage } from './message/message';
+import * as debugLogger from 'debug-logger';
+import { BaseMessageEmitter } from './messageemitter';
+import { PingMessage, PongMessage, ReconnectMessage } from './message/types';
+import * as VError from 'verror';
+import { awaitResponse } from './await-response';
 
-import {IEvent, EventDispatcher} from 'strongly-typed-events';
-import {ClientConfiguration} from './client';
+const log = debugLogger('dank-twitch-irc:connection');
 
-export class SingleConnection {
+export class SingleConnection extends BaseMessageEmitter {
     private readonly socket: TLSSocket;
     public readonly channels: Set<string> = new Set<string>();
-    // boolean = hadError
-    private readonly _onClose = new EventDispatcher<SingleConnection, boolean>();
-    private readonly _onConnect = new EventDispatcher<SingleConnection, void>();
-    private readonly _onError = new EventDispatcher<SingleConnection, Error>();
-    private readonly _onMessage = new EventDispatcher<SingleConnection, Message>();
 
     private readonly configuration: ClientConfiguration;
 
-    public get onConnect(): IEvent<SingleConnection, void> {
-        return this._onConnect.asEvent();
-    };
-
-    public get onClose(): IEvent<SingleConnection, boolean> {
-        return this._onClose.asEvent();
-    };
-
-    public get onError(): IEvent<SingleConnection, Error> {
-        return this._onError.asEvent();
-    };
-
-    public get onMessage(): IEvent<SingleConnection, Message> {
-        return this._onMessage.asEvent();
-    };
-
     public constructor(configuration: ClientConfiguration) {
+        super();
         this.configuration = configuration;
 
         this.socket = tls.connect({
             host: 'irc.chat.twitch.tv',
-            port: 6667,
+            port: 6697,
         });
 
         let handleLine = (line: string): void => {
-            let ircMessage: Message | undefined = parseIRCMessage(line);
+            if (line.length <= 0) {
+                // ignore empty lines
+                return;
+            }
+            log.trace('< ' + line);
 
-            if (typeof ircMessage === 'undefined') {
+            let ircMessage: IRCMessage | null = parseMessage(line);
+
+            if (ircMessage == null) {
+                log.warn('Ignoring invalid IRC message', line);
                 return;
             }
 
-            this._onMessage.dispatch(this, ircMessage);
+            this.handleIRCMessage(ircMessage);
         };
         carrier.carry(this.socket, handleLine, 'utf-8');
 
         this.socket.on('connect', () => {
-            this._onConnect.dispatch(this);
+            this._onConnect.dispatch();
         });
 
         this.socket.on('close', (hadError: boolean) => {
-            this._onClose.dispatch(this, hadError);
+            this._onClose.dispatch(hadError);
         });
 
         this.socket.on('error', (e: Error) => {
-            this._onError.dispatch(this, e);
+            this._onError.dispatch(e);
         });
 
-        this.onConnect.sub(() => {
-            this.setupConnection();
+        // server-ping
+        this.subscribe(PingMessage, (msg: PingMessage) => {
+            if (msg.argument == null) {
+                this.send('PONG');
+            } else {
+                this.send(`PONG :${msg.argument}`);
+            }
         });
+
+        // client-ping, every 60 seconds with a timeout of 2 seconds
+        let pingIDCounter = 0;
+        let interval = setInterval(() => {
+            let pingID = String(pingIDCounter++);
+            this.send(`PING :${pingID}`);
+            awaitResponse(this, {
+                types: [PongMessage],
+                tMatcher: (m: PongMessage) => m.argument === pingID
+            }).catch(e => {
+                this.socket.destroy(new VError('Server failed to PONG, disconnecting', e));
+            });
+        }, 60 * 1000);
+        this.onClose.sub(() => clearInterval(interval));
+
+        // reonnect
+        this.subscribe(ReconnectMessage, (msg: ReconnectMessage) => {
+            this.socket.destroy(new Error('Reconnect command received by server: ' + msg.ircMessage.rawSource));
+        });
+
+        this.setupConnection();
     }
 
     private setupConnection(): void {
@@ -85,12 +103,13 @@ export class SingleConnection {
 
     /**
      * send the irc server a command
-     * @param command the command
+     * @param command the command, not terminated by newline(s)
      */
     public send(command): void {
         if (command.indexOf('\n') >= 0 || command.indexOf('\r') >= 0) {
             throw new Error('Cannot send messages containing newline characters');
         }
+        log.trace('> ' + command);
 
         this.socket.write(command + '\r\n', 'utf-8');
     }
@@ -100,25 +119,7 @@ export class SingleConnection {
         this.channels.add(channelName);
 
         this.send(`JOIN #${channelName}`);
-        // await response...
-        await this.awaitIRCResponse((msg: Message): Error | undefined => {
-            const badMessageIDs = ['no_permission', 'msg_channel_suspended'];
-            let msgId: string|undefined = msg.tags['msg-id'];
-            if (msg.command === 'NOTICE' && typeof msgId === 'string' && badMessageIDs.includes(msgId)) {
-                return new Error('Received bad NOTICE: ' + msg.to1459());
-            }
-        },
-        (msg: Message): boolean => {
-            // expected:
-            // :own_username!own_username@own_username.tmi.twitch.tv JOIN #channelName
-            // or:
-            // @some_tags :tmi.twitch.tv ROOMSTATE #channelName
-            // or:
-            // @some_tags :tmi.twitch.tv USERSTATE #channelName
-            return (msg.command === 'JOIN' && msg.nick === this.configuration.username) ||
-                    msg.command === 'ROOMSTATE' ||
-                    msg.command === 'USERSTATE';
-        }, channelName);
+        //  TODO await response
     }
 
     public async privmsg(channelName: string, message: string): Promise<void> {
@@ -126,51 +127,6 @@ export class SingleConnection {
         this.send(`PRIVMSG #${channelName} :${message}`);
     }
 
-    public awaitIRCResponse(failureFilter: (Message) => Error | undefined,
-        successFilter: (Message) => boolean,
-        channelName?: string): Promise<Message> {
-        let promise = new Promise<Message>((resolve, reject) => {
-            let unsubscribers: (() => void)[] = [];
 
-            let unsubscribe = (): void => {
-                unsubscribers.forEach(e => e());
-            };
-            unsubscribers.push(this.onMessage.sub((_, msg) => {
-                if (!(typeof channelName !== 'undefined' &&
-                    msg.params.length >= 1 &&
-                    msg.params[0] === `#${channelName}`)) {
-                    // ignore messages not from the channel specified
-                    return;
-                }
 
-                if (successFilter(msg)) {
-                    resolve(msg);
-                    unsubscribe();
-                    return;
-                }
-
-                let failureError: Error | undefined = failureFilter(msg);
-                if (typeof failureError !== 'undefined') {
-                    reject(failureError);
-                    unsubscribe();
-                    return;
-                }
-            }));
-            unsubscribers.push(this.onError.sub((_, error) => {
-                reject(error);
-                unsubscribe();
-            }));
-            unsubscribers.push(this.onClose.sub((_, hadError) => {
-                if (hadError) {
-                    reject(new Error('Connection closed with error'));
-                } else {
-                    reject(new Error('Connection closed without error'));
-                }
-                unsubscribe();
-            }));
-        });
-
-        promise = pTimeout(promise, 2000);
-        return promise;
-    }
 }

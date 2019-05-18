@@ -1,10 +1,15 @@
-import {IRCMessage, MessageTypeDeclaration} from '../message';
+import {IRCMessage, TwitchMessage} from '../message';
 import * as Color from 'color';
 import {TwitchBadgesList} from '../badges';
 
-export class GlobaluserstateMessage {
-    public constructor(private ircMessage: IRCMessage) {
+export class GlobaluserstateMessage extends TwitchMessage {
+    public constructor(public ircMessage: IRCMessage) {
+        super();
     };
+
+    public static get command(): string {
+        return 'GLOBALUSERSTATE';
+    }
 
     public get badgeInfo(): string {
         return this.ircMessage.tags.getString('badge-info');
@@ -29,14 +34,5 @@ export class GlobaluserstateMessage {
 
     public get userID(): number {
         return this.ircMessage.tags.getInt('user-id');
-    }
-
-    public static get typeDescription(): MessageTypeDeclaration<GlobaluserstateMessage> {
-        return {
-            command: 'GLOBALUSERSTATE',
-            construct(ircMessage: IRCMessage): GlobaluserstateMessage {
-                return new GlobaluserstateMessage(ircMessage);
-            }
-        };
     }
 }

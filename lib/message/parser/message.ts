@@ -11,7 +11,7 @@ export function parseMessage(messageSrc: string): IRCMessage | null {
     }
 
     // Nick will be in the prefix slot if a full user mask is not used
-    let nickname = matches[3] || matches[2];
+    let nickname = matches[3] || '';
     let username = matches[4] || '';
     let hostname = matches[5] || '';
     let command = matches[6];

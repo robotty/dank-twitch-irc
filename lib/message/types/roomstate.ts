@@ -1,8 +1,13 @@
-import {ChannelMessage, IRCMessage, MessageTypeDeclaration} from '../message';
+import {ChannelMessage, IRCMessage, TwitchMessage} from '../message';
 
-export class RoomstateMessage implements ChannelMessage {
-    public constructor(private ircMessage: IRCMessage) {
+export class RoomstateMessage extends TwitchMessage implements ChannelMessage {
+    public constructor(public ircMessage: IRCMessage) {
+        super();
     };
+
+    public static get command(): string {
+        return 'ROOMSTATE';
+    }
 
     public get channelName(): string {
         return this.ircMessage.channelName;
@@ -35,14 +40,5 @@ export class RoomstateMessage implements ChannelMessage {
 
     public get isSubscribersOnly(): boolean | null {
         return this.ircMessage.tags.getBoolean('subs-only');
-    }
-
-    public static get typeDescription(): MessageTypeDeclaration<RoomstateMessage> {
-        return {
-            command: 'ROOMSTATE',
-            construct(ircMessage: IRCMessage): RoomstateMessage {
-                return new RoomstateMessage(ircMessage);
-            }
-        };
     }
 }

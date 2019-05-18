@@ -2,10 +2,14 @@
   "compilerOptions": {
     "experimentalDecorators": true,
     "moduleResolution": "node",
-    "lib": ["es2015"],
+    "lib": ["es2018"],
     "target": "esnext",
     "outDir": "./build",
-    "declaration": true
+    "declaration": true,
+    "allowSyntheticDefaultImports": true,
+    "alwaysStrict": true,
+    "module": "commonjs",
+    "sourceMap": true
   },
   "forceConsistentCasingInFileNames": true,
   "noImplicitReturns": true,

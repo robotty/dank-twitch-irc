@@ -26,3 +26,25 @@ export class PrivmsgRateLimiter {
         }
     }
 }
+
+export class ConnectionRateLimiter {
+    private semaphore: Semaphore = new Semaphore(1);
+
+    public async schedule<T>(func: (notConsumed: (b?: boolean) => void) => Promise<T>): Promise<T> {
+        await this.semaphore.acquire();
+        let wasNotConsumed = true;
+        let notConsumed = (b: boolean = true): void => {
+            wasNotConsumed = b;
+        };
+
+        try {
+            return await func(notConsumed);
+        } finally {
+            if (wasNotConsumed) {
+                this.semaphore.release();
+            } else {
+                setTimeout(() => this.semaphore.release(), 1000);
+            }
+        }
+    }
+}

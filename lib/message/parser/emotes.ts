@@ -7,7 +7,7 @@ export function parseEmotes(emotesSrc: string, ircMessage: IRCMessage): TwitchEm
     let cleanedMessageText = ircMessage.trailingParameter.replace(/^\u0001ACTION |\u0001$/g, '');
 
     for (let emoteInstancesSrc of emotesSrc.split('/')) {
-        let [emoteIDSrc, instancesSrc] = emoteInstancesSrc.split(':', 1);
+        let [emoteIDSrc, instancesSrc] = emoteInstancesSrc.split(':', 2);
         let emoteID = parseInt(emoteIDSrc);
         for (let instanceSrc of instancesSrc.split(',')) {
             let [startIndex, endIndex] = instanceSrc.split('-').map(parseInt);

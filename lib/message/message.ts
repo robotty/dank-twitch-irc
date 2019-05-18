@@ -72,12 +72,15 @@ export class IRCMessage {
     public username: string;
     public hostname: string;
     public command: string;
+    public get ircMessage(): IRCMessage {
+        return this;
+    }
     public parameters: string[];
 
     public constructor(rawSource: string, tagsSrc: string | undefined,
-                       nickname: string, username: string,
-                       hostname: string, command: string,
-                       parameters: string[]) {
+        nickname: string, username: string,
+        hostname: string, command: string,
+        parameters: string[]) {
         this.rawSource = rawSource;
         this.tagsSrc = tagsSrc;
         this.nickname = nickname;
@@ -130,9 +133,70 @@ export interface ChannelMessage {
     readonly channelName: string;
 }
 
-export interface MessageTypeDeclaration<MsgType> {
-    command: string;
+/** static interface of all TwitchMessage types */
+export interface TwitchMessageStatic {
+    readonly command: string;
 
-    construct(ircMessage: IRCMessage): MsgType;
+    new(ircMessage: IRCMessage): TwitchMessage;
 }
 
+export abstract class TwitchMessage {
+    abstract get ircMessage(): IRCMessage;
+
+    public get command(): string {
+        return this.ircMessage.command;
+    }
+}
+
+import {
+    ClearchatMessage,
+    ClearmsgMessage,
+    GlobaluserstateMessage,
+    HosttargetMessage,
+    JoinMessage,
+    NoticeMessage,
+    PartMessage,
+    PrivmsgMessage,
+    ReconnectMessage,
+    RoomstateMessage,
+    UsernoticeMessage,
+    UserstateMessage,
+    PingMessage,
+    PongMessage
+} from './types';
+
+export let knownTypes: TwitchMessageStatic[] = [
+    ClearchatMessage,
+    ClearmsgMessage,
+    GlobaluserstateMessage,
+    HosttargetMessage,
+    NoticeMessage,
+    PrivmsgMessage,
+    RoomstateMessage,
+    UsernoticeMessage,
+    UserstateMessage,
+    JoinMessage,
+    PartMessage,
+    ReconnectMessage,
+    PingMessage,
+    PongMessage
+];
+
+export let commandClassMap: Map<string, TwitchMessageStatic> = new Map<string, TwitchMessageStatic>();
+export function refreshCommandClassMap(): void {
+    commandClassMap.clear();
+    for (let knownType of knownTypes) {
+        commandClassMap.set(knownType.command, knownType);
+    }
+}
+
+refreshCommandClassMap();
+
+export function toTwitchMessage(ircMessage: IRCMessage): TwitchMessage | null {
+    let prototype: TwitchMessageStatic = commandClassMap.get(ircMessage.command);
+    if (typeof prototype === 'undefined') {
+        return null;
+    }
+
+    return new prototype(ircMessage);
+}

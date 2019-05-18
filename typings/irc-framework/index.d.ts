@@ -15,12 +15,12 @@ declare module 'irc-framework' {
         public to1459(): string;
 
         public toJSON(): {
-            tags: { [s: string]: string },
+            tags: { [s: string]: string };
             /**
              * = this.prefix
              */
-            source: string,
-            command: string,
+            source: string;
+            command: string;
             params: string[];
         };
     }

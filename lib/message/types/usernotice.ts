@@ -1,12 +1,17 @@
-import {ChannelMessage, IRCMessage, MessageTypeDeclaration} from '../message';
+import {ChannelMessage, IRCMessage, TwitchMessage} from '../message';
 import * as Color from 'color';
 import {Moment} from 'moment';
 import {TwitchBadgesList} from '../badges';
 import {TwitchEmoteList} from '../emotes';
 
-export class UsernoticeMessage implements ChannelMessage {
-    public constructor(private ircMessage: IRCMessage) {
+export class UsernoticeMessage extends TwitchMessage implements ChannelMessage {
+    public constructor(public ircMessage: IRCMessage) {
+        super();
     };
+
+    public static get command(): string {
+        return 'USERNOTICE';
+    }
 
     public get channelName(): string {
         return this.ircMessage.channelName;
@@ -68,14 +73,5 @@ export class UsernoticeMessage implements ChannelMessage {
 
     public get senderUserID(): number {
         return this.ircMessage.tags.getInt('user-id');
-    }
-
-    public static get typeDescription(): MessageTypeDeclaration<UsernoticeMessage> {
-        return {
-            command: 'USERNOTICE',
-            construct(ircMessage: IRCMessage): UsernoticeMessage {
-                return new UsernoticeMessage(ircMessage);
-            }
-        };
     }
 }

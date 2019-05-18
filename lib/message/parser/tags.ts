@@ -27,7 +27,7 @@ export function parseTags(tagsSrc: string | undefined, ircMessage: IRCMessage): 
     }
 
     for (let tagSrc of tagsSrc.split(';')) {
-        let [key, value] = tagSrc.split('=', 1);
+        let [key, value] = tagSrc.split('=', 2);
         key = key.toLowerCase();
         value = decodeValue(value);
 

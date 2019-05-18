@@ -1,8 +1,13 @@
-import {ChannelMessage, IRCMessage, MessageTypeDeclaration} from '../message';
+import {ChannelMessage, IRCMessage, TwitchMessage} from '../message';
 
-export class HosttargetMessage implements ChannelMessage {
-    public constructor(private ircMessage: IRCMessage) {
+export class HosttargetMessage extends TwitchMessage implements ChannelMessage {
+    public constructor(public ircMessage: IRCMessage) {
+        super();
     };
+
+    public static get command(): string {
+        return 'HOSTTARGET';
+    }
 
     public get channelName(): string {
         return this.ircMessage.channelName;
@@ -32,14 +37,5 @@ export class HosttargetMessage implements ChannelMessage {
             return null;
         }
         return numberValue;
-    }
-
-    public static get typeDescription(): MessageTypeDeclaration<HosttargetMessage> {
-        return {
-            command: 'HOSTTARGET',
-            construct(ircMessage: IRCMessage): HosttargetMessage {
-                return new HosttargetMessage(ircMessage);
-            }
-        };
     }
 }

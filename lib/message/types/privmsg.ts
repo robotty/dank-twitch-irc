@@ -1,12 +1,31 @@
-import {ChannelMessage, IRCMessage, MessageTypeDeclaration} from '../message';
+import {ChannelMessage, IRCMessage, TwitchMessage} from '../message';
 import * as Color from 'color';
 import {Moment} from 'moment';
 import {TwitchBadgesList} from '../badges';
 import {TwitchEmoteList} from '../emotes';
 
-export class PrivmsgMessage implements ChannelMessage {
-    public constructor(private ircMessage: IRCMessage) {
+const actionRegex = /^\u0001ACTION (.*)\u0001$/;
+
+export class PrivmsgMessage extends TwitchMessage implements ChannelMessage {
+    public readonly message: string;
+    public readonly action: boolean;
+
+    public constructor(public ircMessage: IRCMessage) {
+        super();
+
+        let match: RegExpExecArray | null = actionRegex.exec(ircMessage.trailingParameter);
+        if (match == null) {
+            this.action = false;
+            this.message = ircMessage.trailingParameter;
+        } else {
+            this.action = true;
+            this.message = match.groups[1];
+        }
     };
+
+    public static get command(): string {
+        return 'PRIVMSG';
+    }
 
     public get channelName(): string {
         return this.ircMessage.channelName;
@@ -59,14 +78,5 @@ export class PrivmsgMessage implements ChannelMessage {
 
     public get senderUserID(): number {
         return this.ircMessage.tags.getInt('user-id');
-    }
-
-    public static get typeDescription(): MessageTypeDeclaration<PrivmsgMessage> {
-        return {
-            command: 'PRIVMSG',
-            construct(ircMessage: IRCMessage): PrivmsgMessage {
-                return new PrivmsgMessage(ircMessage);
-            }
-        };
     }
 }

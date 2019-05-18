@@ -1,11 +1,8 @@
-import {PrivmsgRateLimiter} from './ratelimiter';
+import {ConnectionRateLimiter, PrivmsgRateLimiter} from './ratelimiter';
 import {SingleConnection} from './connection';
 import {TwitchAPI} from './twitchapi';
-import {Message} from 'irc-framework';
-import {EventDispatcher} from 'strongly-typed-events';
-import Bottleneck from 'bottleneck';
-import {randomOfArray} from './utils';
-import {IEvent} from 'strongly-typed-events';
+import { findAndPushToEnd, removeInPlace } from './utils';
+import {BaseMessageEmitter} from './messageemitter';
 
 export class ClientConfiguration {
     /**
@@ -32,78 +29,112 @@ export class ClientConfiguration {
     }
 }
 
-export class Client {
-    private readonly connections: Set<SingleConnection> = new Set<SingleConnection>();
-
-    private get connectionsArr(): SingleConnection[] {
-        return [...this.connections];
-    }
+export class Client extends BaseMessageEmitter {
+    private readonly connections: SingleConnection[] = [];
 
     private readonly configuration: ClientConfiguration;
     private readonly privmsgRateLimiter: PrivmsgRateLimiter;
 
-    private readonly _onClose = new EventDispatcher<Client, boolean>();
-    private readonly _onConnect = new EventDispatcher<Client, void>();
-    private readonly _onError = new EventDispatcher<Client, Error>();
-    private readonly _onMessage = new EventDispatcher<Client, Message>();
-
-    public get onConnect(): IEvent<Client, void> {
-        return this._onConnect.asEvent();
-    };
-
-    public get onClose(): IEvent<Client, boolean> {
-        return this._onClose.asEvent();
-    };
-
-    public get onError(): IEvent<Client, Error> {
-        return this._onError.asEvent();
-    };
-
-    public get onMessage(): IEvent<Client, Message> {
-        return this._onMessage.asEvent();
-    };
-
     public constructor(configuration: ClientConfiguration, privmsgRateLimiter: PrivmsgRateLimiter) {
+        super();
         this.configuration = configuration;
         this.privmsgRateLimiter = privmsgRateLimiter;
     }
 
-    public static async newClient(configuration: ClientConfiguration, apiClient: TwitchAPI): Promise<Client> {
-        let rateLimits = await apiClient.getUserChatRateLimits(configuration.username);
-        return new Client(configuration, new PrivmsgRateLimiter(rateLimits.highLimits, rateLimits.lowLimits));
+    public static async newClient(apiClient: TwitchAPI, partialConfig: Partial<ClientConfiguration> = {}): Promise<Client> {
+        let config = new ClientConfiguration(partialConfig);
+        let rateLimits = await apiClient.getUserChatRateLimits(config.username);
+        return new Client(config, new PrivmsgRateLimiter(rateLimits.highLimits, rateLimits.lowLimits));
     }
 
     // wait 1 second minimum between new connections (reduces load on the
     // twitch IRC server on startup and reconnect)
-    private readonly connectionOpenRateLimiter = new Bottleneck({
-        minTime: 1000
-    });
+    private readonly connectionRateLimiter = new ConnectionRateLimiter();
 
-    private async newConnection(): Promise<SingleConnection> {
-        return this.connectionOpenRateLimiter.schedule(async (): Promise<SingleConnection> => {
-            let conn = new SingleConnection(this.configuration);
-            conn.onClose.sub(() => {
-                this.connections.delete(conn);
-            });
-            conn.onMessage.sub((_, msg) => {
-                this._onMessage.dispatch(this, msg);
-            });
-            this.connections.add(conn);
+    private static readonly neverForwardCommands: string[] = [
+        'PING',
+        'PONG',
+        'RECONNECT'
+    ];
+
+    // current whisper conn
+    private activeWhisperConn: SingleConnection | null = null;
+
+    private newConnection(): SingleConnection {
+        let conn = new SingleConnection(this.configuration);
+        conn.onClose.sub(async () => {
+            removeInPlace(this.connections, conn);
+            if (this.activeWhisperConn === conn) {
+                this.activeWhisperConn = null;
+            }
+
+            await this.ensureWhisperConnection();
+        });
+        conn.onConnect.sub(() => {
+            if (this.activeWhisperConn == null) {
+                this.activeWhisperConn = conn;
+            }
+        });
+        // forward events to this client
+        conn.forwardEmitter(this, cmd => {
+            if (Client.neverForwardCommands.includes(cmd)) {
+                return false;
+            }
+
+            // only forward whispers from the currently active whisper connection
+            if (cmd === 'WHISPER') {
+                return this.activeWhisperConn === conn;
+            }
+
+            return true;
+        });
+        // connection will be used by the code that requested the connection therefore it's added to the back
+        // of the queue
+        this.connections.push(conn);
+        return conn;
+    }
+
+    private async ensureWhisperConnection(): Promise<void> {
+        if (this.activeWhisperConn == null) {
+            this.activeWhisperConn = await this.requireConnection();
+        }
+    }
+
+    private async requireConnection(filter: (conn: SingleConnection) => boolean = () => true): Promise<SingleConnection> {
+        let conn = this.nextConnection(filter);
+        if (conn != null) {
             return conn;
+        }
+
+        return await this.connectionRateLimiter.schedule(async (notConsumed) => {
+            // check condition again, maybe it's satisfied now?
+            let conn = this.nextConnection(filter);
+            if (conn != null) {
+                notConsumed();
+                return conn;
+            }
+
+            return this.newConnection();
         });
     }
 
-    public async join(channelName: string): Promise<void> {
-        let conn: SingleConnection | undefined = this.connectionsArr.find((e) => e.channels.size < 50);
-        if (typeof conn === 'undefined') {
-            conn = await this.newConnection();
-        }
+    private nextConnection(filter: (conn: SingleConnection) => boolean): SingleConnection | undefined {
+        // take the first connection from the head of the queue and put it back onto the end of the queue
+        // so connections are used round-robin for sending purposes.
+        return findAndPushToEnd(this.connections, filter);
+    }
 
+    public async connect(): Promise<void> {
+        await this.ensureWhisperConnection();
+    }
+
+    public async join(channelName: string): Promise<void> {
+        let conn = await this.requireConnection(e => e.channels.size < 50);
         await conn.join(channelName);
     }
 
     public async privmsg(channelName: string, message: string): Promise<void> {
-        await randomOfArray(this.connectionsArr).privmsg(channelName, message);
+        await (await this.requireConnection()).privmsg(channelName, message);
     }
 
 }

@@ -3,7 +3,7 @@ import {TwitchBadge, TwitchBadgesList} from '../badges';
 export function parseBadges(badgesSrc: string): TwitchBadgesList {
     let badges = new TwitchBadgesList();
     for (let badgeSrc of badgesSrc.split(',')) {
-        let [badgeName, badgeVersionSrc] = badgeSrc.split('/', 1);
+        let [badgeName, badgeVersionSrc] = badgeSrc.split('/', 2);
         if (typeof badgeName === 'undefined' || typeof badgeVersionSrc === 'undefined') {
             continue;
         }

@@ -1,8 +1,13 @@
-import {ChannelMessage, IRCMessage, MessageTypeDeclaration} from '../../message';
+import {ChannelMessage, IRCMessage, TwitchMessage} from '../../message';
 
-export class JoinMessage implements ChannelMessage {
-    public constructor(private ircMessage: IRCMessage) {
+export class JoinMessage extends TwitchMessage implements ChannelMessage {
+    public constructor(public ircMessage: IRCMessage) {
+        super();
     };
+
+    public static get command(): string {
+        return 'JOIN';
+    }
 
     public get channelName(): string {
         return this.ircMessage.channelName;
@@ -10,14 +15,5 @@ export class JoinMessage implements ChannelMessage {
 
     public get joinedUsername(): string {
         return this.ircMessage.nickname;
-    }
-
-    public static get typeDescription(): MessageTypeDeclaration<JoinMessage> {
-        return {
-            command: 'JOIN',
-            construct(ircMessage: IRCMessage): JoinMessage {
-                return new JoinMessage(ircMessage);
-            }
-        };
     }
 }

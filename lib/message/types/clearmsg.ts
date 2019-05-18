@@ -1,8 +1,13 @@
-import {ChannelMessage, IRCMessage, MessageTypeDeclaration} from '../message';
+import {ChannelMessage, IRCMessage, TwitchMessage} from '../message';
 
-export class ClearmsgMessage implements ChannelMessage {
-    public constructor(private ircMessage: IRCMessage) {
+export class ClearmsgMessage extends TwitchMessage implements ChannelMessage {
+    public constructor(public ircMessage: IRCMessage) {
+        super();
     };
+
+    public static get command(): string {
+        return 'CLEARMSG';
+    }
 
     public get channelName(): string {
         return this.ircMessage.channelName;
@@ -18,14 +23,5 @@ export class ClearmsgMessage implements ChannelMessage {
 
     public get targetMessageContent(): string {
         return this.ircMessage.trailingParameter;
-    }
-
-    public static get typeDescription(): MessageTypeDeclaration<ClearmsgMessage> {
-        return {
-            command: 'CLEARMSG',
-            construct(ircMessage: IRCMessage): ClearmsgMessage {
-                return new ClearmsgMessage(ircMessage);
-            }
-        };
     }
 }

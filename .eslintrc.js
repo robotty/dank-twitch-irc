@@ -1,27 +1,32 @@
 module.exports = {
-    parser:  '@typescript-eslint/parser',
-    plugins: ['@typescript-eslint'],
+    parser: '@typescript-eslint/parser',
     env: {
         es6: true,
         node: true
     },
-    extends:  [
-        "plugin:@typescript-eslint/recommended",
-        "prettier",
-        "prettier/@typescript-eslint"
+    extends: [
+        'plugin:@typescript-eslint/recommended',
     ],
-    parserOptions:  {
-        ecmaVersion:  2018,
-        sourceType:  'module',
+    plugins: ['@typescript-eslint'],
+    parserOptions: {
+        ecmaVersion: 2018,
+        sourceType: 'module'
     },
     rules: {
-        quotes: ["error", "single"],
-        "@typescript-eslint/explicit-function-return-type": ["warn", {
+        quotes: ['error', 'single'],
+        '@typescript-eslint/explicit-function-return-type': ['warn', {
             allowExpressions: true
         }],
-        "semi": "off",
-        "@typescript-eslint/semi": ["error"],
-        "@typescript-eslint/no-parameter-properties": ["off"],
-        "eol-last": ["error"]
+        'semi': 'off',
+        '@typescript-eslint/semi': ['error'],
+        '@typescript-eslint/no-parameter-properties': ['off'],
+        'eol-last': ['error'],
+        "@typescript-eslint/indent": ['error', 4, {
+            SwitchCase: 1,
+            FunctionDeclaration: {
+                parameters: "first"
+            }
+        }],
+        "@typescript-eslint/no-explicit-any": "off"
     }
 };

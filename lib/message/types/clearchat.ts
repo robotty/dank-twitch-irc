@@ -1,8 +1,13 @@
-import {ChannelMessage, IRCMessage, MessageTypeDeclaration} from '../message';
+import {ChannelMessage, IRCMessage, TwitchMessage} from '../message';
 
-export class ClearchatMessage implements ChannelMessage {
-    public constructor(private ircMessage: IRCMessage) {
-    };
+export class ClearchatMessage extends TwitchMessage implements ChannelMessage {
+    public constructor(public ircMessage: IRCMessage) {
+        super();
+    }
+
+    public static get command(): string {
+        return 'CLEARCHAT';
+    }
 
     public get channelName(): string {
         return this.ircMessage.channelName;
@@ -25,14 +30,5 @@ export class ClearchatMessage implements ChannelMessage {
      */
     public get banDuration(): number | null {
         return this.ircMessage.tags.getInt('ban-duration');
-    }
-
-    public static get typeDescription(): MessageTypeDeclaration<ClearchatMessage> {
-        return {
-            command: 'CLEARCHAT',
-            construct(ircMessage: IRCMessage): ClearchatMessage {
-                return new ClearchatMessage(ircMessage);
-            }
-        };
     }
 }

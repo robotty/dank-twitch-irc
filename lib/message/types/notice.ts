@@ -1,8 +1,13 @@
-import {ChannelMessage, IRCMessage, MessageTypeDeclaration} from '../message';
+import {ChannelMessage, IRCMessage, TwitchMessage} from '../message';
 
-export class NoticeMessage implements ChannelMessage {
-    public constructor(private ircMessage: IRCMessage) {
+export class NoticeMessage extends TwitchMessage implements ChannelMessage {
+    public constructor(public ircMessage: IRCMessage) {
+        super();
     };
+
+    public static get command(): string {
+        return 'NOTICE';
+    }
 
     public get channelName(): string {
         return this.ircMessage.channelName;
@@ -14,14 +19,5 @@ export class NoticeMessage implements ChannelMessage {
 
     public get messageID(): string {
         return this.ircMessage.tags.getString('msg-id');
-    }
-
-    public static get typeDescription(): MessageTypeDeclaration<NoticeMessage> {
-        return {
-            command: 'NOTICE',
-            construct(ircMessage: IRCMessage): NoticeMessage {
-                return new NoticeMessage(ircMessage);
-            }
-        };
     }
 }

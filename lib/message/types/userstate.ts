@@ -1,10 +1,15 @@
-import {ChannelMessage, IRCMessage, MessageTypeDeclaration} from '../message';
+import {ChannelMessage, IRCMessage, TwitchMessage} from '../message';
 import * as Color from 'color';
 import {TwitchBadgesList} from '../badges';
 
-export class UserstateMessage implements ChannelMessage {
-    public constructor(private ircMessage: IRCMessage) {
+export class UserstateMessage extends TwitchMessage implements ChannelMessage {
+    public constructor(public ircMessage: IRCMessage) {
+        super();
     };
+
+    public static get command(): string {
+        return 'USERSTATE';
+    }
 
     public get channelName(): string {
         return this.ircMessage.channelName;
@@ -34,14 +39,5 @@ export class UserstateMessage implements ChannelMessage {
     public get isMod(): boolean {
         return this.ircMessage.tags.getBoolean('mod') ||
             this.badges.hasModerator;
-    }
-
-    public static get typeDescription(): MessageTypeDeclaration<UserstateMessage> {
-        return {
-            command: 'USERSTATE',
-            construct(ircMessage: IRCMessage): UserstateMessage {
-                return new UserstateMessage(ircMessage);
-            }
-        };
     }
 }

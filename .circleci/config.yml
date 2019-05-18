@@ -27,6 +27,9 @@ jobs:
       - run:
           name: Assemble typescript files
           command: npm run build
+      - run:
+          name: Run tests
+          command: npm run test
 
 # add one workflow that runs all jobs in parallel
 workflows:

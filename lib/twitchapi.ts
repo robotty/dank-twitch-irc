@@ -46,6 +46,7 @@ export class TwitchAPI {
     public async getUserChatRateLimits(username: string): Promise<ChatRateLimitsSet> {
         let userID = await this.getTwitchUserID(username);
         if (userID === null) {
+            // unknown username or anonymous username.
             return TwitchAPI.defaultChatRateLimits;
         }
 
