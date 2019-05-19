@@ -1,5 +1,5 @@
-import {IRCMessage} from '../message';
 import {TwitchEmote, TwitchEmoteList} from '../emotes';
+import { IRCMessage } from '../irc';
 
 export function parseEmotes(emotesSrc: string, ircMessage: IRCMessage): TwitchEmoteList {
     let emotes = new TwitchEmoteList();

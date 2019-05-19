@@ -1,19 +1,16 @@
-import {ChannelMessage, IRCMessage, TwitchMessage} from '../../message';
+import {ChannelMessage} from '../../message';
+import { TwitchMessage } from '../../twitch';
 
 export class PartMessage extends TwitchMessage implements ChannelMessage {
-    public constructor(public ircMessage: IRCMessage) {
-        super();
-    };
-
     public static get command(): string {
         return 'PART';
     }
 
     public get channelName(): string {
-        return this.ircMessage.channelName;
+        return this.ircMessage.ircChannelName;
     }
 
     public get partedUsername(): string {
-        return this.ircMessage.nickname;
+        return this.ircMessage.ircNickname;
     }
 }

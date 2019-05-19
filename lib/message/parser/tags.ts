@@ -1,4 +1,5 @@
-import {IRCMessage, IRCMessageTags} from '../message';
+
+import { IRCMessage, IRCMessageTags } from '../irc';
 
 const decodeMap: { [key: string]: string } = {
     '\\\\': '\\',

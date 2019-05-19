@@ -1,16 +1,13 @@
-import {ChannelMessage, IRCMessage, TwitchMessage} from '../message';
+import { TwitchMessage } from '../twitch';
+import { ChannelMessage } from '../message';
 
 export class HosttargetMessage extends TwitchMessage implements ChannelMessage {
-    public constructor(public ircMessage: IRCMessage) {
-        super();
-    };
-
     public static get command(): string {
         return 'HOSTTARGET';
     }
 
     public get channelName(): string {
-        return this.ircMessage.channelName;
+        return this.ircMessage.ircChannelName;
     }
 
     /**

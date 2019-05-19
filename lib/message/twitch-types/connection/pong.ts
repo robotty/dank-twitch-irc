@@ -1,12 +1,8 @@
-import {IRCMessage, TwitchMessage} from '../../message';
+import { TwitchMessage } from '../../twitch';
 
 export class PongMessage extends TwitchMessage {
-    public constructor(public ircMessage: IRCMessage) {
-        super();
-    };
-
     public get argument(): string | null {
-        let param = this.ircMessage.parameters[1];
+        let param = this.ircMessage.ircParameters[1];
         if (typeof param === 'undefined') {
             return null;
         }

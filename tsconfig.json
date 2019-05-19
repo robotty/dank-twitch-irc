@@ -6,7 +6,6 @@
     "target": "esnext",
     "outDir": "./build",
     "declaration": true,
-    "allowSyntheticDefaultImports": true,
     "alwaysStrict": true,
     "module": "commonjs",
     "sourceMap": true

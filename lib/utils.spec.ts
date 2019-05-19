@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import { findAndPushToEnd } from './utils';
+import { findAndPushToEnd, removeInPlace } from './utils';
 
 describe('findAndPushToEnd', () => {
     it('empty array', () => {
@@ -23,5 +23,37 @@ describe('findAndPushToEnd', () => {
         expect(findAndPushToEnd(inArr, e => e === 2)).to.eql(2);
 
         expect(inArr).to.eql([ 1, 3, 2 ]);
+    });
+});
+
+describe('removeInPlace', () => {
+    it('empty array', () => {
+        let arr = [];
+        removeInPlace(arr, 1);
+        expect(arr).to.eql([]);
+    });
+
+    it('correct on one', () => {
+        let arr = [ 1, 2, 3 ];
+        removeInPlace(arr, 2);
+        expect(arr).to.eql([ 1, 3 ]);
+    });
+
+    it('correct on multiple', () => {
+        let arr = [ 1, 2, 3, 2 ];
+        removeInPlace(arr, 2);
+        expect(arr).to.eql([ 1, 3 ]);
+    });
+
+    it('at the start', () => {
+        let arr = [ 1, 2, 3 ];
+        removeInPlace(arr, 1);
+        expect(arr).to.eql([ 2, 3 ]);
+    });
+
+    it('at the end', () => {
+        let arr = [ 1, 2, 3 ];
+        removeInPlace(arr, 2);
+        expect(arr).to.eql([ 1, 3 ]);
     });
 });

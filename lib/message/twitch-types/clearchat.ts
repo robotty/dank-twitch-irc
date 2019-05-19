@@ -1,16 +1,13 @@
-import {ChannelMessage, IRCMessage, TwitchMessage} from '../message';
+import { TwitchMessage } from '../twitch';
+import { ChannelMessage } from '../message';
 
 export class ClearchatMessage extends TwitchMessage implements ChannelMessage {
-    public constructor(public ircMessage: IRCMessage) {
-        super();
-    }
-
     public static get command(): string {
         return 'CLEARCHAT';
     }
 
     public get channelName(): string {
-        return this.ircMessage.channelName;
+        return this.ircMessage.ircChannelName;
     }
 
     public get message(): string {
@@ -18,17 +15,17 @@ export class ClearchatMessage extends TwitchMessage implements ChannelMessage {
     }
 
     public get senderUsername(): string {
-        return this.ircMessage.nickname;
+        return this.ircMessage.ircNickname;
     }
 
     public get badgeInfo(): string {
-        return this.ircMessage.tags.getString('badge-info');
+        return this.ircMessage.ircTags.getString('badge-info');
     }
 
     /**
      * length in seconds (integer), null if permanent ban
      */
     public get banDuration(): number | null {
-        return this.ircMessage.tags.getInt('ban-duration');
+        return this.ircMessage.ircTags.getInt('ban-duration');
     }
 }

@@ -1,24 +1,21 @@
-import {ChannelMessage, IRCMessage, TwitchMessage} from '../message';
+import { TwitchMessage } from '../twitch';
+import { ChannelMessage } from '../message';
 
 export class ClearmsgMessage extends TwitchMessage implements ChannelMessage {
-    public constructor(public ircMessage: IRCMessage) {
-        super();
-    };
-
     public static get command(): string {
         return 'CLEARMSG';
     }
 
     public get channelName(): string {
-        return this.ircMessage.channelName;
+        return this.ircMessage.ircChannelName;
     }
 
     public get targetUsername(): string {
-        return this.ircMessage.tags.getString('login');
+        return this.ircMessage.ircTags.getString('login');
     }
 
     public get targetMessageID(): string {
-        return this.ircMessage.tags.getString('target-msg-id');
+        return this.ircMessage.ircTags.getString('target-msg-id');
     }
 
     public get targetMessageContent(): string {

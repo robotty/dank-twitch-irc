@@ -3,6 +3,9 @@ import {SingleConnection} from './connection';
 import {TwitchAPI} from './twitchapi';
 import { findAndPushToEnd, removeInPlace } from './utils';
 import {BaseMessageEmitter} from './messageemitter';
+import * as debugLogger from 'debug-logger';
+
+const log = debugLogger('dank-twitch-irc:client');
 
 export class ClientConfiguration {
     /**
@@ -39,6 +42,8 @@ export class Client extends BaseMessageEmitter {
         super();
         this.configuration = configuration;
         this.privmsgRateLimiter = privmsgRateLimiter;
+
+        this._onConnect.dispatch();
     }
 
     public static async newClient(apiClient: TwitchAPI, partialConfig: Partial<ClientConfiguration> = {}): Promise<Client> {
@@ -61,14 +66,25 @@ export class Client extends BaseMessageEmitter {
     private activeWhisperConn: SingleConnection | null = null;
 
     private newConnection(): SingleConnection {
+        log.info('Creating new connection');
+
         let conn = new SingleConnection(this.configuration);
-        conn.onClose.sub(async () => {
+        conn.onError.sub(e => {
+            log.warn('Connection encountered error', e);
+        });
+        
+        conn.onClose.sub(async (hadError) => {
+            log.warn('Connection was closed, hadError=%s', hadError);
             removeInPlace(this.connections, conn);
             if (this.activeWhisperConn === conn) {
                 this.activeWhisperConn = null;
             }
-
             await this.ensureWhisperConnection();
+
+            for (let channelName of conn.channels) {
+                // rejoin
+                await this.join(channelName);
+            }
         });
         conn.onConnect.sub(() => {
             if (this.activeWhisperConn == null) {

@@ -1,38 +1,35 @@
-import {IRCMessage, TwitchMessage} from '../message';
 import * as Color from 'color';
 import {TwitchBadgesList} from '../badges';
+import { TwitchMessage } from '../twitch';
 
 export class GlobaluserstateMessage extends TwitchMessage {
-    public constructor(public ircMessage: IRCMessage) {
-        super();
-    };
-
     public static get command(): string {
         return 'GLOBALUSERSTATE';
     }
 
+    // TODO parse?
     public get badgeInfo(): string {
-        return this.ircMessage.tags.getString('badge-info');
+        return this.ircMessage.ircTags.getString('badge-info');
     }
 
     public get badges(): TwitchBadgesList {
-        return this.ircMessage.tags.getBadges();
+        return this.ircMessage.ircTags.getBadges();
     }
 
     public get color(): Color {
-        return this.ircMessage.tags.getColor();
+        return this.ircMessage.ircTags.getColor();
     }
 
     public get displayName(): string {
-        return this.ircMessage.tags.getString('display-name');
+        return this.ircMessage.ircTags.getString('display-name');
     }
 
     // TODO parse
     public get emoteSets(): string {
-        return this.ircMessage.tags.getString('emote-sets');
+        return this.ircMessage.ircTags.getString('emote-sets');
     }
 
     public get userID(): number {
-        return this.ircMessage.tags.getInt('user-id');
+        return this.ircMessage.ircTags.getInt('user-id');
     }
 }

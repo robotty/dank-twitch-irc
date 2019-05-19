@@ -32,7 +32,7 @@ export class ConnectionRateLimiter {
 
     public async schedule<T>(func: (notConsumed: (b?: boolean) => void) => Promise<T>): Promise<T> {
         await this.semaphore.acquire();
-        let wasNotConsumed = true;
+        let wasNotConsumed = false;
         let notConsumed = (b: boolean = true): void => {
             wasNotConsumed = b;
         };
@@ -43,7 +43,7 @@ export class ConnectionRateLimiter {
             if (wasNotConsumed) {
                 this.semaphore.release();
             } else {
-                setTimeout(() => this.semaphore.release(), 1000);
+                setTimeout(() => this.semaphore.release(), 3000);
             }
         }
     }

@@ -21,11 +21,17 @@ module.exports = {
         '@typescript-eslint/semi': ['error'],
         '@typescript-eslint/no-parameter-properties': ['off'],
         'eol-last': ['error'],
-        "@typescript-eslint/indent": ['error', 4, {
+        "@typescript-eslint/indent": ['warn', 4, {
             SwitchCase: 1,
             FunctionDeclaration: {
                 parameters: "first"
-            }
+            },
+            FunctionExpression: {
+                parameters: "first"
+            },
+            ArrayExpression: "first",
+            ObjectExpression: "first",
+            ImportDeclaration: "first",
         }],
         "@typescript-eslint/no-explicit-any": "off"
     }

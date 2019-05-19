@@ -1,20 +1,17 @@
-import {ChannelMessage, IRCMessage, TwitchMessage} from '../message';
+import { TwitchMessage } from '../twitch';
+import { ChannelMessage } from '../message';
 
 export class RoomstateMessage extends TwitchMessage implements ChannelMessage {
-    public constructor(public ircMessage: IRCMessage) {
-        super();
-    };
-
     public static get command(): string {
         return 'ROOMSTATE';
     }
 
     public get channelName(): string {
-        return this.ircMessage.channelName;
+        return this.ircMessage.ircChannelName;
     }
 
     public get isEmoteOnly(): boolean | null {
-        return this.ircMessage.tags.getOptionalBoolean('emote-only');
+        return this.ircMessage.ircTags.getOptionalBoolean('emote-only');
     }
 
     public get isFollowersOnly(): boolean | null {
@@ -27,18 +24,18 @@ export class RoomstateMessage extends TwitchMessage implements ChannelMessage {
     }
 
     public get followersOnlyDuration(): number | null {
-        return this.ircMessage.tags.getInt('followers-only');
+        return this.ircMessage.ircTags.getInt('followers-only');
     }
 
     public get isR9K(): boolean | null {
-        return this.ircMessage.tags.getBoolean('r9k');
+        return this.ircMessage.ircTags.getBoolean('r9k');
     }
 
     public get slowModeDuration(): number | null {
-        return this.ircMessage.tags.getInt('slow');
+        return this.ircMessage.ircTags.getInt('slow');
     }
 
     public get isSubscribersOnly(): boolean | null {
-        return this.ircMessage.tags.getBoolean('subs-only');
+        return this.ircMessage.ircTags.getBoolean('subs-only');
     }
 }

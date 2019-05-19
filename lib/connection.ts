@@ -3,18 +3,29 @@ import { TLSSocket } from 'tls';
 import * as carrier from 'carrier';
 import { ClientConfiguration } from './client';
 import { parseMessage } from './message/parser';
-import { IRCMessage } from './message/message';
 import * as debugLogger from 'debug-logger';
 import { BaseMessageEmitter } from './messageemitter';
-import { PingMessage, PongMessage, ReconnectMessage } from './message/types';
+import { JoinMessage, PingMessage, PongMessage, ReconnectMessage, RoomstateMessage } from './message/twitch-types';
 import * as VError from 'verror';
-import { awaitResponse } from './await-response';
+import { awaitResponse } from './await-response/await-response';
+import { IRCMessage } from './message/irc';
+import {
+    alwaysFalse,
+    channelIs,
+    commandIs,
+    commandsAre,
+    isPongTo,
+    nicknameIs, noticesWithIDs,
+    typeIs
+} from './await-response/conditions';
 
-const log = debugLogger('dank-twitch-irc:connection');
+let connectionIDCounter = 0;
 
 export class SingleConnection extends BaseMessageEmitter {
     private readonly socket: TLSSocket;
     public readonly channels: Set<string> = new Set<string>();
+    public readonly connectionID = connectionIDCounter++;
+    protected readonly log = debugLogger(`dank-twitch-irc:connection:${String(this.connectionID)}`);
 
     private readonly configuration: ClientConfiguration;
 
@@ -24,7 +35,7 @@ export class SingleConnection extends BaseMessageEmitter {
 
         this.socket = tls.connect({
             host: 'irc.chat.twitch.tv',
-            port: 6697,
+            port: 6697
         });
 
         let handleLine = (line: string): void => {
@@ -32,12 +43,12 @@ export class SingleConnection extends BaseMessageEmitter {
                 // ignore empty lines
                 return;
             }
-            log.trace('< ' + line);
+            this.log.trace('< ' + line);
 
             let ircMessage: IRCMessage | null = parseMessage(line);
 
             if (ircMessage == null) {
-                log.warn('Ignoring invalid IRC message', line);
+                this.log.warn('Ignoring invalid IRC message', line);
                 return;
             }
 
@@ -45,7 +56,7 @@ export class SingleConnection extends BaseMessageEmitter {
         };
         carrier.carry(this.socket, handleLine, 'utf-8');
 
-        this.socket.on('connect', () => {
+        this.socket.on('secureConnect', () => {
             this._onConnect.dispatch();
         });
 
@@ -68,24 +79,27 @@ export class SingleConnection extends BaseMessageEmitter {
 
         // client-ping, every 60 seconds with a timeout of 2 seconds
         let pingIDCounter = 0;
-        let interval = setInterval(() => {
+        let sendPing = (timeout: number = 1000): void => {
             let pingID = String(pingIDCounter++);
             this.send(`PING :${pingID}`);
-            awaitResponse(this, {
-                types: [PongMessage],
-                tMatcher: (m: PongMessage) => m.argument === pingID
-            }).catch(e => {
-                this.socket.destroy(new VError('Server failed to PONG, disconnecting', e));
-            });
-        }, 60 * 1000);
-        this.onClose.sub(() => clearInterval(interval));
 
-        // reonnect
+            awaitResponse(this, isPongTo(pingID), alwaysFalse, timeout).catch(e => {
+                this.socket.destroy(new VError(e, 'Server failed to PONG, disconnecting'));
+            });
+        };
+        let interval = setInterval(sendPing, 60 * 1000);
+        this.onClose.sub(() => clearInterval(interval));
+        // reconnect
         this.subscribe(ReconnectMessage, (msg: ReconnectMessage) => {
             this.socket.destroy(new Error('Reconnect command received by server: ' + msg.ircMessage.rawSource));
         });
 
         this.setupConnection();
+        // allow for longer connection connect/handshake time on first PING.
+        // this ping also ensures we don't wait for connection setup forver.
+        sendPing(15000);
+
+        this.log.debug('Created connection %s', this.connectionID);
     }
 
     private setupConnection(): void {
@@ -109,7 +123,7 @@ export class SingleConnection extends BaseMessageEmitter {
         if (command.indexOf('\n') >= 0 || command.indexOf('\r') >= 0) {
             throw new Error('Cannot send messages containing newline characters');
         }
-        log.trace('> ' + command);
+        this.log.trace('> ' + command);
 
         this.socket.write(command + '\r\n', 'utf-8');
     }
@@ -119,14 +133,23 @@ export class SingleConnection extends BaseMessageEmitter {
         this.channels.add(channelName);
 
         this.send(`JOIN #${channelName}`);
-        //  TODO await response
+
+        // success
+        let joinMsg = typeIs(JoinMessage).and(nicknameIs(this.configuration.username));
+        let roomstateMsg = typeIs(RoomstateMessage);
+
+        // failure
+        let badNoticeMsg = noticesWithIDs('msg_channel_suspended');
+
+        await awaitResponse(this,
+            channelIs(channelName).and(joinMsg.or(roomstateMsg)),
+            channelIs(channelName).and(badNoticeMsg));
     }
 
     public async privmsg(channelName: string, message: string): Promise<void> {
         // TODO validate channelName and message
         this.send(`PRIVMSG #${channelName} :${message}`);
     }
-
 
 
 }

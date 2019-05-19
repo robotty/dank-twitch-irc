@@ -1,8 +1,10 @@
-import {ChannelMessage, IRCMessage, TwitchMessage} from '../message';
 import * as Color from 'color';
 import {Moment} from 'moment';
 import {TwitchBadgesList} from '../badges';
 import {TwitchEmoteList} from '../emotes';
+import { IRCMessage } from '../irc';
+import { TwitchMessage } from '../twitch';
+import { ChannelMessage } from '../message';
 
 const actionRegex = /^\u0001ACTION (.*)\u0001$/;
 
@@ -10,8 +12,8 @@ export class PrivmsgMessage extends TwitchMessage implements ChannelMessage {
     public readonly message: string;
     public readonly action: boolean;
 
-    public constructor(public ircMessage: IRCMessage) {
-        super();
+    public constructor(ircMessage: IRCMessage) {
+        super(ircMessage);
 
         let match: RegExpExecArray | null = actionRegex.exec(ircMessage.trailingParameter);
         if (match == null) {
@@ -19,7 +21,7 @@ export class PrivmsgMessage extends TwitchMessage implements ChannelMessage {
             this.message = ircMessage.trailingParameter;
         } else {
             this.action = true;
-            this.message = match.groups[1];
+            this.message = match[1];
         }
     };
 
@@ -28,55 +30,55 @@ export class PrivmsgMessage extends TwitchMessage implements ChannelMessage {
     }
 
     public get channelName(): string {
-        return this.ircMessage.channelName;
+        return this.ircMessage.ircChannelName;
     }
 
     public get senderUsername(): string {
-        return this.ircMessage.nickname;
+        return this.ircMessage.ircNickname;
     }
 
     public get badgeInfo(): string {
-        return this.ircMessage.tags.getString('badge-info');
+        return this.ircMessage.ircTags.getString('badge-info');
     }
 
     public get badges(): TwitchBadgesList {
-        return this.ircMessage.tags.getBadges();
+        return this.ircMessage.ircTags.getBadges();
     }
 
     public get bits(): number | null {
-        return this.ircMessage.tags.getInt('bits');
+        return this.ircMessage.ircTags.getInt('bits');
     }
 
     public get color(): Color {
-        return this.ircMessage.tags.getColor();
+        return this.ircMessage.ircTags.getColor();
     }
 
     public get displayName(): string {
-        return this.ircMessage.tags.getString('display-name');
+        return this.ircMessage.ircTags.getString('display-name');
     }
 
     public get emotes(): TwitchEmoteList {
-        return this.ircMessage.tags.getEmotes();
+        return this.ircMessage.ircTags.getEmotes();
     }
 
     public get messageID(): string {
-        return this.ircMessage.tags.getString('id');
+        return this.ircMessage.ircTags.getString('id');
     }
 
     public get isMod(): boolean {
-        return this.ircMessage.tags.getBoolean('mod') ||
+        return this.ircMessage.ircTags.getBoolean('mod') ||
             this.badges.hasModerator;
     }
 
     public get channelID(): number {
-        return this.ircMessage.tags.getInt('room-id');
+        return this.ircMessage.ircTags.getInt('room-id');
     }
 
     public get serverTimestamp(): Moment {
-        return this.ircMessage.tags.getTimestamp();
+        return this.ircMessage.ircTags.getTimestamp();
     }
 
     public get senderUserID(): number {
-        return this.ircMessage.tags.getInt('user-id');
+        return this.ircMessage.ircTags.getInt('user-id');
     }
 }
