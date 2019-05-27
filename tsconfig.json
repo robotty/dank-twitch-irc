@@ -6,12 +6,14 @@
     "target": "esnext",
     "outDir": "./build",
     "declaration": true,
-    "alwaysStrict": true,
+    "sourceMap": true,
+    "declarationMap": true,
     "module": "commonjs",
-    "sourceMap": true
-  },
-  "forceConsistentCasingInFileNames": true,
-  "noImplicitReturns": true,
-  "strict": true,
-  "noUnusedLocals": true
+
+    "strict": true,
+//    "noUnusedLocals": true,
+    "strictNullChecks": true,
+    "noImplicitReturns": true,
+    "forceConsistentCasingInFileNames": true,
+  }
 }
