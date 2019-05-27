@@ -38,6 +38,10 @@ export class TwitchBadge {
     public get isTurbo(): boolean {
         return this.name === 'turbo';
     }
+
+    public get isVIP(): boolean {
+        return this.name === 'vip';
+    }
 }
 
 export class TwitchBadgesList extends Array<TwitchBadge> {
@@ -71,5 +75,9 @@ export class TwitchBadgesList extends Array<TwitchBadge> {
 
     public get hasTurbo(): boolean {
         return this.find(e => e.isTurbo) !== undefined;
+    }
+
+    public get hasVIP(): boolean {
+        return this.find(e => e.isVIP) !== undefined;
     }
 }
