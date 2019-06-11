@@ -16,13 +16,11 @@
   "license": "MIT",
   "repository": "https://github.com/robotty/dank-twitch-irc",
   "dependencies": {
-    "async-cache": "^1.1.0",
     "async-lock": "^1.2.0",
     "carrier": "^0.3.0",
     "color": "^3.1.1",
     "debug-logger": "^0.4.1",
     "make-error-cause": "^2.2.0",
-    "memoizee": "^0.4.14",
     "moment": "^2.24.0",
     "neverthrow": "^1.0.2",
     "randomstring": "^1.1.5",
@@ -32,11 +30,9 @@
     "strongly-typed-events": "^1.4.10",
     "supports-color": "^6.1.0",
     "ts-custom-error": "^3.1.0",
-    "typescript-memoize": "^1.0.0-alpha.3",
-    "verror": "^1.10.0"
+    "typescript-memoize": "^1.0.0-alpha.3"
   },
   "devDependencies": {
-    "@types/async-cache": "^1.1.0",
     "@types/chai": "^4.1.7",
     "@types/color": "^3.0.0",
     "@types/memoizee": "^0.4.2",
