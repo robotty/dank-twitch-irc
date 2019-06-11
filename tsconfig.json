@@ -2,18 +2,33 @@
   "compilerOptions": {
     "experimentalDecorators": true,
     "moduleResolution": "node",
-    "lib": ["es2018"],
+    "lib": [
+      "esnext"
+    ],
     "target": "esnext",
     "outDir": "./build",
     "declaration": true,
     "sourceMap": true,
     "declarationMap": true,
+    "noImplicitThis": true,
     "module": "commonjs",
-
-    "strict": true,
-//    "noUnusedLocals": true,
+    "alwaysStrict": true,
+    //    "noUnusedLocals": true,
     "strictNullChecks": true,
     "noImplicitReturns": true,
     "forceConsistentCasingInFileNames": true,
-  }
+    "typeRoots": [
+      "./typings"
+    ],
+    "types": [
+      "node",
+      "mocha"
+    ]
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "**/*.spec.ts"
+  ]
 }

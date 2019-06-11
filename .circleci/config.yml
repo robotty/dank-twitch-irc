@@ -8,8 +8,6 @@ jobs:
       - image: circleci/node:12
     steps:
       - checkout
-      # checkout does not update the submodules by default, but we dont need the c# height module
-      # for this job, so skip the submodule update.
       - restore_cache:
           name: Restore npm package cache
           key: v1-dependency-cache-{{ checksum "./package.json" }}

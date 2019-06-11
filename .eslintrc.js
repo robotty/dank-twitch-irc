@@ -17,6 +17,7 @@ module.exports = {
         '@typescript-eslint/explicit-function-return-type': ['warn', {
             allowExpressions: true
         }],
+        "@typescript-eslint/no-object-literal-type-assertion": ['off'],
         'semi': 'off',
         '@typescript-eslint/semi': ['error'],
         '@typescript-eslint/no-parameter-properties': ['off'],
@@ -33,6 +34,7 @@ module.exports = {
             ObjectExpression: "first",
             ImportDeclaration: "first",
         }],
-        "@typescript-eslint/no-explicit-any": "off"
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-non-null-assertion": "off",
     }
 };
