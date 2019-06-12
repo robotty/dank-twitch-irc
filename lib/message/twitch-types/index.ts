@@ -12,3 +12,4 @@ export * from './privmsg';
 export * from './roomstate';
 export * from './usernotice';
 export * from './userstate';
+export * from './whisper';

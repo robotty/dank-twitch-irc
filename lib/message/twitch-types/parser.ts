@@ -8,6 +8,7 @@ import { PrivmsgMessage } from './privmsg';
 import { RoomstateMessage } from './roomstate';
 import { UsernoticeMessage } from './usernotice';
 import { UserstateMessage } from './userstate';
+import { WhisperMessage } from './whisper';
 import { JoinMessage } from './membership';
 import { PartMessage } from './membership';
 import { ReconnectMessage } from './connection';
@@ -26,6 +27,7 @@ export let knownTypes: TwitchMessageStatic[] = [
     RoomstateMessage,
     UsernoticeMessage,
     UserstateMessage,
+    WhisperMessage,
     JoinMessage,
     PartMessage,
     ReconnectMessage,
