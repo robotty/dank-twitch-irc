@@ -26,7 +26,7 @@ client.subscribe('PRIVMSG', msg => {
     log.info('[#%s] %s: %s', msg.channelName, msg.displayName, msg.message);
 });
 
-log.info('Connecting...');
+log.info('Connecting...');c
 await client.connect();
 log.info('Connected');
 
@@ -35,15 +35,17 @@ await client.join('forsen');
 
 ## Client options
 
-Pass options to the `Client` constructor. Available options are documented in the [`ClientConfiguration`](./docs/interfaces/clientconfiguration.html)
+Pass options to the `Client` constructor. More available options are documented in the [`ClientConfiguration`](./docs/interfaces/clientconfiguration.html)
 ```javascript
 let client = new Client({
     username: 'lowercase-login-name',
     password: 'oauth:xxxxxxxxxxxxx',
     
+    // for automatically determining bot verification
+    clientID: 'abcdef12345629i832d90kd320',
     
-    requestMembershipCapability: false,
-    
+    // true by default
+    receiveOwnMessagesBack: true
     
 });
 ```

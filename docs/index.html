@@ -82,20 +82,22 @@ client.subscribe(<span class="hljs-string">'PRIVMSG'</span>, msg =&gt; {
     log.info(<span class="hljs-string">'[#%s] %s: %s'</span>, msg.channelName, msg.displayName, msg.message);
 });
 
-log.info(<span class="hljs-string">'Connecting...'</span>);
+log.info(<span class="hljs-string">'Connecting...'</span>);c
 <span class="hljs-keyword">await</span> client.connect();
 log.info(<span class="hljs-string">'Connected'</span>);
 
 <span class="hljs-keyword">await</span> client.join(<span class="hljs-string">'forsen'</span>);</code></pre>
 				<h2 id="client-options">Client options</h2>
-				<p>Pass options to the <code>Client</code> constructor. The following options are supported:</p>
+				<p>Pass options to the <code>Client</code> constructor. More available options are documented in the <a href="./docs/interfaces/clientconfiguration.html"><code>ClientConfiguration</code></a></p>
 				<pre><code class="language-javascript"><span class="hljs-keyword">let</span> client = <span class="hljs-keyword">new</span> Client({
     <span class="hljs-attr">username</span>: <span class="hljs-string">'lowercase-login-name'</span>,
     <span class="hljs-attr">password</span>: <span class="hljs-string">'oauth:xxxxxxxxxxxxx'</span>,
 
+    <span class="hljs-comment">// for automatically determining bot verification</span>
+    clientID: <span class="hljs-string">'abcdef12345629i832d90kd320'</span>,
 
-    <span class="hljs-attr">requestMembershipCapability</span>: <span class="hljs-literal">false</span>,
-
+    <span class="hljs-comment">// true by default</span>
+    receiveOwnMessagesBack: <span class="hljs-literal">true</span>
 
 });</code></pre>
 				<h2 id="tests">Tests</h2>
