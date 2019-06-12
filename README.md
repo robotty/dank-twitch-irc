@@ -33,9 +33,14 @@ log.info('Connected');
 await client.join('forsen');
 ```
 
+## Documentation
+
+Generated documentation can be found here: https://robotty.github.io/dank-twitch-irc
+
 ## Client options
 
-Pass options to the `Client` constructor. More available options are documented in the [`ClientConfiguration`](./docs/interfaces/clientconfiguration.html)
+Pass options to the `Client` constructor. More available options are documented in the
+[`ClientConfiguration`](https://robotty.github.io/dank-twitch-irc/interfaces/clientconfiguration.html)
 ```javascript
 let client = new Client({
     username: 'lowercase-login-name',
@@ -50,6 +55,28 @@ let client = new Client({
 });
 ```
 
+## Features
+
+This client currently supports the following features:
+  - Automatic connection pooling to keep joined channel count (per connection)
+    small to improve connection stability
+  - Automatic rate limiter for connection opening, PRIVMSG commands and whispering
+  - Automatic bot verification fetching (for rate limiter)
+  - All twitch-specific message types parsed (`CLEARCHAT`, `CLEARMSG`, `GLOBALUSERSTATE`, `HOSTTARGET`,
+    `JOIN`, `NOTICE`, `PART`, `PING`, `PONG`, `PRIVMSG`, `RECONNECT`, `ROOMSTATE`, `USERNOTICE`,
+    `USERSTATE`, `WHISPER`)
+  - Accurate response to server responses (e.g. error thrown if you are banned from channel/channel
+    is suspended/login is invalid etc.)
+  - Highly efficient bulk join functionality that gets your bot connected even to a large number of channels
+    in seconds
+  - Implements the recommended connection control, utilizing `RECONNECT`, `PING` and `PONG`
+  - Automatically appends invisible character to duplicate messages for non-VIP and non-moderator bots
+    (VIP and Mod status is automatically sensed)
+  - Full tracking of room state (e.g. submode, emote-only mode, followers mode, r9k etc.) and user state
+    (badges, moderator state, color, etc).
+  - Most function calls return promises but errors can also be handled by subscribing to the error event.
+
 ## Tests
 
 Test runner is mocha and assertion library is Chai in expect-style.
+Tests are mostly a TODO thing for now :)
