@@ -86,4 +86,5 @@ jspm_packages/
 # DynamoDB Local files
 .dynamodb/
 
-build/
+dist/
+docs/

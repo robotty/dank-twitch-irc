@@ -1,0 +1,516 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>dank-twitch-irc</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">dank-twitch-irc</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> dank-twitch-irc</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<h1 id="dank-twitch-irc-circleci">dank-twitch-irc <a href="https://circleci.com/gh/robotty/dank-twitch-irc"><img src="https://circleci.com/gh/robotty/dank-twitch-irc.svg?style=svg" alt="CircleCI"></a></h1>
+				<p>Node.JS-only Twitch IRC lib, written in TypeScript.</p>
+				<h2 id="import">Import</h2>
+				<pre><code class="language-javascript"><span class="hljs-comment">// TypeScript and ES6 modules:</span>
+<span class="hljs-keyword">import</span> { Client } <span class="hljs-keyword">from</span> <span class="hljs-string">'dank-twitch-irc'</span>;
+<span class="hljs-comment">// CommonJS:</span>
+<span class="hljs-keyword">const</span> { Client } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'dank-twitch-irc'</span>);</code></pre>
+				<h2 id="usage">Usage</h2>
+				<pre><code class="language-javascript"><span class="hljs-keyword">let</span> client = <span class="hljs-keyword">new</span> Client();
+
+client.onConnecting.sub(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> log.info(<span class="hljs-string">'onConnecting'</span>));
+client.onConnect.sub(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> log.info(<span class="hljs-string">'onConnect'</span>));
+client.onReady.sub(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> log.info(<span class="hljs-string">'onReady'</span>));
+client.onError.sub(<span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> log.warn(<span class="hljs-string">'onError'</span>, fullStack(e)));
+client.onClose.sub(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> log.info(<span class="hljs-string">'onClose'</span>));
+
+client.subscribe(<span class="hljs-string">'PRIVMSG'</span>, msg =&gt; {
+    log.info(<span class="hljs-string">'[#%s] %s: %s'</span>, msg.channelName, msg.displayName, msg.message);
+});
+
+log.info(<span class="hljs-string">'Connecting...'</span>);
+<span class="hljs-keyword">await</span> client.connect();
+log.info(<span class="hljs-string">'Connected'</span>);
+
+<span class="hljs-keyword">await</span> client.join(<span class="hljs-string">'forsen'</span>);</code></pre>
+				<h2 id="client-options">Client options</h2>
+				<p>Pass options to the <code>Client</code> constructor. The following options are supported:</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">let</span> client = <span class="hljs-keyword">new</span> Client({
+    <span class="hljs-attr">username</span>: <span class="hljs-string">'lowercase-login-name'</span>,
+    <span class="hljs-attr">password</span>: <span class="hljs-string">'oauth:xxxxxxxxxxxxx'</span>,
+
+
+    <span class="hljs-attr">requestMembershipCapability</span>: <span class="hljs-literal">false</span>,
+
+
+});</code></pre>
+				<h2 id="tests">Tests</h2>
+				<p>Test runner is mocha and assertion library is Chai in expect-style.</p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-enum">
+						<a href="enums/clientstate.html" class="tsd-kind-icon">Client<wbr>State</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/alternatemessagemodifier.html" class="tsd-kind-icon">Alternate<wbr>Message<wbr>Modifier</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/baseclient.html" class="tsd-kind-icon">Base<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/capabilitieserror.html" class="tsd-kind-icon">Capabilities<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/clearchatmessage.html" class="tsd-kind-icon">Clearchat<wbr>Message</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/clearmsgmessage.html" class="tsd-kind-icon">Clearmsg<wbr>Message</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/client.html" class="tsd-kind-icon">Client</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/clienterror.html" class="tsd-kind-icon">Client<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/connectionerror.html" class="tsd-kind-icon">Connection<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/connectionratelimiter.html" class="tsd-kind-icon">Connection<wbr>Rate<wbr>Limiter</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/globaluserstatemessage.html" class="tsd-kind-icon">Globaluserstate<wbr>Message</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/hosttargetmessage.html" class="tsd-kind-icon">Hosttarget<wbr>Message</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/ircmessage.html" class="tsd-kind-icon">IRCMessage</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/ircmessagetags.html" class="tsd-kind-icon">IRCMessage<wbr>Tags</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/joinerror.html" class="tsd-kind-icon">Join<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/joinlock.html" class="tsd-kind-icon">Join<wbr>Lock</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/joinmessage.html" class="tsd-kind-icon">Join<wbr>Message</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/loginerror.html" class="tsd-kind-icon">Login<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/messageerror.html" class="tsd-kind-icon">Message<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/noticemessage.html" class="tsd-kind-icon">Notice<wbr>Message</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/parseerror.html" class="tsd-kind-icon">Parse<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/parterror.html" class="tsd-kind-icon">Part<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/partmessage.html" class="tsd-kind-icon">Part<wbr>Message</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/pingmessage.html" class="tsd-kind-icon">Ping<wbr>Message</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/pingtimeouterror.html" class="tsd-kind-icon">Ping<wbr>Timeout<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/pongmessage.html" class="tsd-kind-icon">Pong<wbr>Message</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/privmsgmessage.html" class="tsd-kind-icon">Privmsg<wbr>Message</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/privmsgmessageratelimiter.html" class="tsd-kind-icon">Privmsg<wbr>Message<wbr>Rate<wbr>Limiter</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/reconnecterror.html" class="tsd-kind-icon">Reconnect<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/reconnectmessage.html" class="tsd-kind-icon">Reconnect<wbr>Message</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/roomstatetracker.html" class="tsd-kind-icon">Room<wbr>State<wbr>Tracker</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/roomstatemessage.html" class="tsd-kind-icon">Roomstate<wbr>Message</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/sayerror.html" class="tsd-kind-icon">Say<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/singleconnection.html" class="tsd-kind-icon">Single<wbr>Connection</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/slowmoderatelimiter.html" class="tsd-kind-icon">Slow<wbr>Mode<wbr>Rate<wbr>Limiter</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/timeouterror.html" class="tsd-kind-icon">Timeout<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/twitchapi.html" class="tsd-kind-icon">TwitchAPI</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/twitchbadge.html" class="tsd-kind-icon">Twitch<wbr>Badge</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/twitchbadgeslist.html" class="tsd-kind-icon">Twitch<wbr>Badges<wbr>List</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/twitchemote.html" class="tsd-kind-icon">Twitch<wbr>Emote</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/twitchemotelist.html" class="tsd-kind-icon">Twitch<wbr>Emote<wbr>List</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/twitchmessage.html" class="tsd-kind-icon">Twitch<wbr>Message</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/userstatetracker.html" class="tsd-kind-icon">User<wbr>State<wbr>Tracker</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/usernoticemessage.html" class="tsd-kind-icon">Usernotice<wbr>Message</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/userstatemessage.html" class="tsd-kind-icon">Userstate<wbr>Message</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/validationerror.html" class="tsd-kind-icon">Validation<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/whispererror.html" class="tsd-kind-icon">Whisper<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/whispermessageratelimiter.html" class="tsd-kind-icon">Whisper<wbr>Message<wbr>Rate<wbr>Limiter</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/channelmessage.html" class="tsd-kind-icon">Channel<wbr>Message</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/clientconfiguration.html" class="tsd-kind-icon">Client<wbr>Configuration</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/clientpingconfig.html" class="tsd-kind-icon">Client<wbr>Ping<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/condition.html" class="tsd-kind-icon">Condition</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/fluidcondition.html" class="tsd-kind-icon">Fluid<wbr>Condition</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/globaluserstate.html" class="tsd-kind-icon">Global<wbr>User<wbr>State</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/iclient.html" class="tsd-kind-icon">IClient</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/message.html" class="tsd-kind-icon">Message</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/messageratelimits.html" class="tsd-kind-icon">Message<wbr>Rate<wbr>Limits</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/roomstate.html" class="tsd-kind-icon">Room<wbr>State</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/twitchmessagestatic.html" class="tsd-kind-icon">Twitch<wbr>Message<wbr>Static</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/userstate.html" class="tsd-kind-icon">User<wbr>State</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#alwaysfalse" class="tsd-kind-icon">always<wbr>False</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#alwaystrue" class="tsd-kind-icon">always<wbr>True</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#commandclassmap" class="tsd-kind-icon">command<wbr>Class<wbr>Map</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#defaultconnectionratelimiter" class="tsd-kind-icon">default<wbr>Connection<wbr>Rate<wbr>Limiter</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#invisiblesuffix" class="tsd-kind-icon">invisible<wbr>Suffix</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#knowntypes" class="tsd-kind-icon">known<wbr>Types</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#applymixins" class="tsd-kind-icon">apply<wbr>Mixins</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#awaitjoinresponse" class="tsd-kind-icon">await<wbr>Join<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#awaitpartresponse" class="tsd-kind-icon">await<wbr>Part<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#awaitresponse" class="tsd-kind-icon">await<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#canspamfast" class="tsd-kind-icon">can<wbr>Spam<wbr>Fast</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#channelis" class="tsd-kind-icon">channel<wbr>Is</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#channelsare" class="tsd-kind-icon">channels<wbr>Are</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#commandis" class="tsd-kind-icon">command<wbr>Is</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#commandsare" class="tsd-kind-icon">commands<wbr>Are</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#findandpushtoend" class="tsd-kind-icon">find<wbr>And<wbr>Push<wbr>ToEnd</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#fluid" class="tsd-kind-icon">fluid</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#handlereconnectmessage" class="tsd-kind-icon">handle<wbr>Reconnect<wbr>Message</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#hasallstatetags" class="tsd-kind-icon">has<wbr>All<wbr>State<wbr>Tags</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#ispongto" class="tsd-kind-icon">is<wbr>Pong<wbr>To</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#joinall" class="tsd-kind-icon">join<wbr>All</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#joinchannel" class="tsd-kind-icon">join<wbr>Channel</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#me" class="tsd-kind-icon">me</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#nicknameis" class="tsd-kind-icon">nickname<wbr>Is</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#noticeswithids" class="tsd-kind-icon">notices<wbr>WithIDs</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#parsebadges" class="tsd-kind-icon">parse<wbr>Badges</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#parseemotes" class="tsd-kind-icon">parse<wbr>Emotes</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#parseintthrowing" class="tsd-kind-icon">parse<wbr>Int<wbr>Throwing</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#parsemessage" class="tsd-kind-icon">parse<wbr>Message</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#parsetags" class="tsd-kind-icon">parse<wbr>Tags</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#partchannel" class="tsd-kind-icon">part<wbr>Channel</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#promisetoresult" class="tsd-kind-icon">promise<wbr>ToResult</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#refreshcommandclassmap" class="tsd-kind-icon">refresh<wbr>Command<wbr>Class<wbr>Map</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#removecommands" class="tsd-kind-icon">remove<wbr>Commands</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#removeinplace" class="tsd-kind-icon">remove<wbr>InPlace</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#replytoserverping" class="tsd-kind-icon">reply<wbr>ToServer<wbr>Ping</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#requestcapabilities" class="tsd-kind-icon">request<wbr>Capabilities</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#say" class="tsd-kind-icon">say</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#sendclientpings" class="tsd-kind-icon">send<wbr>Client<wbr>Pings</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#sendlogin" class="tsd-kind-icon">send<wbr>Login</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#sendping" class="tsd-kind-icon">send<wbr>Ping</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#sendprivmsg" class="tsd-kind-icon">send<wbr>Privmsg</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#setdefaults" class="tsd-kind-icon">set<wbr>Defaults</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#splitintochunks" class="tsd-kind-icon">split<wbr>Into<wbr>Chunks</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#totwitchmessage" class="tsd-kind-icon">to<wbr>Twitch<wbr>Message</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#validatechannelname" class="tsd-kind-icon">validate<wbr>Channel<wbr>Name</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#validateirccommand" class="tsd-kind-icon">validateIRCCommand</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#whisper" class="tsd-kind-icon">whisper</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#configdefaults" class="tsd-kind-icon">config<wbr>Defaults</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#messageratelimitpresets" class="tsd-kind-icon">message<wbr>Rate<wbr>Limit<wbr>Presets</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>

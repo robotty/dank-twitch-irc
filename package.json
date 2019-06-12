@@ -2,14 +2,14 @@
   "name": "dank-twitch-irc",
   "version": "1.0.0",
   "description": "Twitch IRC library aimed at Node.JS",
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "lint": "eslint --ext .ts src/",
-    "test": "mocha -r ts-node/register \\\"src/**/*.spec.ts\\\"",
-    "clean": "rm -r ./build",
-    "demo": "cd build/demo && node basic-bot.js"
+    "lint": "eslint --ext .ts lib/",
+    "test": "mocha -r ts-node/register \"lib/**/*.spec.ts\"",
+    "clean": "rm -rf ./dist ./docs",
+    "docs": "./node_modules/typedoc/bin/typedoc --mode file --excludeNotExported --excludePrivate --excludeProtected -out ./docs"
   },
   "keywords": [],
   "author": "Ruben Anders",
@@ -48,6 +48,7 @@
     "longjohn": "^0.2.12",
     "mocha": "^6.1.4",
     "ts-node": "^8.1.0",
+    "typedoc": "^0.14.2",
     "typescript": "^3.4.5"
   }
 }
