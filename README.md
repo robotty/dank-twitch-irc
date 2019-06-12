@@ -75,6 +75,7 @@ This client currently supports the following features:
   - Full tracking of room state (e.g. submode, emote-only mode, followers mode, r9k etc.) and user state
     (badges, moderator state, color, etc).
   - Most function calls return promises but errors can also be handled by subscribing to the error event.
+  - Slow-mode rate limiter for non-VIP/moderator bots (waits either the global ~1.5 sec/channel-specific slow mode)
 
 ## Tests
 
