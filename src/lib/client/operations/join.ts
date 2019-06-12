@@ -1,8 +1,7 @@
-import { Err } from 'neverthrow/dist';
-import { awaitResponse } from '../../await/await-response';
-import { channelIs, commandIs, noticesWithIDs } from '../../await/conditions';
+import { awaitResponse } from '../../await';
+import { channelIs, commandIs, noticesWithIDs } from '../../await';
 import { RoomstateMessage } from '../../message/twitch-types';
-import { hasAllStateTags, RoomState } from '../../message/twitch-types/roomstate';
+import { hasAllStateTags, RoomState } from '../../message/twitch-types';
 import { validateChannelName } from '../../validation';
 import { MessageError } from '../errors';
 import { Client } from '../interface';

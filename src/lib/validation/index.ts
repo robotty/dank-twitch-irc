@@ -1,4 +1,4 @@
-export { ValidationError } from './validation-error';
+// created from 'create-ts-index'
 
-export { validateChannelName } from './channel';
-
+export * from './channel';
+export * from './validation-error';

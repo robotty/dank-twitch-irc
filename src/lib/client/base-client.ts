@@ -9,8 +9,8 @@ import {
     SimpleEventList
 } from 'strongly-typed-events';
 import { Message } from '../message';
-import { RoomstateMessage, UserstateMessage } from '../message/twitch-types';
-import { RoomState } from '../message/twitch-types/roomstate';
+import { UserstateMessage } from '../message/twitch-types';
+import { RoomState } from '../message/twitch-types';
 import { setDefaults } from '../utils';
 import { ClientConfiguration, configDefaults } from './config';
 import { Client } from './interface';

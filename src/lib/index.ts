@@ -1,10 +1,10 @@
-import 'source-map-support/register';
+// created from 'create-ts-index'
 
-if (process.env.NODE_ENV !== 'production'){
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    let longjohn = require('longjohn');
-    // eslint-disable-next-line @typescript-eslint/camelcase
-    longjohn.async_trace_limit = -1;  // unlimited
-}
-
-export { MultiClient as Client } from './client/multi-client';
+export * from './api';
+export * from './await';
+export * from './client';
+export * from './message';
+export * from './validation';
+export * from './roomstate-tracker';
+export * from './userstate-tracker';
+export * from './utils';

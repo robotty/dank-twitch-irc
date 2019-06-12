@@ -1,9 +1,11 @@
-export { joinChannel } from './join';
-export { joinAll } from './join-all';
-export { sendLogin } from './login';
-export { partChannel } from './part';
-export { sendPing } from './ping';
-export { sendPrivmsg } from './privmsg';
-export { requestCapabilities } from './request-capabilities';
-export { say, me } from './say';
-export { whisper } from './whisper';
+// created from 'create-ts-index'
+
+export * from './join-all';
+export * from './join';
+export * from './login';
+export * from './part';
+export * from './ping';
+export * from './privmsg';
+export * from './request-capabilities';
+export * from './say';
+export * from './whisper';

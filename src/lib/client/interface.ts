@@ -3,8 +3,8 @@ import { Result } from 'neverthrow/dist';
 import { ISignal } from 'ste-signals';
 import { ISimpleEvent, ISimpleEventHandler } from 'ste-simple-events';
 import { Message } from '../message';
-import { RoomstateMessage, UserstateMessage } from '../message/twitch-types';
-import { RoomState } from '../message/twitch-types/roomstate';
+import { UserstateMessage } from '../message/twitch-types';
+import { RoomState } from '../message/twitch-types';
 import { ClientConfiguration } from './config';
 
 // eslint-disable-next-line @typescript-eslint/interface-name-prefix
