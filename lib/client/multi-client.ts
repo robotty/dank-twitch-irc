@@ -1,9 +1,8 @@
 import * as debugLogger from 'debug-logger';
-import { ok, Result } from 'neverthrow/dist';
-import { TwitchAPI } from '../api/twitchapi';
+import { ok, Result } from 'neverthrow';
+import { TwitchAPI } from '../api';
 import { PongMessage, UserstateMessage } from '../message/twitch-types';
-import { RoomState } from '../message/twitch-types/roomstate';
-import { UserState } from '../message/twitch-types/userstate';
+import { RoomState, UserState } from '../message/twitch-types';
 import { RoomStateTracker } from '../roomstate-tracker';
 import { UserStateTracker } from '../userstate-tracker';
 import { findAndPushToEnd, removeInPlace } from '../utils';
@@ -11,13 +10,14 @@ import { validateChannelName } from '../validation';
 import { BaseClient } from './base-client';
 import { ClientConfiguration } from './config';
 import { SingleConnection } from './connection';
-import { AlternateMessageModifier } from './functionalities/alternate-message-modifier';
+import { AlternateMessageModifier } from './functionalities';
 import {
     messageRateLimitPresets,
-    MessageRateLimits} from './ratelimiters/message-rate-limiter';
-import { PrivmsgMessageRateLimiter } from './ratelimiters/privmsg';
-import { SlowModeRateLimiter } from './ratelimiters/slow-mode';
-import { WhisperMessageRateLimiter } from './ratelimiters/whisper';
+    MessageRateLimits,
+    PrivmsgMessageRateLimiter,
+    SlowModeRateLimiter,
+    WhisperMessageRateLimiter
+} from './ratelimiters';
 import { ClientError } from './errors';
 import { JoinLock } from './join-lock';
 
