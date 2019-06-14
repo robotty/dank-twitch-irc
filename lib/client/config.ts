@@ -28,6 +28,8 @@ export interface ClientConfiguration {
      * before sending messages too quickly in channels it is not VIP, moderator or broadcaster in.
      */
     trackOwnUserState: boolean;
+    trackRoomState: boolean;
+    trackOwnLastMessage: boolean;
 
     /**
      * Maximum number of channels the client will allow one connection to be joined to. 100 by default.
@@ -51,6 +53,8 @@ export const configDefaults: ClientConfiguration = {
     password: undefined,
     requestMembershipCapability: false,
     trackOwnUserState: true,
+    trackRoomState: true,
+    trackOwnLastMessage: true,
     maxChannelCountPerConnection: 100,
     clientID: undefined,
     connectionRateLimiter: defaultConnectionRateLimiter,

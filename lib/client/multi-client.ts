@@ -60,10 +60,17 @@ export class Client extends BaseClient {
             this.userStateTracker, this.roomStateTracker);
 
         this.alternateMessageModifier = new AlternateMessageModifier(this.configuration);
-        this.alternateMessageModifier.registerListenersOn(this);
+        if (this.configuration.trackOwnLastMessage) {
+            this.alternateMessageModifier.registerListenersOn(this);
+        }
 
-        this.userStateTracker.registerListenersOn(this);
-        this.roomStateTracker.registerListenersOn(this);
+        if (this.configuration.trackOwnUserState) {
+            this.userStateTracker.registerListenersOn(this);
+        }
+
+        if (this.configuration.trackRoomState) {
+            this.roomStateTracker.registerListenersOn(this);
+        }
 
         this.onError.sub(error => {
             if (error instanceof ClientError) {
