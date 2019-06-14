@@ -271,7 +271,8 @@ export class Client extends BaseClient {
         return this.slowModeRateLimiter.rateLimitMessage(channelName, async () => {
             return this.privmsgRateLimiter.rateLimitPrivmsg(channelName, async () => {
                 let modifiedMessage = this.alternateMessageModifier.appendInvisibleCharacter(channelName, message);
-                return this.requireConnection(this.ownMessagesBackFilter(channelName)).say(channelName, modifiedMessage);
+                return this.requireConnection(this.ownMessagesBackFilter(channelName))
+                    .say(channelName, modifiedMessage);
             });
         });
     }
