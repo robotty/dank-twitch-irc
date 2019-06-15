@@ -20,25 +20,9 @@ import {
 } from './ratelimiters';
 import { ClientError } from './errors';
 import { JoinLock } from './join-lock';
+import { ISimpleEvent, SimpleEventDispatcher } from 'strongly-typed-events';
 
 const log = debugLogger('dank-twitch-irc:client');
-
-/**
- * never forward these because they are for connection control of the individual connections only
- */
-const neverForwardCommands: string[] = [
-    'PING',
-    'PONG',
-    'RECONNECT',
-    'CAP',
-    '001',
-    '002',
-    '003',
-    '004',
-    '375',
-    '372',
-    '376'
-];
 
 export class Client extends BaseClient {
     private readonly connections: SingleConnection[] = [];
@@ -50,6 +34,12 @@ export class Client extends BaseClient {
     private privmsgRateLimiter: PrivmsgMessageRateLimiter;
     private whisperRateLimiter: WhisperMessageRateLimiter;
     private slowModeRateLimiter: SlowModeRateLimiter;
+
+    private _onNewConnection = new SimpleEventDispatcher<SingleConnection>();
+
+    public get onNewConnection(): ISimpleEvent<SingleConnection> {
+        return this._onNewConnection.asEvent();
+    }
 
     public constructor(configuration?: Partial<ClientConfiguration>) {
         super(configuration);
@@ -107,15 +97,16 @@ export class Client extends BaseClient {
             if (this.activeWhisperConn === conn) {
                 this.activeWhisperConn = undefined;
             }
+
+            for (let channel of conn.channels) {
+                this._onPart.dispatch(channel);
+            }
+
             await this.reconnectFailedConnection(conn);
         });
 
         // forward events to this client
         conn.forwardEvents(this, cmd => {
-            if (neverForwardCommands.includes(cmd)) {
-                return false;
-            }
-
             // only forward whispers from the currently active whisper connection
             if (cmd === 'WHISPER') {
                 if (this.activeWhisperConn == null) {
@@ -134,6 +125,7 @@ export class Client extends BaseClient {
         // connection will be used by the code that requested the connection therefore it's added to the back
         // of the queue
         this.connections.push(conn);
+        this._onNewConnection.dispatch(conn);
         return conn;
     }
 
@@ -214,7 +206,9 @@ export class Client extends BaseClient {
                 return this.roomStateTracker.getState(channelName) as RoomState;
             }
             let conn = this.requireConnection(e => e.channels.size < this.configuration.maxChannelCountPerConnection);
-            return await conn.join(channelName);
+            let result = await conn.join(channelName);
+            this._onJoin.dispatch(channelName);
+            return result;
         });
     }
 

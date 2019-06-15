@@ -7,6 +7,19 @@ import { UserstateMessage } from '../message/twitch-types';
 import { RoomState } from '../message/twitch-types';
 import { ClientConfiguration } from './config';
 
+export enum ClientState {
+    UNCONNECTED,
+    CONNECTING,
+    CONNECTED,
+    READY,
+    CLOSED
+}
+
+export interface ClientStateChangeEvent {
+    oldState: ClientState;
+    newState: ClientState;
+}
+
 // eslint-disable-next-line @typescript-eslint/interface-name-prefix
 export interface IClient {
     readonly configuration: ClientConfiguration;
@@ -23,8 +36,14 @@ export interface IClient {
     readonly onClose: ISimpleEvent<boolean>;
     readonly onError: ISimpleEvent<Error>;
 
+    readonly state: ClientState;
+    readonly onStateChange: ISimpleEvent<ClientStateChangeEvent>;
+
     readonly onMessage: ISimpleEvent<Message>;
+
     readonly channels: Set<string>;
+    readonly onJoin: ISimpleEvent<string>;
+    readonly onPart: ISimpleEvent<string>;
 
     dispatch(message: Message): void;
 
@@ -54,11 +73,15 @@ export interface IClient {
     send(command: string): void;
 
     join(channelName: string): Promise<RoomState>;
+
     joinAll(channelNames: string[]): Promise<Record<string, Result<RoomState, Error>>>;
 
     privmsg(channelName: string, message: string): void;
+
     say(channelName: string, message: string): Promise<UserstateMessage>;
+
     me(channelName: string, message: string): Promise<UserstateMessage>;
+
     whisper(username: string, message: string): Promise<void>;
 
 }

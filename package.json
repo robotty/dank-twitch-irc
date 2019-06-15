@@ -23,6 +23,7 @@
     "make-error-cause": "^2.2.0",
     "moment": "^2.24.0",
     "neverthrow": "^1.0.2",
+    "prom-client": "^11.5.1",
     "randomstring": "^1.1.5",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.7",

@@ -13,17 +13,9 @@ import { UserstateMessage } from '../message/twitch-types';
 import { RoomState } from '../message/twitch-types';
 import { setDefaults } from '../utils';
 import { ClientConfiguration, configDefaults } from './config';
-import { IClient } from './interface';
+import { ClientState, ClientStateChangeEvent, IClient } from './interface';
 
 const alwaysTrue = (): boolean => true;
-
-export enum ClientState {
-    UNCONNECTED,
-    CONNECTING,
-    CONNECTED,
-    READY,
-    CLOSED
-}
 
 export abstract class BaseClient implements IClient {
 
@@ -50,31 +42,38 @@ export abstract class BaseClient implements IClient {
     protected readonly _onClose = new SimpleEventDispatcher<boolean>();
     protected readonly _onError = new SimpleEventDispatcher<Error>();
 
-    protected state: ClientState = ClientState.UNCONNECTED;
+    private _state: ClientState = ClientState.UNCONNECTED;
+    protected readonly _onStateChange = new SimpleEventDispatcher<ClientStateChangeEvent>();
+
+    public get state(): ClientState {
+        return this._state;
+    }
 
     public get unconnected(): boolean {
-        return this.state === ClientState.UNCONNECTED;
+        return this._state === ClientState.UNCONNECTED;
     }
 
     public get connecting(): boolean {
-        return this.state === ClientState.CONNECTING;
+        return this._state === ClientState.CONNECTING;
     }
 
     public get connected(): boolean {
-        return this.state === ClientState.CONNECTED || this.ready;
+        return this._state === ClientState.CONNECTED || this.ready;
     }
 
     public get ready(): boolean {
-        return this.state === ClientState.READY;
+        return this._state === ClientState.READY;
     }
 
     public get closed(): boolean {
-        return this.state === ClientState.CLOSED;
+        return this._state === ClientState.CLOSED;
     }
 
     protected advanceState(newState: ClientState, ev?: IEventManagement): void {
-        if (newState > this.state) {
-            this.state = newState;
+        if (newState > this._state) {
+            let oldState = this._state;
+            this._state = newState;
+            this._onStateChange.dispatch({ oldState, newState });
         } else if (ev != null) {
             // current state is already there or past it (e.g. double error/double close etc.) so we stop the event.
             ev.stopPropagation();
@@ -99,6 +98,10 @@ export abstract class BaseClient implements IClient {
 
     public get onError(): ISimpleEvent<Error> {
         return this._onError.asEvent();
+    }
+
+    public get onStateChange(): ISimpleEvent<ClientStateChangeEvent> {
+        return this._onStateChange.asEvent();
     };
 
     protected readonly _onMessage = new SimpleEventDispatcher<Message>();
@@ -110,6 +113,17 @@ export abstract class BaseClient implements IClient {
     public dispatch(message: Message): void {
         this._onMessage.dispatch(message);
         this.events.get(message.ircCommand).dispatch(message);
+    }
+
+    protected readonly _onJoin = new SimpleEventDispatcher<string>();
+    protected readonly _onPart = new SimpleEventDispatcher<string>();
+
+    public get onJoin(): ISimpleEvent<string> {
+        return this._onJoin.asEvent();
+    }
+
+    public get onPart(): ISimpleEvent<string> {
+        return this._onPart.asEvent();
     }
 
     protected readonly events = new SimpleEventList<Message>();
