@@ -1,4 +1,4 @@
-import { ConnectionRateLimiter, defaultConnectionRateLimiter } from './ratelimiters/connection';
+import { ConnectionRateLimiter, defaultConnectionRateLimiter } from './ratelimiters';
 
 export interface ClientConfiguration {
     /**

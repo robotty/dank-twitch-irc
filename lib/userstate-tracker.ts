@@ -1,7 +1,6 @@
-import { IClient } from './client/interface';
+import { IClient } from './client';
 import { GlobaluserstateMessage, PrivmsgMessage, UserstateMessage } from './message/twitch-types';
-import { GlobalUserState } from './message/twitch-types/globaluserstate';
-import { UserState } from './message/twitch-types/userstate';
+import { GlobalUserState, UserState } from './message/twitch-types';
 
 /**
  * Tracks the state of the logged in user (the bot) in all channels the bot operates in

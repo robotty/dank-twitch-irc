@@ -1,7 +1,7 @@
-import { IClient } from './client/interface';
+import { IClient } from './client';
 import { RoomstateMessage } from './message/twitch-types';
 import * as debugLogger from 'debug-logger';
-import { hasAllStateTags, RoomState } from './message/twitch-types/roomstate';
+import { hasAllStateTags, RoomState } from './message/twitch-types';
 
 const log = debugLogger('dank-twitch-irc:roomstate-tracker');
 
