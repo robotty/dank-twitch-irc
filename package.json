@@ -18,7 +18,7 @@
   "dependencies": {
     "async-lock": "^1.2.0",
     "carrier": "^0.3.0",
-    "color": "^3.1.1",
+    "color": "^3.1.2",
     "debug-logger": "^0.4.1",
     "make-error-cause": "^2.2.0",
     "moment": "^2.24.0",
@@ -28,7 +28,7 @@
     "request": "^2.88.0",
     "request-promise-native": "^1.0.7",
     "semaphore-async-await": "^1.5.1",
-    "strongly-typed-events": "^1.4.10",
+    "strongly-typed-events": "^1.4.11",
     "supports-color": "^6.1.0",
     "ts-custom-error": "^3.1.0",
     "typescript-memoize": "^1.0.0-alpha.3"
@@ -38,18 +38,16 @@
     "@types/color": "^3.0.0",
     "@types/memoizee": "^0.4.2",
     "@types/mocha": "^5.2.7",
-    "@types/node": "^12.0.0",
+    "@types/node": "^12.0.8",
     "@types/randomstring": "^1.1.6",
     "@types/request-promise-native": "^1.0.16",
-    "@typescript-eslint/eslint-plugin": "^1.9.0",
-    "@typescript-eslint/parser": "^1.9.0",
+    "@typescript-eslint/eslint-plugin": "^1.10.2",
+    "@typescript-eslint/parser": "^1.10.2",
     "chai": "^4.2.0",
-    "create-ts-index": "^1.8.0",
     "eslint": "^5.16.0",
-    "longjohn": "^0.2.12",
     "mocha": "^6.1.4",
-    "ts-node": "^8.1.0",
+    "ts-node": "^8.3.0",
     "typedoc": "^0.14.2",
-    "typescript": "^3.4.5"
+    "typescript": "^3.5.2"
   }
 }
