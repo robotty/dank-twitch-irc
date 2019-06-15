@@ -123,6 +123,7 @@ log.info(<span class="hljs-string">'Connected'</span>);
 					<li>Full tracking of room state (e.g. submode, emote-only mode, followers mode, r9k etc.) and user state
 					(badges, moderator state, color, etc).</li>
 					<li>Most function calls return promises but errors can also be handled by subscribing to the error event.</li>
+					<li>Slow-mode rate limiter for non-VIP/moderator bots (waits either the global ~1.5 sec/channel-specific slow mode)</li>
 				</ul>
 				<h2 id="tests">Tests</h2>
 				<p>Test runner is mocha and assertion library is Chai in expect-style.
@@ -162,6 +163,9 @@ log.info(<span class="hljs-string">'Connected'</span>);
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/clienterror.html" class="tsd-kind-icon">Client<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/clientmetrics.html" class="tsd-kind-icon">Client<wbr>Metrics</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/connectionerror.html" class="tsd-kind-icon">Connection<wbr>Error</a>
@@ -294,6 +298,9 @@ log.info(<span class="hljs-string">'Connected'</span>);
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/clientpingconfig.html" class="tsd-kind-icon">Client<wbr>Ping<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/clientstatechangeevent.html" class="tsd-kind-icon">Client<wbr>State<wbr>Change<wbr>Event</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/condition.html" class="tsd-kind-icon">Condition</a>

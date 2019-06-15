@@ -85,7 +85,9 @@
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="clientconfiguration.html#password" class="tsd-kind-icon">password</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="clientconfiguration.html#receiveownmessagesback" class="tsd-kind-icon">receive<wbr>Own<wbr>Messages<wbr>Back</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="clientconfiguration.html#requestmembershipcapability" class="tsd-kind-icon">request<wbr>Membership<wbr>Capability</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="clientconfiguration.html#trackownlastmessage" class="tsd-kind-icon">track<wbr>Own<wbr>Last<wbr>Message</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="clientconfiguration.html#trackownuserstate" class="tsd-kind-icon">track<wbr>Own<wbr>User<wbr>State</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="clientconfiguration.html#trackroomstate" class="tsd-kind-icon">track<wbr>Room<wbr>State</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="clientconfiguration.html#username" class="tsd-kind-icon">username</a></li>
 							</ul>
 						</section>
@@ -100,7 +102,7 @@
 					<div class="tsd-signature tsd-kind-icon">clientID<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/cc87671/lib/client/config.ts#L42">client/config.ts:42</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/c225a9b/lib/client/config.ts#L44">client/config.ts:44</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -116,7 +118,7 @@
 					<div class="tsd-signature tsd-kind-icon">connection<wbr>Rate<wbr>Limiter<span class="tsd-signature-symbol">:</span> <a href="../classes/connectionratelimiter.html" class="tsd-signature-type">ConnectionRateLimiter</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/cc87671/lib/client/config.ts#L44">client/config.ts:44</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/c225a9b/lib/client/config.ts#L46">client/config.ts:46</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -126,7 +128,7 @@
 					<div class="tsd-signature tsd-kind-icon">max<wbr>Channel<wbr>Count<wbr>Per<wbr>Connection<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/cc87671/lib/client/config.ts#L35">client/config.ts:35</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/c225a9b/lib/client/config.ts#L37">client/config.ts:37</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -141,7 +143,7 @@
 					<div class="tsd-signature tsd-kind-icon">password<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/cc87671/lib/client/config.ts#L14">client/config.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/c225a9b/lib/client/config.ts#L14">client/config.ts:14</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -157,7 +159,7 @@
 					<div class="tsd-signature tsd-kind-icon">receive<wbr>Own<wbr>Messages<wbr>Back<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/cc87671/lib/client/config.ts#L46">client/config.ts:46</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/c225a9b/lib/client/config.ts#L48">client/config.ts:48</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -167,7 +169,7 @@
 					<div class="tsd-signature tsd-kind-icon">request<wbr>Membership<wbr>Capability<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/cc87671/lib/client/config.ts#L21">client/config.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/c225a9b/lib/client/config.ts#L21">client/config.ts:21</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -178,12 +180,22 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="trackownlastmessage" class="tsd-anchor"></a>
+					<h3>track<wbr>Own<wbr>Last<wbr>Message</h3>
+					<div class="tsd-signature tsd-kind-icon">track<wbr>Own<wbr>Last<wbr>Message<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/c225a9b/lib/client/config.ts#L32">client/config.ts:32</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="trackownuserstate" class="tsd-anchor"></a>
 					<h3>track<wbr>Own<wbr>User<wbr>State</h3>
 					<div class="tsd-signature tsd-kind-icon">track<wbr>Own<wbr>User<wbr>State<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/cc87671/lib/client/config.ts#L30">client/config.ts:30</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/c225a9b/lib/client/config.ts#L30">client/config.ts:30</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -196,12 +208,22 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="trackroomstate" class="tsd-anchor"></a>
+					<h3>track<wbr>Room<wbr>State</h3>
+					<div class="tsd-signature tsd-kind-icon">track<wbr>Room<wbr>State<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/c225a9b/lib/client/config.ts#L31">client/config.ts:31</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="username" class="tsd-anchor"></a>
 					<h3>username</h3>
 					<div class="tsd-signature tsd-kind-icon">username<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/cc87671/lib/client/config.ts#L7">client/config.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/c225a9b/lib/client/config.ts#L7">client/config.ts:7</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -246,7 +268,13 @@
 								<a href="clientconfiguration.html#requestmembershipcapability" class="tsd-kind-icon">request<wbr>Membership<wbr>Capability</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="clientconfiguration.html#trackownlastmessage" class="tsd-kind-icon">track<wbr>Own<wbr>Last<wbr>Message</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="clientconfiguration.html#trackownuserstate" class="tsd-kind-icon">track<wbr>Own<wbr>User<wbr>State</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="clientconfiguration.html#trackroomstate" class="tsd-kind-icon">track<wbr>Room<wbr>State</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="clientconfiguration.html#username" class="tsd-kind-icon">username</a>
