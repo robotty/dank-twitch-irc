@@ -1,7 +1,7 @@
 import { ValidationError } from './validation-error';
 
 const channelNameRegex =
-    /^(?:[a-z0-9_]+$)$|^chatrooms:\d+:[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}$/i;
+    /^[a-z0-9_]{1,25}$|^chatrooms:\d{0,20}:[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}$/i;
 
 export function validateIRCCommand(command: string): void {
     if (command.includes('\n') || command.includes('\r')) {
