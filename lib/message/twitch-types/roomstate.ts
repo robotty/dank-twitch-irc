@@ -1,19 +1,6 @@
+import { optionalTag } from '../irc';
 import { TwitchMessage } from '../twitch';
 import { ChannelMessage } from '../message';
-import { ParseError } from '../parser';
-import { BaseError } from 'make-error-cause';
-
-function optional<T>(func: () => T): T | undefined {
-    try {
-        return func();
-    } catch (e) {
-        if (e instanceof ParseError) {
-            return undefined;
-        } else {
-            throw new BaseError('Error fetching optional value', e);
-        }
-    }
-}
 
 export interface RoomState {
     emoteOnly: boolean;
@@ -44,23 +31,23 @@ export class RoomstateMessage extends TwitchMessage implements ChannelMessage, P
     }
 
     public get emoteOnly(): boolean | undefined {
-        return optional(() => this.ircMessage.ircTags.getBoolean('emote-only'));
+        return optionalTag(() => this.ircMessage.ircTags.getBoolean('emote-only'));
     }
 
     public get followersOnlyDuration(): number | undefined {
-        return optional(() => this.ircMessage.ircTags.getInt('followers-only'));
+        return optionalTag(() => this.ircMessage.ircTags.getInt('followers-only'));
     }
 
     public get r9k(): boolean | undefined {
-        return optional(() => this.ircMessage.ircTags.getBoolean('r9k'));
+        return optionalTag(() => this.ircMessage.ircTags.getBoolean('r9k'));
     }
 
     public get slowModeDuration(): number | undefined {
-        return optional(() => this.ircMessage.ircTags.getInt('slow'));
+        return optionalTag(() => this.ircMessage.ircTags.getInt('slow'));
     }
 
     public get subscribersOnly(): boolean | undefined {
-        return optional(() => this.ircMessage.ircTags.getBoolean('subs-only'));
+        return optionalTag(() => this.ircMessage.ircTags.getBoolean('subs-only'));
     }
 
     public extractRoomState(): Partial<RoomState> {

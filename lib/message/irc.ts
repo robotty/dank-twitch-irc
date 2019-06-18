@@ -7,6 +7,18 @@ import { TwitchEmoteList } from './emotes';
 import * as moment from 'moment';
 import * as Color from 'color';
 
+export function optionalTag<T>(func: () => T): T | undefined {
+    try {
+        return func();
+    } catch (e) {
+        if (e instanceof ParseError) {
+            return undefined;
+        } else {
+            throw new ParseError('Error fetching optional value', e);
+        }
+    }
+}
+
 export class IRCMessageTags extends Map<string, string | null> {
 
     public constructor() {

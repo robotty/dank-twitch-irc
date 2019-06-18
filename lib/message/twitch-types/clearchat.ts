@@ -1,3 +1,4 @@
+import { optionalTag } from '../irc';
 import { TwitchMessage } from '../twitch';
 import { ChannelMessage } from '../message';
 
@@ -10,22 +11,45 @@ export class ClearchatMessage extends TwitchMessage implements ChannelMessage {
         return this.ircMessage.ircChannelName;
     }
 
-    public get message(): string {
-        return this.ircMessage.trailingParameter;
-    }
-
-    public get senderUsername(): string {
-        return this.ircMessage.ircNickname;
-    }
-
-    public get badgeInfo(): string {
-        return this.ircMessage.ircTags.getString('badge-info');
+    /**
+     * The target username, undefined if this <code>CLEARCHAT</code> message clears
+     * the entire chat.
+     */
+    public get targetUsername(): string | undefined {
+        return optionalTag(() => this.ircMessage.trailingParameter);
     }
 
     /**
-     * length in seconds (integer), null if permanent ban
+     * length in seconds (integer), undefined if permanent ban
      */
-    public get banDuration(): number | null {
-        return this.ircMessage.ircTags.getInt('ban-duration');
+    public get banDuration(): number | undefined {
+        return optionalTag(() => this.ircMessage.ircTags.getInt('ban-duration'));
     }
+
+    public isChatCleared(): this is ClearChatClearchatMessage {
+        return this.targetUsername == null && this.banDuration == null;
+    }
+
+    public isTimeout(): this is TimeoutClearchatMessage {
+        return this.targetUsername != null && this.banDuration != null;
+    }
+
+    public isPermaban(): this is PermabanClearchatMessage {
+        return this.targetUsername != null && this.banDuration == null;
+    }
+}
+
+export interface ClearChatClearchatMessage extends ClearchatMessage {
+    targetUsername: undefined;
+    banDuration: undefined;
+}
+
+export interface TimeoutClearchatMessage extends ClearchatMessage {
+    targetUsername: string;
+    banDuration: number;
+}
+
+export interface PermabanClearchatMessage extends ClearchatMessage {
+    targetUsername: string;
+    banDuration: undefined;
 }
