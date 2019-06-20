@@ -5,11 +5,11 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
-    "lint": "eslint --ext .ts lib/",
-    "test": "mocha -r ts-node/register \"lib/**/*.spec.ts\"",
+    "build": "npx tsc",
+    "lint": "npx eslint --ext .ts lib/",
+    "test": "npx mocha -r ts-node/register \"lib/**/*.spec.ts\"",
     "clean": "rm -rf ./dist ./docs",
-    "docs": "./node_modules/typedoc/bin/typedoc --mode file --excludeNotExported --excludePrivate --excludeProtected -out ./docs"
+    "docs": "npx typedoc --mode file --excludeNotExported --excludePrivate --excludeProtected -out ./docs"
   },
   "keywords": [],
   "author": "Ruben Anders",
