@@ -14,7 +14,7 @@ export interface Message {
     readonly trailingParameter: string;
 }
 
-export interface ChannelMessage {
+export interface ChannelMessage extends Message {
 
     readonly channelName: string;
 
