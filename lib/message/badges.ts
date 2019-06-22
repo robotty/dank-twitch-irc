@@ -42,6 +42,10 @@ export class TwitchBadge {
     public get isVIP(): boolean {
         return this.name === 'vip';
     }
+
+    public toString(): string {
+        return `${this.name}/${this.version}`;
+    }
 }
 
 export class TwitchBadgesList extends Array<TwitchBadge> {
@@ -79,5 +83,9 @@ export class TwitchBadgesList extends Array<TwitchBadge> {
 
     public get hasVIP(): boolean {
         return this.find(e => e.isVIP) !== undefined;
+    }
+
+    public toString(): string {
+        return this.join(',');
     }
 }
