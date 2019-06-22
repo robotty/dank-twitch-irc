@@ -1,7 +1,7 @@
 import * as Color from 'color';
-import {Moment} from 'moment';
-import {TwitchBadgesList} from '../badges';
-import {TwitchEmoteList} from '../emotes';
+import { Moment } from 'moment';
+import { TwitchBadgesList } from '../badges';
+import { TwitchEmoteList } from '../emotes';
 import { optionalTag } from '../irc';
 import { TwitchMessage } from '../twitch';
 import { ChannelMessage } from '../message';
@@ -37,7 +37,13 @@ export class UsernoticeMessage extends TwitchMessage implements ChannelMessage {
     }
 
     public get emotes(): TwitchEmoteList {
-        return parseEmotes(this.message || '', this.ircMessage.ircTags.getString('emotes'));
+        let message: string | undefined = this.message;
+        if (message == null) {
+            // empty list
+            return new TwitchEmoteList();
+        }
+
+        return parseEmotes(message, this.ircMessage.ircTags.getString('emotes'));
     }
 
     public get messageID(): string {
