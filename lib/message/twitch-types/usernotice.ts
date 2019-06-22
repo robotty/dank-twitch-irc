@@ -2,6 +2,7 @@ import * as Color from 'color';
 import {Moment} from 'moment';
 import {TwitchBadgesList} from '../badges';
 import {TwitchEmoteList} from '../emotes';
+import { optionalTag } from '../irc';
 import { TwitchMessage } from '../twitch';
 import { ChannelMessage } from '../message';
 import { parseEmotes } from '../parser';
@@ -36,16 +37,16 @@ export class UsernoticeMessage extends TwitchMessage implements ChannelMessage {
     }
 
     public get emotes(): TwitchEmoteList {
-        return parseEmotes(this.message, this.ircMessage.ircTags.getString('emotes'));
+        return parseEmotes(this.message || '', this.ircMessage.ircTags.getString('emotes'));
     }
 
     public get messageID(): string {
         return this.ircMessage.ircTags.getString('id');
     }
 
-    public get message(): string {
+    public get message(): string | undefined {
         // TODO: Can /me be used in usernotice (e.g. resubs?) If yes add same parsing as in privmsg.ts to this
-        return this.ircMessage.ircTags.getString('message');
+        return optionalTag(() => this.ircMessage.ircTags.getString('message'));
     }
 
     public get isMod(): boolean {
