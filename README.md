@@ -2,6 +2,9 @@
 
 Node.js-only Twitch IRC lib, written in TypeScript.
 
+This librariy is **not** compatible with Node.JS LTS until i set up babel or
+something. For now you need Node.js 12 or later.
+
 ## Usage
 
 ```javascript
@@ -126,7 +129,7 @@ This client currently supports the following features:
 - Slow-mode rate limiter for non-VIP/moderator bots (waits either the global
   ~1.3 sec/channel-specific slow mode)
 - Support for different types of transport (in-memory, TCP, WebSocket)
-- 
+-
 
 ## Extra Mixins
 
@@ -150,15 +153,22 @@ Available mixins are:
 - `new SlowModeRateLimiter(client, /* optional */ maxWaitingMessages)` will rate
   limit your messages in channels where your bot is not moderator, VIP or
   broadcaster and has to wait a bit between sending messages. If more than
-  `maxWaitingMessages` are waiting, the outgoing message will be dropped silently. `maxWaitingMessages` defaults to 10.
+  `maxWaitingMessages` are waiting, the outgoing message will be dropped
+  silently. `maxWaitingMessages` defaults to 10.
 
 and the mixins installed by default:
 
-- `new PrivmsgMessageRateLimiter(client)` - Rate limits outgoing messages according to the rate limits imposed by Twitch. Configure the verified/known status of your bot using the config (see above).
-- `new ConnectionRateLimiter(client)` - Rate limits new connections accoding to the rate limits set in the config.
-- `new UserStateTracker(client)` - Used by other mixins. Keeps track of what state your bot user has in all channels.
-- `new RoomStateTracker()` - Used by other mixins. Keeps track of each channel's state, e.g. sub-mode etc.
-- `new IgnorePromiseRejectionsMixin()` - Swallows rejected promises returned by the client's functions.
+- `new PrivmsgMessageRateLimiter(client)` - Rate limits outgoing messages
+  according to the rate limits imposed by Twitch. Configure the verified/known
+  status of your bot using the config (see above).
+- `new ConnectionRateLimiter(client)` - Rate limits new connections accoding to
+  the rate limits set in the config.
+- `new UserStateTracker(client)` - Used by other mixins. Keeps track of what
+  state your bot user has in all channels.
+- `new RoomStateTracker()` - Used by other mixins. Keeps track of each channel's
+  state, e.g. sub-mode etc.
+- `new IgnorePromiseRejectionsMixin()` - Swallows rejected promises returned by
+  the client's functions.
 
 ## Tests
 
