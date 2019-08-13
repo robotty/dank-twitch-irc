@@ -26,6 +26,9 @@ commands:
           name: Assemble typescript
           command: npm run build
       - run:
+          name: Generate typedoc
+          command: npm run docs
+      - run:
           name: Run tests
           command: npm run test
           environment:
@@ -38,6 +41,8 @@ commands:
           path: ./coverage
       - store_artifacts:
           path: ./mochawesome-report
+      - store_artifacts:
+          path: ./docs
 jobs:
   build-nodejs-12:
     docker:
