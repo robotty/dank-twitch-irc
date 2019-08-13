@@ -66,6 +66,8 @@
 					<h1>dank-twitch-irc <a href="https://circleci.com/gh/robotty/dank-twitch-irc"><img src="https://circleci.com/gh/robotty/dank-twitch-irc.svg?style=svg" alt="CircleCI"></a></h1>
 				</a>
 				<p>Node.js-only Twitch IRC lib, written in TypeScript.</p>
+				<p>This library is <strong>not</strong> compatible with Node.JS LTS until i set up babel or
+				something. For now you need Node.js 12 or later.</p>
 				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
 					<h2>Usage</h2>
 				</a>
@@ -80,9 +82,13 @@ client.on(<span class="hljs-string">"close"</span>, error =&gt; {
   }
 });
 
+<span class="hljs-comment">// .on("COMMANDNAME", msg =&gt; {}) for that command</span>
+<span class="hljs-comment">// or .on("message", msg =&gt; {}) for all messages</span>
 client.on(<span class="hljs-string">"PRIVMSG"</span>, msg =&gt; {
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`[#<span class="hljs-subst">${msg.channelName}</span>] <span class="hljs-subst">${msg.displayName}</span>: <span class="hljs-subst">${msg.messageText}</span>`</span>);
 });
+
+<span class="hljs-comment">// More events are listed under https://robotty.github.io/dank-twitch-irc/interfaces/specificclientevents.html</span>
 
 client.connect();
 client.join(<span class="hljs-string">"forsen"</span>);</code></pre>
@@ -173,7 +179,8 @@ client.join(<span class="hljs-string">"forsen"</span>);</code></pre>
 					<li>Automatic rate limiter for connection opening and chat commands</li>
 					<li>All twitch-specific message types parsed (<code>CLEARCHAT</code>, <code>CLEARMSG</code>,
 						<code>GLOBALUSERSTATE</code>, <code>HOSTTARGET</code>, <code>JOIN</code>, <code>NOTICE</code>, <code>PART</code>, <code>PING</code>, <code>PONG</code>,
-					<code>PRIVMSG</code>, <code>RECONNECT</code>, <code>ROOMSTATE</code>, <code>USERNOTICE</code>, <code>USERSTATE</code>, <code>WHISPER</code>)</li>
+						<code>PRIVMSG</code>, <code>RECONNECT</code>, <code>ROOMSTATE</code>, <code>USERNOTICE</code>, <code>USERSTATE</code>, <code>WHISPER</code>,
+					<code>CAP</code>)</li>
 					<li>Accurate response to server responses (e.g. error thrown if you are banned
 					from channel/channel is suspended/login is invalid etc.)</li>
 					<li>Bulk join functionality to join lots of channels quickly</li>
@@ -186,7 +193,6 @@ client.join(<span class="hljs-string">"forsen"</span>);</code></pre>
 					<li>Slow-mode rate limiter for non-VIP/moderator bots (waits either the global
 					~1.3 sec/channel-specific slow mode)</li>
 					<li>Support for different types of transport (in-memory, TCP, WebSocket)</li>
-					<li></li>
 				</ul>
 				<a href="#extra-mixins" id="extra-mixins" style="color: inherit; text-decoration: none;">
 					<h2>Extra Mixins</h2>
@@ -207,15 +213,22 @@ client.use(<span class="hljs-keyword">new</span> AlternateMessageModifier(client
 					<li><code>new SlowModeRateLimiter(client, /* optional */ maxWaitingMessages)</code> will rate
 						limit your messages in channels where your bot is not moderator, VIP or
 						broadcaster and has to wait a bit between sending messages. If more than
-					<code>maxWaitingMessages</code> are waiting, the outgoing message will be dropped silently. <code>maxWaitingMessages</code> defaults to 10.</li>
+						<code>maxWaitingMessages</code> are waiting, the outgoing message will be dropped
+					silently. <code>maxWaitingMessages</code> defaults to 10.</li>
 				</ul>
 				<p>and the mixins installed by default:</p>
 				<ul>
-					<li><code>new PrivmsgMessageRateLimiter(client)</code> - Rate limits outgoing messages according to the rate limits imposed by Twitch. Configure the verified/known status of your bot using the config (see above).</li>
-					<li><code>new ConnectionRateLimiter(client)</code> - Rate limits new connections accoding to the rate limits set in the config.</li>
-					<li><code>new UserStateTracker(client)</code> - Used by other mixins. Keeps track of what state your bot user has in all channels.</li>
-					<li><code>new RoomStateTracker()</code> - Used by other mixins. Keeps track of each channel&#39;s state, e.g. sub-mode etc.</li>
-					<li><code>new IgnorePromiseRejectionsMixin()</code> - Swallows rejected promises returned by the client&#39;s functions.</li>
+					<li><code>new PrivmsgMessageRateLimiter(client)</code> - Rate limits outgoing messages
+						according to the rate limits imposed by Twitch. Configure the verified/known
+					status of your bot using the config (see above).</li>
+					<li><code>new ConnectionRateLimiter(client)</code> - Rate limits new connections accoding to
+					the rate limits set in the config.</li>
+					<li><code>new UserStateTracker(client)</code> - Used by other mixins. Keeps track of what
+					state your bot user has in all channels.</li>
+					<li><code>new RoomStateTracker()</code> - Used by other mixins. Keeps track of each channel&#39;s
+					state, e.g. sub-mode etc.</li>
+					<li><code>new IgnorePromiseRejectionsMixin()</code> - Swallows rejected promises returned by
+					the client&#39;s functions.</li>
 				</ul>
 				<a href="#tests" id="tests" style="color: inherit; text-decoration: none;">
 					<h2>Tests</h2>
