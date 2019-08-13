@@ -1,22 +1,22 @@
 # CircleCI configuration
 # see: https://circleci.com/docs/2.0/configuration-reference/
 
-version: 2
-jobs:
-  build:
-    docker:
-      - image: circleci/node:12
+version: 2.1
+orbs:
+  codecov: codecov/codecov@1.0.2
+commands:
+  run-all:
     steps:
       - checkout
       - restore_cache:
           name: Restore npm package cache
-          key: v1-dependency-cache-{{ checksum "./package.json" }}
+          key: v1-dependency-cache-nodejs-{{ checksum "./package.json" }}
       - run:
           name: Install dependencies
           command: npm i
       - save_cache:
           name: Save npm package cache
-          key: v1-dependency-cache-{{ checksum "./package.json" }}
+          key: v1-dependency-cache-nodejs-{{ checksum "./package.json" }}
           paths:
             - ./node_modules
       - run:
@@ -28,3 +28,32 @@ jobs:
       - run:
           name: Run tests
           command: npm run test
+          environment:
+            MOCHA_FILE: ./mocha-report/test-results.xml
+      - store_test_results:
+          path: ./mocha-report
+      - codecov/upload:
+          file: ./coverage/coverage-final.json
+      - store_artifacts:
+          path: ./coverage
+      - store_artifacts:
+          path: ./mochawesome-report
+
+jobs:
+  build-nodejs-12:
+    docker:
+      - image: circleci/node:12
+    steps:
+      - run_all
+  build-nodejs-10:
+    docker:
+      - image: circleci/node:10
+    steps:
+      - run_all
+
+workflows:
+  version: 2
+  build-all:
+    jobs:
+      - build-nodejs-12
+      - build-nodejs-10
