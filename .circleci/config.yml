@@ -29,17 +29,23 @@ commands:
           name: Generate typedoc
           command: npm run docs
       - run:
-          name: Run tests
-          command: npm run test
+          name: Run tests with junit reporter
+          command: npm run test -- --reporter mocha-junit-reporter
           environment:
             MOCHA_FILE: ./mocha-report/test-results.xml
+      - run:
+          name: Run tests with mochawesome reporter
+          command: npm run test
       - store_test_results:
+          name: Store mocha test report
           path: ./mocha-report
       - codecov/upload:
           file: ./coverage/coverage-final.json
       - store_artifacts:
+          name: Store coverage report as artifact
           path: ./coverage
       - store_artifacts:
+          name
           path: ./mochawesome-report
       - store_artifacts:
           path: ./docs
