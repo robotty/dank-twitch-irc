@@ -2,8 +2,7 @@
 
 Node.js-only Twitch IRC lib, written in TypeScript.
 
-This library is **not** compatible with Node.JS LTS until i set up babel or
-something. For now you need Node.js 12 or later.
+Requires Node.js 10 (LTS) or above.
 
 ## Usage
 
