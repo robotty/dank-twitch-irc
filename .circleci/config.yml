@@ -45,9 +45,10 @@ commands:
           name: Store coverage report as artifact
           path: ./coverage
       - store_artifacts:
-          name
+          name: Store mochawesome HTML report
           path: ./mochawesome-report
       - store_artifacts:
+          name: Store typedoc documentation
           path: ./docs
 jobs:
   build-nodejs-12:
