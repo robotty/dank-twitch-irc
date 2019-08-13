@@ -120,7 +120,8 @@ This client currently supports the following features:
 - Automatic rate limiter for connection opening and chat commands
 - All twitch-specific message types parsed (`CLEARCHAT`, `CLEARMSG`,
   `GLOBALUSERSTATE`, `HOSTTARGET`, `JOIN`, `NOTICE`, `PART`, `PING`, `PONG`,
-  `PRIVMSG`, `RECONNECT`, `ROOMSTATE`, `USERNOTICE`, `USERSTATE`, `WHISPER`)
+  `PRIVMSG`, `RECONNECT`, `ROOMSTATE`, `USERNOTICE`, `USERSTATE`, `WHISPER`,
+  `CAP`)
 - Accurate response to server responses (e.g. error thrown if you are banned
   from channel/channel is suspended/login is invalid etc.)
 - Bulk join functionality to join lots of channels quickly
@@ -133,7 +134,6 @@ This client currently supports the following features:
 - Slow-mode rate limiter for non-VIP/moderator bots (waits either the global
   ~1.3 sec/channel-specific slow mode)
 - Support for different types of transport (in-memory, TCP, WebSocket)
--
 
 ## Extra Mixins
 
