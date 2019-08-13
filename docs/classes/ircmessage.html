@@ -69,13 +69,39 @@
 				<ul class="tsd-hierarchy">
 					<li>
 						<span class="target">IRCMessage</span>
+						<ul class="tsd-hierarchy">
+							<li>
+								<a href="channelircmessage.html" class="tsd-signature-type">ChannelIRCMessage</a>
+							</li>
+							<li>
+								<a href="globaluserstatemessage.html" class="tsd-signature-type">GlobaluserstateMessage</a>
+							</li>
+							<li>
+								<a href="noticemessage.html" class="tsd-signature-type">NoticeMessage</a>
+							</li>
+							<li>
+								<a href="pongmessage.html" class="tsd-signature-type">PongMessage</a>
+							</li>
+							<li>
+								<a href="capmessage.html" class="tsd-signature-type">CapMessage</a>
+							</li>
+							<li>
+								<a href="pingmessage.html" class="tsd-signature-type">PingMessage</a>
+							</li>
+							<li>
+								<a href="reconnectmessage.html" class="tsd-signature-type">ReconnectMessage</a>
+							</li>
+							<li>
+								<a href="whispermessage.html" class="tsd-signature-type">WhisperMessage</a>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
 			<section class="tsd-panel">
 				<h3>Implements</h3>
 				<ul class="tsd-hierarchy">
-					<li><a href="../interfaces/message.html" class="tsd-signature-type">Message</a></li>
+					<li><a href="../interfaces/ircmessagedata.html" class="tsd-signature-type">IRCMessageData</a></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -92,25 +118,11 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="ircmessage.html#irccommand" class="tsd-kind-icon">irc<wbr>Command</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="ircmessage.html#irchostname" class="tsd-kind-icon">irc<wbr>Hostname</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="ircmessage.html#ircnickname" class="tsd-kind-icon">irc<wbr>Nickname</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="ircmessage.html#ircparameters" class="tsd-kind-icon">irc<wbr>Parameters</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="ircmessage.html#ircprefix" class="tsd-kind-icon">irc<wbr>Prefix</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="ircmessage.html#ircprefixraw" class="tsd-kind-icon">irc<wbr>Prefix<wbr>Raw</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="ircmessage.html#irctags" class="tsd-kind-icon">irc<wbr>Tags</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="ircmessage.html#ircusername" class="tsd-kind-icon">irc<wbr>Username</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="ircmessage.html#rawsource" class="tsd-kind-icon">raw<wbr>Source</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
-							<h3>Accessors</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="ircmessage.html#ircchannelname" class="tsd-kind-icon">irc<wbr>Channel<wbr>Name</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="ircmessage.html#trailingparameter" class="tsd-kind-icon">trailing<wbr>Parameter</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
-							<h3>Methods</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="ircmessage.html#parse" class="tsd-kind-icon">parse</a></li>
 							</ul>
 						</section>
 					</div>
@@ -122,37 +134,19 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new IRCMessage<span class="tsd-signature-symbol">(</span>rawSource<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, ircNickname<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, ircUsername<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, ircHostname<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, ircCommand<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, ircParameters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span>, ircTags<span class="tsd-signature-symbol">: </span><a href="ircmessagetags.html" class="tsd-signature-type">IRCMessageTags</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="ircmessage.html" class="tsd-signature-type">IRCMessage</a></li>
+						<li class="tsd-signature tsd-kind-icon">new IRCMessage<span class="tsd-signature-symbol">(</span>messageData<span class="tsd-signature-symbol">: </span><a href="../interfaces/ircmessagedata.html" class="tsd-signature-type">IRCMessageData</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="ircmessage.html" class="tsd-signature-type">IRCMessage</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/2276545/lib/message/irc.ts#L82">message/irc.ts:82</a></li>
+									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/ea880a9/lib/message/irc/irc-message.ts#L30">message/irc/irc-message.ts:30</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>rawSource: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5>ircNickname: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5>ircUsername: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5>ircHostname: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5>ircCommand: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5>ircParameters: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
-								</li>
-								<li>
-									<h5>ircTags: <a href="ircmessagetags.html" class="tsd-signature-type">IRCMessageTags</a></h5>
+									<h5>messageData: <a href="../interfaces/ircmessagedata.html" class="tsd-signature-type">IRCMessageData</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="ircmessage.html" class="tsd-signature-type">IRCMessage</a></h4>
@@ -167,64 +161,58 @@
 					<h3>irc<wbr>Command</h3>
 					<div class="tsd-signature tsd-kind-icon">irc<wbr>Command<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
-						<p>Implementation of <a href="../interfaces/message.html">Message</a>.<a href="../interfaces/message.html#irccommand">ircCommand</a></p>
+						<p>Implementation of <a href="../interfaces/ircmessagedata.html">IRCMessageData</a>.<a href="../interfaces/ircmessagedata.html#irccommand">ircCommand</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/2276545/lib/message/irc.ts#L80">message/irc.ts:80</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/ea880a9/lib/message/irc/irc-message.ts#L28">message/irc/irc-message.ts:28</a></li>
 						</ul>
 					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="irchostname" class="tsd-anchor"></a>
-					<h3>irc<wbr>Hostname</h3>
-					<div class="tsd-signature tsd-kind-icon">irc<wbr>Hostname<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<p>Implementation of <a href="../interfaces/message.html">Message</a>.<a href="../interfaces/message.html#irchostname">ircHostname</a></p>
-						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/2276545/lib/message/irc.ts#L79">message/irc.ts:79</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="ircnickname" class="tsd-anchor"></a>
-					<h3>irc<wbr>Nickname</h3>
-					<div class="tsd-signature tsd-kind-icon">irc<wbr>Nickname<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<p>Implementation of <a href="../interfaces/message.html">Message</a>.<a href="../interfaces/message.html#ircnickname">ircNickname</a></p>
-						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/2276545/lib/message/irc.ts#L77">message/irc.ts:77</a></li>
-						</ul>
-					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The parser ensure this is always uppercase</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="ircparameters" class="tsd-anchor"></a>
 					<h3>irc<wbr>Parameters</h3>
 					<div class="tsd-signature tsd-kind-icon">irc<wbr>Parameters<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
-						<p>Implementation of <a href="../interfaces/message.html">Message</a>.<a href="../interfaces/message.html#ircparameters">ircParameters</a></p>
+						<p>Implementation of <a href="../interfaces/ircmessagedata.html">IRCMessageData</a>.<a href="../interfaces/ircmessagedata.html#ircparameters">ircParameters</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/2276545/lib/message/irc.ts#L81">message/irc.ts:81</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/ea880a9/lib/message/irc/irc-message.ts#L29">message/irc/irc-message.ts:29</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="ircprefix" class="tsd-anchor"></a>
+					<h3>irc<wbr>Prefix</h3>
+					<div class="tsd-signature tsd-kind-icon">irc<wbr>Prefix<span class="tsd-signature-symbol">:</span> <a href="../interfaces/ircmessageprefix.html" class="tsd-signature-type">IRCMessagePrefix</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></div>
+					<aside class="tsd-sources">
+						<p>Implementation of <a href="../interfaces/ircmessagedata.html">IRCMessageData</a>.<a href="../interfaces/ircmessagedata.html#ircprefix">ircPrefix</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/ea880a9/lib/message/irc/irc-message.ts#L23">message/irc/irc-message.ts:23</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="ircprefixraw" class="tsd-anchor"></a>
+					<h3>irc<wbr>Prefix<wbr>Raw</h3>
+					<div class="tsd-signature tsd-kind-icon">irc<wbr>Prefix<wbr>Raw<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></div>
+					<aside class="tsd-sources">
+						<p>Implementation of <a href="../interfaces/ircmessagedata.html">IRCMessageData</a>.<a href="../interfaces/ircmessagedata.html#ircprefixraw">ircPrefixRaw</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/ea880a9/lib/message/irc/irc-message.ts#L22">message/irc/irc-message.ts:22</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="irctags" class="tsd-anchor"></a>
 					<h3>irc<wbr>Tags</h3>
-					<div class="tsd-signature tsd-kind-icon">irc<wbr>Tags<span class="tsd-signature-symbol">:</span> <a href="ircmessagetags.html" class="tsd-signature-type">IRCMessageTags</a></div>
+					<div class="tsd-signature tsd-kind-icon">irc<wbr>Tags<span class="tsd-signature-symbol">:</span> <a href="../interfaces/ircmessagetags.html" class="tsd-signature-type">IRCMessageTags</a></div>
 					<aside class="tsd-sources">
-						<p>Implementation of <a href="../interfaces/message.html">Message</a>.<a href="../interfaces/message.html#irctags">ircTags</a></p>
+						<p>Implementation of <a href="../interfaces/ircmessagedata.html">IRCMessageData</a>.<a href="../interfaces/ircmessagedata.html#irctags">ircTags</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/2276545/lib/message/irc.ts#L82">message/irc.ts:82</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="ircusername" class="tsd-anchor"></a>
-					<h3>irc<wbr>Username</h3>
-					<div class="tsd-signature tsd-kind-icon">irc<wbr>Username<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<p>Implementation of <a href="../interfaces/message.html">Message</a>.<a href="../interfaces/message.html#ircusername">ircUsername</a></p>
-						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/2276545/lib/message/irc.ts#L78">message/irc.ts:78</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/ea880a9/lib/message/irc/irc-message.ts#L30">message/irc/irc-message.ts:30</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -233,74 +221,11 @@
 					<h3>raw<wbr>Source</h3>
 					<div class="tsd-signature tsd-kind-icon">raw<wbr>Source<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
-						<p>Implementation of <a href="../interfaces/message.html">Message</a>.<a href="../interfaces/message.html#rawsource">rawSource</a></p>
+						<p>Implementation of <a href="../interfaces/ircmessagedata.html">IRCMessageData</a>.<a href="../interfaces/ircmessagedata.html#rawsource">rawSource</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/2276545/lib/message/irc.ts#L76">message/irc.ts:76</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/ea880a9/lib/message/irc/irc-message.ts#L20">message/irc/irc-message.ts:20</a></li>
 						</ul>
 					</aside>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Accessors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="ircchannelname" class="tsd-anchor"></a>
-					<h3>irc<wbr>Channel<wbr>Name</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> ircChannelName<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/2276545/lib/message/irc.ts#L104">message/irc.ts:104</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="trailingparameter" class="tsd-anchor"></a>
-					<h3>trailing<wbr>Parameter</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> trailingParameter<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/2276545/lib/message/irc.ts#L96">message/irc.ts:96</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-						</li>
-					</ul>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
-					<a name="parse" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> parse</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">parse<span class="tsd-signature-symbol">(</span>messageSrc<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="ircmessage.html" class="tsd-signature-type">IRCMessage</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/2276545/lib/message/irc.ts#L113">message/irc.ts:113</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>messageSrc: <span class="tsd-signature-type">string</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="ircmessage.html" class="tsd-signature-type">IRCMessage</a></h4>
-						</li>
-					</ul>
 				</section>
 			</section>
 		</div>
@@ -326,31 +251,19 @@
 								<a href="ircmessage.html#irccommand" class="tsd-kind-icon">irc<wbr>Command</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="ircmessage.html#irchostname" class="tsd-kind-icon">irc<wbr>Hostname</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="ircmessage.html#ircnickname" class="tsd-kind-icon">irc<wbr>Nickname</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="ircmessage.html#ircparameters" class="tsd-kind-icon">irc<wbr>Parameters</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="ircmessage.html#ircprefix" class="tsd-kind-icon">irc<wbr>Prefix</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="ircmessage.html#ircprefixraw" class="tsd-kind-icon">irc<wbr>Prefix<wbr>Raw</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="ircmessage.html#irctags" class="tsd-kind-icon">irc<wbr>Tags</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="ircmessage.html#ircusername" class="tsd-kind-icon">irc<wbr>Username</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="ircmessage.html#rawsource" class="tsd-kind-icon">raw<wbr>Source</a>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="ircmessage.html#ircchannelname" class="tsd-kind-icon">irc<wbr>Channel<wbr>Name</a>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="ircmessage.html#trailingparameter" class="tsd-kind-icon">trailing<wbr>Parameter</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="ircmessage.html#parse" class="tsd-kind-icon">parse</a>
 							</li>
 						</ul>
 					</li>
@@ -373,6 +286,7 @@
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
@@ -421,7 +335,7 @@
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>

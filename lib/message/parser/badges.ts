@@ -1,30 +1,33 @@
-import { TwitchBadge, TwitchBadgesList } from '../badges';
-import { parseIntThrowing } from './common';
-import { ParseError } from './parse-error';
+import { TwitchBadge } from "../badge";
+import { TwitchBadgesList } from "../badges";
+import { parseIntThrowing } from "./common";
+import { ParseError } from "./parse-error";
 
-function parseSingleBadge(badgeSrc: string): TwitchBadge {
-    // src format: <badge>/<version>
+export function parseSingleBadge(badgeSrc: string): TwitchBadge {
+  // src format: <badge>/<version>
 
-    let [badgeName, badgeVersionSrc] = badgeSrc.split('/', 2);
-    if (badgeName == null || badgeVersionSrc == null) {
-        throw new ParseError('Badge source did not contain \'/\' character', badgeSrc);
-    }
+  const [badgeName, badgeVersionSrc] = badgeSrc.split("/", 2);
+  if (badgeName == null || badgeVersionSrc == null) {
+    throw new ParseError(
+      `Badge source "${badgeSrc}" did not contain '/' character`
+    );
+  }
 
-    let badgeVersion = parseIntThrowing(badgeVersionSrc);
+  const badgeVersion = parseIntThrowing(badgeVersionSrc);
 
-    return new TwitchBadge(badgeName, badgeVersion);
+  return new TwitchBadge(badgeName, badgeVersion);
 }
 
 export function parseBadges(badgesSrc: string): TwitchBadgesList {
-    // src format: <badge>/<version>,<badge>/<version>,<badge>/<version>
+  // src format: <badge>/<version>,<badge>/<version>,<badge>/<version>
 
-    if (badgesSrc.length <= 0) {
-        return new TwitchBadgesList();
-    }
+  if (badgesSrc.length <= 0) {
+    return new TwitchBadgesList();
+  }
 
-    let badges = new TwitchBadgesList();
-    for (let badgeSrc of badgesSrc.split(',')) {
-        badges.push(parseSingleBadge(badgeSrc));
-    }
-    return badges;
+  const badges = new TwitchBadgesList();
+  for (const badgeSrc of badgesSrc.split(",")) {
+    badges.push(parseSingleBadge(badgeSrc));
+  }
+  return badges;
 }

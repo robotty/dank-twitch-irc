@@ -1,38 +1,114 @@
-import { TwitchMessage } from '../twitch';
-import { ChannelMessage } from '../message';
+import { reasonForValue } from "../../utils/reason-for-value";
+import { ChannelIRCMessage } from "../irc/channel-irc-message";
+import { getParameter, IRCMessageData } from "../irc/irc-message";
+import { ParseError } from "../parser/parse-error";
 
-export class HosttargetMessage extends TwitchMessage implements ChannelMessage {
-    public static get command(): string {
-        return 'HOSTTARGET';
-    }
+export function parseHostedChannelName(
+  rawHostedChannelName: string | undefined
+): string | undefined {
+  if (rawHostedChannelName == null || rawHostedChannelName.length <= 0) {
+    throw new ParseError(
+      `Malformed channel part in HOSTTARGET message: ${reasonForValue(
+        rawHostedChannelName
+      )}`
+    );
+  }
 
-    public get channelName(): string {
-        return this.ircMessage.ircChannelName;
-    }
+  if (rawHostedChannelName === "-") {
+    return undefined;
+  } else {
+    return rawHostedChannelName;
+  }
+}
 
-    /**
-     * channel name if now hosting channel,
-     *
-     * null if host mode was exited.
-     */
-    public get hostedChannelName(): string | null {
-        let stringValue = this.ircMessage.trailingParameter.split(' ')[0];
-        if (stringValue === '-' || stringValue.length === 0) {
-            return null;
-        }
-        return stringValue;
-    }
+export function parseViewerCount(
+  rawViewerCount: string | undefined
+): number | undefined {
+  if (rawViewerCount == null || rawViewerCount.length <= 0) {
+    throw new ParseError(
+      `Malformed viewer count part in HOSTTARGET message: ${reasonForValue(
+        rawViewerCount
+      )}`
+    );
+  }
 
-    /**
-     * Returns the viewer count of the enabled host.
-     *
-     * null if viewercount is unknown or host mode was exited.
-     */
-    public get viewerCount(): number | null {
-        let numberValue = parseInt(this.ircMessage.trailingParameter.split(' ')[1]);
-        if (isNaN(numberValue)) {
-            return null;
-        }
-        return numberValue;
-    }
+  if (rawViewerCount === "-") {
+    return undefined;
+  }
+
+  const numberValue = parseInt(rawViewerCount);
+  if (isNaN(numberValue)) {
+    throw new ParseError(
+      `Malformed viewer count part in HOSTTARGET message: ${reasonForValue(
+        rawViewerCount
+      )}`
+    );
+  }
+  return numberValue;
+}
+
+export function parseHosttargetParameter(
+  rawParameter: string
+): {
+  hostedChannelName: string | undefined;
+  viewerCount: number | undefined;
+} {
+  const split = rawParameter.split(" ");
+  if (split.length !== 2) {
+    throw new ParseError(
+      "HOSTTARGET accepts exactly 2 arguments in second parameter, " +
+        `given: ${reasonForValue(rawParameter)}`
+    );
+  }
+
+  const [rawHostedChannelName, rawViewerCount] = split;
+
+  return {
+    hostedChannelName: parseHostedChannelName(rawHostedChannelName),
+    viewerCount: parseViewerCount(rawViewerCount)
+  };
+}
+
+export class HosttargetMessage extends ChannelIRCMessage {
+  /**
+   * channel name if now hosting channel,
+   *
+   * null if host mode was exited.
+   */
+  public readonly hostedChannelName: string | undefined;
+
+  /**
+   * The viewer count of the enabled host.
+   *
+   * null if viewercount is unknown or host mode was exited.
+   */
+  public readonly viewerCount: number | undefined;
+
+  public constructor(message: IRCMessageData) {
+    super(message);
+
+    const parsedSecondParameter = parseHosttargetParameter(
+      getParameter(this, 1)
+    );
+    this.hostedChannelName = parsedSecondParameter.hostedChannelName;
+    this.viewerCount = parsedSecondParameter.viewerCount;
+  }
+
+  public wasHostModeExited(): this is ExitHostModeHosttargetMessage {
+    return this.hostedChannelName == null;
+  }
+
+  public wasHostModeEntered(): this is ExitedHostModeHosttargetMessage {
+    return this.hostedChannelName != null;
+  }
+}
+
+export interface ExitHostModeHosttargetMessage extends HosttargetMessage {
+  readonly hostedChannelName: undefined;
+  readonly viewerCount: undefined;
+}
+
+export interface ExitedHostModeHosttargetMessage extends HosttargetMessage {
+  readonly hostedChannelName: string;
+  readonly viewerCount: number | undefined;
 }

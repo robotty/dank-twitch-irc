@@ -72,6 +72,13 @@
 					</li>
 				</ul>
 			</section>
+			<section class="tsd-panel">
+				<h3>Implements</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="../interfaces/clientmixin.html" class="tsd-signature-type">ClientMixin</a></li>
+					<li><a href="../interfaces/connectionmixin.html" class="tsd-signature-type">ConnectionMixin</a></li>
+				</ul>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
@@ -83,17 +90,11 @@
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
-							<h3>Properties</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="connectionratelimiter.html#parallelconnections" class="tsd-kind-icon">parallel<wbr>Connections</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="connectionratelimiter.html#releasetime" class="tsd-kind-icon">release<wbr>Time</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectionratelimiter.html#acquire" class="tsd-kind-icon">acquire</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectionratelimiter.html#release" class="tsd-kind-icon">release</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectionratelimiter.html#applytoclient" class="tsd-kind-icon">apply<wbr>ToClient</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectionratelimiter.html#applytoconnection" class="tsd-kind-icon">apply<wbr>ToConnection</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="connectionratelimiter.html#releaseonconnect" class="tsd-kind-icon">release<wbr>OnConnect</a></li>
 							</ul>
 						</section>
@@ -106,50 +107,24 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Connection<wbr>Rate<wbr>Limiter<span class="tsd-signature-symbol">(</span>parallelConnections<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, releaseTime<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="connectionratelimiter.html" class="tsd-signature-type">ConnectionRateLimiter</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Connection<wbr>Rate<wbr>Limiter<span class="tsd-signature-symbol">(</span>client<span class="tsd-signature-symbol">: </span><a href="client.html" class="tsd-signature-type">Client</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="connectionratelimiter.html" class="tsd-signature-type">ConnectionRateLimiter</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/2276545/lib/client/ratelimiters/connection.ts#L9">client/ratelimiters/connection.ts:9</a></li>
+									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/ea880a9/lib/mixins/ratelimiters/connection.ts#L14">mixins/ratelimiters/connection.ts:14</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> parallelConnections: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;10</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> releaseTime: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;10 * 1000</span></h5>
+									<h5>client: <a href="client.html" class="tsd-signature-type">Client</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="connectionratelimiter.html" class="tsd-signature-type">ConnectionRateLimiter</a></h4>
 						</li>
 					</ul>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="parallelconnections" class="tsd-anchor"></a>
-					<h3>parallel<wbr>Connections</h3>
-					<div class="tsd-signature tsd-kind-icon">parallel<wbr>Connections<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/2276545/lib/client/ratelimiters/connection.ts#L8">client/ratelimiters/connection.ts:8</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="releasetime" class="tsd-anchor"></a>
-					<h3>release<wbr>Time</h3>
-					<div class="tsd-signature tsd-kind-icon">release<wbr>Time<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/2276545/lib/client/ratelimiters/connection.ts#L9">client/ratelimiters/connection.ts:9</a></li>
-						</ul>
-					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -164,7 +139,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/2276545/lib/client/ratelimiters/connection.ts#L17">client/ratelimiters/connection.ts:17</a></li>
+									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/ea880a9/lib/mixins/ratelimiters/connection.ts#L24">mixins/ratelimiters/connection.ts:24</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -172,18 +147,49 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="release" class="tsd-anchor"></a>
-					<h3>release</h3>
+					<a name="applytoclient" class="tsd-anchor"></a>
+					<h3>apply<wbr>ToClient</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">release<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">apply<wbr>ToClient<span class="tsd-signature-symbol">(</span>client<span class="tsd-signature-symbol">: </span><a href="client.html" class="tsd-signature-type">Client</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/clientmixin.html">ClientMixin</a>.<a href="../interfaces/clientmixin.html#applytoclient">applyToClient</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/2276545/lib/client/ratelimiters/connection.ts#L37">client/ratelimiters/connection.ts:37</a></li>
+									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/ea880a9/lib/mixins/ratelimiters/connection.ts#L50">mixins/ratelimiters/connection.ts:50</a></li>
 								</ul>
 							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>client: <a href="client.html" class="tsd-signature-type">Client</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="applytoconnection" class="tsd-anchor"></a>
+					<h3>apply<wbr>ToConnection</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">apply<wbr>ToConnection<span class="tsd-signature-symbol">(</span>connection<span class="tsd-signature-symbol">: </span><a href="singleconnection.html" class="tsd-signature-type">SingleConnection</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/connectionmixin.html">ConnectionMixin</a>.<a href="../interfaces/connectionmixin.html#applytoconnection">applyToConnection</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/ea880a9/lib/mixins/ratelimiters/connection.ts#L54">mixins/ratelimiters/connection.ts:54</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>connection: <a href="singleconnection.html" class="tsd-signature-type">SingleConnection</a></h5>
+								</li>
+							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -192,19 +198,19 @@
 					<a name="releaseonconnect" class="tsd-anchor"></a>
 					<h3>release<wbr>OnConnect</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">release<wbr>OnConnect<span class="tsd-signature-symbol">(</span>client<span class="tsd-signature-symbol">: </span><a href="../interfaces/iclient.html" class="tsd-signature-type">IClient</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">release<wbr>OnConnect<span class="tsd-signature-symbol">(</span>conn<span class="tsd-signature-symbol">: </span><a href="singleconnection.html" class="tsd-signature-type">SingleConnection</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/2276545/lib/client/ratelimiters/connection.ts#L21">client/ratelimiters/connection.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/ea880a9/lib/mixins/ratelimiters/connection.ts#L28">mixins/ratelimiters/connection.ts:28</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>client: <a href="../interfaces/iclient.html" class="tsd-signature-type">IClient</a></h5>
+									<h5>conn: <a href="singleconnection.html" class="tsd-signature-type">SingleConnection</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -231,17 +237,14 @@
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
 								<a href="connectionratelimiter.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="connectionratelimiter.html#parallelconnections" class="tsd-kind-icon">parallel<wbr>Connections</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="connectionratelimiter.html#releasetime" class="tsd-kind-icon">release<wbr>Time</a>
-							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="connectionratelimiter.html#acquire" class="tsd-kind-icon">acquire</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="connectionratelimiter.html#release" class="tsd-kind-icon">release</a>
+								<a href="connectionratelimiter.html#applytoclient" class="tsd-kind-icon">apply<wbr>ToClient</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="connectionratelimiter.html#applytoconnection" class="tsd-kind-icon">apply<wbr>ToConnection</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="connectionratelimiter.html#releaseonconnect" class="tsd-kind-icon">release<wbr>OnConnect</a>
@@ -267,6 +270,7 @@
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
@@ -315,7 +319,7 @@
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>

@@ -1,40 +1,40 @@
 module.exports = {
-    parser: '@typescript-eslint/parser',
-    env: {
-        es6: true,
-        node: true
-    },
-    extends: [
-        'plugin:@typescript-eslint/recommended',
+  parser: "@typescript-eslint/parser",
+  env: {
+    es6: true,
+    node: true
+  },
+  extends: [
+    "plugin:@typescript-eslint/recommended",
+    "prettier/@typescript-eslint"
+  ],
+  plugins: ["@typescript-eslint", "@typescript-eslint/tslint", "prettier"],
+  parserOptions: {
+    ecmaVersion: 2018,
+    sourceType: "module",
+    project: "tsconfig.json"
+  },
+  rules: {
+    "prettier/prettier": "error",
+    "@typescript-eslint/explicit-function-return-type": [
+      "warn",
+      {
+        allowExpressions: true
+      }
     ],
-    plugins: ['@typescript-eslint'],
-    parserOptions: {
-        ecmaVersion: 2018,
-        sourceType: 'module'
-    },
-    rules: {
-        quotes: ['error', 'single'],
-        '@typescript-eslint/explicit-function-return-type': ['warn', {
-            allowExpressions: true
-        }],
-        "@typescript-eslint/no-object-literal-type-assertion": ['off'],
-        'semi': 'off',
-        '@typescript-eslint/semi': ['error'],
-        '@typescript-eslint/no-parameter-properties': ['off'],
-        'eol-last': ['error'],
-        "@typescript-eslint/indent": ['warn', 4, {
-            SwitchCase: 1,
-            FunctionDeclaration: {
-                parameters: "first"
-            },
-            FunctionExpression: {
-                parameters: "first"
-            },
-            ArrayExpression: "first",
-            ObjectExpression: "first",
-            ImportDeclaration: "first",
-        }],
-        "@typescript-eslint/no-explicit-any": "off",
-        "@typescript-eslint/no-non-null-assertion": "off",
-    }
+    "@typescript-eslint/no-parameter-properties": ["off"],
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/prefer-interface": "off",
+    "@typescript-eslint/interface-name-prefix": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/tslint/config": [
+      "warn",
+      {
+        lintFile: "./tslint.json"
+      }
+    ],
+    "@typescript-eslint/array-type": "off"
+    // "no-warning-comments": "warn"
+  }
 };

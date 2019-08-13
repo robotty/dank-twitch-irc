@@ -1,34 +1,26 @@
 {
   "compilerOptions": {
-    "experimentalDecorators": true,
+    "baseUrl": ".",
+    "paths": { "*": ["types/*"] },
     "moduleResolution": "node",
-    "lib": [
-      "esnext"
-    ],
+    "lib": ["esnext"],
     "target": "esnext",
     "outDir": "./dist",
     "declaration": true,
     "sourceMap": true,
     "declarationMap": true,
     "noImplicitThis": true,
+    "noImplicitAny": true,
+    "strictPropertyInitialization": true,
+    "experimentalDecorators": true,
     "module": "commonjs",
     "alwaysStrict": true,
     //    "noUnusedLocals": true,
     "strictNullChecks": true,
     "noImplicitReturns": true,
     "forceConsistentCasingInFileNames": true,
-    "typeRoots": [
-      "./typings"
-    ],
-    "types": [
-      "node",
-      "mocha"
-    ]
+    "typeRoots": ["./types", "./node_modules/@types"],
+    "types": ["node", "mocha"]
   },
-  "include": [
-    "lib/**/*.ts"
-  ],
-  "exclude": [
-    "**/*.spec.ts"
-  ]
+  "include": ["lib/**/*.ts", "types/**/*.ts"]
 }

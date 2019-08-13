@@ -1,54 +1,53 @@
-import * as Color from 'color';
-import { TwitchBadgesList } from '../badges';
-import { TwitchEmoteList } from '../emotes';
-import { IRCMessage } from '../irc';
-import { TwitchMessage } from '../twitch';
-import { parseEmotes } from '../parser';
+import { TwitchBadgesList } from "../badges";
+import { Color } from "../color";
+import { TwitchEmoteList } from "../emotes";
+import { getNickname, getParameter, IRCMessage } from "../irc/irc-message";
+import { optionalData } from "../parser/common";
+import { tagParserFor } from "../parser/tag-values";
 
-// @badges=;color=#1E90FF;display-name=BotFactory;emotes=;message-id=6134;thread-id=40286300_403015524;turbo=0;user-id=403015524;user-type= :botfactory!botfactory@botfactory.tmi.twitch.tv WHISPER randers :Pong
-export class WhisperMessage extends TwitchMessage {
-    public constructor(ircMessage: IRCMessage) {
-        super(ircMessage);
-    };
+// @badges=;color=#1E90FF;display-name=BotFactory;emotes=;message-id=6134;thread-id=40286300_403015524;turbo=0;
+// user-id=403015524;user-type= :botfactory!botfactory@botfactory.tmi.twitch.tv WHISPER randers :Pong
+export class WhisperMessage extends IRCMessage {
+  public readonly messageText: string;
 
-    public static get command(): string {
-        return 'WHISPER';
-    }
+  public readonly senderUsername: string;
+  public readonly senderUserID: string;
 
-    public get senderUsername(): string {
-        return this.ircMessage.ircNickname;
-    }
+  public readonly recipientUsername: string;
 
-    public get message(): string {
-        return this.ircMessage.trailingParameter;
-    }
+  public readonly badges: TwitchBadgesList;
+  public readonly badgesRaw: string;
+  public readonly color: Color | undefined;
+  public readonly colorRaw: string;
+  public readonly displayName: string;
+  public readonly emotes: TwitchEmoteList;
+  public readonly emotesRaw: string;
 
-    public get badges(): TwitchBadgesList {
-        return this.ircMessage.ircTags.getBadges();
-    }
+  public readonly messageID: string;
+  public readonly threadID: string;
 
-    public get color(): Color {
-        return this.ircMessage.ircTags.getColor();
-    }
+  public constructor(ircMessage: IRCMessage) {
+    super(ircMessage);
 
-    public get displayName(): string {
-        return this.ircMessage.ircTags.getString('display-name');
-    }
+    this.messageText = getParameter(this, 1);
 
-    public get emotes(): TwitchEmoteList {
-        // this.message is cleaned of \u0001ACTION \u001
-        return parseEmotes(this.message, this.ircMessage.ircTags.getString('emotes'));
-    }
+    this.senderUsername = getNickname(this);
 
-    public get messageID(): string {
-        return this.ircMessage.ircTags.getString('message-id');
-    }
+    const tagParser = tagParserFor(this.ircTags);
+    this.senderUserID = tagParser.getString("user-id");
 
-    public get threadID(): string {
-        return this.ircMessage.ircTags.getString('thread-id');
-    }
+    this.recipientUsername = this.ircParameters[0];
 
-    public get senderUserID(): number {
-        return this.ircMessage.ircTags.getInt('user-id');
-    }
+    this.badges = tagParser.getBadges("badges");
+    this.badgesRaw = tagParser.getString("badges");
+    this.color = optionalData(() => tagParser.getColor("color"));
+    this.colorRaw = tagParser.getString("color");
+
+    this.displayName = tagParser.getString("display-name");
+    this.emotes = tagParser.getEmotes("emotes", this.messageText);
+    this.emotesRaw = tagParser.getString("emotes");
+
+    this.messageID = tagParser.getString("message-id");
+    this.threadID = tagParser.getString("thread-id");
+  }
 }

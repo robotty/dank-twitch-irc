@@ -1,24 +1,18 @@
-import { TwitchMessage } from '../twitch';
-import { ChannelMessage } from '../message';
+import { ChannelIRCMessage } from "../irc/channel-irc-message";
+import { getParameter, IRCMessageData } from "../irc/irc-message";
+import { tagParserFor } from "../parser/tag-values";
 
-export class ClearmsgMessage extends TwitchMessage implements ChannelMessage {
-    public static get command(): string {
-        return 'CLEARMSG';
-    }
+export class ClearmsgMessage extends ChannelIRCMessage {
+  public readonly targetUsername: string;
+  public readonly targetMessageID: string;
+  public readonly targetMessageContent: string;
 
-    public get channelName(): string {
-        return this.ircMessage.ircChannelName;
-    }
+  public constructor(message: IRCMessageData) {
+    super(message);
 
-    public get targetUsername(): string {
-        return this.ircMessage.ircTags.getString('login');
-    }
-
-    public get targetMessageID(): string {
-        return this.ircMessage.ircTags.getString('target-msg-id');
-    }
-
-    public get targetMessageContent(): string {
-        return this.ircMessage.trailingParameter;
-    }
+    const tagParser = tagParserFor(this.ircTags);
+    this.targetUsername = tagParser.getString("login");
+    this.targetMessageID = tagParser.getString("target-msg-id");
+    this.targetMessageContent = getParameter(this, 1);
+  }
 }

@@ -1,15 +1,15 @@
-import { TwitchMessage } from '../../twitch';
+import {
+  getParameter,
+  IRCMessage,
+  IRCMessageData
+} from "../../irc/irc-message";
+import { optionalData } from "../../parser/common";
 
-export class PongMessage extends TwitchMessage {
-    public get argument(): string | null {
-        let param = this.ircMessage.ircParameters[1];
-        if (typeof param === 'undefined') {
-            return null;
-        }
-        return param;
-    }
+export class PongMessage extends IRCMessage {
+  public readonly argument: string | undefined;
+  public constructor(message: IRCMessageData) {
+    super(message);
 
-    public static get command(): string {
-        return 'PONG';
-    }
+    this.argument = optionalData(() => getParameter(this, 1));
+  }
 }

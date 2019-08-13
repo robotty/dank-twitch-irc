@@ -1,63 +1,76 @@
-import * as Color from 'color';
-import {TwitchBadgesList} from '../badges';
-import { TwitchMessage } from '../twitch';
-import { ChannelMessage } from '../message';
+import { TwitchBadgesList } from "../badges";
+import { Color } from "../color";
+import { ChannelIRCMessage } from "../irc/channel-irc-message";
+import { IRCMessageData } from "../irc/irc-message";
+import { optionalData } from "../parser/common";
+import { TwitchEmoteSets } from "../parser/emote-sets";
+import { tagParserFor } from "../parser/tag-values";
 
 /**
- * State of a user in a channel.
+ * State of the logged in user in a channel.
  */
 export interface UserState {
-    badgeInfo: string;
-    badges: TwitchBadgesList;
-    color: Color;
-    displayName: string;
-    emoteSets: string;
-    isMod: boolean;
+  badgeInfo: TwitchBadgesList;
+  badgeInfoRaw: string;
+  badges: TwitchBadgesList;
+  badgesRaw: string;
+  color: Color | undefined;
+  colorRaw: string;
+  displayName: string;
+  emoteSets: TwitchEmoteSets;
+  emoteSetsRaw: string;
+  isMod: boolean;
+  isModRaw: string;
 }
 
-export class UserstateMessage extends TwitchMessage implements ChannelMessage, UserState {
-    public static get command(): string {
-        return 'USERSTATE';
-    }
+export class UserstateMessage extends ChannelIRCMessage implements UserState {
+  public readonly badgeInfo: TwitchBadgesList;
+  public readonly badgeInfoRaw: string;
+  public readonly badges: TwitchBadgesList;
+  public readonly badgesRaw: string;
+  public readonly color: Color | undefined;
+  public readonly colorRaw: string;
+  public readonly displayName: string;
+  public readonly emoteSets: TwitchEmoteSets;
+  public readonly emoteSetsRaw: string;
+  public readonly isMod: boolean;
+  public readonly isModRaw: string;
 
-    public get channelName(): string {
-        return this.ircMessage.ircChannelName;
-    }
+  public constructor(message: IRCMessageData) {
+    super(message);
 
-    public get badgeInfo(): string {
-        return this.ircMessage.ircTags.getString('badge-info');
-    }
+    const tagParser = tagParserFor(this.ircTags);
+    this.badgeInfo = tagParser.getBadges("badge-info");
+    this.badgeInfoRaw = tagParser.getString("badge-info");
 
-    public get badges(): TwitchBadgesList {
-        return this.ircMessage.ircTags.getBadges();
-    }
+    this.badges = tagParser.getBadges("badges");
+    this.badgesRaw = tagParser.getString("badges");
 
-    public get color(): Color {
-        return this.ircMessage.ircTags.getColor();
-    }
+    this.color = optionalData(() => tagParser.getColor("color"));
+    this.colorRaw = tagParser.getString("color");
 
-    public get displayName(): string {
-        return this.ircMessage.ircTags.getString('display-name');
-    }
+    this.displayName = tagParser.getString("display-name");
 
-    // TODO parse
-    public get emoteSets(): string {
-        return this.ircMessage.ircTags.getString('emote-sets');
-    }
+    this.emoteSets = tagParser.getEmoteSets("emote-sets");
+    this.emoteSetsRaw = tagParser.getString("emote-sets");
 
-    public get isMod(): boolean {
-        return this.ircMessage.ircTags.getBoolean('mod') ||
-            this.badges.hasModerator;
-    }
+    this.isMod = tagParser.getBoolean("mod");
+    this.isModRaw = tagParser.getString("mod");
+  }
 
-    public extractUserState(): UserState {
-        return {
-            badgeInfo: this.badgeInfo,
-            badges: this.badges,
-            color: this.color,
-            displayName: this.displayName,
-            emoteSets: this.emoteSets,
-            isMod: this.isMod
-        };
-    }
+  public extractUserState(): UserState {
+    return {
+      badgeInfo: this.badgeInfo,
+      badgeInfoRaw: this.badgeInfoRaw,
+      badges: this.badges,
+      badgesRaw: this.badgesRaw,
+      color: this.color,
+      colorRaw: this.colorRaw,
+      displayName: this.displayName,
+      emoteSets: this.emoteSets,
+      emoteSetsRaw: this.emoteSetsRaw,
+      isMod: this.isMod,
+      isModRaw: this.isModRaw
+    };
+  }
 }

@@ -1,7 +1,7 @@
-import { CustomError } from 'ts-custom-error';
+import { BaseError } from "make-error-cause";
 
-export class ValidationError extends CustomError {
-    public constructor(message: string) {
-        super(message);
-    }
+export class ValidationError extends BaseError {
+  public constructor(message: string) {
+    super(message);
+  }
 }

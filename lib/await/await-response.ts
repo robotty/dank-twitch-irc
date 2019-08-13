@@ -1,129 +1,244 @@
-import { IClient } from '../client/interface';
-import { alwaysFalse, Condition } from './conditions';
-import { Message } from '../message';
-import { setDefaults } from '../utils';
-import { TimeoutError } from './timeout-error';
-import { MessageError } from '../client/errors';
-import { ISignal } from 'strongly-typed-events';
+import { SingleConnection } from "../client/connection";
+import { ConnectionError, MessageError } from "../client/errors";
+import { IRCMessage } from "../message/irc/irc-message";
+import { setDefaults } from "../utils/set-defaults";
+import { TimeoutError } from "./timeout-error";
 
-interface AwaitConfig {
+export type Condition = (message: IRCMessage) => boolean;
+export const alwaysFalse: Condition = (): false => false;
+export const alwaysTrue: Condition = (): true => true;
 
-    /**
-     * If this condition evaluates to true on any incoming message, the promise is resolved with the message
-     * that matched.
-     */
-    success: Condition;
+export interface AwaitConfig {
+  /**
+   * If this condition evaluates to true on any incoming message, the promise is resolved with the message
+   * that matched.
+   */
+  success?: Condition;
 
-    /**
-     * If this condition evaluates to true on any incoming message, the promise is rejected with an
-     * error specifying the cause message.
-     */
-    failure: Condition;
+  /**
+   * If this condition evaluates to true on any incoming message, the promise is rejected with an
+   * error specifying the cause message.
+   */
+  failure?: Condition;
 
-    /**
-     * If neither the success or failure condition match on any message within this period, the promise is rejected
-     * with a {@link TimeoutError}.
-     */
-    timeout: number;
+  /**
+   * If neither the success or failure condition match on any message within
+   * this period (after connection, {@link noResponseAction} is taken.
+   */
+  timeout?: number;
 
-    timeoutAction: 'success' | 'failure';
+  /**
+   * Action to take after
+   *   - a timeout occurs or
+   *   - a response awaited later than this response is resolved or rejected
+   *     (and given that since the server processes commands
+   *     and sends their responses strictly sequentially) this response would
+   *     never be fulfilled because the server is done processing this command
+   *
+   *     E.g. the client issues <code>JOIN #a,#b,#c</code> to the server,
+   *     and receives the responses for <code>a</code> and <code>c</code>,
+   *     in that order. In that case, the response for <code>b</code> can be
+   *     rejected the moment the response for <code>c</code> is received.
+   */
+  noResponseAction?: "success" | "failure";
 
-    errorType: (message, cause) => Error;
+  /**
+   * Function to create custom error type given optional message and
+   * cause error.
+   *
+   * @param message Optional message
+   * @param cause Optional cause
+   */
+  errorType: (message?: string, cause?: Error) => Error;
 
-    /**
-     * An extra message to include in the thrown exception if `critical` is set and the promise is rejected.
-     */
-    errorMessage: string;
-
-    /**
-     * Minimum connection state that must be reached before the timeout begins ticking.
-     */
-    timeoutMinimumState: 'none' | 'connected' | 'ready';
+  /**
+   * Custom error message to pass to the {@link errorType} function
+   * as the message, preferably about what kind of response to what
+   * input variables was awaited (e.g. channel name)
+   */
+  errorMessage: string;
 }
 
-const configDefaults: AwaitConfig = {
-    success: alwaysFalse,
-    failure: alwaysFalse,
-    timeout: 2000,
-    timeoutAction: 'failure',
-    errorType: (m, e) => new MessageError(m, e),
-    errorMessage: 'Critical response was not received from the server',
-    timeoutMinimumState: 'ready'
+const configDefaults = {
+  success: alwaysFalse,
+  failure: alwaysFalse,
+  timeout: 2000,
+  noResponseAction: "failure"
 };
 
-const events: { [key: string]: (c: IClient) => [boolean, ISignal | undefined] } = {
-    'none': () => [true, undefined],
-    'connected': c => [c.ready, c.onReady],
-    'ready': c => [c.ready, c.onReady]
-};
+export class ResponseAwaiter {
+  public readonly promise: Promise<IRCMessage | undefined>;
 
-export function awaitResponse(client: IClient, config: Partial<AwaitConfig> = {}): Promise<Message> {
-    let {
-        success,
-        failure,
-        timeout,
-        timeoutAction,
-        errorType,
-        errorMessage,
-        timeoutMinimumState
-    } = setDefaults(config, configDefaults);
+  private readonly unsubscribers: Array<() => void> = [];
+  private readonly conn: SingleConnection;
+  private readonly config: Required<AwaitConfig>;
+  private resolvePromise!: (msg: IRCMessage | undefined) => void;
+  private rejectPromise!: (reason: Error) => void;
 
-    return new Promise<Message>((_resolve, _reject) => {
-        let unsubscribers: (() => void)[] = [];
+  public constructor(conn: SingleConnection, config: AwaitConfig) {
+    this.conn = conn;
+    this.config = setDefaults(config, configDefaults);
 
-        let unsubscribe = (): void => {
-            unsubscribers.forEach(e => e());
-        };
-
-        let resolve = (msg: Message): void => {
-            unsubscribe();
-            _resolve(msg);
-        };
-
-        let reject = (cause: Error): void => {
-            unsubscribe();
-
-            let errorWithCause = errorType(errorMessage, cause);
-            client.dispatchError(errorWithCause);
-            _reject(errorWithCause);
-        };
-
-        let startTimeout = (): void => {
-            let registeredTimeout = setTimeout(() => {
-                if (timeoutAction === 'failure') {
-                    reject(new TimeoutError(`Promise timed out after ${timeout} milliseconds`));
-                } else if (timeoutAction === 'success') {
-                    resolve(undefined!);
-                }
-            }, timeout);
-            unsubscribers.push(() => {
-                clearTimeout(registeredTimeout);
-            });
-        };
-
-        let [hasState, stateEvent] = events[timeoutMinimumState](client);
-
-        if (hasState) { // e.g. is connected/is ready
-            startTimeout();
-        } else {
-            // e.g. onConnect/onReady
-            unsubscribers.push(stateEvent!.sub(() => startTimeout()));
-        }
-
-        unsubscribers.push(client.onClose.sub(hadError => {
-            reject(new Error(`Connection closed with error=${hadError}`));
-        }));
-
-        unsubscribers.push(client.onMessage.sub(msg => {
-            if (failure(msg)) {
-                reject(new Error(`Bad response message: ${msg.rawSource}`));
-                return;
-            }
-
-            if (success(msg)) {
-                resolve(msg);
-                return;
-            }
-        }));
+    this.promise = new Promise((resolve, reject) => {
+      this.resolvePromise = resolve;
+      this.rejectPromise = reject;
     });
+
+    this.subscribeToCloseEvent();
+    this.subscribeToMessageEvent();
+    this.joinPendingResponsesQueue();
+  }
+
+  /**
+   * Called when this response awaiter is inserted to the head of
+   * the queue or moves to the queue head after a previous
+   * response awaiter was rejected or resolved.
+   */
+  public movedToQueueHead(): void {
+    if (this.conn.connected) {
+      this.beginTimeout();
+    } else {
+      const listener = this.beginTimeout.bind(this);
+      this.conn.once("connect", listener);
+      this.unsubscribers.push(() =>
+        this.conn.removeListener("connect", listener)
+      );
+    }
+  }
+
+  /**
+   * Called by a later awaiter indicating that this awaiter was still
+   * in the queue while the later awaiter matched a response.
+   */
+  public outpaced(): void {
+    this.onNoResponse(
+      "A response to a command issued later than this command was received"
+    );
+  }
+
+  private unsubscribe(): void {
+    this.unsubscribers.forEach(fn => fn());
+  }
+
+  private resolve(msg: IRCMessage | undefined): void {
+    this.unsubscribe();
+    this.resolvePromise(msg);
+  }
+
+  private reject(cause: Error): void {
+    this.unsubscribe();
+    const errorWithCause = this.config.errorType(
+      this.config.errorMessage,
+      cause
+    );
+    process.nextTick(() => this.conn.emitError(errorWithCause));
+    this.rejectPromise(errorWithCause);
+  }
+
+  private onNoResponse(reason: string): void {
+    if (this.config.noResponseAction === "failure") {
+      this.reject(new TimeoutError(reason));
+    } else if (this.config.noResponseAction === "success") {
+      this.resolve(undefined);
+    }
+  }
+
+  private beginTimeout(): void {
+    const registeredTimeout = setTimeout(() => {
+      const reason = `Timed out after waiting for response for ${this.config.timeout} milliseconds`;
+      this.onNoResponse(reason);
+    }, this.config.timeout);
+
+    this.unsubscribers.push(() => {
+      clearTimeout(registeredTimeout);
+    });
+  }
+
+  private joinPendingResponsesQueue(): void {
+    const ourIndex = this.conn.pendingResponses.push(this) - 1;
+    if (ourIndex === 0) {
+      this.movedToQueueHead();
+    } // else: we are behind another awaiter
+    // which will notify us via #movedToQueueHead() that we should
+    // begin the timeout
+
+    this.unsubscribers.push(() => {
+      const selfPosition = this.conn.pendingResponses.indexOf(this);
+
+      if (selfPosition < 0) {
+        // we are not in the queue anymore (e.g. sliced off by other
+        // awaiter)
+        return;
+      }
+
+      // remove all awaiters, leading up to ourself
+      const removedAwaiters = this.conn.pendingResponses.splice(
+        0,
+        selfPosition + 1
+      );
+
+      // remove ourself
+      removedAwaiters.pop();
+
+      // notify the other awaiters they were outpaced
+      removedAwaiters.forEach(awaiter => awaiter.outpaced());
+
+      // notify the new queue head to begin its timeout
+      const newQueueHead = this.conn.pendingResponses[0];
+      if (newQueueHead != null) {
+        newQueueHead.movedToQueueHead();
+      }
+    });
+  }
+
+  private onConnectionClosed(cause?: Error): void {
+    if (cause != null) {
+      this.reject(new ConnectionError("Connection closed due to error", cause));
+    } else {
+      this.reject(new ConnectionError("Connection closed with no error"));
+    }
+  }
+
+  private subscribeToCloseEvent(): void {
+    const listener = this.onConnectionClosed.bind(this);
+    this.conn.on("close", listener);
+    this.unsubscribers.push(() => this.conn.removeListener("close", listener));
+  }
+
+  private onConnectionMessage(msg: IRCMessage): void {
+    if (this.config.failure(msg)) {
+      this.reject(new MessageError(`Bad response message: ${msg.rawSource}`));
+    } else if (this.config.success(msg)) {
+      this.resolve(msg);
+    }
+  }
+
+  private subscribeToMessageEvent(): void {
+    const listener = this.onConnectionMessage.bind(this);
+    this.conn.on("message", listener);
+    this.unsubscribers.push(() =>
+      this.conn.removeListener("message", listener)
+    );
+  }
+}
+
+export function awaitResponse(
+  conn: SingleConnection,
+  config: Omit<AwaitConfig, "noResponseAction"> & {
+    noResponseAction: "success";
+  }
+): Promise<IRCMessage | undefined>;
+
+export function awaitResponse(
+  conn: SingleConnection,
+  config: Omit<AwaitConfig, "noResponseAction"> & {
+    noResponseAction?: "failure";
+  }
+): Promise<IRCMessage>;
+
+export function awaitResponse(
+  conn: SingleConnection,
+  config: AwaitConfig
+): Promise<IRCMessage | undefined> {
+  return new ResponseAwaiter(conn, config).promise;
 }

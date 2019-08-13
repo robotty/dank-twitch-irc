@@ -1,20 +1,23 @@
-import { TwitchMessage } from '../twitch';
-import { ChannelMessage } from '../message';
+import { getIRCChannelName } from "../irc/channel-irc-message";
+import { getParameter, IRCMessage, IRCMessageData } from "../irc/irc-message";
+import { optionalData } from "../parser/common";
+import { tagParserFor } from "../parser/tag-values";
 
-export class NoticeMessage extends TwitchMessage implements ChannelMessage {
-    public static get command(): string {
-        return 'NOTICE';
-    }
+export class NoticeMessage extends IRCMessage {
+  public readonly channelName: string | undefined;
+  public readonly messageText: string;
+  public readonly messageID: string | undefined;
 
-    public get channelName(): string {
-        return this.ircMessage.ircChannelName;
-    }
+  public constructor(message: IRCMessageData) {
+    super(message);
 
-    public get message(): string {
-        return this.ircMessage.trailingParameter;
-    }
+    // optional = true
+    // so we can parse messages like :tmi.twitch.tv NOTICE * :Improperly formatted auth
+    // that don't have a valid channel name
+    this.channelName = getIRCChannelName(this, true);
 
-    public get messageID(): string {
-        return this.ircMessage.ircTags.getString('msg-id');
-    }
+    const tagParser = tagParserFor(this.ircTags);
+    this.messageText = getParameter(this, 1);
+    this.messageID = optionalData(() => tagParser.getString("msg-id"));
+  }
 }

@@ -1,16 +1,11 @@
-import { ChannelMessage } from '../../message';
-import { TwitchMessage } from '../../twitch';
+import { ChannelIRCMessage } from "../../irc/channel-irc-message";
+import { getNickname, IRCMessageData } from "../../irc/irc-message";
 
-export class JoinMessage extends TwitchMessage implements ChannelMessage {
-    public static get command(): string {
-        return 'JOIN';
-    }
+export class JoinMessage extends ChannelIRCMessage {
+  public readonly joinedUsername: string;
 
-    public get channelName(): string {
-        return this.ircMessage.ircChannelName;
-    }
-
-    public get joinedUsername(): string {
-        return this.ircMessage.ircNickname;
-    }
+  public constructor(message: IRCMessageData) {
+    super(message);
+    this.joinedUsername = getNickname(this);
+  }
 }

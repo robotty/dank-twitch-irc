@@ -1,63 +1,110 @@
-import { optionalTag } from '../irc';
-import { TwitchMessage } from '../twitch';
-import { ChannelMessage } from '../message';
+import pickBy = require("lodash.pickby");
+import { ChannelIRCMessage } from "../irc/channel-irc-message";
+import { IRCMessageData } from "../irc/irc-message";
+import { optionalData } from "../parser/common";
+import { tagParserFor } from "../parser/tag-values";
 
 export interface RoomState {
-    emoteOnly: boolean;
-    /**
-     * followers-only duration in minutes
-     */
-    followersOnlyDuration: number;
-    r9k: boolean;
-    slowModeDuration: number;
-    subscribersOnly: boolean;
+  emoteOnly: boolean;
+  emoteOnlyRaw: string;
+
+  /**
+   * followers-only duration in minutes
+   */
+  followersOnlyDuration: number;
+  followersOnlyDurationRaw: string;
+
+  r9k: boolean;
+  r9kRaw: string;
+
+  slowModeDuration: number;
+  slowModeDurationRaw: string;
+
+  subscribersOnly: boolean;
+  subscribersOnlyRaw: string;
 }
 
-export function hasAllStateTags(obj: Partial<RoomState>): obj is RoomState {
-    return obj.emoteOnly != null &&
-        obj.followersOnlyDuration != null &&
-        obj.r9k != null &&
-        obj.slowModeDuration != null &&
-        obj.subscribersOnly != null;
+export function hasAllStateTags(
+  partialRoomState: Partial<RoomState>
+): partialRoomState is RoomState {
+  return (
+    partialRoomState.emoteOnly != null &&
+    partialRoomState.followersOnlyDuration != null &&
+    partialRoomState.r9k != null &&
+    partialRoomState.slowModeDuration != null &&
+    partialRoomState.subscribersOnly != null
+  );
 }
 
-export class RoomstateMessage extends TwitchMessage implements ChannelMessage, Partial<RoomState> {
-    public static get command(): string {
-        return 'ROOMSTATE';
-    }
+export class RoomstateMessage extends ChannelIRCMessage {
+  public readonly channelID: string;
 
-    public get channelName(): string {
-        return this.ircMessage.ircChannelName;
-    }
+  public readonly emoteOnly: boolean | undefined;
+  public readonly emoteOnlyRaw: string | undefined;
 
-    public get emoteOnly(): boolean | undefined {
-        return optionalTag(() => this.ircMessage.ircTags.getBoolean('emote-only'));
-    }
+  public readonly followersOnlyDuration: number | undefined;
+  public readonly followersOnlyDurationRaw: string | undefined;
 
-    public get followersOnlyDuration(): number | undefined {
-        return optionalTag(() => this.ircMessage.ircTags.getInt('followers-only'));
-    }
+  public readonly r9k: boolean | undefined;
+  public readonly r9kRaw: string | undefined;
 
-    public get r9k(): boolean | undefined {
-        return optionalTag(() => this.ircMessage.ircTags.getBoolean('r9k'));
-    }
+  public readonly slowModeDuration: number | undefined;
+  public readonly slowModeDurationRaw: string | undefined;
 
-    public get slowModeDuration(): number | undefined {
-        return optionalTag(() => this.ircMessage.ircTags.getInt('slow'));
-    }
+  public readonly subscribersOnly: boolean | undefined;
+  public readonly subscribersOnlyRaw: string | undefined;
 
-    public get subscribersOnly(): boolean | undefined {
-        return optionalTag(() => this.ircMessage.ircTags.getBoolean('subs-only'));
-    }
+  public constructor(message: IRCMessageData) {
+    super(message);
 
-    public extractRoomState(): Partial<RoomState> {
-        return {
-            emoteOnly: this.emoteOnly,
-            followersOnlyDuration: this.followersOnlyDuration,
-            r9k: this.r9k,
-            slowModeDuration: this.slowModeDuration,
-            subscribersOnly: this.subscribersOnly
-        };
-    }
+    const tagParser = tagParserFor(this.ircTags);
+    this.channelID = tagParser.getString("room-id");
 
+    this.emoteOnly = optionalData(() => tagParser.getBoolean("emote-only"));
+    this.emoteOnlyRaw = optionalData(() => tagParser.getString("emote-only"));
+
+    this.followersOnlyDuration = optionalData(() =>
+      tagParser.getInt("followers-only")
+    );
+    this.followersOnlyDurationRaw = optionalData(() =>
+      tagParser.getString("followers-only")
+    );
+
+    this.r9k = optionalData(() => tagParser.getBoolean("r9k"));
+    this.r9kRaw = optionalData(() => tagParser.getString("r9k"));
+
+    this.slowModeDuration = optionalData(() => tagParser.getInt("slow"));
+    this.slowModeDurationRaw = optionalData(() => tagParser.getString("slow"));
+
+    this.subscribersOnly = optionalData(() =>
+      tagParser.getBoolean("subs-only")
+    );
+    this.subscribersOnlyRaw = optionalData(() =>
+      tagParser.getString("subs-only")
+    );
+  }
+
+  public extractRoomState(): Partial<RoomState> {
+    // this object has "undefined" mapped for missing properties,
+    // but we want to return an object where those keys are not
+    // even present.
+    const fullObj = {
+      emoteOnly: this.emoteOnly,
+      emoteOnlyRaw: this.emoteOnlyRaw,
+
+      followersOnlyDuration: this.followersOnlyDuration,
+      followersOnlyDurationRaw: this.followersOnlyDurationRaw,
+
+      r9k: this.r9k,
+      r9kRaw: this.r9kRaw,
+
+      slowModeDuration: this.slowModeDuration,
+      slowModeDurationRaw: this.slowModeDurationRaw,
+
+      subscribersOnly: this.subscribersOnly,
+      subscribersOnlyRaw: this.subscribersOnlyRaw
+    };
+
+    return pickBy(fullObj, v => v != null);
+  }
 }

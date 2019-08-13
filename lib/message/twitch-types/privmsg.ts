@@ -1,97 +1,127 @@
-import * as Color from 'color';
-import {Moment} from 'moment';
-import {TwitchBadgesList} from '../badges';
-import {TwitchEmoteList} from '../emotes';
-import { IRCMessage } from '../irc';
-import { TwitchMessage } from '../twitch';
-import { ChannelMessage } from '../message';
-import { parseEmotes } from '../parser';
-import { UserState } from './userstate';
+import { TwitchBadgesList } from "../badges";
+import { Color } from "../color";
+import { TwitchEmoteList } from "../emotes";
+import { ChannelIRCMessage } from "../irc/channel-irc-message";
+import { getNickname, getParameter, IRCMessage } from "../irc/irc-message";
+import { optionalData } from "../parser/common";
+import { tagParserFor } from "../parser/tag-values";
+import { UserState } from "./userstate";
 
 const actionRegex = /^\u0001ACTION (.*)\u0001$/;
 
-export class PrivmsgMessage extends TwitchMessage implements ChannelMessage {
-    public readonly message: string;
-    public readonly action: boolean;
-
-    public constructor(ircMessage: IRCMessage) {
-        super(ircMessage);
-
-        let match: RegExpExecArray | null = actionRegex.exec(ircMessage.trailingParameter);
-        if (match == null) {
-            this.action = false;
-            this.message = ircMessage.trailingParameter;
-        } else {
-            this.action = true;
-            this.message = match[1];
-        }
+export function parseActionAndMessage(
+  trailingParameter: string
+): { isAction: boolean; message: string } {
+  const match: RegExpExecArray | null = actionRegex.exec(trailingParameter);
+  if (match == null) {
+    return {
+      isAction: false,
+      message: trailingParameter
     };
+  } else {
+    return {
+      isAction: true,
+      message: match[1]
+    };
+  }
+}
 
-    public static get command(): string {
-        return 'PRIVMSG';
-    }
+/**
+ * Omits `emoteSets` and `emoteSetsRaw` from {@link UserState} (because they are not sent
+ * for `PRIVMSG` messages)
+ */
+export type PrivmsgUserState = Omit<UserState, "emoteSets" | "emoteSetsRaw">;
 
-    public get channelName(): string {
-        return this.ircMessage.ircChannelName;
-    }
+export class PrivmsgMessage extends ChannelIRCMessage
+  implements PrivmsgUserState {
+  public readonly messageText: string;
+  public readonly isAction: boolean;
 
-    public get senderUsername(): string {
-        return this.ircMessage.ircNickname;
-    }
+  public readonly senderUsername: string;
+  public readonly senderUserID: string;
 
-    public get badgeInfo(): string {
-        return this.ircMessage.ircTags.getString('badge-info');
-    }
+  public readonly badgeInfo: TwitchBadgesList;
+  public readonly badgeInfoRaw: string;
 
-    public get badges(): TwitchBadgesList {
-        return this.ircMessage.ircTags.getBadges();
-    }
+  public readonly badges: TwitchBadgesList;
+  public readonly badgesRaw: string;
 
-    public get bits(): number | null {
-        return this.ircMessage.ircTags.getInt('bits');
-    }
+  public readonly bits: number | undefined;
+  public readonly bitsRaw: string | undefined;
 
-    public get color(): Color {
-        return this.ircMessage.ircTags.getColor();
-    }
+  public readonly color: Color | undefined;
+  public readonly colorRaw: string;
 
-    public get displayName(): string {
-        return this.ircMessage.ircTags.getString('display-name');
-    }
+  public readonly displayName: string;
 
-    public get emotes(): TwitchEmoteList {
-        // this.message is cleaned of \u0001ACTION \u001
-        return parseEmotes(this.message, this.ircMessage.ircTags.getString('emotes'));
-    }
+  public readonly emotes: TwitchEmoteList;
+  public readonly emotesRaw: string;
 
-    public get messageID(): string {
-        return this.ircMessage.ircTags.getString('id');
-    }
+  public readonly messageID: string;
 
-    public get isMod(): boolean {
-        return this.ircMessage.ircTags.getBoolean('mod') ||
-            this.badges.hasModerator;
-    }
+  public readonly isMod: boolean;
+  public readonly isModRaw: string;
 
-    public get channelID(): number {
-        return this.ircMessage.ircTags.getInt('room-id');
-    }
+  public readonly channelID: string;
 
-    public get serverTimestamp(): Moment {
-        return this.ircMessage.ircTags.getTimestamp();
-    }
+  public readonly serverTimestamp: Date;
+  public readonly serverTimestampRaw: string;
 
-    public get senderUserID(): number {
-        return this.ircMessage.ircTags.getInt('user-id');
-    }
+  public constructor(ircMessage: IRCMessage) {
+    super(ircMessage);
 
-    public extractUserState(): Partial<UserState> {
-        return {
-            badgeInfo: this.badgeInfo,
-            badges: this.badges,
-            color: this.color,
-            displayName: this.displayName,
-            isMod: this.isMod
-        };
-    }
+    const { isAction, message } = parseActionAndMessage(getParameter(this, 1));
+    this.messageText = message;
+    this.isAction = isAction;
+
+    this.senderUsername = getNickname(this);
+
+    const tagParser = tagParserFor(this.ircTags);
+    this.channelID = tagParser.getString("room-id");
+
+    this.senderUserID = tagParser.getString("user-id");
+
+    this.badgeInfo = tagParser.getBadges("badge-info");
+    this.badgeInfoRaw = tagParser.getString("badge-info");
+
+    this.badges = tagParser.getBadges("badges");
+    this.badgesRaw = tagParser.getString("badges");
+
+    this.bits = optionalData(() => tagParser.getInt("bits"));
+    this.bitsRaw = optionalData(() => tagParser.getString("bits"));
+
+    this.color = optionalData(() => tagParser.getColor("color"));
+    this.colorRaw = tagParser.getString("color");
+
+    this.displayName = tagParser.getString("display-name");
+
+    this.emotes = tagParser.getEmotes("emotes", this.messageText);
+    this.emotesRaw = tagParser.getString("emotes");
+
+    this.messageID = tagParser.getString("id");
+
+    this.isMod = tagParser.getBoolean("mod");
+    this.isModRaw = tagParser.getString("mod");
+
+    this.serverTimestamp = tagParser.getTimestamp("tmi-sent-ts");
+    this.serverTimestampRaw = tagParser.getString("tmi-sent-ts");
+  }
+
+  /**
+   * Extracts a plain object only containing the fields defined by the
+   * {@link PrivmsgUserState} interface.
+   */
+  public extractUserState(): PrivmsgUserState {
+    return {
+      badgeInfo: this.badgeInfo,
+      badgeInfoRaw: this.badgeInfoRaw,
+      badges: this.badges,
+      badgesRaw: this.badgesRaw,
+      color: this.color,
+      colorRaw: this.colorRaw,
+      displayName: this.displayName,
+      isMod: this.isMod,
+      isModRaw: this.isModRaw
+    };
+  }
 }

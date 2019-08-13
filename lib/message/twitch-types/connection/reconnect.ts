@@ -1,7 +1,3 @@
-import { TwitchMessage } from '../../twitch';
+import { IRCMessage } from "../../irc/irc-message";
 
-export class ReconnectMessage extends TwitchMessage {
-    public static get command(): string {
-        return 'RECONNECT';
-    }
-}
+export class ReconnectMessage extends IRCMessage {}

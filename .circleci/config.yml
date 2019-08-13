@@ -12,7 +12,7 @@ jobs:
           name: Restore npm package cache
           key: v1-dependency-cache-{{ checksum "./package.json" }}
       - run:
-          name: Get web dependencies
+          name: Install dependencies
           command: npm i
       - save_cache:
           name: Save npm package cache
@@ -20,18 +20,11 @@ jobs:
           paths:
             - ./node_modules
       - run:
-          name: Lint typescript files
-          command: npm run lint
+          name: Run linters
+          command: npm run lint -- --max-warnings=0
       - run:
-          name: Assemble typescript files
+          name: Assemble typescript
           command: npm run build
       - run:
           name: Run tests
           command: npm run test
-
-# add one workflow that runs all jobs in parallel
-workflows:
-  version: 2
-  build-all:
-    jobs:
-      - build

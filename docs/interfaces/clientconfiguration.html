@@ -79,15 +79,13 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="clientconfiguration.html#clientid" class="tsd-kind-icon">clientID</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="clientconfiguration.html#connectionratelimiter" class="tsd-kind-icon">connection<wbr>Rate<wbr>Limiter</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="clientconfiguration.html#connection" class="tsd-kind-icon">connection</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="clientconfiguration.html#connectionratelimits" class="tsd-kind-icon">connection<wbr>Rate<wbr>Limits</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="clientconfiguration.html#installdefaultmixins" class="tsd-kind-icon">install<wbr>Default<wbr>Mixins</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="clientconfiguration.html#maxchannelcountperconnection" class="tsd-kind-icon">max<wbr>Channel<wbr>Count<wbr>Per<wbr>Connection</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="clientconfiguration.html#password" class="tsd-kind-icon">password</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="clientconfiguration.html#receiveownmessagesback" class="tsd-kind-icon">receive<wbr>Own<wbr>Messages<wbr>Back</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="clientconfiguration.html#ratelimits" class="tsd-kind-icon">rate<wbr>Limits</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="clientconfiguration.html#requestmembershipcapability" class="tsd-kind-icon">request<wbr>Membership<wbr>Capability</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="clientconfiguration.html#trackownlastmessage" class="tsd-kind-icon">track<wbr>Own<wbr>Last<wbr>Message</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="clientconfiguration.html#trackownuserstate" class="tsd-kind-icon">track<wbr>Own<wbr>User<wbr>State</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="clientconfiguration.html#trackroomstate" class="tsd-kind-icon">track<wbr>Room<wbr>State</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="clientconfiguration.html#username" class="tsd-kind-icon">username</a></li>
 							</ul>
 						</section>
@@ -97,38 +95,42 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="clientid" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> clientID</h3>
-					<div class="tsd-signature tsd-kind-icon">clientID<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
+					<a name="connection" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> connection</h3>
+					<div class="tsd-signature tsd-kind-icon">connection<span class="tsd-signature-symbol">:</span> <a href="../globals.html#transportconfiguration" class="tsd-signature-type">TransportConfiguration</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/2276545/lib/client/config.ts#L44">client/config.ts:44</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/ea880a9/lib/config/config.ts#L70">config/config.ts:70</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>API Client ID so the bot can automatically determine the current rate limits for the logged in user.</p>
-						</div>
-						<p>If undefined (the default), default user rate limits will be used as a fallback.</p>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="connectionratelimiter" class="tsd-anchor"></a>
-					<h3>connection<wbr>Rate<wbr>Limiter</h3>
-					<div class="tsd-signature tsd-kind-icon">connection<wbr>Rate<wbr>Limiter<span class="tsd-signature-symbol">:</span> <a href="../classes/connectionratelimiter.html" class="tsd-signature-type">ConnectionRateLimiter</a></div>
+					<a name="connectionratelimits" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> connection<wbr>Rate<wbr>Limits</h3>
+					<div class="tsd-signature tsd-kind-icon">connection<wbr>Rate<wbr>Limits<span class="tsd-signature-symbol">:</span> <a href="connectionratelimits.html" class="tsd-signature-type">ConnectionRateLimits</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/2276545/lib/client/config.ts#L46">client/config.ts:46</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/ea880a9/lib/config/config.ts#L78">config/config.ts:78</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="installdefaultmixins" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> install<wbr>Default<wbr>Mixins</h3>
+					<div class="tsd-signature tsd-kind-icon">install<wbr>Default<wbr>Mixins<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/ea880a9/lib/config/config.ts#L79">config/config.ts:79</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="maxchannelcountperconnection" class="tsd-anchor"></a>
-					<h3>max<wbr>Channel<wbr>Count<wbr>Per<wbr>Connection</h3>
-					<div class="tsd-signature tsd-kind-icon">max<wbr>Channel<wbr>Count<wbr>Per<wbr>Connection<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> max<wbr>Channel<wbr>Count<wbr>Per<wbr>Connection</h3>
+					<div class="tsd-signature tsd-kind-icon">max<wbr>Channel<wbr>Count<wbr>Per<wbr>Connection<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/2276545/lib/client/config.ts#L37">client/config.ts:37</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/ea880a9/lib/config/config.ts#L75">config/config.ts:75</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -143,7 +145,7 @@
 					<div class="tsd-signature tsd-kind-icon">password<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/2276545/lib/client/config.ts#L14">client/config.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/ea880a9/lib/config/config.ts#L61">config/config.ts:61</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -154,22 +156,22 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="receiveownmessagesback" class="tsd-anchor"></a>
-					<h3>receive<wbr>Own<wbr>Messages<wbr>Back</h3>
-					<div class="tsd-signature tsd-kind-icon">receive<wbr>Own<wbr>Messages<wbr>Back<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<a name="ratelimits" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> rate<wbr>Limits</h3>
+					<div class="tsd-signature tsd-kind-icon">rate<wbr>Limits<span class="tsd-signature-symbol">:</span> <a href="../globals.html#ratelimitsconfig" class="tsd-signature-type">RateLimitsConfig</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/2276545/lib/client/config.ts#L48">client/config.ts:48</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/ea880a9/lib/config/config.ts#L77">config/config.ts:77</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="requestmembershipcapability" class="tsd-anchor"></a>
-					<h3>request<wbr>Membership<wbr>Capability</h3>
-					<div class="tsd-signature tsd-kind-icon">request<wbr>Membership<wbr>Capability<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> request<wbr>Membership<wbr>Capability</h3>
+					<div class="tsd-signature tsd-kind-icon">request<wbr>Membership<wbr>Capability<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/2276545/lib/client/config.ts#L21">client/config.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/ea880a9/lib/config/config.ts#L68">config/config.ts:68</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -180,50 +182,12 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="trackownlastmessage" class="tsd-anchor"></a>
-					<h3>track<wbr>Own<wbr>Last<wbr>Message</h3>
-					<div class="tsd-signature tsd-kind-icon">track<wbr>Own<wbr>Last<wbr>Message<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/2276545/lib/client/config.ts#L32">client/config.ts:32</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="trackownuserstate" class="tsd-anchor"></a>
-					<h3>track<wbr>Own<wbr>User<wbr>State</h3>
-					<div class="tsd-signature tsd-kind-icon">track<wbr>Own<wbr>User<wbr>State<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/2276545/lib/client/config.ts#L30">client/config.ts:30</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Whether the bot should store data about the bot&#39;s userstate for each channel the bot
-							participates in.</p>
-						</div>
-						<p>Currently used to automatically use the correct rate limit parameters and make the bot wait
-						before sending messages too quickly in channels it is not VIP, moderator or broadcaster in.</p>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="trackroomstate" class="tsd-anchor"></a>
-					<h3>track<wbr>Room<wbr>State</h3>
-					<div class="tsd-signature tsd-kind-icon">track<wbr>Room<wbr>State<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/2276545/lib/client/config.ts#L31">client/config.ts:31</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="username" class="tsd-anchor"></a>
-					<h3>username</h3>
-					<div class="tsd-signature tsd-kind-icon">username<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> username</h3>
+					<div class="tsd-signature tsd-kind-icon">username<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/2276545/lib/client/config.ts#L7">client/config.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/ea880a9/lib/config/config.ts#L54">config/config.ts:54</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -250,10 +214,13 @@
 						<a href="clientconfiguration.html" class="tsd-kind-icon">Client<wbr>Configuration</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="clientconfiguration.html#clientid" class="tsd-kind-icon">clientID</a>
+								<a href="clientconfiguration.html#connection" class="tsd-kind-icon">connection</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="clientconfiguration.html#connectionratelimiter" class="tsd-kind-icon">connection<wbr>Rate<wbr>Limiter</a>
+								<a href="clientconfiguration.html#connectionratelimits" class="tsd-kind-icon">connection<wbr>Rate<wbr>Limits</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="clientconfiguration.html#installdefaultmixins" class="tsd-kind-icon">install<wbr>Default<wbr>Mixins</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="clientconfiguration.html#maxchannelcountperconnection" class="tsd-kind-icon">max<wbr>Channel<wbr>Count<wbr>Per<wbr>Connection</a>
@@ -262,19 +229,10 @@
 								<a href="clientconfiguration.html#password" class="tsd-kind-icon">password</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="clientconfiguration.html#receiveownmessagesback" class="tsd-kind-icon">receive<wbr>Own<wbr>Messages<wbr>Back</a>
+								<a href="clientconfiguration.html#ratelimits" class="tsd-kind-icon">rate<wbr>Limits</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="clientconfiguration.html#requestmembershipcapability" class="tsd-kind-icon">request<wbr>Membership<wbr>Capability</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="clientconfiguration.html#trackownlastmessage" class="tsd-kind-icon">track<wbr>Own<wbr>Last<wbr>Message</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="clientconfiguration.html#trackownuserstate" class="tsd-kind-icon">track<wbr>Own<wbr>User<wbr>State</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="clientconfiguration.html#trackroomstate" class="tsd-kind-icon">track<wbr>Room<wbr>State</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="clientconfiguration.html#username" class="tsd-kind-icon">username</a>
@@ -300,6 +258,7 @@
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
@@ -348,7 +307,7 @@
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>
