@@ -38,19 +38,17 @@ commands:
           path: ./coverage
       - store_artifacts:
           path: ./mochawesome-report
-
 jobs:
   build-nodejs-12:
     docker:
       - image: circleci/node:12
     steps:
-      - run_all
+      - run_all:
   build-nodejs-10:
     docker:
       - image: circleci/node:10
     steps:
-      - run_all
-
+      - run_all:
 workflows:
   version: 2
   build-all:
