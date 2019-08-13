@@ -1,4 +1,4 @@
-# dank-twitch-irc [![CircleCI](https://circleci.com/gh/robotty/dank-twitch-irc.svg?style=svg)](https://circleci.com/gh/robotty/dank-twitch-irc)
+# dank-twitch-irc [![CircleCI](https://circleci.com/gh/robotty/dank-twitch-irc.svg?style=svg)](https://circleci.com/gh/robotty/dank-twitch-irc) ![Codecov](https://img.shields.io/codecov/c/github/robotty/dank-twitch-irc?token=bc46f1da4846461f99b4f0317b7cab82)
 
 Node.js-only Twitch IRC lib, written in TypeScript.
 
