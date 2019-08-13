@@ -4,6 +4,6 @@ module.exports = {
   extension: [".ts"],
   include: ["lib/**/*.ts"],
   instrument: true,
-  reporter: ["text", "html"],
+  reporter: ["text-summary", "html", "json"],
   sourceMap: true
 };
