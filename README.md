@@ -213,8 +213,7 @@ for general client/bot operations, so they were packaged as **mixins**. You can
 activate mixins by calling:
 
 ```javascript
-const { ChatClient } = require("dank-twitch-irc");
-const { AlternateMessageModifier } = require("dank-twitch-irc/mixins");
+const { ChatClient, AlternateMessageModifier } = require("dank-twitch-irc");
 
 let client = new ChatClient();
 
