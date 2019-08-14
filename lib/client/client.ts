@@ -99,7 +99,7 @@ export class ChatClient extends BaseClient {
     this.requireConnection().send(command);
   }
 
-  public async join(channelName: string): Promise<JoinMessage | undefined> {
+  public async join(channelName: string): Promise<void> {
     validateChannelName(channelName);
 
     if (this.connections.some(c => joinNothingToDo(c, channelName))) {
@@ -110,7 +110,7 @@ export class ChatClient extends BaseClient {
     const conn = this.requireConnection(
       maxJoinedChannels(this.configuration.maxChannelCountPerConnection)
     );
-    return joinChannel(conn, channelName);
+    await joinChannel(conn, channelName);
   }
 
   public async part(channelName: string): Promise<void> {
