@@ -28,7 +28,7 @@ const log = debugLogger("dank-twitch-irc:client");
 export type ConnectionPredicate = (conn: SingleConnection) => boolean;
 const alwaysTrue = (): true => true as const;
 
-export class Client extends BaseClient {
+export class ChatClient extends BaseClient {
   public get wantedChannels(): Set<string> {
     return unionSets(this.connections.map(c => c.wantedChannels));
   }

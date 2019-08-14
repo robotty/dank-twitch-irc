@@ -1,5 +1,5 @@
 import Semaphore from "semaphore-async-await";
-import { Client } from "../../client/client";
+import { ChatClient } from "../../client/client";
 import { SingleConnection } from "../../client/connection";
 import { applyReplacements } from "../../utils/apply-function-replacements";
 import { ClientMixin, ConnectionMixin } from "../base-mixin";
@@ -10,10 +10,10 @@ export interface ConnectionRateLimits {
 }
 
 export class ConnectionRateLimiter implements ClientMixin, ConnectionMixin {
-  private readonly client: Client;
+  private readonly client: ChatClient;
   private readonly semaphore: Semaphore;
 
-  public constructor(client: Client) {
+  public constructor(client: ChatClient) {
     this.client = client;
 
     this.semaphore = new Semaphore(
@@ -47,7 +47,7 @@ export class ConnectionRateLimiter implements ClientMixin, ConnectionMixin {
     unsubscribers.push(() => conn.removeListener("close", done));
   }
 
-  public applyToClient(client: Client): void {
+  public applyToClient(client: ChatClient): void {
     client.connectionMixins.push(this);
   }
 

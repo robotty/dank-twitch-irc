@@ -1,10 +1,10 @@
-import { Client } from "../client/client";
+import { ChatClient } from "../client/client";
 import { applyReplacements } from "../utils/apply-function-replacements";
 import { ignoreErrors } from "../utils/ignore-errors";
 import { ClientMixin } from "./base-mixin";
 
 export class IgnorePromiseRejectionsMixin implements ClientMixin {
-  public applyToClient(client: Client): void {
+  public applyToClient(client: ChatClient): void {
     const genericReplacement = <V, A extends any[]>(
       originalFn: (...args: A) => Promise<V>,
       ...args: A

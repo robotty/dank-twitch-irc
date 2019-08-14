@@ -1,15 +1,15 @@
 import Semaphore from "semaphore-async-await";
-import { Client } from "../../client/client";
+import { ChatClient } from "../../client/client";
 import { applyReplacements } from "../../utils/apply-function-replacements";
 import { ClientMixin } from "../base-mixin";
 import { canSpamFast } from "./utils";
 
 export class PrivmsgMessageRateLimiter implements ClientMixin {
-  private readonly client: Client;
+  private readonly client: ChatClient;
   private readonly highPrivmsgSemaphore: Semaphore;
   private readonly lowPrivmsgSemaphore: Semaphore;
 
-  public constructor(client: Client) {
+  public constructor(client: ChatClient) {
     this.client = client;
 
     this.highPrivmsgSemaphore = new Semaphore(
@@ -20,7 +20,7 @@ export class PrivmsgMessageRateLimiter implements ClientMixin {
     );
   }
 
-  public applyToClient(client: Client): void {
+  public applyToClient(client: ChatClient): void {
     const genericReplament = async <V>(
       oldFn: (channelName: string, message: string) => Promise<V>,
       channelName: string,

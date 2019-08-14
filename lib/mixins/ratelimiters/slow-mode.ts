@@ -1,5 +1,5 @@
 import Semaphore from "semaphore-async-await";
-import { Client } from "../../client/client";
+import { ChatClient } from "../../client/client";
 import { RoomState } from "../../message/twitch-types/roomstate";
 import { UserState } from "../../message/twitch-types/userstate";
 import { applyReplacements } from "../../utils/apply-function-replacements";
@@ -10,17 +10,17 @@ import { canSpamFast } from "./utils";
 export class SlowModeRateLimiter implements ClientMixin {
   public static GLOBAL_SLOW_MODE_COOLDOWN = 1.3;
 
-  private readonly client: Client;
+  private readonly client: ChatClient;
   private readonly maxQueueLength: number;
   private readonly semaphores: Record<string, Semaphore> = {};
   private readonly runningTimers: Record<string, EditableTimeout> = {};
 
-  public constructor(client: Client, maxQueueLength: number = 10) {
+  public constructor(client: ChatClient, maxQueueLength: number = 10) {
     this.client = client;
     this.maxQueueLength = maxQueueLength;
   }
 
-  public applyToClient(client: Client): void {
+  public applyToClient(client: ChatClient): void {
     const genericReplament = async (
       oldFn: (channelName: string, message: string) => Promise<void>,
       channelName: string,

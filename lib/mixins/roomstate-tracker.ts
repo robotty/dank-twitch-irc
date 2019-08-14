@@ -1,6 +1,6 @@
 import * as debugLogger from "debug-logger";
 import * as EventEmitter from "eventemitter3";
-import { Client } from "../client/client";
+import { ChatClient } from "../client/client";
 import {
   hasAllStateTags,
   RoomState,
@@ -25,7 +25,7 @@ export class RoomStateTracker extends EventEmitter<RoomStateTrackerEvents>
     return this.channelStates[channelName];
   }
 
-  public applyToClient(client: Client): void {
+  public applyToClient(client: ChatClient): void {
     client.roomStateTracker = this;
     client.on("ROOMSTATE", this.onRoomstateMessage.bind(this));
   }

@@ -1,8 +1,8 @@
-import { Client } from "../client/client";
+import { ChatClient } from "../client/client";
 import { SingleConnection } from "../client/connection";
 
 export interface ClientMixin {
-  applyToClient(client: Client): void;
+  applyToClient(client: ChatClient): void;
 }
 
 export interface ConnectionMixin {

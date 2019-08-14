@@ -1,4 +1,4 @@
-import { Client } from "../client/client";
+import { ChatClient } from "../client/client";
 import { PrivmsgMessage } from "../message/twitch-types/privmsg";
 import { applyReplacements } from "../utils/apply-function-replacements";
 import { ClientMixin } from "./base-mixin";
@@ -6,10 +6,10 @@ import { ClientMixin } from "./base-mixin";
 export const invisibleSuffix = " \u{000e0000}";
 
 export class AlternateMessageModifier implements ClientMixin {
-  private readonly client: Client;
+  private readonly client: ChatClient;
   private readonly lastMessages: Record<string, string> = {};
 
-  public constructor(client: Client) {
+  public constructor(client: ChatClient) {
     this.client = client;
   }
 
@@ -25,7 +25,7 @@ export class AlternateMessageModifier implements ClientMixin {
     }
   }
 
-  public applyToClient(client: Client): void {
+  public applyToClient(client: ChatClient): void {
     applyReplacements(this, client, {
       async say(oldFn, channelName: string, message: string): Promise<void> {
         const newMsg = this.appendInvisibleCharacter(channelName, message);

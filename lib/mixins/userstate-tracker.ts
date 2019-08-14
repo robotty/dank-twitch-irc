@@ -1,6 +1,6 @@
 import * as EventEmitter from "eventemitter3";
 import { Record } from "ts-toolbelt/out/types/src/Object/Record";
-import { Client } from "../client/client";
+import { ChatClient } from "../client/client";
 import {
   GlobalUserState,
   GlobaluserstateMessage
@@ -21,9 +21,9 @@ export class UserStateTracker extends EventEmitter<UserStateTrackerEvents>
   implements ClientMixin {
   public globalState?: GlobalUserState;
   public channelStates: Record<string, UserState> = {};
-  private readonly client: Client;
+  private readonly client: ChatClient;
 
-  public constructor(client: Client) {
+  public constructor(client: ChatClient) {
     super();
     this.client = client;
   }
@@ -32,7 +32,7 @@ export class UserStateTracker extends EventEmitter<UserStateTrackerEvents>
     return this.channelStates[channelName];
   }
 
-  public applyToClient(client: Client): void {
+  public applyToClient(client: ChatClient): void {
     client.on("USERSTATE", this.onUserstateMessage.bind(this));
     client.on("GLOBALUSERSTATE", this.onGlobaluserstateMessage.bind(this));
     client.on("PRIVMSG", this.onPrivmsgMessage.bind(this));
