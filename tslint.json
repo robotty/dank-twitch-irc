@@ -14,7 +14,8 @@
     "only-arrow-functions": false,
     "radix": false,
     "interface-over-type-literal": false,
-    "prefer-readonly": true
+    "prefer-readonly": true,
+    "ordered-imports": true
   },
   "rulesDirectory": []
 }
