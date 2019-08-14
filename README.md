@@ -18,13 +18,11 @@ client.on("close", error => {
   }
 });
 
-// .on("COMMANDNAME", msg => {}) for that command
-// or .on("message", msg => {}) for all messages
 client.on("PRIVMSG", msg => {
   console.log(`[#${msg.channelName}] ${msg.displayName}: ${msg.messageText}`);
 });
 
-// More events are listed under https://robotty.github.io/dank-twitch-irc/interfaces/specificclientevents.html
+// See below for more events
 
 client.connect();
 client.join("forsen");
