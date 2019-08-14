@@ -30,9 +30,77 @@ client.connect();
 client.join("forsen");
 ```
 
+## Available client events
+
+- **`client.on("connecting", () => { /* ... */ })`**: Called when the client
+  starts connecting for the first time.
+- **`client.on("connect", () => { /* ... */ })`**: Called when the client
+  connects for the first time. This is called when the transport layer
+  connections (e.g. TCP or WebSocket connection is established), not when login
+  to IRC succeeds.
+- **`client.on("ready", ()) => { /* ... */ })`**: Called when the client becomes
+  ready for the first time (login to the chat server is successful.)
+- **`client.on("close", (error?: Error) => { /* ... */ })`**: Called when the
+  client is terminated as a whole. Not called for individual connections that
+  were disconnected. Can be caused for example by a invalid OAuth token (failure
+  to login), or when `client.close()` or `client.destroy()` was called. `error`
+  is only non-null if the client was closed by a call to `client.close()`.
+- **`client.on("error", (error: Error?) => { /* ... */ })`**: Called when any
+  error occurs on the client, including non-fatal errors such as a message that
+  could not be delivered due to an error.
+- **`client.on("message", (message: IRCMessage) => { /* ... */ })`**: Called on
+  every incoming message. If the message is a message that is further parsed (I
+  called these "twitch messages" in this library) then the `message` passed to
+  this handler will already be the specific type, e.g. `PrivmsgMessage` if the
+  command is `PRIVMSG`.
+- **`client.on("PRIVMSG", (message: PrivmsgMessage) => { /* ... */ })`**: Called
+  on incoming messages whose command is `PRIVMSG`. The `message` parameter is
+  always instanceof `PrivmsgMessage`. (See the API documentation for what
+  properties exist on all `PrivmsgMessage` instances)
+
+  For example:
+
+  ```javascript
+  client.on("CLEARCHAT", msg =>
+    console.log(`${msg.targetUsername} just got timed out or banned`)
+  );
+  ```
+
+  Other message types that have specific message parsing are:
+
+  | Command and event name | Message type             | Description                                                                                                                                                                                                    |
+  | ---------------------- | ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | `CLEARCHAT`            | `ClearchatMessage`       | Timeout and ban messages                                                                                                                                                                                       |
+  | `CLEARMSG`             | `ClearmsgMessage`        | Single message deletions (initiated by `/delete`)                                                                                                                                                              |
+  | `HOSTTARGET`           | `HosttargetMessage`      | A channel entering or exiting host mode.                                                                                                                                                                       |
+  | `NOTICE`               | `NoticeMessage`          | Various notices, such as when you `/help`, a command fails, the error response when you are timed out, etc.                                                                                                    |
+  | `PRIVMSG`              | `PrivmsgMessage`         | Normal chat messages                                                                                                                                                                                           |
+  | `ROOMSTATE`            | `RoomstateMessage`       | A change to a channel's followers mode, subscribers-only mode, r9k mode, followers mode, slow mode etc.                                                                                                        |
+  | `USERNOTICE`           | `UsernoticeMessage`      | Subs, resubs, sub gifts, rituals, raids, etc...                                                                                                                                                                |
+  | `USERSTATE`            | `UserstateMessage`       | Your own state (e.g. badges, color, display name, emote sets, mod status), sent on every time you join a channel or send a `PRIVMSG` to a channel                                                              |
+  | `GLOBALUSERSTATE`      | `GlobaluserstateMessage` | Logged in user's "global state", sent once on every login (Note that due to the used connection pool you can receive this multiple times during your bot's runtime)                                            |
+  | `WHISPER`              | `WhisperMessage`         | Somebody else whispering you                                                                                                                                                                                   |
+  | `JOIN`                 | `JoinMessage`            | You yourself joining a channel, of if you have `requestMembershipCapability` enabled, also other users joining channels you are joined to.                                                                     |
+  | `PART`                 | `JoinMessage`            | You yourself parting (leaving) a channel, of if you have `requestMembershipCapability` enabled, also other users parting channels you are joined to.                                                           |
+  | `RECONNECT`            | `ReconnectMessage`       | When the twitch server tells a client to reconnect and re-join channels (You don't have to listen for this yourself, this is done automatically already)                                                       |
+  | `PING`                 | `PingMessage`            | When the twitch server sends a ping, expecting a pong back from the client to verify if the connection is still alive. (You don't have to listen for this yourself, the client automatically responds for you) |
+  | `PONG`                 | `PongMessage`            | When the twitch server responds to our `PING` requests (The library automatically sends a `PING` request every 30 seconds to verify connections are alive)                                                     |
+  | `CAP`                  | `CapMessage`             | Message type received once during connection startup, acknowledging requested capabilities.                                                                                                                    |
+
+  All other commands (if they don't have a special parsed type like the ones
+  listed above) will still be emitted under their command name, e.g.:
+
+  ```javascript
+  // :tmi.twitch.tv 372 botfactory :You are in a maze of twisty passages, all alike.
+  // msg will be an instance of IRCMessage
+  client.on("372", msg =>
+    console.log(`Server MOTD is: ${msg.ircParameters[1]}`)
+  );
+  ```
+
 ## API Documentation
 
-Generated documentation can be found here:
+Generated API documentation can be found here:
 https://robotty.github.io/dank-twitch-irc
 
 ## Client options
