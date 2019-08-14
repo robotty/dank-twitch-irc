@@ -13,7 +13,8 @@
     "test": "nyc mocha",
     "clean": "rm -rf ./dist ./docs ./coverage ./.nyc_output ./mochawesome-report",
     "docs": "typedoc --mode file --excludeNotExported --excludePrivate --excludeProtected -out ./docs",
-    "prettier-watch": "onchange -v \"**/*.ts\" \"**/*.js\" -- prettier --write {{changed}}"
+    "prettier-watch": "onchange -v \"**/*.ts\" \"**/*.js\" -- prettier --write {{changed}}",
+    "generate-index": "npx create-ts-index@^1.10.2 create ./lib -w -i '.spec' && npm run lintfix"
   },
   "keywords": [
     "twitch",

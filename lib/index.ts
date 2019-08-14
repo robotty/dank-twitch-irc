@@ -1,1 +1,10 @@
-export { Client as ChatClient } from "./client/client";
+export * from "./await";
+export * from "./client";
+export * from "./config";
+export * from "./functionalities";
+export * from "./message";
+export * from "./mixins";
+export * from "./operations";
+export * from "./utils";
+export * from "./validation";
+export * from "./constants";
