@@ -107,7 +107,11 @@ let client = new ChatClient({
   // read more about mixins below
   // this disables the connection rate limiter, message rate limiter
   // and Room- and Userstate trackers (which are important for other mixins)
-  installDefaultMixins: false // true by default
+  installDefaultMixins: false, // true by default
+
+  // Don't reject the promises returned by client methods such as `.say()`.
+  // On Error, they will be resolved with undefined instead.
+  suppressPromiseRejections: true // false by default
 });
 ```
 

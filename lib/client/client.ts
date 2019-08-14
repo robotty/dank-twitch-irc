@@ -52,6 +52,9 @@ export class Client extends BaseClient {
       this.use(new RoomStateTracker());
       this.use(new ConnectionRateLimiter(this));
       this.use(new PrivmsgMessageRateLimiter(this));
+    }
+
+    if (this.configuration.suppressPromiseRejections) {
       this.use(new IgnorePromiseRejectionsMixin());
     }
 

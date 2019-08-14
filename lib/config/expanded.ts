@@ -62,7 +62,8 @@ const defaults: Omit<
     releaseTime: 10 * 1000
   },
 
-  installDefaultMixins: true
+  installDefaultMixins: true,
+  suppressPromiseRejections: false
 };
 
 export function expandTransportConfig(
