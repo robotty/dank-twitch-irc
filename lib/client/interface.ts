@@ -31,8 +31,6 @@ export interface SpecificClientEvents {
   close: [Error | undefined];
   error: [Error];
 
-  reconnect: [];
-
   message: [IRCMessage];
 }
 
