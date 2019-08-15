@@ -1,6 +1,5 @@
 import * as debugLogger from "debug-logger";
 import { ClientConfiguration } from "../config/config";
-import { JoinMessage } from "../message/twitch-types/membership/join";
 import { ClientMixin, ConnectionMixin } from "../mixins/base-mixin";
 import { IgnorePromiseRejectionsMixin } from "../mixins/ignore-promise-rejections";
 import { ConnectionRateLimiter } from "../mixins/ratelimiters/connection";
