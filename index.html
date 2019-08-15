@@ -236,6 +236,10 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
 				<pre><code class="language-javascript"><span class="hljs-keyword">let</span> client = <span class="hljs-keyword">new</span> ChatClient({
   <span class="hljs-attr">username</span>: <span class="hljs-string">"your-bot-username"</span>, <span class="hljs-comment">// justinfan12345 by default - For anonymous chat connection</span>
   password: <span class="hljs-string">"0123456789abcdef1234567"</span>, <span class="hljs-comment">// undefined by default (no password)</span>
+  <span class="hljs-comment">// other options for password:</span>
+  password: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">"1234567"</span>, <span class="hljs-comment">// synchronous function</span>
+  password: <span class="hljs-keyword">async</span> () =&gt; { <span class="hljs-keyword">await</span> something(); <span class="hljs-keyword">return</span> <span class="hljs-string">"1234567"</span>; }, <span class="hljs-comment">// return a promise,</span>
+  <span class="hljs-comment">// for example to fetch a fresh token if it needs to be refreshed</span>
 
   <span class="hljs-comment">// Message rate limits configuration for verified and known bots</span>
   <span class="hljs-comment">// pick one of the presets or configure custom rates as shown below:</span>
@@ -904,6 +908,9 @@ npm run lintfix</code></pre>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#ignoreerrors" class="tsd-kind-icon">ignore<wbr>Errors</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#isanonymoususername" class="tsd-kind-icon">is<wbr>Anonymous<wbr>Username</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#joinall" class="tsd-kind-icon">join<wbr>All</a>
