@@ -81,20 +81,197 @@ client.on(<span class="hljs-string">"close"</span>, error =&gt; {
   }
 });
 
-<span class="hljs-comment">// .on("COMMANDNAME", msg =&gt; {}) for that command</span>
-<span class="hljs-comment">// or .on("message", msg =&gt; {}) for all messages</span>
 client.on(<span class="hljs-string">"PRIVMSG"</span>, msg =&gt; {
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`[#<span class="hljs-subst">${msg.channelName}</span>] <span class="hljs-subst">${msg.displayName}</span>: <span class="hljs-subst">${msg.messageText}</span>`</span>);
 });
 
-<span class="hljs-comment">// More events are listed under https://robotty.github.io/dank-twitch-irc/interfaces/specificclientevents.html</span>
+<span class="hljs-comment">// See below for more events</span>
 
 client.connect();
 client.join(<span class="hljs-string">"forsen"</span>);</code></pre>
+				<a href="#available-client-events" id="available-client-events" style="color: inherit; text-decoration: none;">
+					<h2>Available client events</h2>
+				</a>
+				<ul>
+					<li><p><strong><code>client.on(&quot;connecting&quot;, () =&gt; { /* ... */ })</code></strong>: Called when the client
+						starts connecting for the first time.</p>
+					</li>
+					<li><p><strong><code>client.on(&quot;connect&quot;, () =&gt; { /* ... */ })</code></strong>: Called when the client
+							connects for the first time. This is called when the transport layer
+							connections (e.g. TCP or WebSocket connection is established), not when login
+						to IRC succeeds.</p>
+					</li>
+					<li><p><strong><code>client.on(&quot;ready&quot;, ()) =&gt; { /* ... */ })</code></strong>: Called when the client becomes
+						ready for the first time (login to the chat server is successful.)</p>
+					</li>
+					<li><p><strong><code>client.on(&quot;close&quot;, (error?: Error) =&gt; { /* ... */ })</code></strong>: Called when the
+							client is terminated as a whole. Not called for individual connections that
+							were disconnected. Can be caused for example by a invalid OAuth token (failure
+							to login), or when <code>client.close()</code> or <code>client.destroy()</code> was called. <code>error</code>
+						is only non-null if the client was closed by a call to <code>client.close()</code>.</p>
+					</li>
+					<li><p><strong><code>client.on(&quot;error&quot;, (error: Error?) =&gt; { /* ... */ })</code></strong>: Called when any
+							error occurs on the client, including non-fatal errors such as a message that
+						could not be delivered due to an error.</p>
+					</li>
+					<li><p><strong><code>client.on(&quot;message&quot;, (message: IRCMessage) =&gt; { /* ... */ })</code></strong>: Called on
+							every incoming message. If the message is a message that is further parsed (I
+							called these &quot;twitch messages&quot; in this library) then the <code>message</code> passed to
+							this handler will already be the specific type, e.g. <code>PrivmsgMessage</code> if the
+						command is <code>PRIVMSG</code>.</p>
+					</li>
+					<li><p><strong><code>client.on(&quot;PRIVMSG&quot;, (message: PrivmsgMessage) =&gt; { /* ... */ })</code></strong>: Called
+							on incoming messages whose command is <code>PRIVMSG</code>. The <code>message</code> parameter is
+							always instanceof <code>PrivmsgMessage</code>. (See the API documentation for what
+						properties exist on all <code>PrivmsgMessage</code> instances)</p>
+						<p>For example:</p>
+						<pre><code class="language-javascript">client.on(<span class="hljs-string">"CLEARCHAT"</span>, msg =&gt;
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${msg.targetUsername}</span> just got timed out or banned`</span>)
+);</code></pre>
+						<p>Other message types that have specific message parsing are:</p>
+						<table>
+							<thead>
+								<tr>
+									<th>Command and event name</th>
+									<th>Message type</th>
+									<th>Description</th>
+								</tr>
+							</thead>
+							<tbody><tr>
+									<td><code>CLEARCHAT</code></td>
+									<td><a href="https://robotty.github.io/dank-twitch-irc/classes/clearchatmessage.html"><code>ClearchatMessage</code></a></td>
+									<td>Timeout and ban messages</td>
+								</tr>
+								<tr>
+									<td><code>CLEARMSG</code></td>
+									<td><a href="https://robotty.github.io/dank-twitch-irc/classes/clearmsgmessage.html"><code>ClearmsgMessage</code></a></td>
+									<td>Single message deletions (initiated by <code>/delete</code>)</td>
+								</tr>
+								<tr>
+									<td><code>HOSTTARGET</code></td>
+									<td><a href="https://robotty.github.io/dank-twitch-irc/classes/hosttargetmessage.html"><code>HosttargetMessage</code></a></td>
+									<td>A channel entering or exiting host mode.</td>
+								</tr>
+								<tr>
+									<td><code>NOTICE</code></td>
+									<td><a href="https://robotty.github.io/dank-twitch-irc/classes/noticemessage.html"><code>NoticeMessage</code></a></td>
+									<td>Various notices, such as when you <code>/help</code>, a command fails, the error response when you are timed out, etc.</td>
+								</tr>
+								<tr>
+									<td><code>PRIVMSG</code></td>
+									<td><a href="https://robotty.github.io/dank-twitch-irc/classes/privmsgmessage.html"><code>PrivmsgMessage</code></a></td>
+									<td>Normal chat messages</td>
+								</tr>
+								<tr>
+									<td><code>ROOMSTATE</code></td>
+									<td><a href="https://robotty.github.io/dank-twitch-irc/classes/roomstatemessage.html"><code>RoomstateMessage</code></a></td>
+									<td>A change to a channel&#39;s followers mode, subscribers-only mode, r9k mode, followers mode, slow mode etc.</td>
+								</tr>
+								<tr>
+									<td><code>USERNOTICE</code></td>
+									<td><a href="https://robotty.github.io/dank-twitch-irc/classes/usernoticemessage.html"><code>UsernoticeMessage</code></a></td>
+									<td>Subs, resubs, sub gifts, rituals, raids, etc...</td>
+								</tr>
+								<tr>
+									<td><code>USERSTATE</code></td>
+									<td><a href="https://robotty.github.io/dank-twitch-irc/classes/userstatemessage.html"><code>UserstateMessage</code></a></td>
+									<td>Your own state (e.g. badges, color, display name, emote sets, mod status), sent on every time you join a channel or send a <code>PRIVMSG</code> to a channel</td>
+								</tr>
+								<tr>
+									<td><code>GLOBALUSERSTATE</code></td>
+									<td><a href="https://robotty.github.io/dank-twitch-irc/classes/globaluserstatemessage.html"><code>GlobaluserstateMessage</code></a></td>
+									<td>Logged in user&#39;s &quot;global state&quot;, sent once on every login (Note that due to the used connection pool you can receive this multiple times during your bot&#39;s runtime)</td>
+								</tr>
+								<tr>
+									<td><code>WHISPER</code></td>
+									<td><a href="https://robotty.github.io/dank-twitch-irc/classes/whispermessage.html"><code>WhisperMessage</code></a></td>
+									<td>Somebody else whispering you</td>
+								</tr>
+								<tr>
+									<td><code>JOIN</code></td>
+									<td><a href="https://robotty.github.io/dank-twitch-irc/classes/joinmessage.html"><code>JoinMessage</code></a></td>
+									<td>You yourself joining a channel, of if you have <code>requestMembershipCapability</code> enabled, also other users joining channels you are joined to.</td>
+								</tr>
+								<tr>
+									<td><code>PART</code></td>
+									<td><a href="https://robotty.github.io/dank-twitch-irc/classes/partmessage.html"><code>JoinMessage</code></a></td>
+									<td>You yourself parting (leaving) a channel, of if you have <code>requestMembershipCapability</code> enabled, also other users parting channels you are joined to.</td>
+								</tr>
+								<tr>
+									<td><code>RECONNECT</code></td>
+									<td><a href="https://robotty.github.io/dank-twitch-irc/classes/reconnectmessage.html"><code>ReconnectMessage</code></a></td>
+									<td>When the twitch server tells a client to reconnect and re-join channels (You don&#39;t have to listen for this yourself, this is done automatically already)</td>
+								</tr>
+								<tr>
+									<td><code>PING</code></td>
+									<td><a href="https://robotty.github.io/dank-twitch-irc/classes/pingmessage.html"><code>PingMessage</code></a></td>
+									<td>When the twitch server sends a ping, expecting a pong back from the client to verify if the connection is still alive. (You don&#39;t have to listen for this yourself, the client automatically responds for you)</td>
+								</tr>
+								<tr>
+									<td><code>PONG</code></td>
+									<td><a href="https://robotty.github.io/dank-twitch-irc/classes/pongmessage.html"><code>PongMessage</code></a></td>
+									<td>When the twitch server responds to our <code>PING</code> requests (The library automatically sends a <code>PING</code> request every 30 seconds to verify connections are alive)</td>
+								</tr>
+								<tr>
+									<td><code>CAP</code></td>
+									<td><a href="https://robotty.github.io/dank-twitch-irc/classes/capmessage.html"><code>CapMessage</code></a></td>
+									<td>Message type received once during connection startup, acknowledging requested capabilities.</td>
+								</tr>
+						</tbody></table>
+					</li>
+				</ul>
+				<p>All other commands (if they don&#39;t have a special parsed type like the ones
+					listed above) will still be emitted under their command name as a
+				<a href="https://robotty.github.io/dank-twitch-irc/classes/ircmessage.html"><code>IRCMessage</code></a>, e.g.:</p>
+				<pre><code class="language-javascript"><span class="hljs-comment">// :tmi.twitch.tv 372 botfactory :You are in a maze of twisty passages, all alike.</span>
+<span class="hljs-comment">// msg will be an instance of IRCMessage</span>
+client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Server MOTD is: <span class="hljs-subst">${msg.ircParameters[<span class="hljs-number">1</span>]}</span>`</span>));</code></pre>
+				<a href="#chatclient-api" id="chatclient-api" style="color: inherit; text-decoration: none;">
+					<h2>ChatClient API</h2>
+				</a>
+				<p>You probably will want to use these functions on <code>ChatClient</code> most frequently:</p>
+				<ul>
+					<li><code>client.join(channelName: string): Promise&lt;void&gt;</code> - Join (Listen to) the
+					channel given by the channel name</li>
+					<li><code>client.joinAll(channelNames: string[]): Promise&lt;void&gt;</code> - Join (Listen to) all
+					of the listed channels at once (bulk join)</li>
+					<li><code>client.part(channelName: string): Promise&lt;void&gt;</code> - Part (Leave/Unlisten) the
+					channel given by the channel name</li>
+					<li><code>client.privmsg(channelName: string, message: string): Promise&lt;void&gt;</code> - Send a
+						raw <code>PRIVMSG</code> to the given channel. You can issue chat commands with this
+						function, e.g. <code>client.privmsg(&quot;forsen&quot;, &quot;/timeout weeb123 5&quot;)</code> or normal
+					messages, e.g. <code>client.privmsg(&quot;forsen&quot;, &quot;Kappa Keepo PogChamp&quot;)</code>.</li>
+					<li><code>client.say(channelName: string, message: string): Promise&lt;void&gt;</code> - Say a
+						normal chat message in the given channel. If a command is given as <code>message</code>,
+					it will be escaped.</li>
+					<li><code>client.me(channelName: string, message: string): Promise&lt;void&gt;</code> - Post a
+					<code>/me</code> message in the given channel.</li>
+					<li><code>client.ping()</code> - Send a <code>PING</code> on a connection from the pool, and awaits the
+					<code>PONG</code> response. You can use this to measure server latency, for example.</li>
+					<li><code>client.whisper(username: string, message: string)</code> - Send the user a whisper
+					from the bot.</li>
+				</ul>
+				<p>Extra functionality:</p>
+				<ul>
+					<li><code>client.sendRaw(command: string): void</code> - Send a raw IRC command to a
+					connection in the connection pool.</li>
+					<li><code>client.unconnected (boolean)</code> - Returns whether the client is unconnected.</li>
+					<li><code>client.connecting (boolean)</code> - Returns whether the client is connecting.</li>
+					<li><code>client.connected (boolean)</code> - Returns whether the client is connected
+					(Transport layer is connected).</li>
+					<li><code>client.ready (boolean)</code> - Returns whether the client is ready (Logged into
+					IRC server).</li>
+					<li><code>client.closed (boolean)</code> - Returns whether the client is closed.</li>
+				</ul>
+				<p>Note that channel names in the above functions always refer to the &quot;login name&quot;
+					of a twitch channel. Channel names may not be capitalized, e.g. <code>Forsen</code> would
+					be invalid, but <code>forsen</code> not. This library also does not accept the leading <code>#</code>
+					character and never returns it on any message objects (e.g. <code>msg.channelName</code>
+				would be <code>forsen</code>, not <code>#forsen</code>).</p>
 				<a href="#api-documentation" id="api-documentation" style="color: inherit; text-decoration: none;">
 					<h2>API Documentation</h2>
 				</a>
-				<p>Generated documentation can be found here:
+				<p>Generated API documentation can be found here:
 				<a href="https://robotty.github.io/dank-twitch-irc">https://robotty.github.io/dank-twitch-irc</a></p>
 				<a href="#client-options" id="client-options" style="color: inherit; text-decoration: none;">
 					<h2>Client options</h2>
@@ -167,7 +344,11 @@ client.join(<span class="hljs-string">"forsen"</span>);</code></pre>
   <span class="hljs-comment">// read more about mixins below</span>
   <span class="hljs-comment">// this disables the connection rate limiter, message rate limiter</span>
   <span class="hljs-comment">// and Room- and Userstate trackers (which are important for other mixins)</span>
-  installDefaultMixins: <span class="hljs-literal">false</span> <span class="hljs-comment">// true by default</span>
+  installDefaultMixins: <span class="hljs-literal">false</span>, <span class="hljs-comment">// true by default</span>
+
+  <span class="hljs-comment">// Don't reject the promises returned by client methods such as `.say()`.</span>
+  <span class="hljs-comment">// On Error, they will be resolved with undefined instead.</span>
+  suppressPromiseRejections: <span class="hljs-literal">true</span> <span class="hljs-comment">// false by default</span>
 });</code></pre>
 				<a href="#features" id="features" style="color: inherit; text-decoration: none;">
 					<h2>Features</h2>
@@ -199,8 +380,7 @@ client.join(<span class="hljs-string">"forsen"</span>);</code></pre>
 				<p>There are some features you might find useful in your bot that are not necessary
 					for general client/bot operations, so they were packaged as <strong>mixins</strong>. You can
 				activate mixins by calling:</p>
-				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { ChatClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">"dank-twitch-irc"</span>);
-<span class="hljs-keyword">const</span> { AlternateMessageModifier } = <span class="hljs-built_in">require</span>(<span class="hljs-string">"dank-twitch-irc/mixins"</span>);
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { ChatClient, AlternateMessageModifier } = <span class="hljs-built_in">require</span>(<span class="hljs-string">"dank-twitch-irc"</span>);
 
 <span class="hljs-keyword">let</span> client = <span class="hljs-keyword">new</span> ChatClient();
 
@@ -227,7 +407,8 @@ client.use(<span class="hljs-keyword">new</span> AlternateMessageModifier(client
 					<li><code>new RoomStateTracker()</code> - Used by other mixins. Keeps track of each channel&#39;s
 					state, e.g. sub-mode etc.</li>
 					<li><code>new IgnorePromiseRejectionsMixin()</code> - Swallows rejected promises returned by
-					the client&#39;s functions.</li>
+						the client&#39;s functions. (installed for you if you activate the
+					<code>suppressPromiseRejections</code> client option)</li>
 				</ul>
 				<a href="#tests" id="tests" style="color: inherit; text-decoration: none;">
 					<h2>Tests</h2>
@@ -272,13 +453,13 @@ npm run lintfix</code></pre>
 						<a href="classes/channelircmessage.html" class="tsd-kind-icon">ChannelIRCMessage</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="classes/chatclient.html" class="tsd-kind-icon">Chat<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="classes/clearchatmessage.html" class="tsd-kind-icon">Clearchat<wbr>Message</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/clearmsgmessage.html" class="tsd-kind-icon">Clearmsg<wbr>Message</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/client.html" class="tsd-kind-icon">Client</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/clienterror.html" class="tsd-kind-icon">Client<wbr>Error</a>
