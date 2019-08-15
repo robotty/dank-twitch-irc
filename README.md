@@ -66,35 +66,76 @@ client.join("forsen");
 
   Other message types that have specific message parsing are:
 
-  | Command and event name | Message type             | Description                                                                                                                                                                                                    |
-  | ---------------------- | ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-  | `CLEARCHAT`            | `ClearchatMessage`       | Timeout and ban messages                                                                                                                                                                                       |
-  | `CLEARMSG`             | `ClearmsgMessage`        | Single message deletions (initiated by `/delete`)                                                                                                                                                              |
-  | `HOSTTARGET`           | `HosttargetMessage`      | A channel entering or exiting host mode.                                                                                                                                                                       |
-  | `NOTICE`               | `NoticeMessage`          | Various notices, such as when you `/help`, a command fails, the error response when you are timed out, etc.                                                                                                    |
-  | `PRIVMSG`              | `PrivmsgMessage`         | Normal chat messages                                                                                                                                                                                           |
-  | `ROOMSTATE`            | `RoomstateMessage`       | A change to a channel's followers mode, subscribers-only mode, r9k mode, followers mode, slow mode etc.                                                                                                        |
-  | `USERNOTICE`           | `UsernoticeMessage`      | Subs, resubs, sub gifts, rituals, raids, etc...                                                                                                                                                                |
-  | `USERSTATE`            | `UserstateMessage`       | Your own state (e.g. badges, color, display name, emote sets, mod status), sent on every time you join a channel or send a `PRIVMSG` to a channel                                                              |
-  | `GLOBALUSERSTATE`      | `GlobaluserstateMessage` | Logged in user's "global state", sent once on every login (Note that due to the used connection pool you can receive this multiple times during your bot's runtime)                                            |
-  | `WHISPER`              | `WhisperMessage`         | Somebody else whispering you                                                                                                                                                                                   |
-  | `JOIN`                 | `JoinMessage`            | You yourself joining a channel, of if you have `requestMembershipCapability` enabled, also other users joining channels you are joined to.                                                                     |
-  | `PART`                 | `JoinMessage`            | You yourself parting (leaving) a channel, of if you have `requestMembershipCapability` enabled, also other users parting channels you are joined to.                                                           |
-  | `RECONNECT`            | `ReconnectMessage`       | When the twitch server tells a client to reconnect and re-join channels (You don't have to listen for this yourself, this is done automatically already)                                                       |
-  | `PING`                 | `PingMessage`            | When the twitch server sends a ping, expecting a pong back from the client to verify if the connection is still alive. (You don't have to listen for this yourself, the client automatically responds for you) |
-  | `PONG`                 | `PongMessage`            | When the twitch server responds to our `PING` requests (The library automatically sends a `PING` request every 30 seconds to verify connections are alive)                                                     |
-  | `CAP`                  | `CapMessage`             | Message type received once during connection startup, acknowledging requested capabilities.                                                                                                                    |
+  | Command and event name | Message type                                | Description                                                                                                                                                                                                    |
+  | ---------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | `CLEARCHAT`            | [`ClearchatMessage`][clearchat]             | Timeout and ban messages                                                                                                                                                                                       |
+  | `CLEARMSG`             | [`ClearmsgMessage`][clearmsg]               | Single message deletions (initiated by `/delete`)                                                                                                                                                              |
+  | `HOSTTARGET`           | [`HosttargetMessage`][hosttarget]           | A channel entering or exiting host mode.                                                                                                                                                                       |
+  | `NOTICE`               | [`NoticeMessage`][notice]                   | Various notices, such as when you `/help`, a command fails, the error response when you are timed out, etc.                                                                                                    |
+  | `PRIVMSG`              | [`PrivmsgMessage`][privmsg]                 | Normal chat messages                                                                                                                                                                                           |
+  | `ROOMSTATE`            | [`RoomstateMessage`][roomstate]             | A change to a channel's followers mode, subscribers-only mode, r9k mode, followers mode, slow mode etc.                                                                                                        |
+  | `USERNOTICE`           | [`UsernoticeMessage`][usernotice]           | Subs, resubs, sub gifts, rituals, raids, etc...                                                                                                                                                                |
+  | `USERSTATE`            | [`UserstateMessage`][userstate]             | Your own state (e.g. badges, color, display name, emote sets, mod status), sent on every time you join a channel or send a `PRIVMSG` to a channel                                                              |
+  | `GLOBALUSERSTATE`      | [`GlobaluserstateMessage`][globaluserstate] | Logged in user's "global state", sent once on every login (Note that due to the used connection pool you can receive this multiple times during your bot's runtime)                                            |
+  | `WHISPER`              | [`WhisperMessage`][whisper]                 | Somebody else whispering you                                                                                                                                                                                   |
+  | `JOIN`                 | [`JoinMessage`][join]                       | You yourself joining a channel, of if you have `requestMembershipCapability` enabled, also other users joining channels you are joined to.                                                                     |
+  | `PART`                 | [`JoinMessage`][part]                       | You yourself parting (leaving) a channel, of if you have `requestMembershipCapability` enabled, also other users parting channels you are joined to.                                                           |
+  | `RECONNECT`            | [`ReconnectMessage`][reconnect]             | When the twitch server tells a client to reconnect and re-join channels (You don't have to listen for this yourself, this is done automatically already)                                                       |
+  | `PING`                 | [`PingMessage`][ping]                       | When the twitch server sends a ping, expecting a pong back from the client to verify if the connection is still alive. (You don't have to listen for this yourself, the client automatically responds for you) |
+  | `PONG`                 | [`PongMessage`][pong]                       | When the twitch server responds to our `PING` requests (The library automatically sends a `PING` request every 30 seconds to verify connections are alive)                                                     |
+  | `CAP`                  | [`CapMessage`][cap]                         | Message type received once during connection startup, acknowledging requested capabilities.                                                                                                                    |
 
-  All other commands (if they don't have a special parsed type like the ones
-  listed above) will still be emitted under their command name, e.g.:
+All other commands (if they don't have a special parsed type like the ones
+listed above) will still be emitted under their command name as a
+[`IRCMessage`][ircmessage], e.g.:
 
-  ```javascript
-  // :tmi.twitch.tv 372 botfactory :You are in a maze of twisty passages, all alike.
-  // msg will be an instance of IRCMessage
-  client.on("372", msg =>
-    console.log(`Server MOTD is: ${msg.ircParameters[1]}`)
-  );
-  ```
+```javascript
+// :tmi.twitch.tv 372 botfactory :You are in a maze of twisty passages, all alike.
+// msg will be an instance of IRCMessage
+client.on("372", msg => console.log(`Server MOTD is: ${msg.ircParameters[1]}`));
+```
+
+## ChatClient API
+
+You probably will want to use these functions on `ChatClient` most frequently:
+
+- `client.join(channelName: string): Promise<void>` - Join (Listen to) the
+  channel given by the channel name
+- `client.joinAll(channelNames: string[]): Promise<void>` - Join (Listen to) all
+  of the listed channels at once (bulk join)
+- `client.part(channelName: string): Promise<void>` - Part (Leave/Unlisten) the
+  channel given by the channel name
+- `client.privmsg(channelName: string, message: string): Promise<void>` - Send a
+  raw `PRIVMSG` to the given channel. You can issue chat commands with this
+  function, e.g. `client.privmsg("forsen", "/timeout weeb123 5")` or normal
+  messages, e.g. `client.privmsg("forsen", "Kappa Keepo PogChamp")`.
+- `client.say(channelName: string, message: string): Promise<void>` - Say a
+  normal chat message in the given channel. If a command is given as `message`,
+  it will be escaped.
+- `client.me(channelName: string, message: string): Promise<void>` - Post a
+  `/me` message in the given channel.
+- `client.ping()` - Send a `PING` on a connection from the pool, and awaits the
+  `PONG` response. You can use this to measure server latency, for example.
+- `client.whisper(username: string, message: string)` - Send the user a whisper
+  from the bot.
+
+Extra functionality:
+
+- `client.sendRaw(command: string): void` - Send a raw IRC command to a
+  connection in the connection pool.
+- `client.unconnected (boolean)` - Returns whether the client is unconnected.
+- `client.connecting (boolean)` - Returns whether the client is connecting.
+- `client.connected (boolean)` - Returns whether the client is connected
+  (Transport layer is connected).
+- `client.ready (boolean)` - Returns whether the client is ready (Logged into
+  IRC server).
+- `client.closed (boolean)` - Returns whether the client is closed.
+
+Note that channel names in the above functions always refer to the "login name"
+of a twitch channel. Channel names may not be capitalized, e.g. `Forsen` would
+be invalid, but `forsen` not. This library also does not accept the leading `#`
+character and never returns it on any message objects (e.g. `msg.channelName`
+would be `forsen`, not `#forsen`).
 
 ## API Documentation
 
@@ -240,7 +281,8 @@ and the mixins installed by default:
 - `new RoomStateTracker()` - Used by other mixins. Keeps track of each channel's
   state, e.g. sub-mode etc.
 - `new IgnorePromiseRejectionsMixin()` - Swallows rejected promises returned by
-  the client's functions.
+  the client's functions. (installed for you if you activate the
+  `suppressPromiseRejections` client option)
 
 ## Tests
 
@@ -260,3 +302,29 @@ npm run lint
 # Run eslint, tslint and pretter fixers
 npm run lintfix
 ```
+
+[clearchat]:
+  https://robotty.github.io/dank-twitch-irc/classes/clearchatmessage.html
+[clearmsg]:
+  https://robotty.github.io/dank-twitch-irc/classes/clearmsgmessage.html
+[hosttarget]:
+  https://robotty.github.io/dank-twitch-irc/classes/hosttargetmessage.html
+[notice]: https://robotty.github.io/dank-twitch-irc/classes/noticemessage.html
+[privmsg]: https://robotty.github.io/dank-twitch-irc/classes/privmsgmessage.html
+[roomstate]:
+  https://robotty.github.io/dank-twitch-irc/classes/roomstatemessage.html
+[usernotice]:
+  https://robotty.github.io/dank-twitch-irc/classes/usernoticemessage.html
+[userstate]:
+  https://robotty.github.io/dank-twitch-irc/classes/userstatemessage.html
+[globaluserstate]:
+  https://robotty.github.io/dank-twitch-irc/classes/globaluserstatemessage.html
+[whisper]: https://robotty.github.io/dank-twitch-irc/classes/whispermessage.html
+[join]: https://robotty.github.io/dank-twitch-irc/classes/joinmessage.html
+[part]: https://robotty.github.io/dank-twitch-irc/classes/partmessage.html
+[reconnect]:
+  https://robotty.github.io/dank-twitch-irc/classes/reconnectmessage.html
+[ping]: https://robotty.github.io/dank-twitch-irc/classes/pingmessage.html
+[pong]: https://robotty.github.io/dank-twitch-irc/classes/pongmessage.html
+[cap]: https://robotty.github.io/dank-twitch-irc/classes/capmessage.html
+[ircmessage]: https://robotty.github.io/dank-twitch-irc/classes/ircmessage.html
