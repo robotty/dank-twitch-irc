@@ -84,6 +84,8 @@ jobs:
       - run: git log -1 --pretty=format:'%an <%ae>' | tee ../commit-author
       - run: git log -1 --pretty=format:'%at' | tee ../commit-time
       - run: cp -r ./docs/. ../docs/
+      - run: mkdir ../docs/.circleci
+      - run: cp ./.circleci/noop.yml ../docs/.circleci/config.yml
       - run: git checkout gh-pages || git checkout --orphan gh-pages
       - run: find -not -path "./.git/*" -not -name ".git" -delete
       - run: cp -r ../docs/. .
