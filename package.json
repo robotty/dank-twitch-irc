@@ -1,6 +1,6 @@
 {
   "name": "dank-twitch-irc",
-  "version": "2.0.4",
+  "version": "2.1.0",
   "description": "Twitch IRC library for Node.js",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
