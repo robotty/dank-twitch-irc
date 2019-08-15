@@ -177,7 +177,10 @@ let client = new ChatClient({
   password: "0123456789abcdef1234567", // undefined by default (no password)
   // other options for password:
   password: () => "1234567", // synchronous function
-  password: async () => { await something(); return "1234567"; }, // return a promise,
+  password: async () => {
+    await something();
+    return "1234567";
+  }, // return a promise,
   // for example to fetch a fresh token if it needs to be refreshed
 
   // Message rate limits configuration for verified and known bots
