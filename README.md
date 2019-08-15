@@ -4,6 +4,10 @@ Node.js-only Twitch IRC lib, written in TypeScript.
 
 Requires Node.js 10 (LTS) or above.
 
+- [View on GitHub](https://github.com/robotty/dank-twitch-irc)
+- [View on npm](https://www.npmjs.com/package/dank-twitch-irc)
+- [View documentation](https://robotty.github.io/dank-twitch-irc/)
+
 ## Usage
 
 ```javascript
