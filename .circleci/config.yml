@@ -104,16 +104,8 @@ workflows:
   version: 2
   build-all:
     jobs:
-      - build-nodejs-12:
-          filters:
-            branches:
-              ignore:
-                - gh-pages
-      - build-nodejs-10:
-          filters:
-            branches:
-              ignore:
-                - gh-pages
+      - build-nodejs-12
+      - build-nodejs-10
       - deploy-docs:
           filters:
             branches:
