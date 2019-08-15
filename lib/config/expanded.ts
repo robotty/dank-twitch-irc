@@ -35,7 +35,7 @@ export type ExpandedTransportConfiguration =
 export type ExpandedClientConfiguration = Required<
   Omit<ClientConfiguration, "connection" | "password" | "rateLimits">
 > & {
-  password: string | undefined;
+  password: () => string | undefined | Promise<string | undefined>;
   connection: ExpandedTransportConfiguration;
   rateLimits: MessageRateLimits;
 };
@@ -47,7 +47,7 @@ const defaults: Omit<
   connection: BasicTcpTransportConfiguration;
 } = {
   username: "justinfan12345",
-  password: undefined,
+  password: () => undefined,
   requestMembershipCapability: false,
 
   maxChannelCountPerConnection: 50,
@@ -142,6 +142,13 @@ export function expandConfig(
   ) as ExpandedClientConfiguration;
 
   newConfig.username = newConfig.username.toLowerCase();
+
+  if (typeof newConfig.password !== "function") {
+    // @ts-ignore type of newConfig.password is string | undefined before
+    // this assignment, not () => string | undefined
+    newConfig.password = () => newConfig.password;
+  }
+
   newConfig.connection = expandTransportConfig(newConfig.connection);
   newConfig.rateLimits = expandRateLimitsConfig(newConfig.rateLimits);
   return newConfig;

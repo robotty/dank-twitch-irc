@@ -25,6 +25,17 @@ describe("./operations/login", function() {
       ]);
     });
 
+    it("should prepend oauth: if missing", function() {
+      sinon.useFakeTimers(); // prevent the promise timing out
+      const { transport, client } = fakeConnection();
+
+      sendLogin(client, "pajlada", "12345");
+      assert.deepEqual(transport.data, [
+        "PASS oauth:12345\r\n",
+        "NICK pajlada\r\n"
+      ]);
+    });
+
     it("should resolve on 001", async function() {
       const { client, clientError, emitAndEnd } = fakeConnection();
 

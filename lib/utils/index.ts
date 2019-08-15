@@ -3,6 +3,7 @@ export * from "./apply-function-replacements";
 export * from "./editable-timeout";
 export * from "./find-and-push-to-end";
 export * from "./ignore-errors";
+export * from "./is-anonymous-username";
 export * from "./reason-for-value";
 export * from "./remove-in-place";
 export * from "./set-defaults";

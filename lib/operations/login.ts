@@ -2,6 +2,7 @@ import { awaitResponse } from "../await/await-response";
 import { SingleConnection } from "../client/connection";
 import { ClientError } from "../client/errors";
 import { NoticeMessage } from "../message/twitch-types/notice";
+import { isAnonymousUsername } from "../utils/is-anonymous-username";
 
 export class LoginError extends ClientError {}
 
@@ -11,7 +12,9 @@ export async function sendLogin(
   password?: string
 ): Promise<void> {
   if (password != null) {
-    if (!password.startsWith("oauth:")) {
+    if (!isAnonymousUsername(username) && !password.startsWith("oauth:")) {
+      // don't append oauth: for the fake passwords that can be sent for
+      // anonymous usernames, such as `PASS SCHMOOPIE`
       password = "oauth:" + password;
     }
 
