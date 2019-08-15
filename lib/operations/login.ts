@@ -11,6 +11,10 @@ export async function sendLogin(
   password?: string
 ): Promise<void> {
   if (password != null) {
+    if (!password.startsWith("oauth:")) {
+      password = "oauth:" + password;
+    }
+
     conn.send(`PASS ${password}`);
   }
   conn.send(`NICK ${username}`);

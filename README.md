@@ -174,7 +174,7 @@ documented in the Below are all possible options and their default values:
 ```javascript
 let client = new ChatClient({
   username: "your-bot-username", // justinfan12345 by default - For anonymous chat connection
-  password: "oauth:bot-access-token", // undefined by default (no password)
+  password: "0123456789abcdef1234567", // undefined by default (no password)
 
   // Message rate limits configuration for verified and known bots
   // pick one of the presets or configure custom rates as shown below:
