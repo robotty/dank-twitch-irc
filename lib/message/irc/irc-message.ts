@@ -9,7 +9,7 @@ export interface IRCMessageData {
   readonly ircPrefix: IRCMessagePrefix | undefined;
 
   /**
-   * The parser ensure this is always uppercase
+   * The parser ensures this is always uppercase
    */
   readonly ircCommand: string;
   readonly ircParameters: string[];
@@ -23,7 +23,7 @@ export class IRCMessage implements IRCMessageData {
   public readonly ircPrefix: IRCMessagePrefix | undefined;
 
   /**
-   * The parser ensure this is always uppercase
+   * The parser ensures this is always uppercase
    */
   public readonly ircCommand: string;
   public readonly ircParameters: string[];
