@@ -61,9 +61,50 @@ jobs:
       - image: circleci/node:10
     steps:
       - run-all
+  deploy-docs:
+    docker:
+      - image: circleci/node:12
+    branches:
+      only:
+        - circleci-auto-docs
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore npm package cache
+          key: v1-dependency-cache-nodejs-{{ checksum "./package.json" }}
+      - run:
+          name: Install dependencies
+          command: npm i
+      - save_cache:
+          name: Save npm package cache
+          key: v1-dependency-cache-nodejs-{{ checksum "./package.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: Generate typedoc
+          command: npm run docs
+      - run: git log -1 --pretty=format:'%B' | tee ../commit-msg
+      - run: git log -1 --pretty=format:'%an <%ae>' | tee ../commit-author
+      - run: git log -1 --pretty=format:'%at' | tee ../commit-time
+      - run: cp -r ./docs/. ../docs/
+      - run: git checkout gh-pages
+      - run: rm -rf *
+      - run: cp -r ../docs/. .
+      - run: git add --all
+      - run: >-
+          GIT_AUTHOR_DATE="$(cat ../commit-time)"
+          GIT_COMMITTER_NAME="Docs deployment bot"
+          GIT_COMMITTER_EMAIL="noreply@robotty.de"
+          git commit
+          --allow-empty
+          -m "$(cat ../commit-msg)"
+          --author="$(cat ../commit-author)"
+      - run: git push -u origin gh-pages
+
 workflows:
   version: 2
   build-all:
     jobs:
       - build-nodejs-12
       - build-nodejs-10
+      - deploy-docs
