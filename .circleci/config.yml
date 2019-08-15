@@ -104,4 +104,10 @@ workflows:
     jobs:
       - build-nodejs-12
       - build-nodejs-10
-      - deploy-docs
+      - deploy-docs:
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              only:
+                - master
