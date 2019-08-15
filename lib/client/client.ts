@@ -59,7 +59,10 @@ export class ChatClient extends BaseClient {
 
     this.on("error", error => {
       if (anyCauseInstanceof(error, ClientError)) {
-        this.connections.forEach(conn => conn.destroy(error));
+        process.nextTick(() => {
+          this.emitClosed(error);
+          this.connections.forEach(conn => conn.destroy(error));
+        });
       }
     });
 
