@@ -66,47 +66,47 @@ client.join("forsen");
 
   Other message types that have specific message parsing are:
 
-  - `CLEARCHAT` (maps to [`ClearchatMessage`][clearchat]) - Timeout and ban
+  - **`CLEARCHAT`** (maps to [`ClearchatMessage`][clearchat]) - Timeout and ban
     messages
-  - `CLEARMSG` (maps to [`ClearmsgMessage`][clearmsg]) - Single message
+  - **`CLEARMSG`** (maps to [`ClearmsgMessage`][clearmsg]) - Single message
     deletions (initiated by `/delete`)
-  - `HOSTTARGET` (maps to [`HosttargetMessage`][hosttarget]) - A channel
+  - **`HOSTTARGET`** (maps to [`HosttargetMessage`][hosttarget]) - A channel
     entering or exiting host mode.
-  - `NOTICE` (maps to [`NoticeMessage`][notice]) - Various notices, such as when
-    you `/help`, a command fails, the error response when you are timed out,
-    etc.
-  - `PRIVMSG` (maps to [`PrivmsgMessage`][privmsg]) - Normal chat messages
-  - `ROOMSTATE` (maps to [`RoomstateMessage`][roomstate]) - A change to a
+  - **`NOTICE`** (maps to [`NoticeMessage`][notice]) - Various notices, such as
+    when you `/help`, a command fails, the error response when you are timed
+    out, etc.
+  - **`PRIVMSG`** (maps to [`PrivmsgMessage`][privmsg]) - Normal chat messages
+  - **`ROOMSTATE`** (maps to [`RoomstateMessage`][roomstate]) - A change to a
     channel's followers mode, subscribers-only mode, r9k mode, followers mode,
     slow mode etc.
-  - `USERNOTICE` (maps to [`UsernoticeMessage`][usernotice]) - Subs, resubs, sub
-    gifts, rituals, raids, etc...
-  - `USERSTATE` (maps to [`UserstateMessage`][userstate]) - Your own state (e.g.
-    badges, color, display name, emote sets, mod status), sent on every time you
-    join a channel or send a `PRIVMSG` to a channel
-  - `GLOBALUSERSTATE` (maps to [`GlobaluserstateMessage`][globaluserstate]) -
-    Logged in user's "global state", sent once on every login (Note that due to
-    the used connection pool you can receive this multiple times during your
-    bot's runtime)
-  - `WHISPER` (maps to [`WhisperMessage`][whisper]) - Somebody else whispering
-    you
-  - `JOIN` (maps to [`JoinMessage`][join]) - You yourself joining a channel, of
-    if you have `requestMembershipCapability` enabled, also other users joining
-    channels you are joined to.
-  - `PART` (maps to [`JoinMessage`][part]) - You yourself parting (leaving) a
-    channel, of if you have `requestMembershipCapability` enabled, also other
+  - **`USERNOTICE`** (maps to [`UsernoticeMessage`][usernotice]) - Subs, resubs,
+    sub gifts, rituals, raids, etc...
+  - **`USERSTATE`** (maps to [`UserstateMessage`][userstate]) - Your own state
+    (e.g. badges, color, display name, emote sets, mod status), sent on every
+    time you join a channel or send a `PRIVMSG` to a channel
+  - **`GLOBALUSERSTATE`** (maps to
+    [`GlobaluserstateMessage`][globaluserstate]) - Logged in user's "global
+    state", sent once on every login (Note that due to the used connection pool
+    you can receive this multiple times during your bot's runtime)
+  - **`WHISPER`** (maps to [`WhisperMessage`][whisper]) - Somebody else
+    whispering you
+  - **`JOIN`** (maps to [`JoinMessage`][join]) - You yourself joining a channel,
+    of if you have `requestMembershipCapability` enabled, also other users
+    joining channels you are joined to.
+  - **`PART`** (maps to [`JoinMessage`][part]) - You yourself parting (leaving)
+    a channel, of if you have `requestMembershipCapability` enabled, also other
     users parting channels you are joined to.
-  - `RECONNECT` (maps to [`ReconnectMessage`][reconnect]) - When the twitch
+  - **`RECONNECT`** (maps to [`ReconnectMessage`][reconnect]) - When the twitch
     server tells a client to reconnect and re-join channels (You don't have to
     listen for this yourself, this is done automatically already)
-  - `PING` (maps to [`PingMessage`][ping]) - When the twitch server sends a
+  - **`PING`** (maps to [`PingMessage`][ping]) - When the twitch server sends a
     ping, expecting a pong back from the client to verify if the connection is
     still alive. (You don't have to listen for this yourself, the client
     automatically responds for you)
-  - `PONG` (maps to [`PongMessage`][pong]) - When the twitch server responds to
-    our `PING` requests (The library automatically sends a `PING` request every
-    30 seconds to verify connections are alive)
-  - `CAP` (maps to [`CapMessage`][cap]) - Message type received once during
+  - **`PONG`** (maps to [`PongMessage`][pong]) - When the twitch server responds
+    to our `PING` requests (The library automatically sends a `PING` request
+    every 30 seconds to verify connections are alive)
+  - **`CAP`** (maps to [`CapMessage`][cap]) - Message type received once during
     connection startup, acknowledging requested capabilities.
 
 All other commands (if they don't have a special parsed type like the ones
