@@ -129,95 +129,50 @@ client.join(<span class="hljs-string">"forsen"</span>);</code></pre>
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${msg.targetUsername}</span> just got timed out or banned`</span>)
 );</code></pre>
 						<p>Other message types that have specific message parsing are:</p>
-						<table>
-							<thead>
-								<tr>
-									<th>Command and event name</th>
-									<th>Message type</th>
-									<th>Description</th>
-								</tr>
-							</thead>
-							<tbody><tr>
-									<td><code>CLEARCHAT</code></td>
-									<td><a href="https://robotty.github.io/dank-twitch-irc/classes/clearchatmessage.html"><code>ClearchatMessage</code></a></td>
-									<td>Timeout and ban messages</td>
-								</tr>
-								<tr>
-									<td><code>CLEARMSG</code></td>
-									<td><a href="https://robotty.github.io/dank-twitch-irc/classes/clearmsgmessage.html"><code>ClearmsgMessage</code></a></td>
-									<td>Single message deletions (initiated by <code>/delete</code>)</td>
-								</tr>
-								<tr>
-									<td><code>HOSTTARGET</code></td>
-									<td><a href="https://robotty.github.io/dank-twitch-irc/classes/hosttargetmessage.html"><code>HosttargetMessage</code></a></td>
-									<td>A channel entering or exiting host mode.</td>
-								</tr>
-								<tr>
-									<td><code>NOTICE</code></td>
-									<td><a href="https://robotty.github.io/dank-twitch-irc/classes/noticemessage.html"><code>NoticeMessage</code></a></td>
-									<td>Various notices, such as when you <code>/help</code>, a command fails, the error response when you are timed out, etc.</td>
-								</tr>
-								<tr>
-									<td><code>PRIVMSG</code></td>
-									<td><a href="https://robotty.github.io/dank-twitch-irc/classes/privmsgmessage.html"><code>PrivmsgMessage</code></a></td>
-									<td>Normal chat messages</td>
-								</tr>
-								<tr>
-									<td><code>ROOMSTATE</code></td>
-									<td><a href="https://robotty.github.io/dank-twitch-irc/classes/roomstatemessage.html"><code>RoomstateMessage</code></a></td>
-									<td>A change to a channel&#39;s followers mode, subscribers-only mode, r9k mode, followers mode, slow mode etc.</td>
-								</tr>
-								<tr>
-									<td><code>USERNOTICE</code></td>
-									<td><a href="https://robotty.github.io/dank-twitch-irc/classes/usernoticemessage.html"><code>UsernoticeMessage</code></a></td>
-									<td>Subs, resubs, sub gifts, rituals, raids, etc...</td>
-								</tr>
-								<tr>
-									<td><code>USERSTATE</code></td>
-									<td><a href="https://robotty.github.io/dank-twitch-irc/classes/userstatemessage.html"><code>UserstateMessage</code></a></td>
-									<td>Your own state (e.g. badges, color, display name, emote sets, mod status), sent on every time you join a channel or send a <code>PRIVMSG</code> to a channel</td>
-								</tr>
-								<tr>
-									<td><code>GLOBALUSERSTATE</code></td>
-									<td><a href="https://robotty.github.io/dank-twitch-irc/classes/globaluserstatemessage.html"><code>GlobaluserstateMessage</code></a></td>
-									<td>Logged in user&#39;s &quot;global state&quot;, sent once on every login (Note that due to the used connection pool you can receive this multiple times during your bot&#39;s runtime)</td>
-								</tr>
-								<tr>
-									<td><code>WHISPER</code></td>
-									<td><a href="https://robotty.github.io/dank-twitch-irc/classes/whispermessage.html"><code>WhisperMessage</code></a></td>
-									<td>Somebody else whispering you</td>
-								</tr>
-								<tr>
-									<td><code>JOIN</code></td>
-									<td><a href="https://robotty.github.io/dank-twitch-irc/classes/joinmessage.html"><code>JoinMessage</code></a></td>
-									<td>You yourself joining a channel, of if you have <code>requestMembershipCapability</code> enabled, also other users joining channels you are joined to.</td>
-								</tr>
-								<tr>
-									<td><code>PART</code></td>
-									<td><a href="https://robotty.github.io/dank-twitch-irc/classes/partmessage.html"><code>JoinMessage</code></a></td>
-									<td>You yourself parting (leaving) a channel, of if you have <code>requestMembershipCapability</code> enabled, also other users parting channels you are joined to.</td>
-								</tr>
-								<tr>
-									<td><code>RECONNECT</code></td>
-									<td><a href="https://robotty.github.io/dank-twitch-irc/classes/reconnectmessage.html"><code>ReconnectMessage</code></a></td>
-									<td>When the twitch server tells a client to reconnect and re-join channels (You don&#39;t have to listen for this yourself, this is done automatically already)</td>
-								</tr>
-								<tr>
-									<td><code>PING</code></td>
-									<td><a href="https://robotty.github.io/dank-twitch-irc/classes/pingmessage.html"><code>PingMessage</code></a></td>
-									<td>When the twitch server sends a ping, expecting a pong back from the client to verify if the connection is still alive. (You don&#39;t have to listen for this yourself, the client automatically responds for you)</td>
-								</tr>
-								<tr>
-									<td><code>PONG</code></td>
-									<td><a href="https://robotty.github.io/dank-twitch-irc/classes/pongmessage.html"><code>PongMessage</code></a></td>
-									<td>When the twitch server responds to our <code>PING</code> requests (The library automatically sends a <code>PING</code> request every 30 seconds to verify connections are alive)</td>
-								</tr>
-								<tr>
-									<td><code>CAP</code></td>
-									<td><a href="https://robotty.github.io/dank-twitch-irc/classes/capmessage.html"><code>CapMessage</code></a></td>
-									<td>Message type received once during connection startup, acknowledging requested capabilities.</td>
-								</tr>
-						</tbody></table>
+						<ul>
+							<li><code>CLEARCHAT</code> (maps to <a href="https://robotty.github.io/dank-twitch-irc/classes/clearchatmessage.html"><code>ClearchatMessage</code></a>) - Timeout and ban
+							messages</li>
+							<li><code>CLEARMSG</code> (maps to <a href="https://robotty.github.io/dank-twitch-irc/classes/clearmsgmessage.html"><code>ClearmsgMessage</code></a>) - Single message
+							deletions (initiated by <code>/delete</code>)</li>
+							<li><code>HOSTTARGET</code> (maps to <a href="https://robotty.github.io/dank-twitch-irc/classes/hosttargetmessage.html"><code>HosttargetMessage</code></a>) - A channel
+							entering or exiting host mode.</li>
+							<li><code>NOTICE</code> (maps to <a href="https://robotty.github.io/dank-twitch-irc/classes/noticemessage.html"><code>NoticeMessage</code></a>) - Various notices, such as when
+								you <code>/help</code>, a command fails, the error response when you are timed out,
+							etc.</li>
+							<li><code>PRIVMSG</code> (maps to <a href="https://robotty.github.io/dank-twitch-irc/classes/privmsgmessage.html"><code>PrivmsgMessage</code></a>) - Normal chat messages</li>
+							<li><code>ROOMSTATE</code> (maps to <a href="https://robotty.github.io/dank-twitch-irc/classes/roomstatemessage.html"><code>RoomstateMessage</code></a>) - A change to a
+								channel&#39;s followers mode, subscribers-only mode, r9k mode, followers mode,
+							slow mode etc.</li>
+							<li><code>USERNOTICE</code> (maps to <a href="https://robotty.github.io/dank-twitch-irc/classes/usernoticemessage.html"><code>UsernoticeMessage</code></a>) - Subs, resubs, sub
+							gifts, rituals, raids, etc...</li>
+							<li><code>USERSTATE</code> (maps to <a href="https://robotty.github.io/dank-twitch-irc/classes/userstatemessage.html"><code>UserstateMessage</code></a>) - Your own state (e.g.
+								badges, color, display name, emote sets, mod status), sent on every time you
+							join a channel or send a <code>PRIVMSG</code> to a channel</li>
+							<li><code>GLOBALUSERSTATE</code> (maps to <a href="https://robotty.github.io/dank-twitch-irc/classes/globaluserstatemessage.html"><code>GlobaluserstateMessage</code></a>) -
+								Logged in user&#39;s &quot;global state&quot;, sent once on every login (Note that due to
+								the used connection pool you can receive this multiple times during your
+							bot&#39;s runtime)</li>
+							<li><code>WHISPER</code> (maps to <a href="https://robotty.github.io/dank-twitch-irc/classes/whispermessage.html"><code>WhisperMessage</code></a>) - Somebody else whispering
+							you</li>
+							<li><code>JOIN</code> (maps to <a href="https://robotty.github.io/dank-twitch-irc/classes/joinmessage.html"><code>JoinMessage</code></a>) - You yourself joining a channel, of
+								if you have <code>requestMembershipCapability</code> enabled, also other users joining
+							channels you are joined to.</li>
+							<li><code>PART</code> (maps to <a href="https://robotty.github.io/dank-twitch-irc/classes/partmessage.html"><code>JoinMessage</code></a>) - You yourself parting (leaving) a
+								channel, of if you have <code>requestMembershipCapability</code> enabled, also other
+							users parting channels you are joined to.</li>
+							<li><code>RECONNECT</code> (maps to <a href="https://robotty.github.io/dank-twitch-irc/classes/reconnectmessage.html"><code>ReconnectMessage</code></a>) - When the twitch
+								server tells a client to reconnect and re-join channels (You don&#39;t have to
+							listen for this yourself, this is done automatically already)</li>
+							<li><code>PING</code> (maps to <a href="https://robotty.github.io/dank-twitch-irc/classes/pingmessage.html"><code>PingMessage</code></a>) - When the twitch server sends a
+								ping, expecting a pong back from the client to verify if the connection is
+								still alive. (You don&#39;t have to listen for this yourself, the client
+							automatically responds for you)</li>
+							<li><code>PONG</code> (maps to <a href="https://robotty.github.io/dank-twitch-irc/classes/pongmessage.html"><code>PongMessage</code></a>) - When the twitch server responds to
+								our <code>PING</code> requests (The library automatically sends a <code>PING</code> request every
+							30 seconds to verify connections are alive)</li>
+							<li><code>CAP</code> (maps to <a href="https://robotty.github.io/dank-twitch-irc/classes/capmessage.html"><code>CapMessage</code></a>) - Message type received once during
+							connection startup, acknowledging requested capabilities.</li>
+						</ul>
 					</li>
 				</ul>
 				<p>All other commands (if they don&#39;t have a special parsed type like the ones
