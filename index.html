@@ -67,6 +67,11 @@
 				</a>
 				<p>Node.js-only Twitch IRC lib, written in TypeScript.</p>
 				<p>Requires Node.js 10 (LTS) or above.</p>
+				<ul>
+					<li><a href="https://github.com/robotty/dank-twitch-irc">View on GitHub</a></li>
+					<li><a href="https://www.npmjs.com/package/dank-twitch-irc">View on npm</a></li>
+					<li><a href="https://robotty.github.io/dank-twitch-irc/">View documentation</a></li>
+				</ul>
 				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
 					<h2>Usage</h2>
 				</a>
@@ -238,7 +243,10 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
   password: <span class="hljs-string">"0123456789abcdef1234567"</span>, <span class="hljs-comment">// undefined by default (no password)</span>
   <span class="hljs-comment">// other options for password:</span>
   password: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-string">"1234567"</span>, <span class="hljs-comment">// synchronous function</span>
-  password: <span class="hljs-keyword">async</span> () =&gt; { <span class="hljs-keyword">await</span> something(); <span class="hljs-keyword">return</span> <span class="hljs-string">"1234567"</span>; }, <span class="hljs-comment">// return a promise,</span>
+  password: <span class="hljs-keyword">async</span> () =&gt; {
+    <span class="hljs-keyword">await</span> something();
+    <span class="hljs-keyword">return</span> <span class="hljs-string">"1234567"</span>;
+  }, <span class="hljs-comment">// return a promise,</span>
   <span class="hljs-comment">// for example to fetch a fresh token if it needs to be refreshed</span>
 
   <span class="hljs-comment">// Message rate limits configuration for verified and known bots</span>
