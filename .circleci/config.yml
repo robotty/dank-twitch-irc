@@ -84,8 +84,8 @@ jobs:
       - run: git log -1 --pretty=format:'%an <%ae>' | tee ../commit-author
       - run: git log -1 --pretty=format:'%at' | tee ../commit-time
       - run: cp -r ./docs/. ../docs/
-      - run: git checkout -b gh-pages
-      - run: rm -rf *
+      - run: git checkout --orphan gh-pages
+      - run: git rm -rf .
       - run: cp -r ../docs/. .
       - run: git add --all
       - run: >-
