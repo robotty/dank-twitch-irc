@@ -64,9 +64,6 @@ jobs:
   deploy-docs:
     docker:
       - image: circleci/node:12
-    branches:
-      only:
-        - circleci-auto-docs
     steps:
       - checkout
       - restore_cache:
