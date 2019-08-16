@@ -186,7 +186,7 @@ client.join(<span class="hljs-string">"forsen"</span>);</code></pre>
 					</li>
 				</ul>
 				<p>All other commands (if they don&#39;t have a special parsed type like the ones
-					listed above) will still be emitted under their command name as a
+					listed above) will still be emitted under their command name as an
 				<a href="https://robotty.github.io/dank-twitch-irc/classes/ircmessage.html"><code>IRCMessage</code></a>, e.g.:</p>
 				<pre><code class="language-javascript"><span class="hljs-comment">// :tmi.twitch.tv 372 botfactory :You are in a maze of twisty passages, all alike.</span>
 <span class="hljs-comment">// msg will be an instance of IRCMessage</span>
@@ -353,12 +353,14 @@ client.use(<span class="hljs-keyword">new</span> AlternateMessageModifier(client
 				<p>Available mixins are:</p>
 				<ul>
 					<li><code>new AlternateMessageModifier(client)</code> will allow your bot to send the same
-					message within a 30 seconds period.</li>
+						message within a 30 seconds period. You must also use <code>client.say</code> and
+					<code>client.me</code> for this mixin to behave consistently and reliably.</li>
 					<li><code>new SlowModeRateLimiter(client, /* optional */ maxWaitingMessages)</code> will rate
 						limit your messages in channels where your bot is not moderator, VIP or
 						broadcaster and has to wait a bit between sending messages. If more than
 						<code>maxWaitingMessages</code> are waiting, the outgoing message will be dropped
-					silently. <code>maxWaitingMessages</code> defaults to 10.</li>
+						silently. <code>maxWaitingMessages</code> defaults to 10. Note this mixin only has an
+					effect on <code>client.say</code> and <code>client.me</code> functions, not <code>client.privmsg</code>.</li>
 				</ul>
 				<p>and the mixins installed by default:</p>
 				<ul>
