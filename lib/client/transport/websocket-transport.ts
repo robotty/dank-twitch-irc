@@ -5,7 +5,7 @@ import { WebSocketDuplex } from "websocket-stream";
 import { ExpandedWebSocketTransportConfiguration } from "../../config/expanded";
 import { Transport } from "./transport";
 
-export class WebsocketTransport implements Transport {
+export class WebSocketTransport implements Transport {
   public readonly stream: Duplexify;
   private readonly config: ExpandedWebSocketTransportConfiguration;
   private wsStream: WebSocketDuplex | undefined;

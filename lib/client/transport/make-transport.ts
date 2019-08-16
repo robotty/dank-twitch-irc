@@ -2,7 +2,7 @@ import { ExpandedTransportConfiguration } from "../../config/expanded";
 import { DuplexTransport } from "./duplex-transport";
 import { TcpTransport } from "./tcp-transport";
 import { Transport } from "./transport";
-import { WebsocketTransport } from "./websocket-transport";
+import { WebSocketTransport } from "./websocket-transport";
 
 export function makeTransport(
   config: ExpandedTransportConfiguration
@@ -13,7 +13,7 @@ export function makeTransport(
     case "duplex":
       return new DuplexTransport(config);
     case "websocket":
-      return new WebsocketTransport(config);
+      return new WebSocketTransport(config);
     default:
       throw new Error("Unknown transport type");
   }
