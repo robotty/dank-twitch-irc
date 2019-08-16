@@ -63,9 +63,14 @@ client.join("forsen");
   For example:
 
   ```javascript
-  client.on("CLEARCHAT", msg =>
-    console.log(`${msg.targetUsername} just got timed out or banned`)
-  );
+  client.on("CLEARCHAT", msg => {
+    if (msg.isTimeout()) {
+      console.log(
+        `${msg.targetUsername} just got timed out for ` +
+          `${msg.banDuration} seconds in channel ${msg.channelName}`
+      );
+    }
+  });
   ```
 
   Other message types that have specific message parsing are:
