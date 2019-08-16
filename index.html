@@ -130,9 +130,14 @@ client.join(<span class="hljs-string">"forsen"</span>);</code></pre>
 							always instanceof <code>PrivmsgMessage</code>. (See the API documentation for what
 						properties exist on all <code>PrivmsgMessage</code> instances)</p>
 						<p>For example:</p>
-						<pre><code class="language-javascript">client.on(<span class="hljs-string">"CLEARCHAT"</span>, msg =&gt;
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${msg.targetUsername}</span> just got timed out or banned`</span>)
-);</code></pre>
+						<pre><code class="language-javascript">client.on(<span class="hljs-string">"CLEARCHAT"</span>, msg =&gt; {
+  <span class="hljs-keyword">if</span> (msg.isTimeout()) {
+    <span class="hljs-built_in">console</span>.log(
+      <span class="hljs-string">`<span class="hljs-subst">${msg.targetUsername}</span> just got timed out for `</span> +
+        <span class="hljs-string">`<span class="hljs-subst">${msg.banDuration}</span> seconds in channel <span class="hljs-subst">${msg.channelName}</span>`</span>
+    );
+  }
+});</code></pre>
 						<p>Other message types that have specific message parsing are:</p>
 						<ul>
 							<li><strong><code>CLEARCHAT</code></strong> (maps to <a href="https://robotty.github.io/dank-twitch-irc/classes/clearchatmessage.html"><code>ClearchatMessage</code></a>) - Timeout and ban
