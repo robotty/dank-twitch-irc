@@ -4,10 +4,8 @@ import { Transport } from "./transport";
 
 export class DuplexTransport implements Transport {
   public readonly stream: Duplex;
-  private readonly config: ExpandedDuplexTransportConfiguration;
 
   public constructor(config: ExpandedDuplexTransportConfiguration) {
-    this.config = config;
     this.stream = config.stream();
   }
 
