@@ -295,12 +295,14 @@ client.use(new AlternateMessageModifier(client));
 Available mixins are:
 
 - `new AlternateMessageModifier(client)` will allow your bot to send the same
-  message within a 30 seconds period.
+  message within a 30 seconds period. You must also use `client.say` and
+  `client.me` for this mixin to behave consistently and reliably.
 - `new SlowModeRateLimiter(client, /* optional */ maxWaitingMessages)` will rate
   limit your messages in channels where your bot is not moderator, VIP or
   broadcaster and has to wait a bit between sending messages. If more than
   `maxWaitingMessages` are waiting, the outgoing message will be dropped
-  silently. `maxWaitingMessages` defaults to 10.
+  silently. `maxWaitingMessages` defaults to 10. Note this mixin only has an
+  effect on `client.say` and `client.me` functions, not `client.privmsg`.
 
 and the mixins installed by default:
 
