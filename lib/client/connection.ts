@@ -75,7 +75,11 @@ export class SingleConnection extends BaseClient {
           this,
           this.configuration.requestMembershipCapability
         ),
-        this.sendLogin()
+        sendLogin(
+          this,
+          this.configuration.username,
+          this.configuration.password
+        )
       ];
 
       Promise.all(promises).then(() => this.emitReady(), ignoreErrors);
@@ -109,18 +113,6 @@ export class SingleConnection extends BaseClient {
 
   public use(mixin: ConnectionMixin): void {
     mixin.applyToConnection(this);
-  }
-
-  private async sendLogin(): Promise<void> {
-    let password;
-    try {
-      password = await this.configuration.password();
-    } catch (e) {
-      // disconnect the connection
-      this.emitError(new ConnectionError("Error getting password", e));
-    }
-
-    await sendLogin(this, this.configuration.username, password);
   }
 
   private handleLine(line: string): void {

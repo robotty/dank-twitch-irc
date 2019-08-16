@@ -58,7 +58,7 @@ export interface ClientConfiguration {
    *
    * If set, this must begin with "<code>oauth:</code>"
    */
-  password?: string | (() => string | undefined | Promise<string | undefined>);
+  password?: string;
 
   /**
    * Can be disabled to lower the load on the bot by not requesting useless membership messages.
