@@ -50,9 +50,11 @@ export class SingleConnection extends BaseClient {
       this.emitClosed();
     });
     this.transport.stream.on("error", e =>
-      this.emitError(
-        new ConnectionError("Error occurred in transport layer", e)
-      )
+      process.nextTick(() => {
+        this.emitError(
+          new ConnectionError("Error occurred in transport layer", e)
+        );
+      })
     );
     carrier.carry(this.transport.stream, this.handleLine.bind(this));
 

@@ -41,9 +41,7 @@ export abstract class BaseClient extends EventEmitter<ClientEvents> {
       return;
     }
 
-    process.nextTick(() => {
-      this.emit("error", error);
-    });
+    this.emit("error", error);
   }
 
   public emitMessage(message: IRCMessage): void {
