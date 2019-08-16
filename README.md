@@ -119,7 +119,7 @@ client.join("forsen");
     connection startup, acknowledging requested capabilities.
 
 All other commands (if they don't have a special parsed type like the ones
-listed above) will still be emitted under their command name as a
+listed above) will still be emitted under their command name as an
 [`IRCMessage`][ircmessage], e.g.:
 
 ```javascript
