@@ -249,7 +249,7 @@ export class ChatClient extends BaseClient {
 
   private reconnectFailedConnection(conn: SingleConnection): void {
     // rejoin channels, creates connections on demand
-    const channels = Array.from(conn.joinedChannels);
+    const channels = Array.from(conn.wantedChannels);
 
     if (channels.length > 0) {
       //noinspection JSIgnoredPromiseFromCall
