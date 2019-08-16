@@ -81,7 +81,8 @@ jobs:
           name: Generate typedoc
           command: npm run docs
       - run: git log -1 --pretty=format:'%B' | tee ../commit-msg
-      - run: git log -1 --pretty=format:'%an <%ae>' | tee ../commit-author
+      - run: git log -1 --pretty=format:'%an' | tee ../commit-author-name
+      - run: git log -1 --pretty=format:'%ae' | tee ../commit-author-email
       - run: git log -1 --pretty=format:'%at' | tee ../commit-time
       - run: cp -r ./docs/. ../docs/
       - run: mkdir ../docs/.circleci
@@ -92,12 +93,13 @@ jobs:
       - run: git add --all
       - run: >-
           GIT_AUTHOR_DATE="$(cat ../commit-time)"
+          GIT_AUTHOR_NAME="$(cat ../commit-author-name)"
+          GIT_AUTHOR_EMAIL="$(cat ../commit-author-email)"
           GIT_COMMITTER_NAME="Docs deployment bot"
           GIT_COMMITTER_EMAIL="noreply@robotty.de"
           git commit
           --allow-empty
           -m "$(cat ../commit-msg)"
-          --author="$(cat ../commit-author)"
       - run: git push -u origin gh-pages
 
 workflows:
