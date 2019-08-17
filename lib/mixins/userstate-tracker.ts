@@ -32,6 +32,10 @@ export class UserStateTracker extends EventEmitter<UserStateTrackerEvents>
     return this.channelStates[channelName];
   }
 
+  public getGlobalState(): GlobalUserState | undefined {
+    return this.globalState;
+  }
+
   public applyToClient(client: ChatClient): void {
     client.userStateTracker = this;
     client.on("USERSTATE", this.onUserstateMessage.bind(this));
