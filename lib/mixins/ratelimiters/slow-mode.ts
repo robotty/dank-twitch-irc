@@ -72,7 +72,7 @@ export class SlowModeRateLimiter implements ClientMixin {
   }
 
   private onUserStateChange(channelName: string, newState: UserState): void {
-    const fastSpam = canSpamFast(
+    const { fastSpam, certain } = canSpamFast(
       channelName,
       this.client.configuration.username,
       newState
@@ -81,6 +81,15 @@ export class SlowModeRateLimiter implements ClientMixin {
     const runningTimer = this.runningTimers[channelName];
     if (fastSpam && runningTimer != null) {
       runningTimer.update(0);
+    }
+
+    if (certain && channelName in this.semaphores) {
+      const semaphore = this.getSemaphore(channelName);
+
+      // @ts-ignore private member access
+      const waiterQueue: Array<() => void> = semaphore.promiseResolverQueue;
+      // trim waiter queue
+      waiterQueue.splice(10);
     }
   }
 
@@ -101,7 +110,8 @@ export class SlowModeRateLimiter implements ClientMixin {
   private async acquire(
     channelName: string
   ): Promise<(() => void) | undefined> {
-    const fastSpam = canSpamFast(
+    // TODO
+    const { fastSpam, certain } = canSpamFast(
       channelName,
       this.client.configuration.username,
       this.client.userStateTracker
@@ -113,43 +123,57 @@ export class SlowModeRateLimiter implements ClientMixin {
       return () => {};
     }
 
-    let slowModeDuration: number;
-    if (
-      this.client.roomStateTracker != null &&
-      this.client.userStateTracker != null
-    ) {
-      const roomState = this.client.roomStateTracker.getState(channelName);
-      if (roomState != null) {
-        slowModeDuration = roomState.slowModeDuration;
-      } else {
-        slowModeDuration = 0;
-      }
-    } else {
-      slowModeDuration = 0;
-    }
-
-    slowModeDuration = Math.max(
-      slowModeDuration,
-      SlowModeRateLimiter.GLOBAL_SLOW_MODE_COOLDOWN
-    );
-
     const semaphore = this.getSemaphore(channelName);
 
     // @ts-ignore private member access
-    const waiterQueue = semaphore.promiseResolverQueue;
+    const waiterQueue: Array<() => void> = semaphore.promiseResolverQueue;
 
     // too many waiting. Message will be dropped.
-    if (waiterQueue >= this.maxQueueLength) {
+    // note that we do NOT drop messages when we are unsure about
+    // fast spam state (e.g. before the first USERSTATE is received)
+    if (certain && waiterQueue.length >= this.maxQueueLength) {
       return undefined;
     }
 
     const releaseFn = (): void => {
-      // noinspection UnnecessaryLocalVariableJS
-      const runningTimer = new EditableTimeout(() => {
-        semaphore.release();
-      }, slowModeDuration);
+      // TODO
+      const { fastSpam: fastSpamAfterRelease } = canSpamFast(
+        channelName,
+        this.client.configuration.username,
+        this.client.userStateTracker
+      );
 
-      this.runningTimers[channelName] = runningTimer;
+      if (fastSpamAfterRelease) {
+        semaphore.release();
+        return;
+      }
+
+      let slowModeDuration: number;
+      if (
+        this.client.roomStateTracker != null &&
+        this.client.userStateTracker != null
+      ) {
+        const roomState = this.client.roomStateTracker.getChannelState(
+          channelName
+        );
+        if (roomState != null) {
+          slowModeDuration = roomState.slowModeDuration;
+        } else {
+          slowModeDuration = 0;
+        }
+      } else {
+        slowModeDuration = 0;
+      }
+
+      slowModeDuration = Math.max(
+        slowModeDuration,
+        SlowModeRateLimiter.GLOBAL_SLOW_MODE_COOLDOWN
+      );
+
+      this.runningTimers[channelName] = new EditableTimeout(() => {
+        delete this.runningTimers[channelName];
+        semaphore.release();
+      }, slowModeDuration * 1000);
     };
 
     await semaphore.acquire();
@@ -157,7 +181,7 @@ export class SlowModeRateLimiter implements ClientMixin {
     // if we were released by a incoming USERSTATE change (the timer was
     // edited) and spam can now be fast, return the token immediately
     // and return a no-op releaseFn.
-    const fastSpamAfterAwait = canSpamFast(
+    const { fastSpam: fastSpamAfterAwait } = canSpamFast(
       channelName,
       this.client.configuration.username,
       this.client.userStateTracker

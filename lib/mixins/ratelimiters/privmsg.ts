@@ -42,7 +42,7 @@ export class PrivmsgMessageRateLimiter implements ClientMixin {
   }
 
   private async acquire(channelName: string): Promise<() => void> {
-    const fastSpam = canSpamFast(
+    const { fastSpam } = canSpamFast(
       channelName,
       this.client.configuration.username,
       this.client.userStateTracker
