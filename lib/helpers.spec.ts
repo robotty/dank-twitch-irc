@@ -7,6 +7,7 @@ import * as sinon from "sinon";
 import { Duplex } from "stream";
 import { inspect } from "util";
 import * as util from "util";
+import { ChatClient } from "./client/client";
 import { SingleConnection } from "./client/connection";
 
 chai.config.includeStack = true;
@@ -101,15 +102,63 @@ export function assertThrowsChain(f: () => void, ...chain: any[]): void {
   assert.fail("Function did not throw an exception");
 }
 
-export function fakeConnection(): {
+export type MockTransportData = {
   transport: Duplex;
   data: any[];
   emit: (...lines: string[]) => void;
   end: () => void;
   emitAndEnd: (...lines: string[]) => void;
+};
+
+export function createMockTransport(): MockTransportData {
+  const data: any[] = [];
+
+  const transport = new Duplex({
+    autoDestroy: true,
+    emitClose: true,
+    decodeStrings: false, // for write operations
+    defaultEncoding: "utf-8", // for write operations
+    encoding: "utf-8", // for read operations
+    write(
+      chunk: any,
+      encoding: string,
+      callback: (error?: Error | null) => void
+    ): void {
+      data.push(chunk.toString());
+      callback();
+    },
+    // tslint:disable-next-line:no-empty
+    read(): void {}
+  });
+
+  const emit = (...lines: string[]): void => {
+    transport.push(lines.map(line => line + "\r\n").join(""));
+  };
+
+  const end = (): void => {
+    transport.destroy();
+  };
+
+  const emitAndEnd = (...lines: string[]): void => {
+    emit(...lines);
+    setImmediate(end);
+  };
+
+  return {
+    transport,
+    data,
+    emit,
+    end,
+    emitAndEnd
+  };
+}
+
+export type FakeConnectionData = {
   client: SingleConnection;
   clientError: Promise<never>;
-} {
+} & MockTransportData;
+
+export function fakeConnection(): FakeConnectionData {
   // don't start sending pings
   sinon.stub(SingleConnection.prototype, "onConnect");
 
@@ -167,5 +216,54 @@ export function fakeConnection(): {
       fakeConn.once("error", e => reject(e));
       fakeConn.once("close", () => resolve());
     })
+  };
+}
+
+export type FakeClientData = {
+  client: ChatClient;
+  clientError: Promise<never>;
+  transports: MockTransportData[];
+  emit: (...lines: string[]) => void;
+  end: () => void;
+  emitAndEnd: (...lines: string[]) => void;
+};
+
+export function fakeClient(connect = true): FakeClientData {
+  const transports: MockTransportData[] = [];
+
+  const getStream = (): Duplex => {
+    const newTransport = createMockTransport();
+    transports.push(newTransport);
+    return newTransport.transport;
+  };
+
+  const client = new ChatClient({
+    connection: {
+      type: "duplex",
+      stream: getStream,
+      preSetup: true
+    },
+    installDefaultMixins: false
+  });
+
+  if (connect) {
+    client.connect();
+  }
+
+  return {
+    emit: (...lines) => transports[0].emit(...lines),
+    emitAndEnd: (...lines) => {
+      transports[0].emit(...lines);
+      setImmediate(() => client.destroy());
+    },
+    end: () => {
+      client.destroy();
+    },
+    client,
+    clientError: new Promise<never>((resolve, reject) => {
+      client.once("error", e => reject(e));
+      client.once("close", () => resolve());
+    }),
+    transports
   };
 }
