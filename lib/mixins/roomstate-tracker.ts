@@ -21,7 +21,7 @@ export class RoomStateTracker extends EventEmitter<RoomStateTrackerEvents>
   implements ClientMixin {
   private readonly channelStates: Record<string, RoomState> = {};
 
-  public getState(channelName: string): RoomState | undefined {
+  public getChannelState(channelName: string): RoomState | undefined {
     return this.channelStates[channelName];
   }
 
@@ -31,7 +31,7 @@ export class RoomStateTracker extends EventEmitter<RoomStateTrackerEvents>
   }
 
   private onRoomstateMessage(msg: RoomstateMessage): void {
-    const currentState: RoomState | undefined = this.getState(msg.channelName);
+    const currentState: RoomState | undefined = this.getChannelState(msg.channelName);
     const newState: Partial<RoomState> = msg.extractRoomState();
 
     if (currentState == null) {
