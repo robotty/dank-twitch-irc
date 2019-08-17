@@ -102,7 +102,7 @@ export class SingleConnection extends BaseClient {
 
   public close(): void {
     // -> close is emitted
-    this.transport.stream.end();
+    this.transport.stream.destroy();
   }
 
   public destroy(error?: Error): void {
