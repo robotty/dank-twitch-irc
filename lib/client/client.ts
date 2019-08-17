@@ -191,9 +191,9 @@ export class ChatClient extends BaseClient {
   }
 
   public newConnection(): SingleConnection {
-    log.debug("Creating new connection");
-
     const conn = new SingleConnection(this.configuration);
+
+    log.debug(`Creating new connection (ID ${conn.connectionID})`);
 
     for (const mixin of this.connectionMixins) {
       conn.use(mixin);
