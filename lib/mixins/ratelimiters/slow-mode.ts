@@ -8,7 +8,7 @@ import { ClientMixin } from "../base-mixin";
 import { canSpamFast } from "./utils";
 
 export class SlowModeRateLimiter implements ClientMixin {
-  public static GLOBAL_SLOW_MODE_COOLDOWN = 1.3;
+  public static GLOBAL_SLOW_MODE_COOLDOWN = 1.5;
 
   private readonly client: ChatClient;
   private readonly maxQueueLength: number;
