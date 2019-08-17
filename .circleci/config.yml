@@ -110,6 +110,5 @@ workflows:
       - build-nodejs-10
       - deploy-docs:
           filters:
-            branches:
-              only:
-                - master
+            tags:
+              only: /v.*/
