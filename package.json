@@ -14,7 +14,7 @@
     "eslint": "eslint --format codeframe --ext .ts --ext .js .",
     "tslint": "tslint --project .",
     "lintfix": "npm run eslint -- --fix && npm run tslint -- --fix",
-    "test": "nyc mocha --exit",
+    "test": "nyc mocha",
     "clean": "rm -rf ./dist ./docs ./coverage ./.nyc_output ./mochawesome-report",
     "docs": "typedoc --mode file --excludeNotExported --excludePrivate --excludeProtected -out ./docs",
     "prettier-watch": "onchange -v \"**/*.ts\" \"**/*.js\" -- prettier --write {{changed}}",
