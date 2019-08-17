@@ -63,6 +63,19 @@ describe("./message/parser/badges", function() {
       );
     });
 
+    it("should throw ParseError if badge name is empty", function() {
+      assertThrowsChain(
+        () => parseSingleBadge("/5"),
+        ParseError,
+        'Empty badge name on badge "/5"'
+      );
+      assertThrowsChain(
+        () => parseSingleBadge("/"),
+        ParseError,
+        'Empty badge name on badge "/"'
+      );
+    });
+
     it("should throw ParseError if badge version is empty", function() {
       assertThrowsChain(
         () => parseSingleBadge("subscriber/"),

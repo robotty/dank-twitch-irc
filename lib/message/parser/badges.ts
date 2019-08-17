@@ -12,6 +12,10 @@ export function parseSingleBadge(badgeSrc: string): TwitchBadge {
     );
   }
 
+  if (badgeName.length <= 0) {
+    throw new ParseError(`Empty badge name on badge "${badgeSrc}"`);
+  }
+
   if (badgeVersion.length <= 0) {
     throw new ParseError(`Empty badge version on badge "${badgeSrc}"`);
   }
