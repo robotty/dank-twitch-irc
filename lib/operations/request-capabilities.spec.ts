@@ -75,12 +75,12 @@ describe("./operations/request-capabilities", function() {
     it("should send the correct wire command", function() {
       sinon.useFakeTimers();
 
-      const { client, transport } = fakeConnection();
+      const { client, data } = fakeConnection();
 
       requestCapabilities(client, false);
       requestCapabilities(client, true);
 
-      assert.deepStrictEqual(transport.data, [
+      assert.deepStrictEqual(data, [
         "CAP REQ :twitch.tv/commands twitch.tv/tags\r\n",
         "CAP REQ :twitch.tv/commands twitch.tv/tags twitch.tv/membership\r\n"
       ]);

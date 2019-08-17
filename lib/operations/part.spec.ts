@@ -64,21 +64,21 @@ describe("./operations/part", function() {
     it("should send the correct wire command", function() {
       sinon.useFakeTimers();
 
-      const { client, transport } = fakeConnection();
+      const { client, data } = fakeConnection();
       client.joinedChannels.add("pajlada");
       client.wantedChannels.add("pajlada");
 
       partChannel(client, "pajlada");
 
-      assert.deepStrictEqual(transport.data, ["PART #pajlada\r\n"]);
+      assert.deepStrictEqual(data, ["PART #pajlada\r\n"]);
     });
 
     it("should do nothing if channel is neither wanted nor joined", async function() {
-      const { client, transport } = fakeConnection();
+      const { client, data } = fakeConnection();
 
       await partChannel(client, "pajlada");
 
-      assert.deepStrictEqual(transport.data, []);
+      assert.deepStrictEqual(data, []);
     });
 
     it("should remove channel from wanted channels even on timeout error", async function() {

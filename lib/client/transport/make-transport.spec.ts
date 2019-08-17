@@ -1,5 +1,5 @@
 import { assert } from "chai";
-import DuplexMock from "stream-mock/lib/duplex/DuplexMock";
+import { Duplex } from "stream";
 import {
   ExpandedDuplexTransportConfiguration,
   ExpandedTcpTransportConfiguration,
@@ -29,7 +29,7 @@ describe("./client/transport/make-transport", function() {
     it("should make a DuplexTransport for duplex configurations", function() {
       const config: ExpandedDuplexTransportConfiguration = {
         type: "duplex",
-        stream: () => new DuplexMock(),
+        stream: () => new Duplex(),
         preSetup: false
       };
 

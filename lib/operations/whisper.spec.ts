@@ -21,11 +21,11 @@ describe("./operations/whisper", function() {
   describe("#whisper()", function() {
     it("should send the correct wire command", function() {
       sinon.useFakeTimers();
-      const { transport, client } = fakeConnection();
+      const { data, client } = fakeConnection();
 
       whisper(client, "pajlada", "hello world");
 
-      assert.deepStrictEqual(transport.data, [
+      assert.deepStrictEqual(data, [
         "PRIVMSG #justinfan12345 :/w pajlada hello world\r\n"
       ]);
     });

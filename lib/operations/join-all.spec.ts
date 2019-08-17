@@ -16,17 +16,17 @@ describe("./operations/join-all", function() {
   describe("#joinAll()", function() {
     it("should send the correct wire command for a single chunk", function() {
       sinon.useFakeTimers();
-      const { client, transport } = fakeConnection();
+      const { client, data } = fakeConnection();
 
       joinAll(client, ["pajlada", "randers", "nymn_hs", "forsen"]);
 
-      assert.deepStrictEqual(transport.data, [
+      assert.deepStrictEqual(data, [
         "JOIN #pajlada,#randers,#nymn_hs,#forsen\r\n"
       ]);
     });
 
     it("should send the correct wire command for a multiple chunks", async function() {
-      const { client, emitAndEnd, emit, transport } = fakeConnection();
+      const { client, emitAndEnd, emit, data } = fakeConnection();
 
       const firstChunkChannels = [
         "007_zeppelin",
@@ -381,7 +381,7 @@ describe("./operations/join-all", function() {
       const promise = joinAll(client, channels);
 
       // method sends first chunk...
-      assert.deepStrictEqual(transport.data, [
+      assert.deepStrictEqual(data, [
         "JOIN #" + firstChunkChannels.join(",#") + "\r\n"
       ]);
 
@@ -392,7 +392,7 @@ describe("./operations/join-all", function() {
       // wait for promised to be settled in the response handling
       await new Promise(resolve => setImmediate(resolve));
 
-      assert.deepStrictEqual(transport.data, [
+      assert.deepStrictEqual(data, [
         "JOIN #" + firstChunkChannels.join(",#") + "\r\n",
         "JOIN #pajlada,#nymn_hs,#forsen\r\n"
       ]);

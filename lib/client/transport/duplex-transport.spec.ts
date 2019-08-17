@@ -1,13 +1,13 @@
 import { assert } from "chai";
 import * as sinon from "sinon";
-import DuplexMock from "stream-mock/lib/duplex/DuplexMock";
+import { Duplex } from "stream";
 import { ExpandedDuplexTransportConfiguration } from "../../config/expanded";
 import { DuplexTransport } from "./duplex-transport";
 
 describe("./client/transport/duplex-transport", function() {
   describe("DuplexTransport", function() {
     it("should call the stream-getter function from the config once", function() {
-      const stream = new DuplexMock(undefined, { objectMode: true });
+      const stream = new Duplex();
 
       const streamGetter = sinon.fake.returns(stream);
       const config: ExpandedDuplexTransportConfiguration = {

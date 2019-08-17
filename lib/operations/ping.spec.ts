@@ -9,24 +9,21 @@ describe("./operations/ping", function() {
   describe("#sendPing()", function() {
     it("should send the correct wire command if ping identifier is specified", function() {
       sinon.useFakeTimers(); // prevent the promise timing out
-      const { transport, client } = fakeConnection();
+      const { data, client } = fakeConnection();
 
       sendPing(client, "some identifier");
 
-      assert.deepStrictEqual(transport.data, ["PING :some identifier\r\n"]);
+      assert.deepStrictEqual(data, ["PING :some identifier\r\n"]);
     });
 
     it("should send a random ping identifier if no ping identifier is specified", function() {
       sinon.useFakeTimers(); // prevent the promise timing out
-      const { transport, client } = fakeConnection();
+      const { data, client } = fakeConnection();
 
       sendPing(client);
 
-      assert.strictEqual(transport.data.length, 1);
-      assert.match(
-        transport.data[0],
-        /^PING :dank-twitch-irc:manual:[0-9a-f]{32}\r\n$/
-      );
+      assert.strictEqual(data.length, 1);
+      assert.match(data[0], /^PING :dank-twitch-irc:manual:[0-9a-f]{32}\r\n$/);
     });
 
     it("should resolve on matching PONG", async function() {

@@ -4,7 +4,7 @@ import * as chaiAsPromised from "chai-as-promised";
 import "clarify";
 import { BaseError } from "make-error-cause";
 import * as sinon from "sinon";
-import { DuplexMock } from "stream-mock";
+import { Duplex } from "stream";
 import { inspect } from "util";
 import * as util from "util";
 import { SingleConnection } from "./client/connection";
@@ -14,6 +14,15 @@ chai.use(chaiAsPromised);
 
 afterEach(function() {
   sinon.restore();
+});
+
+afterEach(function() {
+  if (this.currentTest != null && this.currentTest.err != null) {
+    // tslint:disable-next-line:no-console
+    console.error(inspect(this.currentTest.err, { colors: true }));
+    // tslint:disable-next-line:no-console
+    console.error("Below is the default mocha output:");
+  }
 });
 
 export function errorOf(p: Promise<any>): Promise<any> {
@@ -93,7 +102,8 @@ export function assertThrowsChain(f: () => void, ...chain: any[]): void {
 }
 
 export function fakeConnection(): {
-  transport: DuplexMock;
+  transport: Duplex;
+  data: any[];
   emit: (...lines: string[]) => void;
   end: () => void;
   emitAndEnd: (...lines: string[]) => void;
@@ -103,9 +113,26 @@ export function fakeConnection(): {
   // don't start sending pings
   sinon.stub(SingleConnection.prototype, "onConnect");
 
-  const transport = new DuplexMock(undefined, {
-    objectMode: true
+  const data: any[] = [];
+
+  const transport = new Duplex({
+    autoDestroy: true,
+    emitClose: true,
+    decodeStrings: false, // for write operations
+    defaultEncoding: "utf-8", // for write operations
+    encoding: "utf-8", // for read operations
+    write(
+      chunk: any,
+      encoding: string,
+      callback: (error?: Error | null) => void
+    ): void {
+      data.push(chunk.toString());
+      callback();
+    },
+    // tslint:disable-next-line:no-empty
+    read(): void {}
   });
+
   const fakeConn = new SingleConnection({
     connection: {
       type: "duplex",
@@ -116,15 +143,12 @@ export function fakeConnection(): {
 
   fakeConn.connect();
 
-  transport.data = [];
-  transport.flatData = [];
-
   const emit = (...lines: string[]): void => {
-    transport.emit("data", lines.map(line => line + "\r\n").join(""));
+    transport.push(lines.map(line => line + "\r\n").join(""));
   };
 
   const end = (): void => {
-    transport.emit("close", false);
+    transport.destroy();
   };
 
   const emitAndEnd = (...lines: string[]): void => {
@@ -134,6 +158,7 @@ export function fakeConnection(): {
 
   return {
     transport,
+    data,
     client: fakeConn,
     emit,
     end,

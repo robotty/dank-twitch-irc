@@ -34,11 +34,11 @@ describe("./operations/say", function() {
   describe("#say()", function() {
     it("should send the correct wire command", function() {
       sinon.useFakeTimers();
-      const { transport, client } = fakeConnection();
+      const { data, client } = fakeConnection();
 
       say(client, "pajlada", "/test test abc KKona");
 
-      assert.deepStrictEqual(transport.data, [
+      assert.deepStrictEqual(data, [
         "PRIVMSG #pajlada :/ /test test abc KKona\r\n"
       ]);
     });

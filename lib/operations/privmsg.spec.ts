@@ -5,11 +5,11 @@ import { sendPrivmsg } from "./privmsg";
 describe("./operations/privmsg", function() {
   describe("#sendPrivmsg()", function() {
     it("should send the correct wire command", function() {
-      const { client, transport } = fakeConnection();
+      const { client, data } = fakeConnection();
 
       sendPrivmsg(client, "forsen", "Kappa Keepo PogChamp");
 
-      assert.deepStrictEqual(transport.data, [
+      assert.deepStrictEqual(data, [
         "PRIVMSG #forsen :Kappa Keepo PogChamp\r\n"
       ]);
     });

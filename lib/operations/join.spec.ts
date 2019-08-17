@@ -63,26 +63,26 @@ describe("./operations/join", function() {
   describe("#joinChannel()", function() {
     it("sends the correct wire command", function() {
       sinon.useFakeTimers(); // prevent the promise timing out
-      const { transport, client } = fakeConnection();
+      const { data, client } = fakeConnection();
       joinChannel(client, "pajlada");
-      assert.deepEqual(transport.data, ["JOIN #pajlada\r\n"]);
+      assert.deepEqual(data, ["JOIN #pajlada\r\n"]);
     });
 
     it("does nothing if channel is joined and wanted", function() {
       sinon.useFakeTimers(); // prevent the promise timing out
-      const { transport, client } = fakeConnection();
+      const { data, client } = fakeConnection();
       client.wantedChannels.add("pajlada");
       client.joinedChannels.add("pajlada");
       joinChannel(client, "pajlada");
-      assert.deepEqual(transport.data, []);
+      assert.deepEqual(data, []);
     });
 
     it("sends the command if channel is not in joinedChannels but in wantedChannels", function() {
       sinon.useFakeTimers(); // prevent the promise timing out
-      const { transport, client } = fakeConnection();
+      const { data, client } = fakeConnection();
       client.wantedChannels.add("pajlada");
       joinChannel(client, "pajlada");
-      assert.deepEqual(transport.data, ["JOIN #pajlada\r\n"]);
+      assert.deepEqual(data, ["JOIN #pajlada\r\n"]);
     });
 
     it("resolves on incoming JOIN", async function() {
@@ -187,7 +187,7 @@ describe("./operations/join", function() {
 
       // when
       const promise = joinChannel(client, "pajlada");
-      transport.emit("error", new Error("peer reset connection"));
+      transport.destroy(new Error("peer reset connection"));
 
       // then
       await assertErrorChain(

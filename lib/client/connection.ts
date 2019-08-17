@@ -1,4 +1,4 @@
-import * as carrier from "carrier";
+import { LineStream } from "byline";
 import * as debugLogger from "debug-logger";
 import { ResponseAwaiter } from "../await/await-response";
 import { ClientConfiguration } from "../config/config";
@@ -35,28 +35,34 @@ export class SingleConnection extends BaseClient {
   public constructor(configuration?: ClientConfiguration) {
     super(configuration);
 
-    this.on("error", this.handleError.bind(this));
+    this.on("error", e => {
+      if (anyCauseInstanceof(e, ConnectionError)) {
+        process.nextTick(() => {
+          this.emitClosed(e);
+          this.transport.stream.destroy(e);
+        });
+      }
+    });
     this.on("connect", this.onConnect.bind(this));
 
     this.transport = makeTransport(this.configuration.connection);
+
     this.transport.stream.on("close", () => {
-      // the hadError parameter is ignored, because if an error actually occurred the 'error' listener
-      // would have been invoked first, advancing the state to CLOSED and emitting the error in the
-      // 'close' event of this client.
-      // Because the state is then already CLOSED, this.emitClosed() won't do anything if we had a transport
-      // error.
-      // (the emitClosed implementation only actually emits the 'close' event if this client is not
-      // already closed)
       this.emitClosed();
     });
-    this.transport.stream.on("error", e =>
-      process.nextTick(() => {
-        this.emitError(
-          new ConnectionError("Error occurred in transport layer", e)
-        );
-      })
-    );
-    carrier.carry(this.transport.stream, this.handleLine.bind(this));
+    this.transport.stream.on("error", e => {
+      const emittedError = new ConnectionError(
+        "Error occurred in transport layer",
+        e
+      );
+      this.emitError(emittedError);
+      this.emitClosed(emittedError);
+      this.transport.stream.destroy(emittedError);
+    });
+
+    this.transport.stream
+      .pipe(new LineStream())
+      .on("data", this.handleLine.bind(this));
 
     replyToServerPing(this);
     handleReconnectMessage(this);
@@ -133,16 +139,5 @@ export class SingleConnection extends BaseClient {
       return;
     }
     this.emitMessage(message);
-  }
-
-  private handleError(e: Error): void {
-    if (anyCauseInstanceof(e, ConnectionError)) {
-      // this uses process.nextTick so the 'error' event can be fully dispatched
-      // before the 'close' event is dispatched
-      process.nextTick(() => {
-        this.emitClosed(e);
-        this.transport.stream.destroy(e);
-      });
-    }
   }
 }

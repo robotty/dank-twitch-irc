@@ -8,32 +8,26 @@ describe("./operations/login", function() {
   describe("#sendLogin()", function() {
     it("should only send NICK if password == null", function() {
       sinon.useFakeTimers(); // prevent the promise timing out
-      const { transport, client } = fakeConnection();
+      const { data, client } = fakeConnection();
 
       sendLogin(client, "justinfan12345", undefined);
-      assert.deepEqual(transport.data, ["NICK justinfan12345\r\n"]);
+      assert.deepEqual(data, ["NICK justinfan12345\r\n"]);
     });
 
     it("should send NICK and PASS if password is specified", function() {
       sinon.useFakeTimers(); // prevent the promise timing out
-      const { transport, client } = fakeConnection();
+      const { data, client } = fakeConnection();
 
       sendLogin(client, "justinfan12345", "SCHMOOPIE");
-      assert.deepEqual(transport.data, [
-        "PASS SCHMOOPIE\r\n",
-        "NICK justinfan12345\r\n"
-      ]);
+      assert.deepEqual(data, ["PASS SCHMOOPIE\r\n", "NICK justinfan12345\r\n"]);
     });
 
     it("should prepend oauth: if missing", function() {
       sinon.useFakeTimers(); // prevent the promise timing out
-      const { transport, client } = fakeConnection();
+      const { data, client } = fakeConnection();
 
       sendLogin(client, "pajlada", "12345");
-      assert.deepEqual(transport.data, [
-        "PASS oauth:12345\r\n",
-        "NICK pajlada\r\n"
-      ]);
+      assert.deepEqual(data, ["PASS oauth:12345\r\n", "NICK pajlada\r\n"]);
     });
 
     it("should resolve on 001", async function() {
