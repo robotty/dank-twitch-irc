@@ -14,14 +14,15 @@ export class TcpTransport implements Transport {
     if (config.secure) {
       this.backingSocket = new Socket();
       this.backingSocket.setNoDelay(true);
-      this.backingSocket.setDefaultEncoding("utf-8");
 
       this.stream = new TLSSocket(this.backingSocket);
     } else {
       this.stream = new Socket();
-      this.stream.setNoDelay(true);
-      this.stream.setDefaultEncoding("utf-8");
     }
+
+    this.stream.setNoDelay(true);
+    this.stream.setDefaultEncoding("utf-8"); // for writing
+    this.stream.setEncoding("utf-8"); // for reading
 
     this.stream.cork();
   }
