@@ -55,7 +55,7 @@ export class PrivmsgMessageRateLimiter implements ClientMixin {
     }
 
     const releaseFn = (): void => {
-      if (fastSpam) {
+      if (!fastSpam) {
         this.lowPrivmsgSemaphore.release();
       }
 
