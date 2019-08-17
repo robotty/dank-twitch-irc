@@ -26,7 +26,7 @@ export class SlowModeRateLimiter implements ClientMixin {
       channelName: string,
       message: string
     ): Promise<void> => {
-      const releaseFn = await this.acquire(message);
+      const releaseFn = await this.acquire(channelName);
       if (releaseFn == null) {
         // queue is full
         // message is dropped

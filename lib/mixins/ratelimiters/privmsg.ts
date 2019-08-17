@@ -26,7 +26,7 @@ export class PrivmsgMessageRateLimiter implements ClientMixin {
       channelName: string,
       message: string
     ): Promise<V> => {
-      const releaseFn = await this.acquire(message);
+      const releaseFn = await this.acquire(channelName);
       try {
         return await oldFn(channelName, message);
       } finally {
