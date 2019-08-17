@@ -31,25 +31,25 @@ export class RoomStateTracker extends EventEmitter<RoomStateTrackerEvents>
   }
 
   private onRoomstateMessage(msg: RoomstateMessage): void {
-    const currentState: RoomState | undefined = this.getChannelState(msg.channelName);
-    const newState: Partial<RoomState> = msg.extractRoomState();
+    const currentState: RoomState | undefined = this.getChannelState(
+      msg.channelName
+    );
+    const extractedState: Partial<RoomState> = msg.extractRoomState();
 
     if (currentState == null) {
-      if (!hasAllStateTags(newState)) {
+      if (!hasAllStateTags(extractedState)) {
         log.warn(
           "Got incomplete ROOMSTATE before receiving complete roomstate:",
           msg.rawSource
         );
         return;
       }
+      this.channelStates[msg.channelName] = extractedState;
+      this.emit("newChannelState", msg.channelName, extractedState);
+    } else {
+      const newState = Object.assign({}, currentState, extractedState);
       this.channelStates[msg.channelName] = newState;
       this.emit("newChannelState", msg.channelName, newState);
-    } else {
-      for (const [k, v] of Object.entries(newState)) {
-        // @ts-ignore implicit any warning
-        currentState[k] = v;
-      }
-      this.emit("newChannelState", msg.channelName, currentState);
     }
   }
 }
