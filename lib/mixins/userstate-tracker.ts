@@ -33,6 +33,7 @@ export class UserStateTracker extends EventEmitter<UserStateTrackerEvents>
   }
 
   public applyToClient(client: ChatClient): void {
+    client.userStateTracker = this;
     client.on("USERSTATE", this.onUserstateMessage.bind(this));
     client.on("GLOBALUSERSTATE", this.onGlobaluserstateMessage.bind(this));
     client.on("PRIVMSG", this.onPrivmsgMessage.bind(this));
