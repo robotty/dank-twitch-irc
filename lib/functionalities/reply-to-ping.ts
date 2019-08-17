@@ -3,9 +3,9 @@ import { SingleConnection } from "../client/connection";
 export function replyToServerPing(conn: SingleConnection): void {
   conn.on("PING", msg => {
     if (msg.argument == null) {
-      conn.send("PONG");
+      conn.sendRaw("PONG");
     } else {
-      conn.send(`PONG :${msg.argument}`);
+      conn.sendRaw(`PONG :${msg.argument}`);
     }
   });
 }

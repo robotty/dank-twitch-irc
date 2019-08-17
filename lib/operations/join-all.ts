@@ -21,7 +21,7 @@ export async function joinAll(
   const resultsMap: Record<string, Error | undefined> = {};
 
   for (const chunk of channelChunks) {
-    conn.send(`JOIN ${chunk.join(",")}`);
+    conn.sendRaw(`JOIN ${chunk.join(",")}`);
 
     const chunkNames = chunk.map(s => s.slice(1));
     const chunkPromises: Array<Promise<any>> = [];

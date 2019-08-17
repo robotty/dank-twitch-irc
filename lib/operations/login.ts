@@ -18,9 +18,9 @@ export async function sendLogin(
       password = "oauth:" + password;
     }
 
-    conn.send(`PASS ${password}`);
+    conn.sendRaw(`PASS ${password}`);
   }
-  conn.send(`NICK ${username}`);
+  conn.sendRaw(`NICK ${username}`);
 
   // successful login if we're greeted with a 001,
   // e.g. :tmi.twitch.tv 001 justinfan12345 :Welcome, GLHF!

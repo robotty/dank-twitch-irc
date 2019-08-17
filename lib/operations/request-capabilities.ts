@@ -31,7 +31,7 @@ export async function requestCapabilities(
   if (requestMembershipCapability) {
     capabilities.push("twitch.tv/membership");
   }
-  conn.send(`CAP REQ :${capabilities.join(" ")}`);
+  conn.sendRaw(`CAP REQ :${capabilities.join(" ")}`);
 
   // CAP ACK :twitch.tv/commands twitch.tv/tags twitch.tv/membership
   // CAP NAK :twitch.tv/invalid

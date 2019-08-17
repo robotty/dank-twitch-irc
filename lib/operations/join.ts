@@ -51,7 +51,7 @@ export async function joinChannel(
   }
 
   conn.wantedChannels.add(channelName);
-  conn.send(`JOIN #${channelName}`);
+  conn.sendRaw(`JOIN #${channelName}`);
   const response = await awaitJoinResponse(conn, channelName);
   conn.joinedChannels.add(channelName);
   return response;

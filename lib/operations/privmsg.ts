@@ -5,5 +5,5 @@ export async function sendPrivmsg(
   channelName: string,
   message: string
 ): Promise<void> {
-  conn.send(`PRIVMSG #${channelName} :${message}`);
+  conn.sendRaw(`PRIVMSG #${channelName} :${message}`);
 }

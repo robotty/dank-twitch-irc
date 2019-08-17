@@ -98,7 +98,7 @@ export class ChatClient extends BaseClient {
    * @param command Raw IRC command.
    */
   public sendRaw(command: string): void {
-    this.requireConnection().send(command);
+    this.requireConnection().sendRaw(command);
   }
 
   public async join(channelName: string): Promise<void> {

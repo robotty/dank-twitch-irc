@@ -50,7 +50,7 @@ export async function partChannel(
     return;
   }
 
-  conn.send(`PART #${channelName}`);
+  conn.sendRaw(`PART #${channelName}`);
 
   conn.wantedChannels.delete(channelName);
   const response = await awaitPartResponse(conn, channelName);

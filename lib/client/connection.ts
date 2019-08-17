@@ -103,7 +103,7 @@ export class SingleConnection extends BaseClient {
     this.transport.stream.destroy(error);
   }
 
-  public send(command: string): void {
+  public sendRaw(command: string): void {
     validateIRCCommand(command);
     this.log.trace(">", command);
     this.transport.stream.write(command + "\r\n");

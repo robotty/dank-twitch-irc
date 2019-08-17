@@ -20,7 +20,7 @@ export async function sendPing(
   pingIdentifier: string = randomPingIdentifier(),
   timeout: number = 2000
 ): Promise<PongMessage> {
-  conn.send(`PING :${pingIdentifier}`);
+  conn.sendRaw(`PING :${pingIdentifier}`);
 
   return (await awaitResponse(conn, {
     success: msg =>
