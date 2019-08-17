@@ -46,10 +46,6 @@ export class RoomStateTracker extends EventEmitter<RoomStateTrackerEvents>
       this.emit("newChannelState", msg.channelName, newState);
     } else {
       for (const [k, v] of Object.entries(newState)) {
-        if (v == null) {
-          continue;
-        }
-
         // @ts-ignore implicit any warning
         currentState[k] = v;
       }
