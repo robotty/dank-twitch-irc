@@ -63,11 +63,11 @@ describe("./message/parser/badges", function() {
       );
     });
 
-    it("should throw ParseError if badge version is not a valid integer", function() {
+    it("should throw ParseError if badge version is empty", function() {
       assertThrowsChain(
-        () => parseSingleBadge("subscriber/xd"),
+        () => parseSingleBadge("subscriber/"),
         ParseError,
-        'Invalid integer for string "xd"'
+        'Empty badge version on badge "subscriber/"'
       );
     });
   });

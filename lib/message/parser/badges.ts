@@ -1,6 +1,5 @@
 import { TwitchBadge } from "../badge";
 import { TwitchBadgesList } from "../badges";
-import { parseIntThrowing } from "./common";
 import { ParseError } from "./parse-error";
 
 export function parseSingleBadge(badgeSrc: string): TwitchBadge {
@@ -11,6 +10,10 @@ export function parseSingleBadge(badgeSrc: string): TwitchBadge {
     throw new ParseError(
       `Badge source "${badgeSrc}" did not contain '/' character`
     );
+  }
+
+  if (badgeVersion.length <= 0) {
+    throw new ParseError(`Empty badge version on badge "${badgeSrc}"`);
   }
 
   return new TwitchBadge(badgeName, badgeVersion);
