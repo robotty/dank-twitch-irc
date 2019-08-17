@@ -6,14 +6,12 @@ import { ParseError } from "./parse-error";
 export function parseSingleBadge(badgeSrc: string): TwitchBadge {
   // src format: <badge>/<version>
 
-  const [badgeName, badgeVersionSrc] = badgeSrc.split("/", 2);
-  if (badgeName == null || badgeVersionSrc == null) {
+  const [badgeName, badgeVersion] = badgeSrc.split("/", 2);
+  if (badgeName == null || badgeVersion == null) {
     throw new ParseError(
       `Badge source "${badgeSrc}" did not contain '/' character`
     );
   }
-
-  const badgeVersion = parseIntThrowing(badgeVersionSrc);
 
   return new TwitchBadge(badgeName, badgeVersion);
 }

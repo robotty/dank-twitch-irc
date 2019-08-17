@@ -165,7 +165,7 @@ describe("./message/parser/tag-values", function() {
     it("should return single-element array on single badge", function() {
       assert.deepStrictEqual(
         getTagBadges({ key: "admin/1" }, "key"),
-        new TwitchBadgesList(new TwitchBadge("admin", 1))
+        new TwitchBadgesList(new TwitchBadge("admin", "1"))
       );
     });
 
@@ -173,8 +173,8 @@ describe("./message/parser/tag-values", function() {
       assert.deepStrictEqual(
         getTagBadges({ key: "admin/1,subscriber/32" }, "key"),
         new TwitchBadgesList(
-          new TwitchBadge("admin", 1),
-          new TwitchBadge("subscriber", 32)
+          new TwitchBadge("admin", "1"),
+          new TwitchBadge("subscriber", "32")
         )
       );
     });
@@ -183,9 +183,9 @@ describe("./message/parser/tag-values", function() {
       assert.deepStrictEqual(
         getTagBadges({ key: "admin/1,subscriber/32,bits/1000" }, "key"),
         new TwitchBadgesList(
-          new TwitchBadge("admin", 1),
-          new TwitchBadge("subscriber", 32),
-          new TwitchBadge("bits", 1000)
+          new TwitchBadge("admin", "1"),
+          new TwitchBadge("subscriber", "32"),
+          new TwitchBadge("bits", "1000")
         )
       );
     });

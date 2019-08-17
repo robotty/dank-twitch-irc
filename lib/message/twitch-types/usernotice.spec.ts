@@ -102,7 +102,7 @@ describe("./message/twitch-types/usernotice", function() {
 
       assert.deepStrictEqual(
         msg.badgeInfo,
-        new TwitchBadgesList(new TwitchBadge("subscriber", 5))
+        new TwitchBadgesList(new TwitchBadge("subscriber", "5"))
       );
       assert.strictEqual(msg.badgeInfoRaw, "subscriber/5");
 

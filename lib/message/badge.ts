@@ -1,8 +1,8 @@
 export class TwitchBadge {
   public name: string;
-  public version: number;
+  public version: string;
 
-  public constructor(name: string, version: number) {
+  public constructor(name: string, version: string) {
     this.name = name;
     this.version = version;
   }

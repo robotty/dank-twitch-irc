@@ -75,15 +75,15 @@ describe("./message/twitch-types/privmsg", function() {
 
       assert.deepStrictEqual(
         msg.badgeInfo,
-        new TwitchBadgesList(new TwitchBadge("subscriber", 5))
+        new TwitchBadgesList(new TwitchBadge("subscriber", "5"))
       );
       assert.strictEqual(msg.badgeInfoRaw, "subscriber/5");
 
       assert.deepStrictEqual(
         msg.badges,
         new TwitchBadgesList(
-          new TwitchBadge("broadcaster", 1),
-          new TwitchBadge("subscriber", 0)
+          new TwitchBadge("broadcaster", "1"),
+          new TwitchBadge("subscriber", "0")
         )
       );
       assert.strictEqual(msg.badgesRaw, "broadcaster/1,subscriber/0");
@@ -110,11 +110,11 @@ describe("./message/twitch-types/privmsg", function() {
       assert.strictEqual(msg.serverTimestampRaw, "1563096499780");
 
       assert.deepStrictEqual(msg.extractUserState(), {
-        badgeInfo: new TwitchBadgesList(new TwitchBadge("subscriber", 5)),
+        badgeInfo: new TwitchBadgesList(new TwitchBadge("subscriber", "5")),
         badgeInfoRaw: "subscriber/5",
         badges: new TwitchBadgesList(
-          new TwitchBadge("broadcaster", 1),
-          new TwitchBadge("subscriber", 0)
+          new TwitchBadge("broadcaster", "1"),
+          new TwitchBadge("subscriber", "0")
         ),
         badgesRaw: "broadcaster/1,subscriber/0",
         color: { r: 0x19, g: 0xe6, b: 0xe6 },
