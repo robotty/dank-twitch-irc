@@ -70,7 +70,9 @@ describe("./operations/whisper", function() {
       await assertErrorChain(
         promise,
         WhisperError,
-        "Failed to whisper [pajlada]: hello world",
+        "Failed to whisper [pajlada]: hello world: Bad response message:" +
+          " @msg-id=whisper_limit_per_sec :tmi.twitch.tv NOTICE #justinfa" +
+          "n12345 :You are sending whispers too fast. Try again in a second.",
         MessageError,
         "Bad response message: @msg-id=whisper_limit_per_sec" +
           " :tmi.twitch.tv NOTICE #justinfan12345 :You are " +
@@ -80,7 +82,9 @@ describe("./operations/whisper", function() {
       await assertErrorChain(
         clientError,
         WhisperError,
-        "Failed to whisper [pajlada]: hello world",
+        "Failed to whisper [pajlada]: hello world: Bad response message:" +
+          " @msg-id=whisper_limit_per_sec :tmi.twitch.tv NOTICE #justinfa" +
+          "n12345 :You are sending whispers too fast. Try again in a second.",
         MessageError,
         "Bad response message: @msg-id=whisper_limit_per_sec" +
           " :tmi.twitch.tv NOTICE #justinfan12345 :You are " +

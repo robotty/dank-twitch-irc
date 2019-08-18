@@ -1,4 +1,4 @@
-import { BaseError } from "make-error-cause";
+import { BaseError } from "../utils/base-error";
 
 /**
  * Signifies some sort of timeout while waiting for something to complete

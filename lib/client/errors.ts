@@ -1,5 +1,4 @@
-import { BaseError } from "make-error-cause";
-
+import { BaseError } from "../utils/base-error";
 // tslint:disable:max-classes-per-file
 
 /**

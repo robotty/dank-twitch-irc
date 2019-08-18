@@ -1,3 +1,3 @@
-import { BaseError } from "make-error-cause";
+import { BaseError } from "../../utils/base-error";
 
 export class ParseError extends BaseError {}

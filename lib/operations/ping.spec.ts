@@ -50,7 +50,7 @@ describe("./operations/ping", function() {
       await assertErrorChain(
         promise,
         PingTimeoutError,
-        "Server did not PONG back",
+        "Server did not PONG back: Timed out after waiting for response for 2000 milliseconds",
         TimeoutError,
         "Timed out after waiting for response for 2000 milliseconds"
       );
@@ -58,7 +58,7 @@ describe("./operations/ping", function() {
       await assertErrorChain(
         clientError,
         PingTimeoutError,
-        "Server did not PONG back",
+        "Server did not PONG back: Timed out after waiting for response for 2000 milliseconds",
         TimeoutError,
         "Timed out after waiting for response for 2000 milliseconds"
       );

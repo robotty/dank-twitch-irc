@@ -414,7 +414,7 @@ describe("./operations/join-all", function() {
         // tslint:disable-next-line:no-string-literal
         results["nymn_hs"],
         JoinError,
-        "Failed to join channel nymn_hs",
+        "Failed to join channel nymn_hs: A response to a command issued later than this command was received",
         TimeoutError,
         "A response to a command issued later than this command was received"
       );

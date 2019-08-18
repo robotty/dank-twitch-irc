@@ -52,7 +52,8 @@ describe("./operations/login", function() {
       await assertErrorChain(
         promise,
         LoginError,
-        "Failed to login",
+        "Failed to login: Bad response message: :tmi.twitch" +
+        ".tv NOTICE * :Improperly formatted auth",
         MessageError,
         "Bad response message: :tmi.twitch.tv NOTICE * :Improperly formatted auth"
       );
@@ -60,7 +61,8 @@ describe("./operations/login", function() {
       await assertErrorChain(
         clientError,
         LoginError,
-        "Failed to login",
+        "Failed to login: Bad response message: :tmi.twitch." +
+        "tv NOTICE * :Improperly formatted auth",
         MessageError,
         "Bad response message: :tmi.twitch.tv NOTICE * :Improperly formatted auth"
       );

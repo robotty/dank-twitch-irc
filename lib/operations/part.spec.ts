@@ -95,7 +95,7 @@ describe("./operations/part", function() {
       await assertErrorChain(
         promise,
         PartError,
-        "Failed to part channel pajlada",
+        "Failed to part channel pajlada: Timed out after waiting for response for 2000 milliseconds",
         TimeoutError,
         "Timed out after waiting for response for 2000 milliseconds"
       );
@@ -103,7 +103,7 @@ describe("./operations/part", function() {
       await assertErrorChain(
         clientError,
         PartError,
-        "Failed to part channel pajlada",
+        "Failed to part channel pajlada: Timed out after waiting for response for 2000 milliseconds",
         TimeoutError,
         "Timed out after waiting for response for 2000 milliseconds"
       );

@@ -110,7 +110,9 @@ describe("./operations/request-capabilities", function() {
       await assertErrorChain(
         promise,
         CapabilitiesError,
-        "Failed to request server capabilities twitch.tv/commands, twitch.tv/tags",
+        "Failed to request server capabilities twitch.tv/commands, " +
+          "twitch.tv/tags: Bad response message: :tmi.twitch.tv CAP " +
+          "* NAK :twitch.tv/tags",
         MessageError,
         "Bad response message: :tmi.twitch.tv CAP * NAK :twitch.tv/tags"
       );
@@ -118,7 +120,9 @@ describe("./operations/request-capabilities", function() {
       await assertErrorChain(
         clientError,
         CapabilitiesError,
-        "Failed to request server capabilities twitch.tv/commands, twitch.tv/tags",
+        "Failed to request server capabilities twitch.tv/commands, " +
+          "twitch.tv/tags: Bad response message: :tmi.twitch.tv CAP * " +
+          "NAK :twitch.tv/tags",
         MessageError,
         "Bad response message: :tmi.twitch.tv CAP * NAK :twitch.tv/tags"
       );
