@@ -3,13 +3,15 @@ import { applyReplacements } from "../utils/apply-function-replacements";
 import { ignoreErrors } from "../utils/ignore-errors";
 import { ClientMixin } from "./base-mixin";
 
-export class IgnorePromiseRejectionsMixin implements ClientMixin {
+export class IgnoreUnhandledPromiseRejectionsMixin implements ClientMixin {
   public applyToClient(client: ChatClient): void {
     const genericReplacement = <V, A extends any[]>(
       originalFn: (...args: A) => Promise<V>,
       ...args: A
     ): Promise<V | undefined> => {
-      return originalFn(...args).catch(ignoreErrors);
+      const originalPromise = originalFn(...args);
+      originalPromise.catch(ignoreErrors);
+      return originalPromise;
     };
 
     applyReplacements(this, client, {

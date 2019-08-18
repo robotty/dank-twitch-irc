@@ -77,5 +77,5 @@ export interface ClientConfiguration {
   rateLimits?: RateLimitsConfig;
   connectionRateLimits?: ConnectionRateLimits;
   installDefaultMixins?: boolean;
-  suppressPromiseRejections?: boolean;
+  ignoreUnhandledPromiseRejections?: boolean;
 }

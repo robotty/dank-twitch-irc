@@ -1,7 +1,7 @@
 import * as debugLogger from "debug-logger";
 import { ClientConfiguration } from "../config/config";
 import { ClientMixin, ConnectionMixin } from "../mixins/base-mixin";
-import { IgnorePromiseRejectionsMixin } from "../mixins/ignore-promise-rejections";
+import { IgnoreUnhandledPromiseRejectionsMixin } from "../mixins/ignore-promise-rejections";
 import { ConnectionRateLimiter } from "../mixins/ratelimiters/connection";
 import { PrivmsgMessageRateLimiter } from "../mixins/ratelimiters/privmsg";
 import { RoomStateTracker } from "../mixins/roomstate-tracker";
@@ -53,8 +53,8 @@ export class ChatClient extends BaseClient {
       this.use(new PrivmsgMessageRateLimiter(this));
     }
 
-    if (this.configuration.suppressPromiseRejections) {
-      this.use(new IgnorePromiseRejectionsMixin());
+    if (this.configuration.ignoreUnhandledPromiseRejections) {
+      this.use(new IgnoreUnhandledPromiseRejectionsMixin());
     }
 
     this.on("error", error => {

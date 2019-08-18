@@ -249,9 +249,12 @@ let client = new ChatClient({
   // and Room- and Userstate trackers (which are important for other mixins)
   installDefaultMixins: false, // true by default
 
-  // Don't reject the promises returned by client methods such as `.say()`.
-  // On Error, they will be resolved with undefined instead.
-  suppressPromiseRejections: true // false by default
+  // Silence UnandledPromiseRejectionWarnings on all client methods
+  // that return promises.
+  // With this option enabled, the returned promises will still be rejected/
+  // resolved as without this option, this option ONLY silences the
+  // UnhandledPromiseRejectionWarning.
+  ignoreUnhandledPromiseRejections: true // false by default
 });
 ```
 
@@ -315,9 +318,9 @@ and the mixins installed by default:
   state your bot user has in all channels.
 - `new RoomStateTracker()` - Used by other mixins. Keeps track of each channel's
   state, e.g. sub-mode etc.
-- `new IgnorePromiseRejectionsMixin()` - Swallows rejected promises returned by
+- `new IgnoreUnhandledPromiseRejectionsMixin()` - Silences `UnhandledPromiseRejectionWarning`s on promises returned by
   the client's functions. (installed for you if you activate the
-  `suppressPromiseRejections` client option)
+  `ignoreUnhandledPromiseRejections` client option)
 
 ## Tests
 
