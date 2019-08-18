@@ -43,7 +43,7 @@ commands:
           name: Run tests with junit reporter
           command: |
             npm run test -- --reporter mocha-junit-reporter
-            ./cc-test-reporter after-build --input-type lcov --exit-code $? ./coverage/lcov.info
+            ./cc-test-reporter after-build --coverage-input-type lcov --exit-code $? ./coverage/lcov.info
           environment:
             MOCHA_FILE: ./mocha-report/test-results.xml
       - run:
