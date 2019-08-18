@@ -1,4 +1,4 @@
-# dank-twitch-irc [![CircleCI](https://circleci.com/gh/robotty/dank-twitch-irc.svg?style=svg)](https://circleci.com/gh/robotty/dank-twitch-irc) [![codecov](https://codecov.io/gh/robotty/dank-twitch-irc/branch/master/graph/badge.svg)](https://codecov.io/gh/robotty/dank-twitch-irc)
+# dank-twitch-irc [![CircleCI](https://circleci.com/gh/robotty/dank-twitch-irc.svg?style=svg)](https://circleci.com/gh/robotty/dank-twitch-irc) [![codecov](https://codecov.io/gh/robotty/dank-twitch-irc/branch/master/graph/badge.svg)](https://codecov.io/gh/robotty/dank-twitch-irc) [![Maintainability](https://api.codeclimate.com/v1/badges/ec6b5c956de4ed3071ab/maintainability)](https://codeclimate.com/github/robotty/dank-twitch-irc/maintainability)
 
 Node.js-only Twitch IRC lib, written in TypeScript.
 
@@ -338,27 +338,19 @@ npm run lint
 npm run lintfix
 ```
 
-[clearchat]:
-  https://robotty.github.io/dank-twitch-irc/classes/clearchatmessage.html
-[clearmsg]:
-  https://robotty.github.io/dank-twitch-irc/classes/clearmsgmessage.html
-[hosttarget]:
-  https://robotty.github.io/dank-twitch-irc/classes/hosttargetmessage.html
+[clearchat]: https://robotty.github.io/dank-twitch-irc/classes/clearchatmessage.html
+[clearmsg]: https://robotty.github.io/dank-twitch-irc/classes/clearmsgmessage.html
+[hosttarget]: https://robotty.github.io/dank-twitch-irc/classes/hosttargetmessage.html
 [notice]: https://robotty.github.io/dank-twitch-irc/classes/noticemessage.html
 [privmsg]: https://robotty.github.io/dank-twitch-irc/classes/privmsgmessage.html
-[roomstate]:
-  https://robotty.github.io/dank-twitch-irc/classes/roomstatemessage.html
-[usernotice]:
-  https://robotty.github.io/dank-twitch-irc/classes/usernoticemessage.html
-[userstate]:
-  https://robotty.github.io/dank-twitch-irc/classes/userstatemessage.html
-[globaluserstate]:
-  https://robotty.github.io/dank-twitch-irc/classes/globaluserstatemessage.html
+[roomstate]: https://robotty.github.io/dank-twitch-irc/classes/roomstatemessage.html
+[usernotice]: https://robotty.github.io/dank-twitch-irc/classes/usernoticemessage.html
+[userstate]: https://robotty.github.io/dank-twitch-irc/classes/userstatemessage.html
+[globaluserstate]: https://robotty.github.io/dank-twitch-irc/classes/globaluserstatemessage.html
 [whisper]: https://robotty.github.io/dank-twitch-irc/classes/whispermessage.html
 [join]: https://robotty.github.io/dank-twitch-irc/classes/joinmessage.html
 [part]: https://robotty.github.io/dank-twitch-irc/classes/partmessage.html
-[reconnect]:
-  https://robotty.github.io/dank-twitch-irc/classes/reconnectmessage.html
+[reconnect]: https://robotty.github.io/dank-twitch-irc/classes/reconnectmessage.html
 [ping]: https://robotty.github.io/dank-twitch-irc/classes/pingmessage.html
 [pong]: https://robotty.github.io/dank-twitch-irc/classes/pongmessage.html
 [cap]: https://robotty.github.io/dank-twitch-irc/classes/capmessage.html

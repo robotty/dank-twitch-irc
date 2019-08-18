@@ -23,14 +23,27 @@ commands:
           name: Run linters
           command: npm run lint -- --max-warnings=0
       - run:
+          name: Run linters
+          command: npm run check-format
+      - run:
           name: Assemble typescript
           command: npm run build
       - run:
           name: Generate typedoc
           command: npm run docs
       - run:
+          name: Setup Code Climate test-reporter
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
+      - run:
+          name: Notify codeclimate before test
+          command: ./cc-test-reporter before-build
+      - run:
           name: Run tests with junit reporter
-          command: npm run test -- --reporter mocha-junit-reporter
+          command: |
+            npm run test -- --reporter mocha-junit-reporter
+            ./cc-test-reporter after-build --input-type lcov --exit-code $? ./coverage/lcov.info
           environment:
             MOCHA_FILE: ./mocha-report/test-results.xml
       - run:
