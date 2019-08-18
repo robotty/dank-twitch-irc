@@ -23,7 +23,7 @@ commands:
           name: Run linters
           command: npm run lint -- --max-warnings=0
       - run:
-          name: Run linters
+          name: Check format with prettier
           command: npm run check-format
       - run:
           name: Assemble typescript
