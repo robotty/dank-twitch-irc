@@ -85,7 +85,7 @@ export async function say(
       msg.channelName === channelName &&
       badNoticeIDs.includes(msg.messageID!),
     errorType: (msg, cause) => new SayError(channelName, message, msg, cause),
-    errorMessage: errorMessage
+    errorMessage
   }) as Promise<UserstateMessage>;
 }
 
