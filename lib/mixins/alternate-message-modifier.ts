@@ -2,12 +2,18 @@ import { ChatClient } from "../client/client";
 import { PrivmsgMessage } from "../message/twitch-types/privmsg";
 import { applyReplacements } from "../utils/apply-function-replacements";
 import { ClientMixin } from "./base-mixin";
+import { canSpamFast } from "./ratelimiters/utils";
 
 export const invisibleSuffix = " \u{000e0000}";
 
+interface LastMessage {
+  messageText: string;
+  action: boolean;
+}
+
 export class AlternateMessageModifier implements ClientMixin {
   private readonly client: ChatClient;
-  private readonly lastMessages: Record<string, string> = {};
+  private readonly lastMessages: Record<string, LastMessage> = {};
 
   public constructor(client: ChatClient) {
     this.client = client;
@@ -15,38 +21,80 @@ export class AlternateMessageModifier implements ClientMixin {
 
   public appendInvisibleCharacter(
     channelName: string,
-    newMessage: string
+    messageText: string,
+    action: boolean
   ): string {
-    const lastMessage: string | undefined = this.lastMessages[channelName];
-    if (lastMessage === newMessage) {
-      return newMessage + invisibleSuffix;
+    const lastMessage: LastMessage | undefined = this.lastMessages[channelName];
+
+    if (
+      lastMessage != null &&
+      lastMessage.messageText === messageText &&
+      lastMessage.action === action
+    ) {
+      return messageText + invisibleSuffix;
     } else {
-      return newMessage;
+      return messageText;
     }
   }
 
   public applyToClient(client: ChatClient): void {
     applyReplacements(this, client, {
       async say(oldFn, channelName: string, message: string): Promise<void> {
-        const newMsg = this.appendInvisibleCharacter(channelName, message);
+        const { fastSpam } = canSpamFast(
+          channelName,
+          client.configuration.username,
+          client.userStateTracker
+        );
+
+        if (fastSpam) {
+          await oldFn(channelName, message);
+          return;
+        }
+
+        const newMsg = this.appendInvisibleCharacter(
+          channelName,
+          message,
+          false
+        );
         await oldFn(channelName, newMsg);
 
         if (!this.client.joinedChannels.has(channelName)) {
           // in this case we won't get our own message back via the
           // onPrivmsg handler, so this will have to do. (Save the sent
           // message)
-          this.lastMessages[channelName] = newMsg;
+          this.lastMessages[channelName] = {
+            messageText: newMsg,
+            action: false
+          };
         }
       },
       async me(oldFn, channelName: string, message: string): Promise<void> {
-        const newMsg = this.appendInvisibleCharacter(channelName, message);
+        const { fastSpam } = canSpamFast(
+          channelName,
+          client.configuration.username,
+          client.userStateTracker
+        );
+
+        if (fastSpam) {
+          await oldFn(channelName, message);
+          return;
+        }
+
+        const newMsg = this.appendInvisibleCharacter(
+          channelName,
+          message,
+          true
+        );
         await oldFn(channelName, newMsg);
 
         if (!this.client.joinedChannels.has(channelName)) {
           // in this case we won't get our own message back via the
           // onPrivmsg handler, so this will have to do. (Save the sent
           // message)
-          this.lastMessages[channelName] = `\u0001ACTION ${newMsg}\u0001`;
+          this.lastMessages[channelName] = {
+            messageText: newMsg,
+            action: true
+          };
         }
       }
     });
@@ -60,6 +108,9 @@ export class AlternateMessageModifier implements ClientMixin {
       return;
     }
 
-    this.lastMessages[message.channelName] = message.messageText;
+    this.lastMessages[message.channelName] = {
+      messageText: message.messageText,
+      action: message.isAction
+    };
   }
 }
