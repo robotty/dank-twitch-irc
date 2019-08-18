@@ -24,10 +24,13 @@ describe("./operations/say", function() {
 
   describe("SayError", function() {
     it("should not be instanceof ConnectionError", function() {
-      assert.notInstanceOf(new SayError("pajlada", "test"), ConnectionError);
+      assert.notInstanceOf(
+        new SayError("pajlada", "test", true),
+        ConnectionError
+      );
     });
     it("should not be instanceof ClientError", function() {
-      assert.notInstanceOf(new SayError("pajlada", "test"), ClientError);
+      assert.notInstanceOf(new SayError("pajlada", "test", true), ClientError);
     });
   });
 

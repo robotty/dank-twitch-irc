@@ -15,17 +15,20 @@ export function removeCommands(message: string): string {
 
 export class SayError extends MessageError {
   public failedChannelName: string;
-  public failedMessage: string;
+  public messageText: string;
+  public action: boolean;
 
   public constructor(
     failedChannelName: string,
     failedMessage: string,
+    action: boolean,
     message?: string,
     cause?: Error
   ) {
     super(message, cause);
     this.failedChannelName = failedChannelName;
-    this.failedMessage = failedMessage;
+    this.messageText = failedMessage;
+    this.action = action;
   }
 }
 
@@ -63,17 +66,22 @@ const badNoticeIDs = [
 export async function say(
   conn: SingleConnection,
   channelName: string,
-  message: string,
+  messageText: string,
   action = false
 ): Promise<UserstateMessage> {
   let command;
   let errorMessage;
+  let errorType: (message?: string, cause?: Error) => Error;
   if (action) {
-    command = `/me ${message}`;
-    errorMessage = `Failed to say [#${channelName}]: /me ${message}`;
+    command = `/me ${messageText}`;
+    errorMessage = `Failed to say [#${channelName}]: /me ${messageText}`;
+    errorType = (msg, cause) =>
+      new SayError(channelName, messageText, true, msg, cause);
   } else {
-    command = removeCommands(message);
-    errorMessage = `Failed to say [#${channelName}]: ${message}`;
+    command = removeCommands(messageText);
+    errorMessage = `Failed to say [#${channelName}]: ${messageText}`;
+    errorType = (msg, cause) =>
+      new SayError(channelName, messageText, false, msg, cause);
   }
   sendPrivmsg(conn, channelName, command);
 
@@ -84,7 +92,7 @@ export async function say(
       msg instanceof NoticeMessage &&
       msg.channelName === channelName &&
       badNoticeIDs.includes(msg.messageID!),
-    errorType: (msg, cause) => new SayError(channelName, message, msg, cause),
+    errorType,
     errorMessage
   }) as Promise<UserstateMessage>;
 }
