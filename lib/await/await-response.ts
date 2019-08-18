@@ -84,8 +84,8 @@ export class ResponseAwaiter {
       this.rejectPromise = reject;
     });
 
-    this.subscribeToCloseEvent();
-    this.subscribeToMessageEvent();
+    this.subscribeTo("close", this.onConnectionClosed);
+    this.subscribeTo("message", this.onConnectionMessage);
     this.joinPendingResponsesQueue();
   }
 
@@ -199,12 +199,6 @@ export class ResponseAwaiter {
     }
   }
 
-  private subscribeToCloseEvent(): void {
-    const listener = this.onConnectionClosed.bind(this);
-    this.conn.on("close", listener);
-    this.unsubscribers.push(() => this.conn.removeListener("close", listener));
-  }
-
   private onConnectionMessage(msg: IRCMessage): void {
     if (this.config.failure(msg)) {
       this.reject(new MessageError(`Bad response message: ${msg.rawSource}`));
@@ -213,12 +207,13 @@ export class ResponseAwaiter {
     }
   }
 
-  private subscribeToMessageEvent(): void {
-    const listener = this.onConnectionMessage.bind(this);
-    this.conn.on("message", listener);
-    this.unsubscribers.push(() =>
-      this.conn.removeListener("message", listener)
-    );
+  private subscribeTo(
+    eventName: string,
+    handler: (...args: any[]) => any
+  ): void {
+    handler = handler.bind(this);
+    this.conn.on(eventName, handler);
+    this.unsubscribers.push(() => this.conn.removeListener(eventName, handler));
   }
 }
 
