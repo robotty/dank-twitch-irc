@@ -40,7 +40,7 @@ export class ChatClient extends BaseClient {
   public userStateTracker?: UserStateTracker;
   public readonly connectionMixins: ConnectionMixin[] = [];
 
-  private readonly connections: SingleConnection[] = [];
+  public readonly connections: SingleConnection[] = [];
   private activeWhisperConn: SingleConnection | undefined;
 
   public constructor(configuration?: ClientConfiguration) {
