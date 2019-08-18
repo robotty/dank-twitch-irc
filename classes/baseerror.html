@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>PingMessage | dank-twitch-irc</title>
+	<title>BaseError | dank-twitch-irc</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,10 +54,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="pingmessage.html">PingMessage</a>
+					<a href="baseerror.html">BaseError</a>
 				</li>
 			</ul>
-			<h1>Class PingMessage</h1>
+			<h1>Class BaseError</h1>
 		</div>
 	</div>
 </header>
@@ -68,10 +68,27 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="ircmessage.html" class="tsd-signature-type">IRCMessage</a>
+						<span class="tsd-signature-type">BaseError</span>
 						<ul class="tsd-hierarchy">
 							<li>
-								<span class="target">PingMessage</span>
+								<span class="target">BaseError</span>
+								<ul class="tsd-hierarchy">
+									<li>
+										<a href="messageerror.html" class="tsd-signature-type">MessageError</a>
+									</li>
+									<li>
+										<a href="connectionerror.html" class="tsd-signature-type">ConnectionError</a>
+									</li>
+									<li>
+										<a href="parseerror.html" class="tsd-signature-type">ParseError</a>
+									</li>
+									<li>
+										<a href="timeouterror.html" class="tsd-signature-type">TimeoutError</a>
+									</li>
+									<li>
+										<a href="validationerror.html" class="tsd-signature-type">ValidationError</a>
+									</li>
+								</ul>
 							</li>
 						</ul>
 					</li>
@@ -80,7 +97,7 @@
 			<section class="tsd-panel">
 				<h3>Implements</h3>
 				<ul class="tsd-hierarchy">
-					<li><a href="../interfaces/ircmessagedata.html" class="tsd-signature-type">IRCMessageData</a></li>
+					<li><span class="tsd-signature-type">Error</span></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -90,19 +107,16 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="pingmessage.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="baseerror.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section ">
+						<section class="tsd-index-section tsd-is-inherited">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="pingmessage.html#argument" class="tsd-kind-icon">argument</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="pingmessage.html#irccommand" class="tsd-kind-icon">irc<wbr>Command</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="pingmessage.html#ircparameters" class="tsd-kind-icon">irc<wbr>Parameters</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="pingmessage.html#ircprefix" class="tsd-kind-icon">irc<wbr>Prefix</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="pingmessage.html#ircprefixraw" class="tsd-kind-icon">irc<wbr>Prefix<wbr>Raw</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="pingmessage.html#irctags" class="tsd-kind-icon">irc<wbr>Tags</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="pingmessage.html#rawsource" class="tsd-kind-icon">raw<wbr>Source</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="baseerror.html#cause" class="tsd-kind-icon">cause</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="baseerror.html#message" class="tsd-kind-icon">message</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="baseerror.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="baseerror.html#stack" class="tsd-kind-icon">stack</a></li>
 							</ul>
 						</section>
 					</div>
@@ -114,113 +128,73 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Ping<wbr>Message<span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><a href="../interfaces/ircmessagedata.html" class="tsd-signature-type">IRCMessageData</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="pingmessage.html" class="tsd-signature-type">PingMessage</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Base<wbr>Error<span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span>, cause<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Error</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="baseerror.html" class="tsd-signature-type">BaseError</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Overrides <a href="ircmessage.html">IRCMessage</a>.<a href="ircmessage.html#constructor">constructor</a></p>
+								<p>Overrides BaseError.__constructor</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/52a8184/lib/message/twitch-types/connection/ping.ts#L9">message/twitch-types/connection/ping.ts:9</a></li>
+									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/52a8184/lib/utils/base-error.ts#L3">utils/base-error.ts:3</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>message: <a href="../interfaces/ircmessagedata.html" class="tsd-signature-type">IRCMessageData</a></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> message: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> cause: <span class="tsd-signature-type">Error</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="pingmessage.html" class="tsd-signature-type">PingMessage</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="baseerror.html" class="tsd-signature-type">BaseError</a></h4>
 						</li>
 					</ul>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group ">
+			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="argument" class="tsd-anchor"></a>
-					<h3>argument</h3>
-					<div class="tsd-signature tsd-kind-icon">argument<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="cause" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> cause</h3>
+					<div class="tsd-signature tsd-kind-icon">cause<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Error</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></div>
 					<aside class="tsd-sources">
+						<p>Inherited from BaseError.cause</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/52a8184/lib/message/twitch-types/connection/ping.ts#L9">message/twitch-types/connection/ping.ts:9</a></li>
+							<li>Defined in /home/circleci/project/node_modules/make-error-cause/dist/index.d.ts:6</li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-					<a name="irccommand" class="tsd-anchor"></a>
-					<h3>irc<wbr>Command</h3>
-					<div class="tsd-signature tsd-kind-icon">irc<wbr>Command<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="message" class="tsd-anchor"></a>
+					<h3>message</h3>
+					<div class="tsd-signature tsd-kind-icon">message<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
-						<p>Implementation of <a href="../interfaces/ircmessagedata.html">IRCMessageData</a>.<a href="../interfaces/ircmessagedata.html#irccommand">ircCommand</a></p>
-						<p>Inherited from <a href="ircmessage.html">IRCMessage</a>.<a href="ircmessage.html#irccommand">ircCommand</a></p>
+						<p>Inherited from BaseError.message</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/52a8184/lib/message/irc/irc-message.ts#L28">message/irc/irc-message.ts:28</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The parser ensures this is always uppercase</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-					<a name="ircparameters" class="tsd-anchor"></a>
-					<h3>irc<wbr>Parameters</h3>
-					<div class="tsd-signature tsd-kind-icon">irc<wbr>Parameters<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
-					<aside class="tsd-sources">
-						<p>Implementation of <a href="../interfaces/ircmessagedata.html">IRCMessageData</a>.<a href="../interfaces/ircmessagedata.html#ircparameters">ircParameters</a></p>
-						<p>Inherited from <a href="ircmessage.html">IRCMessage</a>.<a href="ircmessage.html#ircparameters">ircParameters</a></p>
-						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/52a8184/lib/message/irc/irc-message.ts#L29">message/irc/irc-message.ts:29</a></li>
+							<li>Defined in /home/circleci/project/node_modules/make-error/index.d.ts:21</li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-					<a name="ircprefix" class="tsd-anchor"></a>
-					<h3>irc<wbr>Prefix</h3>
-					<div class="tsd-signature tsd-kind-icon">irc<wbr>Prefix<span class="tsd-signature-symbol">:</span> <a href="../interfaces/ircmessageprefix.html" class="tsd-signature-type">IRCMessagePrefix</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></div>
+					<a name="name" class="tsd-anchor"></a>
+					<h3>name</h3>
+					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
-						<p>Implementation of <a href="../interfaces/ircmessagedata.html">IRCMessageData</a>.<a href="../interfaces/ircmessagedata.html#ircprefix">ircPrefix</a></p>
-						<p>Inherited from <a href="ircmessage.html">IRCMessage</a>.<a href="ircmessage.html#ircprefix">ircPrefix</a></p>
+						<p>Inherited from BaseError.name</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/52a8184/lib/message/irc/irc-message.ts#L23">message/irc/irc-message.ts:23</a></li>
+							<li>Defined in /home/circleci/project/node_modules/make-error/index.d.ts:22</li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-					<a name="ircprefixraw" class="tsd-anchor"></a>
-					<h3>irc<wbr>Prefix<wbr>Raw</h3>
-					<div class="tsd-signature tsd-kind-icon">irc<wbr>Prefix<wbr>Raw<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></div>
+					<a name="stack" class="tsd-anchor"></a>
+					<h3>stack</h3>
+					<div class="tsd-signature tsd-kind-icon">stack<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
-						<p>Implementation of <a href="../interfaces/ircmessagedata.html">IRCMessageData</a>.<a href="../interfaces/ircmessagedata.html#ircprefixraw">ircPrefixRaw</a></p>
-						<p>Inherited from <a href="ircmessage.html">IRCMessage</a>.<a href="ircmessage.html#ircprefixraw">ircPrefixRaw</a></p>
+						<p>Inherited from BaseError.stack</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/52a8184/lib/message/irc/irc-message.ts#L22">message/irc/irc-message.ts:22</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-					<a name="irctags" class="tsd-anchor"></a>
-					<h3>irc<wbr>Tags</h3>
-					<div class="tsd-signature tsd-kind-icon">irc<wbr>Tags<span class="tsd-signature-symbol">:</span> <a href="../interfaces/ircmessagetags.html" class="tsd-signature-type">IRCMessageTags</a></div>
-					<aside class="tsd-sources">
-						<p>Implementation of <a href="../interfaces/ircmessagedata.html">IRCMessageData</a>.<a href="../interfaces/ircmessagedata.html#irctags">ircTags</a></p>
-						<p>Inherited from <a href="ircmessage.html">IRCMessage</a>.<a href="ircmessage.html#irctags">ircTags</a></p>
-						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/52a8184/lib/message/irc/irc-message.ts#L30">message/irc/irc-message.ts:30</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-					<a name="rawsource" class="tsd-anchor"></a>
-					<h3>raw<wbr>Source</h3>
-					<div class="tsd-signature tsd-kind-icon">raw<wbr>Source<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<p>Implementation of <a href="../interfaces/ircmessagedata.html">IRCMessageData</a>.<a href="../interfaces/ircmessagedata.html#rawsource">rawSource</a></p>
-						<p>Inherited from <a href="ircmessage.html">IRCMessage</a>.<a href="ircmessage.html#rawsource">rawSource</a></p>
-						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/52a8184/lib/message/irc/irc-message.ts#L20">message/irc/irc-message.ts:20</a></li>
+							<li>Defined in /home/circleci/project/node_modules/make-error/index.d.ts:23</li>
 						</ul>
 					</aside>
 				</section>
@@ -239,31 +213,22 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class">
-						<a href="pingmessage.html" class="tsd-kind-icon">Ping<wbr>Message</a>
+						<a href="baseerror.html" class="tsd-kind-icon">Base<wbr>Error</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-								<a href="pingmessage.html#constructor" class="tsd-kind-icon">constructor</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="pingmessage.html#argument" class="tsd-kind-icon">argument</a>
+								<a href="baseerror.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="pingmessage.html#irccommand" class="tsd-kind-icon">irc<wbr>Command</a>
+								<a href="baseerror.html#cause" class="tsd-kind-icon">cause</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="pingmessage.html#ircparameters" class="tsd-kind-icon">irc<wbr>Parameters</a>
+								<a href="baseerror.html#message" class="tsd-kind-icon">message</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="pingmessage.html#ircprefix" class="tsd-kind-icon">irc<wbr>Prefix</a>
+								<a href="baseerror.html#name" class="tsd-kind-icon">name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="pingmessage.html#ircprefixraw" class="tsd-kind-icon">irc<wbr>Prefix<wbr>Raw</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="pingmessage.html#irctags" class="tsd-kind-icon">irc<wbr>Tags</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="pingmessage.html#rawsource" class="tsd-kind-icon">raw<wbr>Source</a>
+								<a href="baseerror.html#stack" class="tsd-kind-icon">stack</a>
 							</li>
 						</ul>
 					</li>
