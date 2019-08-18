@@ -1,0 +1,11 @@
+plugins:
+  eslint:
+    enabled: true
+    config:
+      extensions:
+        - .js
+        - .ts
+  fixme:
+    enabled: true
+  git-legal:
+    enabled: true
