@@ -38,65 +38,49 @@ export class AlternateMessageModifier implements ClientMixin {
   }
 
   public applyToClient(client: ChatClient): void {
-    applyReplacements(this, client, {
-      async say(oldFn, channelName: string, message: string): Promise<void> {
-        const { fastSpam } = canSpamFast(
-          channelName,
-          client.configuration.username,
-          client.userStateTracker
-        );
+    type GenericReplacementFn = (
+      oldFn: (channelName: string, message: string) => Promise<void>,
+      channelName: string,
+      message: string
+    ) => Promise<void>;
 
-        if (fastSpam) {
-          await oldFn(channelName, message);
-          return;
-        }
+    const genericReplament = (action: boolean): GenericReplacementFn => async (
+      oldFn: (channelName: string, message: string) => Promise<void>,
+      channelName: string,
+      message: string
+    ): Promise<void> => {
+      const { fastSpam } = canSpamFast(
+        channelName,
+        client.configuration.username,
+        client.userStateTracker
+      );
 
-        const newMsg = this.appendInvisibleCharacter(
-          channelName,
-          message,
-          false
-        );
-        await oldFn(channelName, newMsg);
-
-        if (!this.client.joinedChannels.has(channelName)) {
-          // in this case we won't get our own message back via the
-          // onPrivmsg handler, so this will have to do. (Save the sent
-          // message)
-          this.lastMessages[channelName] = {
-            messageText: newMsg,
-            action: false
-          };
-        }
-      },
-      async me(oldFn, channelName: string, message: string): Promise<void> {
-        const { fastSpam } = canSpamFast(
-          channelName,
-          client.configuration.username,
-          client.userStateTracker
-        );
-
-        if (fastSpam) {
-          await oldFn(channelName, message);
-          return;
-        }
-
-        const newMsg = this.appendInvisibleCharacter(
-          channelName,
-          message,
-          true
-        );
-        await oldFn(channelName, newMsg);
-
-        if (!this.client.joinedChannels.has(channelName)) {
-          // in this case we won't get our own message back via the
-          // onPrivmsg handler, so this will have to do. (Save the sent
-          // message)
-          this.lastMessages[channelName] = {
-            messageText: newMsg,
-            action: true
-          };
-        }
+      if (fastSpam) {
+        await oldFn(channelName, message);
+        return;
       }
+
+      const newMsg = this.appendInvisibleCharacter(
+        channelName,
+        message,
+        action
+      );
+      await oldFn(channelName, newMsg);
+
+      if (!this.client.joinedChannels.has(channelName)) {
+        // in this case we won't get our own message back via the
+        // onPrivmsg handler, so this will have to do. (Save the sent
+        // message)
+        this.lastMessages[channelName] = {
+          messageText: newMsg,
+          action
+        };
+      }
+    };
+
+    applyReplacements(this, client, {
+      say: genericReplament(false),
+      me: genericReplament(true)
     });
 
     client.on("PRIVMSG", this.onPrivmsgMessage.bind(this));
