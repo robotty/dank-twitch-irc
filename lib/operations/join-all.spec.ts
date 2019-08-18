@@ -26,7 +26,7 @@ describe("./operations/join-all", function() {
     });
 
     it("should send the correct wire command for a multiple chunks", async function() {
-      const { client, emitAndEnd, emit, data } = fakeConnection();
+      const { client, clientError, emitAndEnd, emit, data } = fakeConnection();
 
       const firstChunkChannels = [
         "007_zeppelin",
@@ -424,6 +424,14 @@ describe("./operations/join-all", function() {
 
       assert.isTrue(client.wantedChannels.has("pajlada"));
       assert.isTrue(client.joinedChannels.has("pajlada"));
+
+      await assertErrorChain(
+        clientError,
+        JoinError,
+        "Failed to join channel nymn_hs: A response to a command issued later than this command was received",
+        TimeoutError,
+        "A response to a command issued later than this command was received"
+      );
     });
   });
 });
