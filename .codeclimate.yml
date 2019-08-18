@@ -9,3 +9,5 @@ plugins:
     enabled: true
   git-legal:
     enabled: true
+exclude_patterns:
+  - "**/*.spec.ts"
