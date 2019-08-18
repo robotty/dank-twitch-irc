@@ -63,9 +63,19 @@ const badNoticeIDs = [
 export async function say(
   conn: SingleConnection,
   channelName: string,
-  message: string
+  message: string,
+  action = false
 ): Promise<UserstateMessage> {
-  sendPrivmsg(conn, channelName, removeCommands(message));
+  let command;
+  let errorMessage;
+  if (action) {
+    command = `/me ${message}`;
+    errorMessage = `Failed to say [#${channelName}]: /me ${message}`;
+  } else {
+    command = removeCommands(message);
+    errorMessage = `Failed to say [#${channelName}]: ${message}`;
+  }
+  sendPrivmsg(conn, channelName, command);
 
   return awaitResponse(conn, {
     success: msg =>
@@ -75,7 +85,7 @@ export async function say(
       msg.channelName === channelName &&
       badNoticeIDs.includes(msg.messageID!),
     errorType: (msg, cause) => new SayError(channelName, message, msg, cause),
-    errorMessage: `Failed to say [#${channelName}]: ${message}`
+    errorMessage: errorMessage
   }) as Promise<UserstateMessage>;
 }
 
@@ -84,5 +94,5 @@ export async function me(
   channelName: string,
   message: string
 ): Promise<UserstateMessage> {
-  return say(conn, channelName, `/me ${message}`);
+  return say(conn, channelName, message, true);
 }
