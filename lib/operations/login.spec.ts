@@ -53,7 +53,7 @@ describe("./operations/login", function() {
         promise,
         LoginError,
         "Failed to login: Bad response message: :tmi.twitch" +
-        ".tv NOTICE * :Improperly formatted auth",
+          ".tv NOTICE * :Improperly formatted auth",
         MessageError,
         "Bad response message: :tmi.twitch.tv NOTICE * :Improperly formatted auth"
       );
@@ -62,7 +62,7 @@ describe("./operations/login", function() {
         clientError,
         LoginError,
         "Failed to login: Bad response message: :tmi.twitch." +
-        "tv NOTICE * :Improperly formatted auth",
+          "tv NOTICE * :Improperly formatted auth",
         MessageError,
         "Bad response message: :tmi.twitch.tv NOTICE * :Improperly formatted auth"
       );
