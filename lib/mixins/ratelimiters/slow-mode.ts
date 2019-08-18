@@ -86,11 +86,15 @@ export class SlowModeRateLimiter implements ClientMixin {
     if (certain && channelName in this.semaphores) {
       const semaphore = this.getSemaphore(channelName);
 
-      // @ts-ignore private member access
-      const waiterQueue: Array<() => void> = semaphore.promiseResolverQueue;
+      const waiterQueue: Array<(...args: any[]) => any> =
+        // @ts-ignore private member access
+        semaphore.promiseResolverQueue;
+
       // trim waiter queue
-      // TODO invoke the waiters and make them return false SOMEHOW
-      waiterQueue.splice(10);
+      const removedWaiters = waiterQueue.splice(10);
+      for (const removedWaiter of removedWaiters) {
+        removedWaiter(false);
+      }
     }
   }
 
@@ -111,7 +115,6 @@ export class SlowModeRateLimiter implements ClientMixin {
   private async acquire(
     channelName: string
   ): Promise<(() => void) | undefined> {
-    // TODO
     const { fastSpam, certain } = canSpamFast(
       channelName,
       this.client.configuration.username,
@@ -137,7 +140,6 @@ export class SlowModeRateLimiter implements ClientMixin {
     }
 
     const releaseFn = (): void => {
-      // TODO
       const { fastSpam: fastSpamAfterRelease } = canSpamFast(
         channelName,
         this.client.configuration.username,
@@ -157,7 +159,17 @@ export class SlowModeRateLimiter implements ClientMixin {
       }, slowModeDuration * 1000);
     };
 
-    await semaphore.acquire();
+    // if success === false then this awaiter got released by the queue
+    // being trimmed (see above in onUserStateChange) which happens
+    // when fastSpam state becomes `certain` and there are more messages
+    // waiting than the maximum. In that case the message should not be
+    // sent, so we return undefined on the spot. We also don't have to
+    // release anything.
+    const success = await semaphore.acquire();
+
+    if (!success) {
+      return undefined;
+    }
 
     // if we were released by a incoming USERSTATE change (the timer was
     // edited) and spam can now be fast, return the token immediately
