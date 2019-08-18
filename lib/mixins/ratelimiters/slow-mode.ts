@@ -89,6 +89,7 @@ export class SlowModeRateLimiter implements ClientMixin {
       // @ts-ignore private member access
       const waiterQueue: Array<() => void> = semaphore.promiseResolverQueue;
       // trim waiter queue
+      // TODO invoke the waiters and make them return false SOMEHOW
       waiterQueue.splice(10);
     }
   }
@@ -148,27 +149,7 @@ export class SlowModeRateLimiter implements ClientMixin {
         return;
       }
 
-      let slowModeDuration: number;
-      if (
-        this.client.roomStateTracker != null &&
-        this.client.userStateTracker != null
-      ) {
-        const roomState = this.client.roomStateTracker.getChannelState(
-          channelName
-        );
-        if (roomState != null) {
-          slowModeDuration = roomState.slowModeDuration;
-        } else {
-          slowModeDuration = 0;
-        }
-      } else {
-        slowModeDuration = 0;
-      }
-
-      slowModeDuration = Math.max(
-        slowModeDuration,
-        SlowModeRateLimiter.GLOBAL_SLOW_MODE_COOLDOWN
-      );
+      const slowModeDuration = this.getSlowModeDuration(channelName);
 
       this.runningTimers[channelName] = new EditableTimeout(() => {
         delete this.runningTimers[channelName];
@@ -194,5 +175,21 @@ export class SlowModeRateLimiter implements ClientMixin {
     }
 
     return releaseFn;
+  }
+
+  private getSlowModeDuration(channelName: string): number {
+    if (this.client.roomStateTracker != null) {
+      const roomState = this.client.roomStateTracker.getChannelState(
+        channelName
+      );
+      if (roomState != null) {
+        return Math.max(
+          roomState.slowModeDuration,
+          SlowModeRateLimiter.GLOBAL_SLOW_MODE_COOLDOWN
+        );
+      }
+    }
+
+    return SlowModeRateLimiter.GLOBAL_SLOW_MODE_COOLDOWN;
   }
 }
