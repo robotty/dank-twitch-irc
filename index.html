@@ -311,9 +311,12 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
   <span class="hljs-comment">// and Room- and Userstate trackers (which are important for other mixins)</span>
   installDefaultMixins: <span class="hljs-literal">false</span>, <span class="hljs-comment">// true by default</span>
 
-  <span class="hljs-comment">// Don't reject the promises returned by client methods such as `.say()`.</span>
-  <span class="hljs-comment">// On Error, they will be resolved with undefined instead.</span>
-  suppressPromiseRejections: <span class="hljs-literal">true</span> <span class="hljs-comment">// false by default</span>
+  <span class="hljs-comment">// Silence UnandledPromiseRejectionWarnings on all client methods</span>
+  <span class="hljs-comment">// that return promises.</span>
+  <span class="hljs-comment">// With this option enabled, the returned promises will still be rejected/</span>
+  <span class="hljs-comment">// resolved as without this option, this option ONLY silences the</span>
+  <span class="hljs-comment">// UnhandledPromiseRejectionWarning.</span>
+  ignoreUnhandledPromiseRejections: <span class="hljs-literal">true</span> <span class="hljs-comment">// false by default</span>
 });</code></pre>
 				<a href="#features" id="features" style="color: inherit; text-decoration: none;">
 					<h2>Features</h2>
@@ -373,9 +376,9 @@ client.use(<span class="hljs-keyword">new</span> AlternateMessageModifier(client
 					state your bot user has in all channels.</li>
 					<li><code>new RoomStateTracker()</code> - Used by other mixins. Keeps track of each channel&#39;s
 					state, e.g. sub-mode etc.</li>
-					<li><code>new IgnorePromiseRejectionsMixin()</code> - Swallows rejected promises returned by
+					<li><code>new IgnoreUnhandledPromiseRejectionsMixin()</code> - Silences <code>UnhandledPromiseRejectionWarning</code>s on promises returned by
 						the client&#39;s functions. (installed for you if you activate the
-					<code>suppressPromiseRejections</code> client option)</li>
+					<code>ignoreUnhandledPromiseRejections</code> client option)</li>
 				</ul>
 				<a href="#tests" id="tests" style="color: inherit; text-decoration: none;">
 					<h2>Tests</h2>
@@ -456,7 +459,7 @@ npm run lintfix</code></pre>
 						<a href="classes/ircmessage.html" class="tsd-kind-icon">IRCMessage</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="classes/ignorepromiserejectionsmixin.html" class="tsd-kind-icon">Ignore<wbr>Promise<wbr>Rejections<wbr>Mixin</a>
+						<a href="classes/ignoreunhandledpromiserejectionsmixin.html" class="tsd-kind-icon">Ignore<wbr>Unhandled<wbr>Promise<wbr>Rejections<wbr>Mixin</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/joinerror.html" class="tsd-kind-icon">Join<wbr>Error</a>
