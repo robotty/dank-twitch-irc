@@ -27,7 +27,9 @@ export function awaitJoinResponse(
       msg.channelName === channelName &&
       msg.joinedUsername === conn.configuration.username,
     failure: msg =>
-      msg instanceof NoticeMessage && msg.messageID === "msg_channel_suspended",
+      msg instanceof NoticeMessage &&
+      msg.channelName === channelName &&
+      msg.messageID === "msg_channel_suspended",
     errorType: (m, e) => new JoinError(channelName, m, e),
     errorMessage: `Failed to join channel ${channelName}`
   }) as Promise<JoinMessage>;
