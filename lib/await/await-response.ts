@@ -95,7 +95,7 @@ export class ResponseAwaiter {
    * response awaiter was rejected or resolved.
    */
   public movedToQueueHead(): void {
-    if (this.conn.connected) {
+    if (this.conn.connected || this.conn.ready) {
       this.beginTimeout();
     } else {
       const listener = this.beginTimeout.bind(this);
