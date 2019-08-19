@@ -1,5 +1,4 @@
 import * as EventEmitter from "eventemitter3";
-import { Record } from "ts-toolbelt/out/types/src/Object/Record";
 import { ChatClient } from "../client/client";
 import {
   GlobalUserState,
