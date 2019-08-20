@@ -1,6 +1,6 @@
 {
   "name": "dank-twitch-irc",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "description": "Twitch IRC library for Node.js",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -33,7 +33,6 @@
   "repository": "https://github.com/robotty/dank-twitch-irc",
   "dependencies": {
     "@robotty/debug": "^4.2.0",
-    "byline": "^5.0.0",
     "debug-logger": "^0.4.1",
     "duplexify": "^4.1.1",
     "eventemitter3": "^4.0.0",
@@ -43,11 +42,11 @@
     "make-error-cause": "^2.2.1",
     "randomstring": "^1.1.5",
     "semaphore-async-await": "^1.5.1",
-    "simple-websocket": "^8.0.0"
+    "simple-websocket": "^8.0.0",
+    "split2": "^3.1.1"
   },
   "devDependencies": {
     "@types/async-lock": "^1.1.1",
-    "@types/byline": "^4.2.31",
     "@types/chai": "^4.2.0",
     "@types/chai-as-promised": "^7.1.2",
     "@types/debug": "^4.1.5",
@@ -61,6 +60,7 @@
     "@types/randomstring": "^1.1.6",
     "@types/simple-websocket": "^7.0.1",
     "@types/sinon": "^7.0.13",
+    "@types/split2": "^2.1.6",
     "@types/ws": "^6.0.2",
     "@typescript-eslint/eslint-plugin": "^1.13.0",
     "@typescript-eslint/eslint-plugin-tslint": "^1.12.0",

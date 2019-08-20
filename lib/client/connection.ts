@@ -1,5 +1,5 @@
-import { LineStream } from "byline";
 import * as debugLogger from "debug-logger";
+import * as split2 from "split2";
 import { ResponseAwaiter } from "../await/await-response";
 import { ClientConfiguration } from "../config/config";
 import { handleReconnectMessage } from "../functionalities/handle-reconnect-message";
@@ -60,9 +60,7 @@ export class SingleConnection extends BaseClient {
       this.transport.stream.destroy(emittedError);
     });
 
-    this.transport.stream
-      .pipe(new LineStream())
-      .on("data", this.handleLine.bind(this));
+    this.transport.stream.pipe(split2()).on("data", this.handleLine.bind(this));
 
     replyToServerPing(this);
     handleReconnectMessage(this);
