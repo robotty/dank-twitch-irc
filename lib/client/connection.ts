@@ -133,7 +133,12 @@ export class SingleConnection extends BaseClient {
     try {
       message = parseTwitchMessage(line);
     } catch (e) {
-      this.emitError(new ProtocolError("Error while parsing IRC message", e));
+      this.emitError(
+        new ProtocolError(
+          `Error while parsing IRC message from line "${line}"`,
+          e
+        )
+      );
       return;
     }
     this.emitMessage(message);
