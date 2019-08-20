@@ -211,7 +211,6 @@ export class ChatClient extends BaseClient {
       }
 
       removeInPlace(this.connections, conn);
-      this.emit("connectionsUpdate", [...this.connections]);
 
       if (this.activeWhisperConn === conn) {
         this.activeWhisperConn = undefined;
@@ -242,8 +241,6 @@ export class ChatClient extends BaseClient {
     conn.connect();
 
     this.connections.push(conn);
-    this.emit("connectionsUpdate", [...this.connections]);
-
     return conn;
   }
 

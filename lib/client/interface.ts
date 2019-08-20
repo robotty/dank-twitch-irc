@@ -34,7 +34,6 @@ export interface SpecificClientEvents {
 
   message: [IRCMessage];
 
-  connectionsUpdate: [SingleConnection[]];
   reconnect: [SingleConnection];
 }
 
