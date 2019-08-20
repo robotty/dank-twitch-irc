@@ -211,6 +211,8 @@ export class ChatClient extends BaseClient {
       }
 
       removeInPlace(this.connections, conn);
+      this.emit("connectionsUpdate", [...this.connections]);
+
       if (this.activeWhisperConn === conn) {
         this.activeWhisperConn = undefined;
       }
@@ -240,6 +242,8 @@ export class ChatClient extends BaseClient {
     conn.connect();
 
     this.connections.push(conn);
+    this.emit("connectionsUpdate", [...this.connections]);
+
     return conn;
   }
 
@@ -258,6 +262,8 @@ export class ChatClient extends BaseClient {
       // this ensures that clients with zero joined channels stay connected (so they can receive whispers)
       this.requireConnection();
     }
+
+    this.emit("reconnect", conn);
   }
 
   /**

@@ -1,5 +1,6 @@
 import { IRCMessage } from "../message/irc/irc-message";
 import { TwitchCommands } from "../message/parser/twitch-message";
+import { SingleConnection } from "./connection";
 
 export enum ClientState {
   UNCONNECTED,
@@ -32,6 +33,9 @@ export interface SpecificClientEvents {
   error: [Error];
 
   message: [IRCMessage];
+
+  connectionsUpdate: [SingleConnection[]];
+  reconnect: [SingleConnection];
 }
 
 // these are the events that are mapped to twitch messages (e.g. PRIVMSG)
