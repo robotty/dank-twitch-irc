@@ -117,6 +117,7 @@ export interface SubgiftParameters extends EventParams {
   subPlan: string;
   subPlanName: string;
 }
+export type AnonSubgiftParameters = SubgiftParameters;
 
 // anongiftpaidupgrade
 export interface AnonGiftPaidUpgradeParameters extends EventParams {
@@ -167,6 +168,10 @@ export type RaidUsernoticeMessage = SpecificUsernoticeMessage<
 export type SubgiftUsernoticeMessage = SpecificUsernoticeMessage<
   "subgift",
   SubgiftParameters
+>;
+export type AnonSubgiftUsernoticeMessage = SpecificUsernoticeMessage<
+  "anonsubgift",
+  AnonSubgiftParameters
 >;
 export type AnonGiftPaidUpgradeUsernoticeMessage = SpecificUsernoticeMessage<
   "anongiftpaidupgrade",
@@ -286,6 +291,10 @@ export class UsernoticeMessage extends ChannelIRCMessage {
 
   public isSubgift(): this is SubgiftUsernoticeMessage {
     return this.messageTypeID === "subgift";
+  }
+
+  public isAnonSubgift(): this is SubgiftUsernoticeMessage {
+    return this.messageTypeID === "anonsubgift";
   }
 
   public isAnonGiftPaidUpgrade(): this is AnonGiftPaidUpgradeUsernoticeMessage {
