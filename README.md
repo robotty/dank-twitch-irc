@@ -318,8 +318,9 @@ and the mixins installed by default:
   state your bot user has in all channels.
 - `new RoomStateTracker()` - Used by other mixins. Keeps track of each channel's
   state, e.g. sub-mode etc.
-- `new IgnoreUnhandledPromiseRejectionsMixin()` - Silences `UnhandledPromiseRejectionWarning`s on promises returned by
-  the client's functions. (installed for you if you activate the
+- `new IgnoreUnhandledPromiseRejectionsMixin()` - Silences
+  `UnhandledPromiseRejectionWarning`s on promises returned by the client's
+  functions. (installed for you if you activate the
   `ignoreUnhandledPromiseRejections` client option)
 
 ## Tests
