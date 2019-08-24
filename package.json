@@ -20,7 +20,8 @@
     "docs": "typedoc --mode file --excludeNotExported --excludePrivate --excludeProtected -out ./docs",
     "prettier-watch": "onchange -v \"**/*.ts\" \"**/*.js\" -- prettier --write {{changed}}",
     "generate-index": "npx create-ts-index@^1.10.2 create ./lib -w -i '.spec' && npm run lintfix",
-    "precommit": "npm run build && npm run test && npm run lintfix && npm run check-format"
+    "precommit": "npm run build && npm run test && npm run lintfix && npm run check-format",
+    "generate-readme-toc": "doctoc README.md --github --title '## Table of Contents'"
   },
   "keywords": [
     "twitch",
@@ -69,6 +70,7 @@
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "clarify": "^2.1.0",
+    "doctoc": "^1.4.0",
     "eslint": "^6.1.0",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-prettier": "^3.1.0",
