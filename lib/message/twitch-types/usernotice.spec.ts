@@ -21,7 +21,7 @@ describe("./message/twitch-types/usernotice", function() {
           "msg-parameter-msg-id": "987398274923"
         }),
         {
-          userName: "pajlada"
+          username: "pajlada"
         }
       );
     });
