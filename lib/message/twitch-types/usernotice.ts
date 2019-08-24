@@ -84,6 +84,8 @@ export interface SharesStreakSubParams extends EventParams {
 
 export interface HiddenStreakSubParams extends EventParams {
   shouldShareStreak: false;
+  streakMonths: 0;
+  streakMonthsRaw: "0";
 }
 
 export type StreakSubParams = SharesStreakSubParams | HiddenStreakSubParams;
@@ -122,19 +124,17 @@ export interface SubgiftParameters extends EventParams {
 export type AnonSubgiftParameters = SubgiftParameters;
 
 // anongiftpaidupgrade
-export interface AnonGiftPaidUpgradeParameters extends EventParams {
-  promoGiftTotal: number;
-  promoGiftTotalRaw: string;
-
-  promoName: string;
-}
+export type AnonGiftPaidUpgradeParameters = EventParams & {
+  promoGiftTotal?: number;
+  promoGiftTotalRaw?: string;
+  promoName?: string;
+};
 
 // giftpaidupgrade
-export interface GiftPaidUpgradeParameters
-  extends AnonGiftPaidUpgradeParameters {
+export type GiftPaidUpgradeParameters = AnonGiftPaidUpgradeParameters & {
   senderLogin: string;
   senderName: string;
-}
+};
 
 // ritual
 export interface RitualParameters extends EventParams {

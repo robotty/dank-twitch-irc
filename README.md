@@ -8,6 +8,29 @@ Requires Node.js 10 (LTS) or above.
 - [View on npm](https://www.npmjs.com/package/dank-twitch-irc)
 - [View documentation](https://robotty.github.io/dank-twitch-irc/)
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Usage](#usage)
+- [Available client events](#available-client-events)
+  - [Handling `USERNOTICE` messages](#handling-usernotice-messages)
+    - [Sub and resub](#sub-and-resub)
+    - [Incoming raids](#incoming-raids)
+    - [Subgift](#subgift)
+    - [Anonsubgift](#anonsubgift)
+    - [anongiftpaidupgrade, giftpaidupgrade](#anongiftpaidupgrade-giftpaidupgrade)
+    - [ritual](#ritual)
+    - [bitsbadgetier](#bitsbadgetier)
+- [ChatClient API](#chatclient-api)
+- [API Documentation](#api-documentation)
+- [Client options](#client-options)
+- [Features](#features)
+- [Extra Mixins](#extra-mixins)
+- [Tests](#tests)
+- [Lint and check code style](#lint-and-check-code-style)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Usage
 
 ```javascript
@@ -89,7 +112,8 @@ client.join("forsen");
     channel's followers mode, subscribers-only mode, r9k mode, followers mode,
     slow mode etc.
   - **`USERNOTICE`** (maps to [`UsernoticeMessage`][usernotice]) - Subs, resubs,
-    sub gifts, rituals, raids, etc...
+    sub gifts, rituals, raids, etc. - See more details about how to handle this
+    message type below.
   - **`USERSTATE`** (maps to [`UserstateMessage`][userstate]) - Your own state
     (e.g. badges, color, display name, emote sets, mod status), sent on every
     time you join a channel or send a `PRIVMSG` to a channel
@@ -127,6 +151,432 @@ listed above) will still be emitted under their command name as an
 // msg will be an instance of IRCMessage
 client.on("372", msg => console.log(`Server MOTD is: ${msg.ircParameters[1]}`));
 ```
+
+### Handling `USERNOTICE` messages
+
+The `USERNOTICE` message type is special because it encapsulates a wide range of
+events, including:
+
+- Subs
+- Resubs
+- Gift subscription
+- Incoming raid and
+- Channel rituals,
+
+which are all emitted under the `USERNOTICE` event. See also
+[the offical documentation](https://dev.twitch.tv/docs/irc/tags/#usernotice-twitch-tags)
+about the `USERNOTICE` command.
+
+Every `USERNOTICE` message is sent by a user, and always contains a
+`msg.systemMessage` (This is a message that twitch formats for you, e.g.
+`4 raiders from PotehtoO have joined!` for a `raid` message.) Additionally,
+every `USERNOTICE` message can have a message that is additionally sent/shared
+from the sending user, for example the "share this message with the streamer"
+message sent with resubs and subs. If no message is sent by the user,
+`msg.messageText` is `undefined`.
+
+`dank-twitch-irc` currently does not have special parsing code for each
+`USERNOTICE` `messageTypeID` (e.g. `sub`, `resub`, `raid`, etc...) - Instead the
+parser assigns all `msg-param-` tags to the `msg.msgParams` object. See below on
+what `msg.msgParams` are available for each of the `messageTypeID`s.
+
+<details>
+<summary>
+Here's examples on how to handle each of these events with `dank-twitch-irc`: (Click to expand)
+</summary>
+
+#### Sub and resub
+
+When a user subscribes or resubscribes with his own money/prime (this is NOT
+sent for gift subs, see below)
+
+```javascript
+chatClient.on("USERNOTICE", msg => {
+  // sub and resub messages have the same parameters, so we can handle them both the same way
+  if (!msg.isSub() && !msg.isResub()) {
+    return;
+  }
+
+  /*
+   * msg.msgParams are:
+   *
+   * {
+   *   "cumulativeMonths": 10,
+   *   "cumulativeMonthsRaw": "10",
+   *   "subPlan": "1000", // Prime, 1000, 2000 or 3000
+   *   "subPlanName": "The Ninjas",
+   *
+   *   // if shouldShareStreak is false, then
+   *   // streakMonths/streakMonthsRaw will be 0
+   *   // (the user did not share their sub streak in chat)
+   *   "shouldShareStreak": true,
+   *   "streakMonths": 7,
+   *   "streakMonthsRaw": "7"
+   * }
+   * Sender user of the USERNOTICE message is the user subbing/resubbing.
+   */
+
+  if (msg.isSub()) {
+    // Leppunen just subscribed to ninja with a tier 1000 (The Ninjas) sub for the first time!
+    console.log(
+      msg.displayName +
+        " just subscribed to " +
+        msg.channelName +
+        " with a tier " +
+        msg.msgParams.subPlan +
+        " (" +
+        msg.msgParams.subPlanName +
+        ") sub for the first time!"
+    );
+  } else if (msg.isResub()) {
+    let streakMessage = "";
+    if (msg.msgParams.shouldShareStreak) {
+      streakMessage =
+        ", currently " + msg.msgParams.streakMonths + " months in a row";
+    }
+
+    // Leppunen just resubscribed to ninja with a tier 1000 (The Ninjas) sub!
+    // They are resubscribing for 10 months, currently 7 months in a row!
+    console.log(
+      msg.displayName +
+        " just resubscribed to " +
+        msg.channelName +
+        " with a tier " +
+        msg.msgParams.subPlan +
+        " (" +
+        msg.msgParams.subPlanName +
+        ") sub! They are resubscribing for " +
+        msg.msgParams.cumulativeMonths +
+        " months" +
+        streakMessage +
+        "!"
+    );
+  }
+
+  if (msg.messageText != null) {
+    // you also have access to lots of other properties also present on PRIVMSG messages,
+    // such as msg.badges, msg.senderUsername, msg.badgeInfo, msg.bits/msg.isCheer(),
+    // msg.color, msg.emotes, msg.messageID, msg.serverTimestamp, etc...
+    console.log(
+      msg.displayName +
+        " shared the following message with the streamer: " +
+        msg.messageText
+    );
+  } else {
+    console.log("They did not share a message with the streamer.");
+  }
+});
+```
+
+#### Incoming raids
+
+Twitch says:
+
+> Incoming raid to a channel. Raid is a Twitch tool that allows broadcasters to
+> send their viewers to another channel, to help support and grow other members
+> in the community.)
+
+```javascript
+chatClient.on("USERNOTICE", msg => {
+  if (!msg.isRaid()) {
+    return;
+  }
+
+  /*
+   * msg.msgParams are:
+   * {
+   *   "displayName": "Leppunen",
+   *   "login": "leppunen",
+   *   "viewerCount": 12,
+   *   "viewerCountRaw": "12"
+   * }
+   * Sender user of the USERNOTICE message is the user raiding this channel.
+   * Note that the display name and login present in msg.msgParams are
+   * the same as msg.displayName and msg.senderUsername, so it doesn't matter
+   * which one you use (although I recommend the properties directly on the
+   * message object, not in msgParams)
+   */
+
+  // source user is the channel/streamer raiding
+  // Leppunen just raided Supinic with 12 viewers!
+  console.log(
+    msg.displayName +
+      " just raided " +
+      msg.channelName +
+      " with " +
+      msg.msgParams.viewerCount +
+      " viewers!"
+  );
+});
+```
+
+#### Subgift
+
+When a user gifts somebody else a subscription.
+
+```javascript
+chatClient.on("USERNOTICE", msg => {
+  if (!msg.isSubgift()) {
+    return;
+  }
+
+  /*
+   * msg.msgParams are:
+   * {
+   *   "months": 5,
+   *   "monthsRaw": "5",
+   *   "recipientDisplayName": "Leppunen",
+   *   "recipientID": "42239452",
+   *   "recipientUsername": "leppunen",
+   *   "subPlan": "1000",
+   *   "subPlanName": "The Ninjas"
+   * }
+   * Sender user of the USERNOTICE message is the user gifting the subscription.
+   */
+
+  if (msg.msgParams.months === 1) {
+    // Leppunen just gifted NymN a fresh tier 1000 (The Ninjas) sub to ninja!
+    console.log(
+      msg.displayName +
+        " just gifted " +
+        msg.msgParams.recipientDisplayName +
+        " a fresh tier " +
+        msg.msgParams.subPlan +
+        " (" +
+        msg.msgParams +
+        ") sub to " +
+        msg.channelName +
+        "!"
+    );
+  } else {
+    // Leppunen just gifted NymN a tier 1000 (The Ninjas) resub to ninja, that's 7 months in a row!
+    console.log(
+      msg.displayName +
+        " just gifted " +
+        msg.msgParams.recipientDisplayName +
+        " a tier " +
+        msg.msgParams.subPlan +
+        " (" +
+        msg.msgParams +
+        ") resub to " +
+        msg.channelName +
+        ", that's " +
+        msg.msgParams.months +
+        " in a row!"
+    );
+  }
+
+  // note: if the subgift was from an anonymous user, the sender user for the USERNOTICE message will be
+  // AnAnonymousGifter (user ID 274598607)
+  if (msg.senderUserID === "274598607") {
+    console.log("That (re)sub was gifted anonymously!");
+  }
+});
+```
+
+#### Anonsubgift
+
+When an anonymous user gifts a subscription to a viewer.
+
+```javascript
+chatClient.on("USERNOTICE", msg => {
+  if (!msg.isAnonSubgift()) {
+    return;
+  }
+
+  /*
+   * msg.msgParams are:
+   * {
+   *   "months": 5,
+   *   "monthsRaw": "5",
+   *   "recipientDisplayName": "Leppunen",
+   *   "recipientID": "42239452",
+   *   "recipientUsername": "leppunen",
+   *   "subPlan": "1000",
+   *   "subPlanName": "The Ninjas"
+   * }
+   *
+   * WARNING! Sender user of the USERNOTICE message is the broadcaster (e.g. Ninja
+   * in the example below)
+   */
+
+  if (msg.msgParams.months === 1) {
+    // An anonymous gifter just gifted NymN a fresh tier 1000 (The Ninjas) sub to ninja!
+    console.log(
+      "An anonymous gifter just gifted " +
+        msg.msgParams.recipientDisplayName +
+        " a fresh tier " +
+        msg.msgParams.subPlan +
+        " (" +
+        msg.msgParams +
+        ") sub to " +
+        msg.channelName +
+        "!"
+    );
+  } else {
+    // An anonymous gifter just gifted NymN a tier 1000 (The Ninjas) resub to ninja, that's 7 months in a row!
+    console.log(
+      "An anonymous gifter just gifted " +
+        msg.msgParams.recipientDisplayName +
+        " a tier " +
+        msg.msgParams.subPlan +
+        " (" +
+        msg.msgParams +
+        ") resub to " +
+        msg.channelName +
+        ", that's " +
+        msg.msgParams.months +
+        " in a row!"
+    );
+  }
+});
+```
+
+#### anongiftpaidupgrade, giftpaidupgrade
+
+When a user commits to continue the gift sub by another user (or an anonymous
+gifter).
+
+```javascript
+chatClient.on("USERNOTICE", msg => {
+  if (!msg.isAnonGiftPaidUpgrade()) {
+    return;
+  }
+
+  /*
+   * msg.msgParams are:
+   * EITHER: (ONLY when a promotion is running!)
+   * {
+   *   "promoName": "Subtember 2018",
+   *   "promoGiftTotal": 3987234,
+   *   "promoGiftTotalRaw": "3987234"
+   * }
+   * OR: (when no promotion is running)
+   * {}
+   *
+   * Sender user of the USERNOTICE message is the user continuing their sub.
+   */
+
+  // Leppunen is continuing their ninja gift sub they got from an anonymous user!
+  console.log(
+    msg.displayName +
+      " is continuing their " +
+      msg.channelName +
+      " gift sub they got from an anonymous user!"
+  );
+});
+```
+
+```javascript
+chatClient.on("USERNOTICE", msg => {
+  if (!msg.isGiftPaidUpgrade()) {
+    return;
+  }
+
+  /*
+   * msg.msgParams are:
+   * EITHER: (ONLY when a promotion is running!)
+   * {
+   *   "promoName": "Subtember 2018",
+   *   "promoGiftTotal": 3987234,
+   *   "promoGiftTotalRaw": "3987234",
+   *   "senderLogin": "krakenbul",
+   *   "senderName": "Krakenbul"
+   * }
+   * OR: (when no promotion is running)
+   * {
+   *   "senderLogin": "krakenbul",
+   *   "senderName": "Krakenbul"
+   * }
+   *
+   * Sender user of the USERNOTICE message is the user continuing their sub.
+   */
+
+  // Leppunen is continuing their ninja gift sub they got from Krakenbul!
+  console.log(
+    msg.displayName +
+      " is continuing their " +
+      msg.channelName +
+      " gift sub they got from " +
+      msg.msgParam.senderName +
+      "!"
+  );
+});
+```
+
+#### ritual
+
+Channel ritual. Twitch says:
+
+> Channel _ritual_. Many channels have special rituals to celebrate viewer
+> milestones when they are shared. The rituals notice extends the sharing of
+> these messages to other viewer milestones (initially, a new viewer chatting
+> for the first time).
+
+```javascript
+chatClient.on("USERNOTICE", msg => {
+  if (!msg.isRitual()) {
+    return;
+  }
+
+  /*
+   * msg.msgParams are:
+   * {
+   *   "ritualName": "new_chatter"
+   * }
+   *
+   * Sender user of the USERNOTICE message is the user performing the
+   * ritual (e.g. the new chatter).
+   */
+
+  // Leppunen is new to ninja's chat! Say hello!
+  if (msg.msgParams.ritualName === "new_chatter") {
+    console.log(
+      msg.displayName + " is new to " + msg.channelName + "'s chat! Say hello!"
+    );
+  } else {
+    console.warn(
+      "Unknown (unhandled) ritual type: " + msg.msgParams.ritualName
+    );
+  }
+});
+```
+
+#### bitsbadgetier
+
+When a user cheers and earns himself a new bits badge with that cheer (e.g. they
+just cheered more than/exactly 10000 bits in total, and just earned themselves
+the 10k bits badge)
+
+```javascript
+chatClient.on("USERNOTICE", msg => {
+  if (!msg.isBitsBadgeTier()) {
+    return;
+  }
+
+  /*
+   * msg.msgParams are:
+   * {
+   *   "threshold": 10000,
+   *   "thresholdRaw": "10000",
+   * }
+   *
+   * Sender user of the USERNOTICE message is the user cheering the bits.
+   */
+
+  // Leppunen just earned themselves the 10000 bits badge in ninja's channel!
+  console.log(
+    msg.displayName +
+      " just earned themselves the " +
+      msg.threshold +
+      " bits badge in " +
+      msg.channelName +
+      "'s channel!"
+  );
+});
+```
+
+</details>
 
 ## ChatClient API
 
