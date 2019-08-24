@@ -123,6 +123,8 @@ describe("./message/twitch-types/privmsg", function() {
         isMod: false,
         isModRaw: "0"
       });
+
+      assert.isFalse(msg.isCheer());
     });
   });
 });

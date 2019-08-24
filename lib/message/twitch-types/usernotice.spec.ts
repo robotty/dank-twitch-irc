@@ -134,6 +134,7 @@ describe("./message/twitch-types/usernotice", function() {
       });
 
       assert.isTrue(msg.isResub());
+      assert.isFalse(msg.isCheer());
 
       // typescript test:
       if (msg.isResub()) {

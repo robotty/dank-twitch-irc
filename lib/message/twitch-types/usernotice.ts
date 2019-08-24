@@ -190,6 +190,11 @@ export type BitsBadgeTierUsernoticeMessage = SpecificUsernoticeMessage<
   BitsBadgeTierParameters
 >;
 
+interface CheerUsernoticeMessage extends UsernoticeMessage {
+  readonly bits: number;
+  readonly bitsRaw: string;
+}
+
 export class UsernoticeMessage extends ChannelIRCMessage {
   public readonly channelID: string;
 
@@ -275,6 +280,10 @@ export class UsernoticeMessage extends ChannelIRCMessage {
     this.serverTimestampRaw = tagParser.getString("tmi-sent-ts");
 
     this.eventParams = extractEventParams(this.ircTags);
+  }
+
+  public isCheer(): this is CheerUsernoticeMessage {
+    return this.bits != null;
   }
 
   public isSub(): this is SubUsernoticeMessage {

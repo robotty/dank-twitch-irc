@@ -26,6 +26,11 @@ export function parseActionAndMessage(
   }
 }
 
+interface CheerPrivmsgMessage extends PrivmsgMessage {
+  readonly bits: number;
+  readonly bitsRaw: string;
+}
+
 /**
  * Omits `emoteSets` and `emoteSetsRaw` from {@link UserState} (because they are not sent
  * for `PRIVMSG` messages)
@@ -123,5 +128,9 @@ export class PrivmsgMessage extends ChannelIRCMessage
       isMod: this.isMod,
       isModRaw: this.isModRaw
     };
+  }
+
+  public isCheer(): this is CheerPrivmsgMessage {
+    return this.bits != null;
   }
 }
