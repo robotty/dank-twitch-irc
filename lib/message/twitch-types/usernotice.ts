@@ -304,7 +304,7 @@ export class UsernoticeMessage extends ChannelIRCMessage {
     return this.messageTypeID === "subgift";
   }
 
-  public isAnonSubgift(): this is SubgiftUsernoticeMessage {
+  public isAnonSubgift(): this is AnonSubgiftUsernoticeMessage {
     return this.messageTypeID === "anonsubgift";
   }
 
