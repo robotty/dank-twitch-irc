@@ -36,9 +36,11 @@ export function getCamelCasedName(tagKey: string): string {
   newKey = camelCase(newKey);
 
   // convert somethingId to somethingID
-  if (newKey.endsWith("Id")) {
-    newKey = newKey.slice(0, -1) + "D";
-  }
+  newKey = newKey.replace(/Id$/g, "ID");
+
+  // To be consistent with the rest of the library,
+  // don't camelcase username as userName
+  newKey = newKey.replace(/userName/g, "username");
 
   return newKey;
 }
@@ -112,7 +114,7 @@ export interface SubgiftParameters extends EventParams {
   recipientDisplayName: string;
   recipientID: number;
 
-  recipientUserName: string;
+  recipientUsername: string;
 
   subPlan: string;
   subPlanName: string;
