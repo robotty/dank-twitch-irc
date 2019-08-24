@@ -36,8 +36,8 @@ export abstract class BaseClient extends EventEmitter<ClientEvents> {
     this.configuration = expandConfig(partialConfig);
   }
 
-  public emitError(error: Error): void {
-    if (this.closed) {
+  public emitError(error: Error, emitEvenIfClosed = false): void {
+    if (this.closed && !emitEvenIfClosed) {
       return;
     }
 

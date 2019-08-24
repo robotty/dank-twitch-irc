@@ -131,7 +131,7 @@ export class ResponseAwaiter {
       this.config.errorMessage,
       cause
     );
-    process.nextTick(() => this.conn.emitError(errorWithCause));
+    process.nextTick(() => this.conn.emitError(errorWithCause, true));
     this.rejectPromise(errorWithCause);
   }
 
