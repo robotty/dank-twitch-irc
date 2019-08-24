@@ -15,14 +15,14 @@ Requires Node.js 10 (LTS) or above.
 
 - [Usage](#usage)
 - [Available client events](#available-client-events)
-  - [Handling `USERNOTICE` messages](#handling-usernotice-messages)
-    - [Sub and resub](#sub-and-resub)
-    - [Incoming raids](#incoming-raids)
-    - [Subgift](#subgift)
-    - [Anonsubgift](#anonsubgift)
-    - [anongiftpaidupgrade, giftpaidupgrade](#anongiftpaidupgrade-giftpaidupgrade)
-    - [ritual](#ritual)
-    - [bitsbadgetier](#bitsbadgetier)
+- [Handling `USERNOTICE` messages](#handling-usernotice-messages)
+  - [Sub and resub](#sub-and-resub)
+  - [Incoming raids](#incoming-raids)
+  - [Subgift](#subgift)
+  - [Anonsubgift](#anonsubgift)
+  - [anongiftpaidupgrade, giftpaidupgrade](#anongiftpaidupgrade-giftpaidupgrade)
+  - [ritual](#ritual)
+  - [bitsbadgetier](#bitsbadgetier)
 - [ChatClient API](#chatclient-api)
 - [API Documentation](#api-documentation)
 - [Client options](#client-options)
@@ -154,7 +154,7 @@ listed above) will still be emitted under their command name as an
 client.on("372", msg => console.log(`Server MOTD is: ${msg.ircParameters[1]}`));
 ```
 
-### Handling `USERNOTICE` messages
+## Handling `USERNOTICE` messages
 
 The `USERNOTICE` message type is special because it encapsulates a wide range of
 events, including:
@@ -184,10 +184,10 @@ what `msg.msgParams` are available for each of the `messageTypeID`s.
 
 <details>
 <summary>
-Here's examples on how to handle each of these events with `dank-twitch-irc`: (Click to expand)
+<strong>Here's examples on how to handle each of these events with <code>dank-twitch-irc</code>: (Click to expand)</strong>
 </summary>
 
-#### Sub and resub
+### Sub and resub
 
 When a user subscribes or resubscribes with his own money/prime (this is NOT
 sent for gift subs, see below)
@@ -270,7 +270,7 @@ chatClient.on("USERNOTICE", msg => {
 });
 ```
 
-#### Incoming raids
+### Incoming raids
 
 Twitch says:
 
@@ -312,7 +312,7 @@ chatClient.on("USERNOTICE", msg => {
 });
 ```
 
-#### Subgift
+### Subgift
 
 When a user gifts somebody else a subscription.
 
@@ -376,7 +376,7 @@ chatClient.on("USERNOTICE", msg => {
 });
 ```
 
-#### Anonsubgift
+### Anonsubgift
 
 When an anonymous user gifts a subscription to a viewer.
 
@@ -434,7 +434,7 @@ chatClient.on("USERNOTICE", msg => {
 });
 ```
 
-#### anongiftpaidupgrade, giftpaidupgrade
+### anongiftpaidupgrade, giftpaidupgrade
 
 When a user commits to continue the gift sub by another user (or an anonymous
 gifter).
@@ -506,7 +506,7 @@ chatClient.on("USERNOTICE", msg => {
 });
 ```
 
-#### ritual
+### ritual
 
 Channel ritual. Twitch says:
 
@@ -544,7 +544,7 @@ chatClient.on("USERNOTICE", msg => {
 });
 ```
 
-#### bitsbadgetier
+### bitsbadgetier
 
 When a user cheers and earns himself a new bits badge with that cheer (e.g. they
 just cheered more than/exactly 10000 bits in total, and just earned themselves
