@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>WhisperError | dank-twitch-irc</title>
+	<title>UserTimeoutError | dank-twitch-irc</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,10 +54,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="whispererror.html">WhisperError</a>
+					<a href="usertimeouterror.html">UserTimeoutError</a>
 				</li>
 			</ul>
-			<h1>Class WhisperError</h1>
+			<h1>Class UserTimeoutError</h1>
 		</div>
 	</div>
 </header>
@@ -71,7 +71,7 @@
 						<a href="messageerror.html" class="tsd-signature-type">MessageError</a>
 						<ul class="tsd-hierarchy">
 							<li>
-								<span class="target">WhisperError</span>
+								<span class="target">UserTimeoutError</span>
 							</li>
 						</ul>
 					</li>
@@ -90,18 +90,20 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="whispererror.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="usertimeouterror.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="whispererror.html#cause" class="tsd-kind-icon">cause</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="whispererror.html#failedmessage" class="tsd-kind-icon">failed<wbr>Message</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="whispererror.html#message" class="tsd-kind-icon">message</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="whispererror.html#name" class="tsd-kind-icon">name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="whispererror.html#stack" class="tsd-kind-icon">stack</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="whispererror.html#targetusername" class="tsd-kind-icon">target<wbr>Username</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="usertimeouterror.html#cause" class="tsd-kind-icon">cause</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="usertimeouterror.html#channelname" class="tsd-kind-icon">channel<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="usertimeouterror.html#length" class="tsd-kind-icon">length</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="usertimeouterror.html#message" class="tsd-kind-icon">message</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="usertimeouterror.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="usertimeouterror.html#reason" class="tsd-kind-icon">reason</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="usertimeouterror.html#stack" class="tsd-kind-icon">stack</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="usertimeouterror.html#username" class="tsd-kind-icon">username</a></li>
 							</ul>
 						</section>
 					</div>
@@ -113,23 +115,29 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Whisper<wbr>Error<span class="tsd-signature-symbol">(</span>targetUsername<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, failedMessage<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, message<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span>, cause<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Error</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="whispererror.html" class="tsd-signature-type">WhisperError</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>User<wbr>Timeout<wbr>Error<span class="tsd-signature-symbol">(</span>channelName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, username<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, length<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, reason<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span>, message<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span>, cause<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Error</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="usertimeouterror.html" class="tsd-signature-type">UserTimeoutError</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overrides <a href="baseerror.html">BaseError</a>.<a href="baseerror.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/7a4b31a/lib/operations/whisper.ts#L10">operations/whisper.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/7a4b31a/lib/operations/timeout.ts#L13">operations/timeout.ts:13</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>targetUsername: <span class="tsd-signature-type">string</span></h5>
+									<h5>channelName: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
-									<h5>failedMessage: <span class="tsd-signature-type">string</span></h5>
+									<h5>username: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>length: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>reason: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h5>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> message: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
@@ -138,7 +146,7 @@
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> cause: <span class="tsd-signature-type">Error</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="whispererror.html" class="tsd-signature-type">WhisperError</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="usertimeouterror.html" class="tsd-signature-type">UserTimeoutError</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -157,12 +165,22 @@
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="failedmessage" class="tsd-anchor"></a>
-					<h3>failed<wbr>Message</h3>
-					<div class="tsd-signature tsd-kind-icon">failed<wbr>Message<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="channelname" class="tsd-anchor"></a>
+					<h3>channel<wbr>Name</h3>
+					<div class="tsd-signature tsd-kind-icon">channel<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/7a4b31a/lib/operations/whisper.ts#L10">operations/whisper.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/7a4b31a/lib/operations/timeout.ts#L10">operations/timeout.ts:10</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="length" class="tsd-anchor"></a>
+					<h3>length</h3>
+					<div class="tsd-signature tsd-kind-icon">length<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/7a4b31a/lib/operations/timeout.ts#L12">operations/timeout.ts:12</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -188,6 +206,16 @@
 						</ul>
 					</aside>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="reason" class="tsd-anchor"></a>
+					<h3>reason</h3>
+					<div class="tsd-signature tsd-kind-icon">reason<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/7a4b31a/lib/operations/timeout.ts#L13">operations/timeout.ts:13</a></li>
+						</ul>
+					</aside>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="stack" class="tsd-anchor"></a>
 					<h3>stack</h3>
@@ -200,12 +228,12 @@
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="targetusername" class="tsd-anchor"></a>
-					<h3>target<wbr>Username</h3>
-					<div class="tsd-signature tsd-kind-icon">target<wbr>Username<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="username" class="tsd-anchor"></a>
+					<h3>username</h3>
+					<div class="tsd-signature tsd-kind-icon">username<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/7a4b31a/lib/operations/whisper.ts#L9">operations/whisper.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/7a4b31a/lib/operations/timeout.ts#L11">operations/timeout.ts:11</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -224,28 +252,34 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class">
-						<a href="whispererror.html" class="tsd-kind-icon">Whisper<wbr>Error</a>
+						<a href="usertimeouterror.html" class="tsd-kind-icon">User<wbr>Timeout<wbr>Error</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-								<a href="whispererror.html#constructor" class="tsd-kind-icon">constructor</a>
+								<a href="usertimeouterror.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="whispererror.html#cause" class="tsd-kind-icon">cause</a>
+								<a href="usertimeouterror.html#cause" class="tsd-kind-icon">cause</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="whispererror.html#failedmessage" class="tsd-kind-icon">failed<wbr>Message</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="whispererror.html#message" class="tsd-kind-icon">message</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="whispererror.html#name" class="tsd-kind-icon">name</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="whispererror.html#stack" class="tsd-kind-icon">stack</a>
+								<a href="usertimeouterror.html#channelname" class="tsd-kind-icon">channel<wbr>Name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="whispererror.html#targetusername" class="tsd-kind-icon">target<wbr>Username</a>
+								<a href="usertimeouterror.html#length" class="tsd-kind-icon">length</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="usertimeouterror.html#message" class="tsd-kind-icon">message</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="usertimeouterror.html#name" class="tsd-kind-icon">name</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="usertimeouterror.html#reason" class="tsd-kind-icon">reason</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="usertimeouterror.html#stack" class="tsd-kind-icon">stack</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="usertimeouterror.html#username" class="tsd-kind-icon">username</a>
 							</li>
 						</ul>
 					</li>
