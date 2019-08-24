@@ -112,7 +112,7 @@ export type MockTransportData = {
   transport: Duplex;
   data: any[];
   emit: (...lines: string[]) => void;
-  end: () => void;
+  end: (error?: Error) => void;
   emitAndEnd: (...lines: string[]) => void;
 };
 
@@ -141,12 +141,12 @@ export function createMockTransport(): MockTransportData {
     transport.push(lines.map(line => line + "\r\n").join(""));
   };
 
-  const end = (): void => {
-    transport.destroy();
+  const end = (error?: Error): void => {
+    transport.destroy(error);
   };
 
   const emitAndEnd = (...lines: string[]): void => {
-    emit(...lines);
+    setImmediate(emit, ...lines);
     setImmediate(end);
   };
 
@@ -168,56 +168,21 @@ export function fakeConnection(): FakeConnectionData {
   // don't start sending pings
   sinon.stub(SingleConnection.prototype, "onConnect");
 
-  const data: any[] = [];
-
-  const transport = new Duplex({
-    autoDestroy: true,
-    emitClose: true,
-    decodeStrings: false, // for write operations
-    defaultEncoding: "utf-8", // for write operations
-    encoding: "utf-8", // for read operations
-    write(
-      chunk: any,
-      encoding: string,
-      callback: (error?: Error | null) => void
-    ): void {
-      data.push(chunk.toString());
-      callback();
-    },
-    // tslint:disable-next-line:no-empty
-    read(): void {}
-  });
+  const transport = createMockTransport();
 
   const fakeConn = new SingleConnection({
     connection: {
       type: "duplex",
-      stream: () => transport,
+      stream: () => transport.transport,
       preSetup: true
     }
   });
 
   fakeConn.connect();
 
-  const emit = (...lines: string[]): void => {
-    transport.push(lines.map(line => line + "\r\n").join(""));
-  };
-
-  const end = (): void => {
-    transport.destroy();
-  };
-
-  const emitAndEnd = (...lines: string[]): void => {
-    setImmediate(emit, ...lines);
-    setImmediate(end);
-  };
-
   return {
-    transport,
-    data,
+    ...transport,
     client: fakeConn,
-    emit,
-    end,
-    emitAndEnd,
     clientError: new Promise<never>((resolve, reject) => {
       fakeConn.once("error", e => reject(e));
       fakeConn.once("close", () => resolve());
