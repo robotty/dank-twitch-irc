@@ -15,7 +15,8 @@
     "radix": false,
     "interface-over-type-literal": false,
     "prefer-readonly": true,
-    "ordered-imports": true
+    "ordered-imports": true,
+    "no-reference": false
   },
   "rulesDirectory": []
 }

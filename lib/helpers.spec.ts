@@ -70,13 +70,13 @@ function assertLink(e: Error, chain: any[], depth: number = 0): void {
 }
 
 export function assertErrorChain(
-  p: Promise<any>,
+  p: Promise<any> | Array<Promise<any>>,
   ...chain: any[]
 ): Promise<void>;
 export function assertErrorChain(e: Error | undefined, ...chain: any[]): void;
 
 export function assertErrorChain(
-  e: Promise<any> | Error | undefined,
+  e: Promise<any> | Array<Promise<any>> | Error | undefined,
   ...chain: any[]
 ): Promise<void> | void {
   if (e instanceof Error || e == null) {
@@ -84,9 +84,15 @@ export function assertErrorChain(
     assertLink(e!, chain);
   } else {
     return (async () => {
-      await assert.isRejected(e);
-      const error: BaseError = await errorOf(e);
-      assertLink(error, chain);
+      if (!Array.isArray(e)) {
+        e = [e];
+      }
+
+      for (const eElement of e) {
+        await assert.isRejected(eElement);
+        const error: BaseError = await errorOf(eElement);
+        assertLink(error, chain);
+      }
     })();
   }
 }
@@ -201,7 +207,7 @@ export function fakeConnection(): FakeConnectionData {
   };
 
   const emitAndEnd = (...lines: string[]): void => {
-    emit(...lines);
+    setImmediate(emit, ...lines);
     setImmediate(end);
   };
 

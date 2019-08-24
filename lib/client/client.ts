@@ -12,6 +12,7 @@ import { partChannel, partNothingToDo } from "../operations/part";
 import { sendPing } from "../operations/ping";
 import { sendPrivmsg } from "../operations/privmsg";
 import { me, say } from "../operations/say";
+import { timeout } from "../operations/timeout";
 import { whisper } from "../operations/whisper";
 import { anyCauseInstanceof } from "../utils/any-cause-instanceof";
 import { findAndPushToEnd } from "../utils/find-and-push-to-end";
@@ -178,6 +179,21 @@ export class ChatClient extends BaseClient {
       this.requireConnection(mustNotBeJoined(channelName)),
       channelName,
       message
+    );
+  }
+
+  public async timeout(
+    channelName: string,
+    username: string,
+    length: number,
+    reason?: string
+  ): Promise<void> {
+    await timeout(
+      this.requireConnection(),
+      channelName,
+      username,
+      length,
+      reason
     );
   }
 

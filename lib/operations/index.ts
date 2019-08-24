@@ -6,4 +6,5 @@ export * from "./ping";
 export * from "./privmsg";
 export * from "./request-capabilities";
 export * from "./say";
+export * from "./timeout";
 export * from "./whisper";

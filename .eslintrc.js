@@ -34,7 +34,8 @@ module.exports = {
         lintFile: "./tslint.json"
       }
     ],
-    "@typescript-eslint/array-type": "off"
+    "@typescript-eslint/array-type": "off",
+    "@typescript-eslint/no-triple-slash-reference": "off"
     // "no-warning-comments": "warn"
   }
 };
