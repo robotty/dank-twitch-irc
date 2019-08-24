@@ -187,11 +187,11 @@ describe("./operations/join", function() {
 
     it("only adds to wantedChannels on connection close (with error)", async function() {
       // given
-      const { transport, client, clientError } = fakeConnection();
+      const { end, client, clientError } = fakeConnection();
 
       // when
       const promise = joinChannel(client, "pajlada");
-      transport.destroy(new Error("peer reset connection"));
+      end(new Error("peer reset connection"));
 
       // then
       await assertErrorChain(
