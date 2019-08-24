@@ -32,7 +32,6 @@
   "license": "MIT",
   "repository": "https://github.com/robotty/dank-twitch-irc",
   "dependencies": {
-    "@robotty/debug": "^4.2.0",
     "debug-logger": "^0.4.1",
     "duplexify": "^4.1.1",
     "eventemitter3": "^4.0.0",
