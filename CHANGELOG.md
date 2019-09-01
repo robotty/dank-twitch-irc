@@ -1,6 +1,6 @@
 # Changelog
 
-## edge (unreleased)
+## v3.0.0
 
 - Breaking: Renamed `recipientUserName` to `recipientUsername` in the parameters
   for `subgift` and `anonsubgift` messages to be more consitent with the way
