@@ -3,8 +3,6 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: tianon/true:latest
+      - image: alpine:latest
     steps:
-      - run:
-          name: Nothing to do!
-          command: /true
+      - run: echo Nothing to do!
