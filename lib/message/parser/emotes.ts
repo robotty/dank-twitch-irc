@@ -1,4 +1,3 @@
-import sortBy = require("lodash.sortby");
 import { TwitchEmote } from "../emote";
 import { TwitchEmoteList } from "../emotes";
 import { parseIntThrowing } from "./common";
@@ -40,5 +39,8 @@ export function parseEmotes(
     }
   }
 
-  return sortBy(emotes, [e => e.startIndex]);
+  // sort by start index
+  emotes.sort((a, b) => a.startIndex - b.startIndex);
+
+  return emotes;
 }

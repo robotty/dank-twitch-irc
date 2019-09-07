@@ -1,5 +1,9 @@
 # Changelog
 
+## Unversioned
+
+- Bugfix: Removed dependency on `lodash.sortby`.
+
 ## v3.0.2
 
 - Documentation: removed `<summary>` collapse area in `README.md`.
