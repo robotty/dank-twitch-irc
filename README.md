@@ -187,11 +187,6 @@ message sent with resubs and subs. If no message is sent by the user,
 parser assigns all `msg-param-` tags to the `msg.eventParams` object. See below
 on what `msg.eventParams` are available for each of the `messageTypeID`s.
 
-<details>
-<summary>
-<strong>Here's examples on how to handle each of these events with <code>dank-twitch-irc</code>: (Click to expand)</strong>
-</summary>
-
 ### Sub and resub
 
 When a user subscribes or resubscribes with his own money/prime (this is NOT
@@ -582,8 +577,6 @@ chatClient.on("USERNOTICE", msg => {
   );
 });
 ```
-
-</details>
 
 ## ChatClient API
 
