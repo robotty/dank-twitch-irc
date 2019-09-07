@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.0.1
+
+- Documentation fix in readme: `msg.eventParams` instead of `msg.msgParams`.
+
 ## v3.0.0
 
 - Breaking: Renamed `recipientUserName` to `recipientUsername` in the parameters
