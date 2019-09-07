@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.0.2
+
+- Documentation: removed `<summary>` collapse area in `README.md`.
+
 ## v3.0.1
 
 - Documentation fix in readme: `msg.eventParams` instead of `msg.msgParams`.
