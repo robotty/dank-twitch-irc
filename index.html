@@ -247,8 +247,8 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
 				<code>msg.messageText</code> is <code>undefined</code>.</p>
 				<p><code>dank-twitch-irc</code> currently does not have special parsing code for each
 					<code>USERNOTICE</code> <code>messageTypeID</code> (e.g. <code>sub</code>, <code>resub</code>, <code>raid</code>, etc...) - Instead the
-					parser assigns all <code>msg-param-</code> tags to the <code>msg.msgParams</code> object. See below on
-				what <code>msg.msgParams</code> are available for each of the <code>messageTypeID</code>s.</p>
+					parser assigns all <code>msg-param-</code> tags to the <code>msg.eventParams</code> object. See below
+				on what <code>msg.eventParams</code> are available for each of the <code>messageTypeID</code>s.</p>
 				<details>
 					<summary>
 						<strong>Here's examples on how to handle each of these events with <code>dank-twitch-irc</code>: (Click to expand)</strong>
@@ -265,7 +265,7 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
   }
 
   <span class="hljs-comment">/*
-   * msg.msgParams are:
+   * msg.eventParams are:
    *
    * {
    *   "cumulativeMonths": 10,
@@ -290,16 +290,16 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
         <span class="hljs-string">" just subscribed to "</span> +
         msg.channelName +
         <span class="hljs-string">" with a tier "</span> +
-        msg.msgParams.subPlan +
+        msg.eventParams.subPlan +
         <span class="hljs-string">" ("</span> +
-        msg.msgParams.subPlanName +
+        msg.eventParams.subPlanName +
         <span class="hljs-string">") sub for the first time!"</span>
     );
   } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (msg.isResub()) {
     <span class="hljs-keyword">let</span> streakMessage = <span class="hljs-string">""</span>;
-    <span class="hljs-keyword">if</span> (msg.msgParams.shouldShareStreak) {
+    <span class="hljs-keyword">if</span> (msg.eventParams.shouldShareStreak) {
       streakMessage =
-        <span class="hljs-string">", currently "</span> + msg.msgParams.streakMonths + <span class="hljs-string">" months in a row"</span>;
+        <span class="hljs-string">", currently "</span> + msg.eventParams.streakMonths + <span class="hljs-string">" months in a row"</span>;
     }
 
     <span class="hljs-comment">// Leppunen just resubscribed to ninja with a tier 1000 (The Ninjas) sub!</span>
@@ -309,11 +309,11 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
         <span class="hljs-string">" just resubscribed to "</span> +
         msg.channelName +
         <span class="hljs-string">" with a tier "</span> +
-        msg.msgParams.subPlan +
+        msg.eventParams.subPlan +
         <span class="hljs-string">" ("</span> +
-        msg.msgParams.subPlanName +
+        msg.eventParams.subPlanName +
         <span class="hljs-string">") sub! They are resubscribing for "</span> +
-        msg.msgParams.cumulativeMonths +
+        msg.eventParams.cumulativeMonths +
         <span class="hljs-string">" months"</span> +
         streakMessage +
         <span class="hljs-string">"!"</span>
@@ -348,7 +348,7 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
   }
 
   <span class="hljs-comment">/*
-   * msg.msgParams are:
+   * msg.eventParams are:
    * {
    *   "displayName": "Leppunen",
    *   "login": "leppunen",
@@ -356,10 +356,10 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
    *   "viewerCountRaw": "12"
    * }
    * Sender user of the USERNOTICE message is the user raiding this channel.
-   * Note that the display name and login present in msg.msgParams are
+   * Note that the display name and login present in msg.eventParams are
    * the same as msg.displayName and msg.senderUsername, so it doesn't matter
    * which one you use (although I recommend the properties directly on the
-   * message object, not in msgParams)
+   * message object, not in eventParams)
    */</span>
 
   <span class="hljs-comment">// source user is the channel/streamer raiding</span>
@@ -369,7 +369,7 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
       <span class="hljs-string">" just raided "</span> +
       msg.channelName +
       <span class="hljs-string">" with "</span> +
-      msg.msgParams.viewerCount +
+      msg.eventParams.viewerCount +
       <span class="hljs-string">" viewers!"</span>
   );
 });</code></pre>
@@ -383,7 +383,7 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
   }
 
   <span class="hljs-comment">/*
-   * msg.msgParams are:
+   * msg.eventParams are:
    * {
    *   "months": 5,
    *   "monthsRaw": "5",
@@ -396,16 +396,16 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
    * Sender user of the USERNOTICE message is the user gifting the subscription.
    */</span>
 
-  <span class="hljs-keyword">if</span> (msg.msgParams.months === <span class="hljs-number">1</span>) {
+  <span class="hljs-keyword">if</span> (msg.eventParams.months === <span class="hljs-number">1</span>) {
     <span class="hljs-comment">// Leppunen just gifted NymN a fresh tier 1000 (The Ninjas) sub to ninja!</span>
     <span class="hljs-built_in">console</span>.log(
       msg.displayName +
         <span class="hljs-string">" just gifted "</span> +
-        msg.msgParams.recipientDisplayName +
+        msg.eventParams.recipientDisplayName +
         <span class="hljs-string">" a fresh tier "</span> +
-        msg.msgParams.subPlan +
+        msg.eventParams.subPlan +
         <span class="hljs-string">" ("</span> +
-        msg.msgParams +
+        msg.eventParams +
         <span class="hljs-string">") sub to "</span> +
         msg.channelName +
         <span class="hljs-string">"!"</span>
@@ -415,15 +415,15 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
     <span class="hljs-built_in">console</span>.log(
       msg.displayName +
         <span class="hljs-string">" just gifted "</span> +
-        msg.msgParams.recipientDisplayName +
+        msg.eventParams.recipientDisplayName +
         <span class="hljs-string">" a tier "</span> +
-        msg.msgParams.subPlan +
+        msg.eventParams.subPlan +
         <span class="hljs-string">" ("</span> +
-        msg.msgParams +
+        msg.eventParams +
         <span class="hljs-string">") resub to "</span> +
         msg.channelName +
         <span class="hljs-string">", that's "</span> +
-        msg.msgParams.months +
+        msg.eventParams.months +
         <span class="hljs-string">" in a row!"</span>
     );
   }
@@ -444,7 +444,7 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
   }
 
   <span class="hljs-comment">/*
-   * msg.msgParams are:
+   * msg.eventParams are:
    * {
    *   "months": 5,
    *   "monthsRaw": "5",
@@ -459,15 +459,15 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
    * in the example below)
    */</span>
 
-  <span class="hljs-keyword">if</span> (msg.msgParams.months === <span class="hljs-number">1</span>) {
+  <span class="hljs-keyword">if</span> (msg.eventParams.months === <span class="hljs-number">1</span>) {
     <span class="hljs-comment">// An anonymous gifter just gifted NymN a fresh tier 1000 (The Ninjas) sub to ninja!</span>
     <span class="hljs-built_in">console</span>.log(
       <span class="hljs-string">"An anonymous gifter just gifted "</span> +
-        msg.msgParams.recipientDisplayName +
+        msg.eventParams.recipientDisplayName +
         <span class="hljs-string">" a fresh tier "</span> +
-        msg.msgParams.subPlan +
+        msg.eventParams.subPlan +
         <span class="hljs-string">" ("</span> +
-        msg.msgParams +
+        msg.eventParams +
         <span class="hljs-string">") sub to "</span> +
         msg.channelName +
         <span class="hljs-string">"!"</span>
@@ -476,15 +476,15 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
     <span class="hljs-comment">// An anonymous gifter just gifted NymN a tier 1000 (The Ninjas) resub to ninja, that's 7 months in a row!</span>
     <span class="hljs-built_in">console</span>.log(
       <span class="hljs-string">"An anonymous gifter just gifted "</span> +
-        msg.msgParams.recipientDisplayName +
+        msg.eventParams.recipientDisplayName +
         <span class="hljs-string">" a tier "</span> +
-        msg.msgParams.subPlan +
+        msg.eventParams.subPlan +
         <span class="hljs-string">" ("</span> +
-        msg.msgParams +
+        msg.eventParams +
         <span class="hljs-string">") resub to "</span> +
         msg.channelName +
         <span class="hljs-string">", that's "</span> +
-        msg.msgParams.months +
+        msg.eventParams.months +
         <span class="hljs-string">" in a row!"</span>
     );
   }
@@ -500,7 +500,7 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
   }
 
   <span class="hljs-comment">/*
-   * msg.msgParams are:
+   * msg.eventParams are:
    * EITHER: (ONLY when a promotion is running!)
    * {
    *   "promoName": "Subtember 2018",
@@ -527,7 +527,7 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
   }
 
   <span class="hljs-comment">/*
-   * msg.msgParams are:
+   * msg.eventParams are:
    * EITHER: (ONLY when a promotion is running!)
    * {
    *   "promoName": "Subtember 2018",
@@ -571,7 +571,7 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
   }
 
   <span class="hljs-comment">/*
-   * msg.msgParams are:
+   * msg.eventParams are:
    * {
    *   "ritualName": "new_chatter"
    * }
@@ -581,13 +581,13 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
    */</span>
 
   <span class="hljs-comment">// Leppunen is new to ninja's chat! Say hello!</span>
-  <span class="hljs-keyword">if</span> (msg.msgParams.ritualName === <span class="hljs-string">"new_chatter"</span>) {
+  <span class="hljs-keyword">if</span> (msg.eventParams.ritualName === <span class="hljs-string">"new_chatter"</span>) {
     <span class="hljs-built_in">console</span>.log(
       msg.displayName + <span class="hljs-string">" is new to "</span> + msg.channelName + <span class="hljs-string">"'s chat! Say hello!"</span>
     );
   } <span class="hljs-keyword">else</span> {
     <span class="hljs-built_in">console</span>.warn(
-      <span class="hljs-string">"Unknown (unhandled) ritual type: "</span> + msg.msgParams.ritualName
+      <span class="hljs-string">"Unknown (unhandled) ritual type: "</span> + msg.eventParams.ritualName
     );
   }
 });</code></pre>
@@ -603,7 +603,7 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
   }
 
   <span class="hljs-comment">/*
-   * msg.msgParams are:
+   * msg.eventParams are:
    * {
    *   "threshold": 10000,
    *   "thresholdRaw": "10000",
