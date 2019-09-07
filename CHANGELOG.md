@@ -1,6 +1,6 @@
 # Changelog
 
-## Unversioned
+## v3.0.3
 
 - Bugfix: Removed dependency on `lodash.sortby`.
 
