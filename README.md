@@ -184,8 +184,8 @@ message sent with resubs and subs. If no message is sent by the user,
 
 `dank-twitch-irc` currently does not have special parsing code for each
 `USERNOTICE` `messageTypeID` (e.g. `sub`, `resub`, `raid`, etc...) - Instead the
-parser assigns all `msg-param-` tags to the `msg.msgParams` object. See below on
-what `msg.msgParams` are available for each of the `messageTypeID`s.
+parser assigns all `msg-param-` tags to the `msg.eventParams` object. See below
+on what `msg.eventParams` are available for each of the `messageTypeID`s.
 
 <details>
 <summary>
@@ -205,7 +205,7 @@ chatClient.on("USERNOTICE", msg => {
   }
 
   /*
-   * msg.msgParams are:
+   * msg.eventParams are:
    *
    * {
    *   "cumulativeMonths": 10,
@@ -230,16 +230,16 @@ chatClient.on("USERNOTICE", msg => {
         " just subscribed to " +
         msg.channelName +
         " with a tier " +
-        msg.msgParams.subPlan +
+        msg.eventParams.subPlan +
         " (" +
-        msg.msgParams.subPlanName +
+        msg.eventParams.subPlanName +
         ") sub for the first time!"
     );
   } else if (msg.isResub()) {
     let streakMessage = "";
-    if (msg.msgParams.shouldShareStreak) {
+    if (msg.eventParams.shouldShareStreak) {
       streakMessage =
-        ", currently " + msg.msgParams.streakMonths + " months in a row";
+        ", currently " + msg.eventParams.streakMonths + " months in a row";
     }
 
     // Leppunen just resubscribed to ninja with a tier 1000 (The Ninjas) sub!
@@ -249,11 +249,11 @@ chatClient.on("USERNOTICE", msg => {
         " just resubscribed to " +
         msg.channelName +
         " with a tier " +
-        msg.msgParams.subPlan +
+        msg.eventParams.subPlan +
         " (" +
-        msg.msgParams.subPlanName +
+        msg.eventParams.subPlanName +
         ") sub! They are resubscribing for " +
-        msg.msgParams.cumulativeMonths +
+        msg.eventParams.cumulativeMonths +
         " months" +
         streakMessage +
         "!"
@@ -290,7 +290,7 @@ chatClient.on("USERNOTICE", msg => {
   }
 
   /*
-   * msg.msgParams are:
+   * msg.eventParams are:
    * {
    *   "displayName": "Leppunen",
    *   "login": "leppunen",
@@ -298,10 +298,10 @@ chatClient.on("USERNOTICE", msg => {
    *   "viewerCountRaw": "12"
    * }
    * Sender user of the USERNOTICE message is the user raiding this channel.
-   * Note that the display name and login present in msg.msgParams are
+   * Note that the display name and login present in msg.eventParams are
    * the same as msg.displayName and msg.senderUsername, so it doesn't matter
    * which one you use (although I recommend the properties directly on the
-   * message object, not in msgParams)
+   * message object, not in eventParams)
    */
 
   // source user is the channel/streamer raiding
@@ -311,7 +311,7 @@ chatClient.on("USERNOTICE", msg => {
       " just raided " +
       msg.channelName +
       " with " +
-      msg.msgParams.viewerCount +
+      msg.eventParams.viewerCount +
       " viewers!"
   );
 });
@@ -328,7 +328,7 @@ chatClient.on("USERNOTICE", msg => {
   }
 
   /*
-   * msg.msgParams are:
+   * msg.eventParams are:
    * {
    *   "months": 5,
    *   "monthsRaw": "5",
@@ -341,16 +341,16 @@ chatClient.on("USERNOTICE", msg => {
    * Sender user of the USERNOTICE message is the user gifting the subscription.
    */
 
-  if (msg.msgParams.months === 1) {
+  if (msg.eventParams.months === 1) {
     // Leppunen just gifted NymN a fresh tier 1000 (The Ninjas) sub to ninja!
     console.log(
       msg.displayName +
         " just gifted " +
-        msg.msgParams.recipientDisplayName +
+        msg.eventParams.recipientDisplayName +
         " a fresh tier " +
-        msg.msgParams.subPlan +
+        msg.eventParams.subPlan +
         " (" +
-        msg.msgParams +
+        msg.eventParams +
         ") sub to " +
         msg.channelName +
         "!"
@@ -360,15 +360,15 @@ chatClient.on("USERNOTICE", msg => {
     console.log(
       msg.displayName +
         " just gifted " +
-        msg.msgParams.recipientDisplayName +
+        msg.eventParams.recipientDisplayName +
         " a tier " +
-        msg.msgParams.subPlan +
+        msg.eventParams.subPlan +
         " (" +
-        msg.msgParams +
+        msg.eventParams +
         ") resub to " +
         msg.channelName +
         ", that's " +
-        msg.msgParams.months +
+        msg.eventParams.months +
         " in a row!"
     );
   }
@@ -392,7 +392,7 @@ chatClient.on("USERNOTICE", msg => {
   }
 
   /*
-   * msg.msgParams are:
+   * msg.eventParams are:
    * {
    *   "months": 5,
    *   "monthsRaw": "5",
@@ -407,15 +407,15 @@ chatClient.on("USERNOTICE", msg => {
    * in the example below)
    */
 
-  if (msg.msgParams.months === 1) {
+  if (msg.eventParams.months === 1) {
     // An anonymous gifter just gifted NymN a fresh tier 1000 (The Ninjas) sub to ninja!
     console.log(
       "An anonymous gifter just gifted " +
-        msg.msgParams.recipientDisplayName +
+        msg.eventParams.recipientDisplayName +
         " a fresh tier " +
-        msg.msgParams.subPlan +
+        msg.eventParams.subPlan +
         " (" +
-        msg.msgParams +
+        msg.eventParams +
         ") sub to " +
         msg.channelName +
         "!"
@@ -424,15 +424,15 @@ chatClient.on("USERNOTICE", msg => {
     // An anonymous gifter just gifted NymN a tier 1000 (The Ninjas) resub to ninja, that's 7 months in a row!
     console.log(
       "An anonymous gifter just gifted " +
-        msg.msgParams.recipientDisplayName +
+        msg.eventParams.recipientDisplayName +
         " a tier " +
-        msg.msgParams.subPlan +
+        msg.eventParams.subPlan +
         " (" +
-        msg.msgParams +
+        msg.eventParams +
         ") resub to " +
         msg.channelName +
         ", that's " +
-        msg.msgParams.months +
+        msg.eventParams.months +
         " in a row!"
     );
   }
@@ -451,7 +451,7 @@ chatClient.on("USERNOTICE", msg => {
   }
 
   /*
-   * msg.msgParams are:
+   * msg.eventParams are:
    * EITHER: (ONLY when a promotion is running!)
    * {
    *   "promoName": "Subtember 2018",
@@ -481,7 +481,7 @@ chatClient.on("USERNOTICE", msg => {
   }
 
   /*
-   * msg.msgParams are:
+   * msg.eventParams are:
    * EITHER: (ONLY when a promotion is running!)
    * {
    *   "promoName": "Subtember 2018",
@@ -527,7 +527,7 @@ chatClient.on("USERNOTICE", msg => {
   }
 
   /*
-   * msg.msgParams are:
+   * msg.eventParams are:
    * {
    *   "ritualName": "new_chatter"
    * }
@@ -537,13 +537,13 @@ chatClient.on("USERNOTICE", msg => {
    */
 
   // Leppunen is new to ninja's chat! Say hello!
-  if (msg.msgParams.ritualName === "new_chatter") {
+  if (msg.eventParams.ritualName === "new_chatter") {
     console.log(
       msg.displayName + " is new to " + msg.channelName + "'s chat! Say hello!"
     );
   } else {
     console.warn(
-      "Unknown (unhandled) ritual type: " + msg.msgParams.ritualName
+      "Unknown (unhandled) ritual type: " + msg.eventParams.ritualName
     );
   }
 });
@@ -562,7 +562,7 @@ chatClient.on("USERNOTICE", msg => {
   }
 
   /*
-   * msg.msgParams are:
+   * msg.eventParams are:
    * {
    *   "threshold": 10000,
    *   "thresholdRaw": "10000",
