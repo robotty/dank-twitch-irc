@@ -249,16 +249,12 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
 					<code>USERNOTICE</code> <code>messageTypeID</code> (e.g. <code>sub</code>, <code>resub</code>, <code>raid</code>, etc...) - Instead the
 					parser assigns all <code>msg-param-</code> tags to the <code>msg.eventParams</code> object. See below
 				on what <code>msg.eventParams</code> are available for each of the <code>messageTypeID</code>s.</p>
-				<details>
-					<summary>
-						<strong>Here's examples on how to handle each of these events with <code>dank-twitch-irc</code>: (Click to expand)</strong>
-					</summary>
-					<a href="#sub-and-resub" id="sub-and-resub" style="color: inherit; text-decoration: none;">
-						<h3>Sub and resub</h3>
-					</a>
-					<p>When a user subscribes or resubscribes with his own money/prime (this is NOT
-					sent for gift subs, see below)</p>
-					<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, msg =&gt; {
+				<a href="#sub-and-resub" id="sub-and-resub" style="color: inherit; text-decoration: none;">
+					<h3>Sub and resub</h3>
+				</a>
+				<p>When a user subscribes or resubscribes with his own money/prime (this is NOT
+				sent for gift subs, see below)</p>
+				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, msg =&gt; {
   <span class="hljs-comment">// sub and resub messages have the same parameters, so we can handle them both the same way</span>
   <span class="hljs-keyword">if</span> (!msg.isSub() &amp;&amp; !msg.isResub()) {
     <span class="hljs-keyword">return</span>;
@@ -333,16 +329,16 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"They did not share a message with the streamer."</span>);
   }
 });</code></pre>
-					<a href="#incoming-raids" id="incoming-raids" style="color: inherit; text-decoration: none;">
-						<h3>Incoming raids</h3>
-					</a>
-					<p>Twitch says:</p>
-					<blockquote>
-						<p>Incoming raid to a channel. Raid is a Twitch tool that allows broadcasters to
-							send their viewers to another channel, to help support and grow other members
-						in the community.)</p>
-					</blockquote>
-					<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, msg =&gt; {
+				<a href="#incoming-raids" id="incoming-raids" style="color: inherit; text-decoration: none;">
+					<h3>Incoming raids</h3>
+				</a>
+				<p>Twitch says:</p>
+				<blockquote>
+					<p>Incoming raid to a channel. Raid is a Twitch tool that allows broadcasters to
+						send their viewers to another channel, to help support and grow other members
+					in the community.)</p>
+				</blockquote>
+				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, msg =&gt; {
   <span class="hljs-keyword">if</span> (!msg.isRaid()) {
     <span class="hljs-keyword">return</span>;
   }
@@ -373,11 +369,11 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
       <span class="hljs-string">" viewers!"</span>
   );
 });</code></pre>
-					<a href="#subgift" id="subgift" style="color: inherit; text-decoration: none;">
-						<h3>Subgift</h3>
-					</a>
-					<p>When a user gifts somebody else a subscription.</p>
-					<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, msg =&gt; {
+				<a href="#subgift" id="subgift" style="color: inherit; text-decoration: none;">
+					<h3>Subgift</h3>
+				</a>
+				<p>When a user gifts somebody else a subscription.</p>
+				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, msg =&gt; {
   <span class="hljs-keyword">if</span> (!msg.isSubgift()) {
     <span class="hljs-keyword">return</span>;
   }
@@ -434,11 +430,11 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"That (re)sub was gifted anonymously!"</span>);
   }
 });</code></pre>
-					<a href="#anonsubgift" id="anonsubgift" style="color: inherit; text-decoration: none;">
-						<h3>Anonsubgift</h3>
-					</a>
-					<p>When an anonymous user gifts a subscription to a viewer.</p>
-					<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, msg =&gt; {
+				<a href="#anonsubgift" id="anonsubgift" style="color: inherit; text-decoration: none;">
+					<h3>Anonsubgift</h3>
+				</a>
+				<p>When an anonymous user gifts a subscription to a viewer.</p>
+				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, msg =&gt; {
   <span class="hljs-keyword">if</span> (!msg.isAnonSubgift()) {
     <span class="hljs-keyword">return</span>;
   }
@@ -489,12 +485,12 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
     );
   }
 });</code></pre>
-					<a href="#anongiftpaidupgrade-giftpaidupgrade" id="anongiftpaidupgrade-giftpaidupgrade" style="color: inherit; text-decoration: none;">
-						<h3>anongiftpaidupgrade, giftpaidupgrade</h3>
-					</a>
-					<p>When a user commits to continue the gift sub by another user (or an anonymous
-					gifter).</p>
-					<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, msg =&gt; {
+				<a href="#anongiftpaidupgrade-giftpaidupgrade" id="anongiftpaidupgrade-giftpaidupgrade" style="color: inherit; text-decoration: none;">
+					<h3>anongiftpaidupgrade, giftpaidupgrade</h3>
+				</a>
+				<p>When a user commits to continue the gift sub by another user (or an anonymous
+				gifter).</p>
+				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, msg =&gt; {
   <span class="hljs-keyword">if</span> (!msg.isAnonGiftPaidUpgrade()) {
     <span class="hljs-keyword">return</span>;
   }
@@ -521,7 +517,7 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
       <span class="hljs-string">" gift sub they got from an anonymous user!"</span>
   );
 });</code></pre>
-					<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, msg =&gt; {
+				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, msg =&gt; {
   <span class="hljs-keyword">if</span> (!msg.isGiftPaidUpgrade()) {
     <span class="hljs-keyword">return</span>;
   }
@@ -555,17 +551,17 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
       <span class="hljs-string">"!"</span>
   );
 });</code></pre>
-					<a href="#ritual" id="ritual" style="color: inherit; text-decoration: none;">
-						<h3>ritual</h3>
-					</a>
-					<p>Channel ritual. Twitch says:</p>
-					<blockquote>
-						<p>Channel <em>ritual</em>. Many channels have special rituals to celebrate viewer
-							milestones when they are shared. The rituals notice extends the sharing of
-							these messages to other viewer milestones (initially, a new viewer chatting
-						for the first time).</p>
-					</blockquote>
-					<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, msg =&gt; {
+				<a href="#ritual" id="ritual" style="color: inherit; text-decoration: none;">
+					<h3>ritual</h3>
+				</a>
+				<p>Channel ritual. Twitch says:</p>
+				<blockquote>
+					<p>Channel <em>ritual</em>. Many channels have special rituals to celebrate viewer
+						milestones when they are shared. The rituals notice extends the sharing of
+						these messages to other viewer milestones (initially, a new viewer chatting
+					for the first time).</p>
+				</blockquote>
+				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, msg =&gt; {
   <span class="hljs-keyword">if</span> (!msg.isRitual()) {
     <span class="hljs-keyword">return</span>;
   }
@@ -591,13 +587,13 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
     );
   }
 });</code></pre>
-					<a href="#bitsbadgetier" id="bitsbadgetier" style="color: inherit; text-decoration: none;">
-						<h3>bitsbadgetier</h3>
-					</a>
-					<p>When a user cheers and earns himself a new bits badge with that cheer (e.g. they
-						just cheered more than/exactly 10000 bits in total, and just earned themselves
-					the 10k bits badge)</p>
-					<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, msg =&gt; {
+				<a href="#bitsbadgetier" id="bitsbadgetier" style="color: inherit; text-decoration: none;">
+					<h3>bitsbadgetier</h3>
+				</a>
+				<p>When a user cheers and earns himself a new bits badge with that cheer (e.g. they
+					just cheered more than/exactly 10000 bits in total, and just earned themselves
+				the 10k bits badge)</p>
+				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, msg =&gt; {
   <span class="hljs-keyword">if</span> (!msg.isBitsBadgeTier()) {
     <span class="hljs-keyword">return</span>;
   }
@@ -622,7 +618,6 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
       <span class="hljs-string">"'s channel!"</span>
   );
 });</code></pre>
-				</details>
 				<a href="#chatclient-api" id="chatclient-api" style="color: inherit; text-decoration: none;">
 					<h2>ChatClient API</h2>
 				</a>
