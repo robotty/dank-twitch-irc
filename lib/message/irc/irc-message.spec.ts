@@ -5,7 +5,7 @@ import { MissingDataError } from "../parser/missing-data-error";
 import { requireNickname, requireParameter } from "./irc-message";
 
 describe("./message/irc/irc-message", function() {
-  describe("#getParameter()", function() {
+  describe("#requireParameter()", function() {
     it("should throw MissingDataError if parameters have length 0", function() {
       assertThrowsChain(
         () => requireParameter({ ircParameters: [] }, 0),
