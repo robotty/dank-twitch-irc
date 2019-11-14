@@ -1,6 +1,9 @@
 import { getIRCChannelName } from "../irc/channel-irc-message";
-import { getParameter, IRCMessage, IRCMessageData } from "../irc/irc-message";
-import { optionalData } from "../parser/common";
+import {
+  IRCMessage,
+  IRCMessageData,
+  requireParameter
+} from "../irc/irc-message";
 import { tagParserFor } from "../parser/tag-values";
 
 export class NoticeMessage extends IRCMessage {
@@ -17,7 +20,7 @@ export class NoticeMessage extends IRCMessage {
     this.channelName = getIRCChannelName(this, true);
 
     const tagParser = tagParserFor(this.ircTags);
-    this.messageText = getParameter(this, 1);
-    this.messageID = optionalData(() => tagParser.getString("msg-id"));
+    this.messageText = requireParameter(this, 1);
+    this.messageID = tagParser.getString("msg-id");
   }
 }

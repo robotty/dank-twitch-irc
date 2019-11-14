@@ -1,6 +1,6 @@
 import { reasonForValue } from "../../utils/reason-for-value";
 import { ChannelIRCMessage } from "../irc/channel-irc-message";
-import { getParameter, IRCMessageData } from "../irc/irc-message";
+import { requireParameter, IRCMessageData } from "../irc/irc-message";
 import { ParseError } from "../parser/parse-error";
 
 export function parseHostedChannelName(
@@ -88,7 +88,7 @@ export class HosttargetMessage extends ChannelIRCMessage {
     super(message);
 
     const parsedSecondParameter = parseHosttargetParameter(
-      getParameter(this, 1)
+      requireParameter(this, 1)
     );
     this.hostedChannelName = parsedSecondParameter.hostedChannelName;
     this.viewerCount = parsedSecondParameter.viewerCount;

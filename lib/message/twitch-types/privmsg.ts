@@ -2,8 +2,11 @@ import { TwitchBadgesList } from "../badges";
 import { Color } from "../color";
 import { TwitchEmoteList } from "../emotes";
 import { ChannelIRCMessage } from "../irc/channel-irc-message";
-import { getNickname, getParameter, IRCMessage } from "../irc/irc-message";
-import { optionalData } from "../parser/common";
+import {
+  requireNickname,
+  requireParameter,
+  IRCMessage
+} from "../irc/irc-message";
 import { tagParserFor } from "../parser/tag-values";
 import { UserState } from "./userstate";
 
@@ -75,41 +78,43 @@ export class PrivmsgMessage extends ChannelIRCMessage
   public constructor(ircMessage: IRCMessage) {
     super(ircMessage);
 
-    const { isAction, message } = parseActionAndMessage(getParameter(this, 1));
+    const { isAction, message } = parseActionAndMessage(
+      requireParameter(this, 1)
+    );
     this.messageText = message;
     this.isAction = isAction;
 
-    this.senderUsername = getNickname(this);
+    this.senderUsername = requireNickname(this);
 
     const tagParser = tagParserFor(this.ircTags);
-    this.channelID = tagParser.getString("room-id");
+    this.channelID = tagParser.requireString("room-id");
 
-    this.senderUserID = tagParser.getString("user-id");
+    this.senderUserID = tagParser.requireString("user-id");
 
-    this.badgeInfo = tagParser.getBadges("badge-info");
-    this.badgeInfoRaw = tagParser.getString("badge-info");
+    this.badgeInfo = tagParser.requireBadges("badge-info");
+    this.badgeInfoRaw = tagParser.requireString("badge-info");
 
-    this.badges = tagParser.getBadges("badges");
-    this.badgesRaw = tagParser.getString("badges");
+    this.badges = tagParser.requireBadges("badges");
+    this.badgesRaw = tagParser.requireString("badges");
 
-    this.bits = optionalData(() => tagParser.getInt("bits"));
-    this.bitsRaw = optionalData(() => tagParser.getString("bits"));
+    this.bits = tagParser.getInt("bits");
+    this.bitsRaw = tagParser.getString("bits");
 
-    this.color = optionalData(() => tagParser.getColor("color"));
-    this.colorRaw = tagParser.getString("color");
+    this.color = tagParser.getColor("color");
+    this.colorRaw = tagParser.requireString("color");
 
-    this.displayName = tagParser.getString("display-name");
+    this.displayName = tagParser.requireString("display-name");
 
-    this.emotes = tagParser.getEmotes("emotes", this.messageText);
-    this.emotesRaw = tagParser.getString("emotes");
+    this.emotes = tagParser.requireEmotes("emotes", this.messageText);
+    this.emotesRaw = tagParser.requireString("emotes");
 
-    this.messageID = tagParser.getString("id");
+    this.messageID = tagParser.requireString("id");
 
-    this.isMod = tagParser.getBoolean("mod");
-    this.isModRaw = tagParser.getString("mod");
+    this.isMod = tagParser.requireBoolean("mod");
+    this.isModRaw = tagParser.requireString("mod");
 
-    this.serverTimestamp = tagParser.getTimestamp("tmi-sent-ts");
-    this.serverTimestampRaw = tagParser.getString("tmi-sent-ts");
+    this.serverTimestamp = tagParser.requireTimestamp("tmi-sent-ts");
+    this.serverTimestampRaw = tagParser.requireString("tmi-sent-ts");
   }
 
   /**

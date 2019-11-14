@@ -43,6 +43,13 @@ export function getParameter(
   message: Pick<IRCMessage, "ircParameters">,
   idx: number
 ): string {
+  return message.ircParameters[idx];
+}
+
+export function requireParameter(
+  message: Pick<IRCMessage, "ircParameters">,
+  idx: number
+): string {
   if (message.ircParameters.length <= idx) {
     throw new MissingDataError(`Parameter at index ${idx} missing`);
   }
@@ -50,7 +57,9 @@ export function getParameter(
   return message.ircParameters[idx];
 }
 
-export function getNickname(message: Pick<IRCMessage, "ircPrefix">): string {
+export function requireNickname(
+  message: Pick<IRCMessage, "ircPrefix">
+): string {
   if (message.ircPrefix == null || message.ircPrefix.nickname == null) {
     throw new MissingDataError("Missing prefix or missing nickname in prefix");
   }

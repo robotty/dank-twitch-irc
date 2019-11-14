@@ -1,7 +1,6 @@
 import { TwitchBadgesList } from "../badges";
 import { Color } from "../color";
 import { IRCMessage, IRCMessageData } from "../irc/irc-message";
-import { optionalData } from "../parser/common";
 import { TwitchEmoteSets } from "../parser/emote-sets";
 import { tagParserFor } from "../parser/tag-values";
 
@@ -38,16 +37,16 @@ export class GlobaluserstateMessage extends IRCMessage
     super(message);
 
     const tagParser = tagParserFor(this.ircTags);
-    this.badgeInfo = tagParser.getBadges("badge-info");
-    this.badgeInfoRaw = tagParser.getString("badge-info");
-    this.badges = tagParser.getBadges("badges");
-    this.badgesRaw = tagParser.getString("badges");
-    this.color = optionalData(() => tagParser.getColor("color"));
-    this.colorRaw = tagParser.getString("color");
-    this.displayName = tagParser.getString("display-name");
-    this.emoteSets = tagParser.getEmoteSets("emote-sets");
-    this.emoteSetsRaw = tagParser.getString("emote-sets");
-    this.userID = tagParser.getString("user-id");
+    this.badgeInfo = tagParser.requireBadges("badge-info");
+    this.badgeInfoRaw = tagParser.requireString("badge-info");
+    this.badges = tagParser.requireBadges("badges");
+    this.badgesRaw = tagParser.requireString("badges");
+    this.color = tagParser.getColor("color");
+    this.colorRaw = tagParser.requireString("color");
+    this.displayName = tagParser.requireString("display-name");
+    this.emoteSets = tagParser.requireEmoteSets("emote-sets");
+    this.emoteSetsRaw = tagParser.requireString("emote-sets");
+    this.userID = tagParser.requireString("user-id");
   }
 
   /**

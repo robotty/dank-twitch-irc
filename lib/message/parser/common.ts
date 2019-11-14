@@ -1,4 +1,3 @@
-import { MissingDataError } from "./missing-data-error";
 import { ParseError } from "./parse-error";
 
 export function parseIntThrowing(str: string | null | undefined): number {
@@ -12,16 +11,4 @@ export function parseIntThrowing(str: string | null | undefined): number {
   }
 
   return parsedInt;
-}
-
-export function optionalData<T>(func: () => T): T | undefined {
-  try {
-    return func();
-  } catch (e) {
-    if (e instanceof MissingDataError) {
-      return undefined;
-    } else {
-      throw e;
-    }
-  }
 }

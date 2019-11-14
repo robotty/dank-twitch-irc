@@ -1,8 +1,7 @@
 import { TwitchBadgesList } from "../badges";
 import { Color } from "../color";
 import { TwitchEmoteList } from "../emotes";
-import { getNickname, getParameter, IRCMessage } from "../irc/irc-message";
-import { optionalData } from "../parser/common";
+import { requireNickname, requireParameter, IRCMessage } from "../irc/irc-message";
 import { tagParserFor } from "../parser/tag-values";
 
 // @badges=;color=#1E90FF;display-name=BotFactory;emotes=;message-id=6134;thread-id=40286300_403015524;turbo=0;
@@ -29,25 +28,25 @@ export class WhisperMessage extends IRCMessage {
   public constructor(ircMessage: IRCMessage) {
     super(ircMessage);
 
-    this.messageText = getParameter(this, 1);
+    this.messageText = requireParameter(this, 1);
 
-    this.senderUsername = getNickname(this);
+    this.senderUsername = requireNickname(this);
 
     const tagParser = tagParserFor(this.ircTags);
-    this.senderUserID = tagParser.getString("user-id");
+    this.senderUserID = tagParser.requireString("user-id");
 
     this.recipientUsername = this.ircParameters[0];
 
-    this.badges = tagParser.getBadges("badges");
-    this.badgesRaw = tagParser.getString("badges");
-    this.color = optionalData(() => tagParser.getColor("color"));
-    this.colorRaw = tagParser.getString("color");
+    this.badges = tagParser.requireBadges("badges");
+    this.badgesRaw = tagParser.requireString("badges");
+    this.color = tagParser.getColor("color");
+    this.colorRaw = tagParser.requireString("color");
 
-    this.displayName = tagParser.getString("display-name");
-    this.emotes = tagParser.getEmotes("emotes", this.messageText);
-    this.emotesRaw = tagParser.getString("emotes");
+    this.displayName = tagParser.requireString("display-name");
+    this.emotes = tagParser.requireEmotes("emotes", this.messageText);
+    this.emotesRaw = tagParser.requireString("emotes");
 
-    this.messageID = tagParser.getString("message-id");
-    this.threadID = tagParser.getString("thread-id");
+    this.messageID = tagParser.requireString("message-id");
+    this.threadID = tagParser.requireString("thread-id");
   }
 }
