@@ -1,4 +1,8 @@
-import { getParameter, IRCMessage, IRCMessageData } from "../irc/irc-message";
+import {
+  IRCMessage,
+  IRCMessageData,
+  requireParameter
+} from "../irc/irc-message";
 
 // https://ircv3.net/specs/core/capability-negotiation.html
 
@@ -13,7 +17,7 @@ export class CapMessage extends IRCMessage {
   public constructor(message: IRCMessageData) {
     super(message);
     // ignore the first parameter (the '*') since twitch doesn't ever send anything but a '*' in that slot
-    this.subCommand = getParameter(this, 1);
-    this.capabilities = getParameter(this, 2).split(" ");
+    this.subCommand = requireParameter(this, 1);
+    this.capabilities = requireParameter(this, 2).split(" ");
   }
 }

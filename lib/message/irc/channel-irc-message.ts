@@ -1,5 +1,5 @@
 import { ParseError } from "../parser/parse-error";
-import { getParameter, IRCMessage, IRCMessageData } from "./irc-message";
+import { IRCMessage, IRCMessageData, requireParameter } from "./irc-message";
 
 export function getIRCChannelName(
   message: Pick<IRCMessage, "ircParameters">,
@@ -14,7 +14,7 @@ export function getIRCChannelName(
   message: Pick<IRCMessage, "ircParameters">,
   optional: boolean = false
 ): string | undefined {
-  const parameter = getParameter(message, 0);
+  const parameter = requireParameter(message, 0);
 
   if (optional && parameter === "*") {
     return undefined;

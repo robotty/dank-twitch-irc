@@ -1,6 +1,5 @@
 import { ChannelIRCMessage } from "../irc/channel-irc-message";
 import { getParameter, IRCMessageData } from "../irc/irc-message";
-import { optionalData } from "../parser/common";
 import { tagParserFor } from "../parser/tag-values";
 
 export class ClearchatMessage extends ChannelIRCMessage {
@@ -19,8 +18,8 @@ export class ClearchatMessage extends ChannelIRCMessage {
     super(message);
 
     const tagParser = tagParserFor(this.ircTags);
-    this.targetUsername = optionalData(() => getParameter(this, 1));
-    this.banDuration = optionalData(() => tagParser.getInt("ban-duration"));
+    this.targetUsername = getParameter(this, 1);
+    this.banDuration = tagParser.getInt("ban-duration");
   }
 
   public wasChatCleared(): this is ClearChatClearchatMessage {

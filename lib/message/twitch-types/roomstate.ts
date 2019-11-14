@@ -1,7 +1,6 @@
 import pickBy = require("lodash.pickby");
 import { ChannelIRCMessage } from "../irc/channel-irc-message";
 import { IRCMessageData } from "../irc/irc-message";
-import { optionalData } from "../parser/common";
 import { tagParserFor } from "../parser/tag-values";
 
 export interface RoomState {
@@ -58,30 +57,22 @@ export class RoomstateMessage extends ChannelIRCMessage {
     super(message);
 
     const tagParser = tagParserFor(this.ircTags);
-    this.channelID = tagParser.getString("room-id");
+    this.channelID = tagParser.requireString("room-id");
 
-    this.emoteOnly = optionalData(() => tagParser.getBoolean("emote-only"));
-    this.emoteOnlyRaw = optionalData(() => tagParser.getString("emote-only"));
+    this.emoteOnly = tagParser.getBoolean("emote-only");
+    this.emoteOnlyRaw = tagParser.getString("emote-only");
 
-    this.followersOnlyDuration = optionalData(() =>
-      tagParser.getInt("followers-only")
-    );
-    this.followersOnlyDurationRaw = optionalData(() =>
-      tagParser.getString("followers-only")
-    );
+    this.followersOnlyDuration = tagParser.getInt("followers-only");
+    this.followersOnlyDurationRaw = tagParser.getString("followers-only");
 
-    this.r9k = optionalData(() => tagParser.getBoolean("r9k"));
-    this.r9kRaw = optionalData(() => tagParser.getString("r9k"));
+    this.r9k = tagParser.getBoolean("r9k");
+    this.r9kRaw = tagParser.getString("r9k");
 
-    this.slowModeDuration = optionalData(() => tagParser.getInt("slow"));
-    this.slowModeDurationRaw = optionalData(() => tagParser.getString("slow"));
+    this.slowModeDuration = tagParser.getInt("slow");
+    this.slowModeDurationRaw = tagParser.getString("slow");
 
-    this.subscribersOnly = optionalData(() =>
-      tagParser.getBoolean("subs-only")
-    );
-    this.subscribersOnlyRaw = optionalData(() =>
-      tagParser.getString("subs-only")
-    );
+    this.subscribersOnly = tagParser.getBoolean("subs-only");
+    this.subscribersOnlyRaw = tagParser.getString("subs-only");
   }
 
   public extractRoomState(): Partial<RoomState> {

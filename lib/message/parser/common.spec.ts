@@ -1,8 +1,6 @@
 import { assert } from "chai";
 import { assertThrowsChain } from "../../helpers.spec";
-import { optionalData, parseIntThrowing } from "./common";
-import { MissingDataError } from "./missing-data-error";
-import { MissingTagError } from "./missing-tag-error";
+import { parseIntThrowing } from "./common";
 import { ParseError } from "./parse-error";
 
 describe("./message/parser/common", function() {
@@ -46,62 +44,6 @@ describe("./message/parser/common", function() {
       assert.strictEqual(
         parseIntThrowing("-9007199254740991"),
         Number.MIN_SAFE_INTEGER
-      );
-    });
-  });
-
-  describe("#optionalData()", function() {
-    it("should return the original value if no exception is thrown", function() {
-      assert.strictEqual(optionalData(() => undefined), undefined);
-      assert.strictEqual(optionalData(() => null), null);
-      assert.strictEqual(optionalData(() => ""), "");
-      assert.strictEqual(optionalData(() => "asd"), "asd");
-    });
-
-    it("should return undefined if MissingDataError is thrown", function() {
-      assert.strictEqual(
-        optionalData(() => {
-          throw new MissingDataError("test");
-        }),
-        undefined
-      );
-    });
-
-    it("should return undefined if MissingTagError caused by undefined is thrown", function() {
-      assert.strictEqual(
-        optionalData(() => {
-          throw new MissingTagError("test", undefined);
-        }),
-        undefined
-      );
-    });
-
-    it("should return undefined if MissingTagError caused by null is thrown", function() {
-      assert.strictEqual(
-        optionalData(() => {
-          throw new MissingTagError("test", null);
-        }),
-        undefined
-      );
-    });
-
-    it("should return undefined if MissingTagError caused by empty string is thrown", function() {
-      assert.strictEqual(
-        optionalData(() => {
-          throw new MissingTagError("test", "");
-        }),
-        undefined
-      );
-    });
-
-    it("should not catch other types of errors", function() {
-      assertThrowsChain(
-        () =>
-          optionalData(() => {
-            throw new Error("test");
-          }),
-        Error,
-        "test"
       );
     });
   });

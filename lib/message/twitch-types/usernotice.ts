@@ -5,25 +5,22 @@ import { TwitchEmoteList } from "../emotes";
 import { ChannelIRCMessage } from "../irc/channel-irc-message";
 import { getParameter, IRCMessageData } from "../irc/irc-message";
 import { IRCMessageTags } from "../irc/tags";
-import { optionalData } from "../parser/common";
 import {
-  getTagBoolean,
-  getTagInt,
-  getTagString,
+  convertToBoolean,
+  convertToInt,
+  convertToString,
+  requireData,
   tagParserFor
 } from "../parser/tag-values";
 
-const convertersMap: Record<
-  string,
-  (ircTags: IRCMessageTags, key: string) => any
-> = {
-  "msg-param-cumulative-months": getTagInt,
-  "msg-param-months": getTagInt,
-  "msg-param-promo-gift-total": getTagInt,
-  "msg-param-should-share-streak": getTagBoolean,
-  "msg-param-streak-months": getTagInt,
-  "msg-param-viewerCount": getTagInt,
-  "msg-param-threshold": getTagInt
+const convertersMap: Record<string, (value: string) => any> = {
+  "msg-param-cumulative-months": convertToInt,
+  "msg-param-months": convertToInt,
+  "msg-param-promo-gift-total": convertToInt,
+  "msg-param-should-share-streak": convertToBoolean,
+  "msg-param-streak-months": convertToInt,
+  "msg-param-viewerCount": convertToInt,
+  "msg-param-threshold": convertToInt
 };
 
 export function getCamelCasedName(tagKey: string): string {
@@ -66,10 +63,10 @@ export function extractEventParams(tags: IRCMessageTags): EventParams {
 
     const converter = convertersMap[tagKey];
     if (converter != null) {
-      params[newKey] = converter(tags, tagKey);
-      params[newKey + "Raw"] = getTagString(tags, tagKey);
+      params[newKey] = requireData(tags, tagKey, converter);
+      params[newKey + "Raw"] = requireData(tags, tagKey, convertToString);
     } else {
-      params[newKey] = getTagString(tags, tagKey);
+      params[newKey] = requireData(tags, tagKey, convertToString);
     }
   }
 
@@ -239,47 +236,47 @@ export class UsernoticeMessage extends ChannelIRCMessage {
   public constructor(message: IRCMessageData) {
     super(message);
 
-    this.messageText = optionalData(() => getParameter(this, 1));
+    this.messageText = getParameter(this, 1);
 
     const tagParser = tagParserFor(this.ircTags);
-    this.channelID = tagParser.getString("room-id");
+    this.channelID = tagParser.requireString("room-id");
 
-    this.systemMessage = tagParser.getString("system-msg");
+    this.systemMessage = tagParser.requireString("system-msg");
 
-    this.messageTypeID = tagParser.getString("msg-id");
+    this.messageTypeID = tagParser.requireString("msg-id");
 
-    this.senderUsername = tagParser.getString("login");
+    this.senderUsername = tagParser.requireString("login");
 
-    this.senderUserID = tagParser.getString("user-id");
+    this.senderUserID = tagParser.requireString("user-id");
 
-    this.badgeInfo = tagParser.getBadges("badge-info");
-    this.badgeInfoRaw = tagParser.getString("badge-info");
+    this.badgeInfo = tagParser.requireBadges("badge-info");
+    this.badgeInfoRaw = tagParser.requireString("badge-info");
 
-    this.badges = tagParser.getBadges("badges");
-    this.badgesRaw = tagParser.getString("badges");
+    this.badges = tagParser.requireBadges("badges");
+    this.badgesRaw = tagParser.requireString("badges");
 
-    this.bits = optionalData(() => tagParser.getInt("bits"));
-    this.bitsRaw = optionalData(() => tagParser.getString("bits"));
+    this.bits = tagParser.getInt("bits");
+    this.bitsRaw = tagParser.getString("bits");
 
-    this.color = optionalData(() => tagParser.getColor("color"));
-    this.colorRaw = tagParser.getString("color");
+    this.color = tagParser.getColor("color");
+    this.colorRaw = tagParser.requireString("color");
 
-    this.displayName = tagParser.getString("display-name");
+    this.displayName = tagParser.requireString("display-name");
 
     if (this.messageText != null) {
-      this.emotes = tagParser.getEmotes("emotes", this.messageText);
+      this.emotes = tagParser.requireEmotes("emotes", this.messageText);
     } else {
       this.emotes = [];
     }
-    this.emotesRaw = tagParser.getString("emotes");
+    this.emotesRaw = tagParser.requireString("emotes");
 
-    this.messageID = tagParser.getString("id");
+    this.messageID = tagParser.requireString("id");
 
-    this.isMod = tagParser.getBoolean("mod");
-    this.isModRaw = tagParser.getString("mod");
+    this.isMod = tagParser.requireBoolean("mod");
+    this.isModRaw = tagParser.requireString("mod");
 
-    this.serverTimestamp = tagParser.getTimestamp("tmi-sent-ts");
-    this.serverTimestampRaw = tagParser.getString("tmi-sent-ts");
+    this.serverTimestamp = tagParser.requireTimestamp("tmi-sent-ts");
+    this.serverTimestampRaw = tagParser.requireString("tmi-sent-ts");
 
     this.eventParams = extractEventParams(this.ircTags);
   }
