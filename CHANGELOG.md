@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.0.4
+
+- Minor: Improved performance of the tags parser.
+
 ## v3.0.3
 
 - Bugfix: Removed dependency on `lodash.sortby`.
