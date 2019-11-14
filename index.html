@@ -1100,6 +1100,9 @@ npm run lintfix</code></pre>
 						<a href="interfaces/subgiftparameters.html" class="tsd-kind-icon">Subgift<wbr>Parameters</a>
 					</li>
 					<li class=" tsd-kind-interface">
+						<a href="interfaces/tagvalueparser.html" class="tsd-kind-icon">Tag<wbr>Value<wbr>Parser</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="interfaces/tcptransportconfiguration.html" class="tsd-kind-icon">Tcp<wbr>Transport<wbr>Configuration</a>
 					</li>
 					<li class=" tsd-kind-interface">
@@ -1298,6 +1301,30 @@ npm run lintfix</code></pre>
 						<a href="globals.html#causeof" class="tsd-kind-icon">cause<wbr>Of</a>
 					</li>
 					<li class=" tsd-kind-function">
+						<a href="globals.html#converttobadges" class="tsd-kind-icon">convert<wbr>ToBadges</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#converttoboolean" class="tsd-kind-icon">convert<wbr>ToBoolean</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#converttocolor" class="tsd-kind-icon">convert<wbr>ToColor</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#converttoemotesets" class="tsd-kind-icon">convert<wbr>ToEmote<wbr>Sets</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#converttoemotes" class="tsd-kind-icon">convert<wbr>ToEmotes</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#converttoint" class="tsd-kind-icon">convert<wbr>ToInt</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#converttostring" class="tsd-kind-icon">convert<wbr>ToString</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#converttotimestamp" class="tsd-kind-icon">convert<wbr>ToTimestamp</a>
+					</li>
+					<li class=" tsd-kind-function">
 						<a href="globals.html#createmocktransport" class="tsd-kind-icon">create<wbr>Mock<wbr>Transport</a>
 					</li>
 					<li class=" tsd-kind-function">
@@ -1333,41 +1360,14 @@ npm run lintfix</code></pre>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#getcamelcasedname" class="tsd-kind-icon">get<wbr>Camel<wbr>Cased<wbr>Name</a>
 					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#getdata" class="tsd-kind-icon">get<wbr>Data</a>
+					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#getircchannelname" class="tsd-kind-icon">getIRCChannel<wbr>Name</a>
 					</li>
 					<li class=" tsd-kind-function">
-						<a href="globals.html#getnickname" class="tsd-kind-icon">get<wbr>Nickname</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#getnonemptytagstring" class="tsd-kind-icon">get<wbr>Non<wbr>Empty<wbr>Tag<wbr>String</a>
-					</li>
-					<li class=" tsd-kind-function">
 						<a href="globals.html#getparameter" class="tsd-kind-icon">get<wbr>Parameter</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#gettagbadges" class="tsd-kind-icon">get<wbr>Tag<wbr>Badges</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#gettagboolean" class="tsd-kind-icon">get<wbr>Tag<wbr>Boolean</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#gettagcolor" class="tsd-kind-icon">get<wbr>Tag<wbr>Color</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#gettagemotesets" class="tsd-kind-icon">get<wbr>Tag<wbr>Emote<wbr>Sets</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#gettagemotes" class="tsd-kind-icon">get<wbr>Tag<wbr>Emotes</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#gettagint" class="tsd-kind-icon">get<wbr>Tag<wbr>Int</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#gettagstring" class="tsd-kind-icon">get<wbr>Tag<wbr>String</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#gettagtimestamp" class="tsd-kind-icon">get<wbr>Tag<wbr>Timestamp</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#handlereconnectmessage" class="tsd-kind-icon">handle<wbr>Reconnect<wbr>Message</a>
@@ -1398,9 +1398,6 @@ npm run lintfix</code></pre>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#me" class="tsd-kind-icon">me</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#optionaldata" class="tsd-kind-icon">optional<wbr>Data</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#parseactionandmessage" class="tsd-kind-icon">parse<wbr>Action<wbr>And<wbr>Message</a>
@@ -1464,6 +1461,15 @@ npm run lintfix</code></pre>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#requestcapabilities" class="tsd-kind-icon">request<wbr>Capabilities</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#requiredata" class="tsd-kind-icon">require<wbr>Data</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#requirenickname" class="tsd-kind-icon">require<wbr>Nickname</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#requireparameter" class="tsd-kind-icon">require<wbr>Parameter</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#say" class="tsd-kind-icon">say</a>
