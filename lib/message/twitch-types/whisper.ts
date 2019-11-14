@@ -1,7 +1,11 @@
 import { TwitchBadgesList } from "../badges";
 import { Color } from "../color";
 import { TwitchEmoteList } from "../emotes";
-import { requireNickname, requireParameter, IRCMessage } from "../irc/irc-message";
+import {
+  IRCMessage,
+  requireNickname,
+  requireParameter
+} from "../irc/irc-message";
 import { tagParserFor } from "../parser/tag-values";
 
 // @badges=;color=#1E90FF;display-name=BotFactory;emotes=;message-id=6134;thread-id=40286300_403015524;turbo=0;

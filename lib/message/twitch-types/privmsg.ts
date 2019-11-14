@@ -3,9 +3,9 @@ import { Color } from "../color";
 import { TwitchEmoteList } from "../emotes";
 import { ChannelIRCMessage } from "../irc/channel-irc-message";
 import {
+  IRCMessage,
   requireNickname,
-  requireParameter,
-  IRCMessage
+  requireParameter
 } from "../irc/irc-message";
 import { tagParserFor } from "../parser/tag-values";
 import { UserState } from "./userstate";

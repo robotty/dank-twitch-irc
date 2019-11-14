@@ -3,7 +3,7 @@ import { TwitchBadgesList } from "../badges";
 import { Color } from "../color";
 import { TwitchEmoteList } from "../emotes";
 import { ChannelIRCMessage } from "../irc/channel-irc-message";
-import { requireParameter, IRCMessageData, getParameter } from "../irc/irc-message";
+import { getParameter, IRCMessageData } from "../irc/irc-message";
 import { IRCMessageTags } from "../irc/tags";
 import {
   convertToBoolean,

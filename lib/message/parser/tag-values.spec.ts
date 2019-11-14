@@ -3,7 +3,6 @@ import { assertThrowsChain } from "../../helpers.spec";
 import { TwitchBadge } from "../badge";
 import { TwitchBadgesList } from "../badges";
 import { TwitchEmote } from "../emote";
-import { MissingDataError } from "./missing-data-error";
 import { MissingTagError } from "./missing-tag-error";
 import { ParseError } from "./parse-error";
 import { tagParserFor, TagValueParser } from "./tag-values";

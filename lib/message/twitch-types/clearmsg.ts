@@ -1,5 +1,5 @@
 import { ChannelIRCMessage } from "../irc/channel-irc-message";
-import { requireParameter, IRCMessageData } from "../irc/irc-message";
+import { IRCMessageData, requireParameter } from "../irc/irc-message";
 import { tagParserFor } from "../parser/tag-values";
 
 export class ClearmsgMessage extends ChannelIRCMessage {
