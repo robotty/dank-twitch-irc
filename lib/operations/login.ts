@@ -1,10 +1,10 @@
 import { awaitResponse } from "../await/await-response";
 import { SingleConnection } from "../client/connection";
-import { ClientError } from "../client/errors";
+import { ConnectionError } from "../client/errors";
 import { NoticeMessage } from "../message/twitch-types/notice";
 import { isAnonymousUsername } from "../utils/is-anonymous-username";
 
-export class LoginError extends ClientError {}
+export class LoginError extends ConnectionError {}
 
 export async function sendLogin(
   conn: SingleConnection,

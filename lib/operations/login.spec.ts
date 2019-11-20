@@ -73,8 +73,8 @@ describe("./operations/login", function() {
     it("should be instanceof ConnectionError", function() {
       assert.instanceOf(new LoginError(), ConnectionError);
     });
-    it("should be instanceof ClientError", function() {
-      assert.instanceOf(new LoginError(), ClientError);
+    it("should not be instanceof ClientError", function() {
+      assert.notInstanceOf(new LoginError(), ClientError);
     });
   });
 });
