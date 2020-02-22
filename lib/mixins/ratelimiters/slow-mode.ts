@@ -15,7 +15,7 @@ export class SlowModeRateLimiter implements ClientMixin {
   private readonly semaphores: Record<string, Semaphore> = {};
   private readonly runningTimers: Record<string, EditableTimeout> = {};
 
-  public constructor(client: ChatClient, maxQueueLength: number = 10) {
+  public constructor(client: ChatClient, maxQueueLength = 10) {
     this.client = client;
     this.maxQueueLength = maxQueueLength;
   }

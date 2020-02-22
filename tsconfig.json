@@ -22,5 +22,5 @@
     "typeRoots": ["./types", "./node_modules/@types"],
     "types": ["node", "mocha"]
   },
-  "include": ["lib/**/*.ts", "types/**/*.ts"]
+  "include": ["lib/**/*.ts", "types/**/*.ts", "*.js"]
 }

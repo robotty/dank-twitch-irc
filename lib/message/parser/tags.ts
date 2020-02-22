@@ -30,6 +30,8 @@ export function parseTags(tagsSrc: string | undefined): IRCMessageTags {
     let key: string;
     let valueSrc: string | undefined;
 
+    // eslint is bugged on this in the current version
+    // eslint-disable-next-line prefer-const
     [key, valueSrc] = tagSrc.split("=", 2);
 
     tags[key.toLowerCase()] = decodeValue(valueSrc);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="EslintConfiguration">
-    <custom-configuration-file used="true" path="C:\Users\Ruben Anders\Nextcloud\Projects\dank-twitch-irc\.eslintrc.js" />
+    <custom-configuration-file used="false" path="C:\Users\Ruben Anders\Nextcloud\Projects\dank-twitch-irc\.eslintrc.js" />
     <extra-options value="--ext .ts lib/" />
   </component>
 </project>

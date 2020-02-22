@@ -35,7 +35,10 @@ module.exports = {
       }
     ],
     "@typescript-eslint/array-type": "off",
-    "@typescript-eslint/no-triple-slash-reference": "off"
+    "@typescript-eslint/triple-slash-reference": "off",
+    "@typescript-eslint/ban-ts-ignore": "off",
+    // already done by tslint
+    "@typescript-eslint/no-empty-function": "off"
     // "no-warning-comments": "warn"
   }
 };

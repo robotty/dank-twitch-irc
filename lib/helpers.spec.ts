@@ -34,7 +34,7 @@ export async function causeOf(p: Promise<any>): Promise<any> {
   return (await errorOf(p)).cause;
 }
 
-function assertLink(e: Error, chain: any[], depth: number = 0): void {
+function assertLink(e: Error, chain: any[], depth = 0): void {
   const [errorType, message, ...newChain] = chain;
 
   const actualPrototype = Object.getPrototypeOf(e);

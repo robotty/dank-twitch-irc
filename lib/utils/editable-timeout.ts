@@ -10,7 +10,7 @@ export class EditableTimeout {
   public runTime: number;
 
   public runningTimeout: NodeJS.Timeout | undefined;
-  public completed: boolean = false;
+  public completed = false;
 
   public constructor(callback: () => void, runTime: number) {
     this.callback = callback;

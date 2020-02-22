@@ -12,7 +12,7 @@ export function getIRCChannelName(
 
 export function getIRCChannelName(
   message: Pick<IRCMessage, "ircParameters">,
-  optional: boolean = false
+  optional = false
 ): string | undefined {
   const parameter = requireParameter(message, 0);
 

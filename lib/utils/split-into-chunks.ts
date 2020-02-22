@@ -1,6 +1,6 @@
 export function splitIntoChunks(
   bits: string[],
-  separator: string = " ",
+  separator = " ",
   limit: number
 ): string[][] {
   const chunks: string[][] = [];
