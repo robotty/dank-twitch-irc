@@ -48,7 +48,7 @@ export class PrivmsgMessageRateLimiter implements ClientMixin {
       this.client.userStateTracker
     );
 
-    const promises: Array<Promise<boolean>> = [];
+    const promises: Promise<boolean>[] = [];
     promises.push(this.highPrivmsgSemaphore.acquire());
     if (!fastSpam) {
       promises.push(this.lowPrivmsgSemaphore.acquire());

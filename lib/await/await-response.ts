@@ -69,7 +69,7 @@ const configDefaults = {
 export class ResponseAwaiter {
   public readonly promise: Promise<IRCMessage | undefined>;
 
-  private readonly unsubscribers: Array<() => void> = [];
+  private readonly unsubscribers: (() => void)[] = [];
   private readonly conn: SingleConnection;
   private readonly config: Required<AwaitConfig>;
   private resolvePromise!: (msg: IRCMessage | undefined) => void;

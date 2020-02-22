@@ -70,13 +70,13 @@ function assertLink(e: Error, chain: any[], depth = 0): void {
 }
 
 export function assertErrorChain(
-  p: Promise<any> | Array<Promise<any>>,
+  p: Promise<any> | Promise<any>[],
   ...chain: any[]
 ): Promise<void>;
 export function assertErrorChain(e: Error | undefined, ...chain: any[]): void;
 
 export function assertErrorChain(
-  e: Promise<any> | Array<Promise<any>> | Error | undefined,
+  e: Promise<any> | Promise<any>[] | Error | undefined,
   ...chain: any[]
 ): Promise<void> | void {
   if (e instanceof Error || e == null) {

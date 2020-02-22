@@ -26,7 +26,7 @@ export class ConnectionRateLimiter implements ClientMixin, ConnectionMixin {
   }
 
   public releaseOnConnect(conn: SingleConnection): void {
-    const unsubscribers: Array<() => void> = [];
+    const unsubscribers: (() => void)[] = [];
 
     const unsubscribe = (): void => {
       unsubscribers.forEach(e => e());

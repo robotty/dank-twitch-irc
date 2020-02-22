@@ -86,7 +86,7 @@ export class SlowModeRateLimiter implements ClientMixin {
     if (certain && channelName in this.semaphores) {
       const semaphore = this.getSemaphore(channelName);
 
-      const waiterQueue: Array<(...args: any[]) => any> =
+      const waiterQueue: ((...args: any[]) => any)[] =
         // @ts-ignore private member access
         semaphore.promiseResolverQueue;
 
@@ -130,7 +130,7 @@ export class SlowModeRateLimiter implements ClientMixin {
     const semaphore = this.getSemaphore(channelName);
 
     // @ts-ignore private member access
-    const waiterQueue: Array<() => void> = semaphore.promiseResolverQueue;
+    const waiterQueue: (() => void)[] = semaphore.promiseResolverQueue;
 
     // too many waiting. Message will be dropped.
     // note that we do NOT drop messages when we are unsure about

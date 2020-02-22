@@ -4,7 +4,7 @@ import { TwitchBadge } from "./badge";
 describe("./message/badge", function() {
   describe("TwitchBadge", function() {
     describe("isKnownBadge style getters", function() {
-      const testCases: Array<[string, string, (b: TwitchBadge) => boolean]> = [
+      const testCases: [string, string, (b: TwitchBadge) => boolean][] = [
         ["admin", "1", b => b.isAdmin],
         ["bits", "1", b => b.isBits],
         ["bits", "1000", b => b.isBits],

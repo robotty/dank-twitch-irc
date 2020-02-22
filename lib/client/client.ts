@@ -138,7 +138,7 @@ export class ChatClient extends BaseClient {
         !this.connections.some(c => joinNothingToDo(c, channelName))
     );
 
-    const promises: Array<Promise<Record<string, Error | undefined>>> = [];
+    const promises: Promise<Record<string, Error | undefined>>[] = [];
 
     let idx = 0;
     while (idx < needToJoin.length) {
