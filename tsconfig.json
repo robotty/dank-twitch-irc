@@ -15,7 +15,6 @@
     "experimentalDecorators": true,
     "module": "commonjs",
     "alwaysStrict": true,
-    //    "noUnusedLocals": true,
     "strictNullChecks": true,
     "noImplicitReturns": true,
     "forceConsistentCasingInFileNames": true,
