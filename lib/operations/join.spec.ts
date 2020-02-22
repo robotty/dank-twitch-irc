@@ -98,9 +98,12 @@ describe("./operations/join", function() {
         ":justinfan12345.tmi.twitch.tv 366 justinfan12345 #pajlada :End of /NAMES list"
       );
 
-      assert.deepStrictEqual(await promise, parseTwitchMessage(
-        ":justinfan12345!justinfan12345@justinfan12345.tmi.twitch.tv JOIN #pajlada"
-      ) as JoinMessage);
+      assert.deepStrictEqual(
+        await promise,
+        parseTwitchMessage(
+          ":justinfan12345!justinfan12345@justinfan12345.tmi.twitch.tv JOIN #pajlada"
+        ) as JoinMessage
+      );
       await clientError;
     });
 
