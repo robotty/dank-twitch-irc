@@ -98,7 +98,7 @@
 					<div class="tsd-signature tsd-kind-icon">error<wbr>Message<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/7c27a6a/lib/await/await-response.ts#L59">await/await-response.ts:59</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/7652b84/lib/await/await-response.ts#L59">lib/await/await-response.ts:59</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -112,10 +112,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="errortype" class="tsd-anchor"></a>
 					<h3>error<wbr>Type</h3>
-					<div class="tsd-signature tsd-kind-icon">error<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<div class="tsd-signature tsd-kind-icon">error<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span>, cause<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Error</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">Error</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/7c27a6a/lib/await/await-response.ts#L52">await/await-response.ts:52</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/7652b84/lib/await/await-response.ts#L52">lib/await/await-response.ts:52</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -136,7 +136,7 @@
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-siganture">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
 									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span>, cause<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Error</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Error</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
@@ -163,7 +163,7 @@
 					<div class="tsd-signature tsd-kind-icon">failure<span class="tsd-signature-symbol">:</span> <a href="../globals.html#condition" class="tsd-signature-type">Condition</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/7c27a6a/lib/await/await-response.ts#L22">await/await-response.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/7652b84/lib/await/await-response.ts#L22">lib/await/await-response.ts:22</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -179,7 +179,7 @@
 					<div class="tsd-signature tsd-kind-icon">no<wbr>Response<wbr>Action<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"success"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"failure"</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/7c27a6a/lib/await/await-response.ts#L43">await/await-response.ts:43</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/7652b84/lib/await/await-response.ts#L43">lib/await/await-response.ts:43</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -193,10 +193,10 @@
 								never be fulfilled because the server is done processing this command</li>
 							</ul>
 						</div>
-						<pre><code>E.g. the client issues <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>JOIN #a,#b,#c<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span></span> <span class="hljs-keyword">to</span> the server,
-<span class="hljs-keyword">and</span> receives the responses <span class="hljs-keyword">for</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>a<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span></span> <span class="hljs-keyword">and</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>c<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span></span>,
-<span class="hljs-keyword">in</span> that <span class="hljs-keyword">order</span>. In that <span class="hljs-keyword">case</span>, the response <span class="hljs-keyword">for</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>b<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span></span> can be
-rejected the moment the response <span class="hljs-keyword">for</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>c<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span></span> <span class="hljs-literal">is</span> received.</code></pre>
+						<pre><code>E.g. the client issues &lt;<span class="hljs-keyword">code</span>&gt;JOIN #a,#b,#c&lt;/<span class="hljs-keyword">code</span>&gt; to the server,
+and receives the responses for &lt;<span class="hljs-keyword">code</span>&gt;a&lt;/<span class="hljs-keyword">code</span>&gt; and &lt;<span class="hljs-keyword">code</span>&gt;c&lt;/<span class="hljs-keyword">code</span>&gt;,
+<span class="hljs-keyword">in</span> that order. In that <span class="hljs-keyword">case</span>, the response for &lt;<span class="hljs-keyword">code</span>&gt;b&lt;/<span class="hljs-keyword">code</span>&gt; can be
+rejected the moment the response for &lt;<span class="hljs-keyword">code</span>&gt;c&lt;/<span class="hljs-keyword">code</span>&gt; is received.</code></pre>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
@@ -205,7 +205,7 @@ rejected the moment the response <span class="hljs-keyword">for</span> <span cla
 					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <a href="../globals.html#condition" class="tsd-signature-type">Condition</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/7c27a6a/lib/await/await-response.ts#L16">await/await-response.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/7652b84/lib/await/await-response.ts#L16">lib/await/await-response.ts:16</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -221,7 +221,7 @@ rejected the moment the response <span class="hljs-keyword">for</span> <span cla
 					<div class="tsd-signature tsd-kind-icon">timeout<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/7c27a6a/lib/await/await-response.ts#L28">await/await-response.ts:28</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/7652b84/lib/await/await-response.ts#L28">lib/await/await-response.ts:28</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">

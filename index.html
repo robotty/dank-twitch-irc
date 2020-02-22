@@ -54,7 +54,7 @@
 					<a href="globals.html">Globals</a>
 				</li>
 			</ul>
-			<h1> dank-twitch-irc</h1>
+			<h1>dank-twitch-irc</h1>
 		</div>
 	</div>
 </header>
@@ -675,78 +675,78 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
 				documented in the Below are all possible options and their default values:</p>
 				<pre><code class="language-javascript"><span class="hljs-keyword">let</span> client = <span class="hljs-keyword">new</span> ChatClient({
   <span class="hljs-attr">username</span>: <span class="hljs-string">"your-bot-username"</span>, <span class="hljs-comment">// justinfan12345 by default - For anonymous chat connection</span>
-  password: <span class="hljs-string">"0123456789abcdef1234567"</span>, <span class="hljs-comment">// undefined by default (no password)</span>
+  <span class="hljs-attr">password</span>: <span class="hljs-string">"0123456789abcdef1234567"</span>, <span class="hljs-comment">// undefined by default (no password)</span>
 
   <span class="hljs-comment">// Message rate limits configuration for verified and known bots</span>
   <span class="hljs-comment">// pick one of the presets or configure custom rates as shown below:</span>
-  rateLimits: <span class="hljs-string">"default"</span>,
+  <span class="hljs-attr">rateLimits</span>: <span class="hljs-string">"default"</span>,
   <span class="hljs-comment">// or:</span>
-  rateLimits: <span class="hljs-string">"knownBot"</span>,
+  <span class="hljs-attr">rateLimits</span>: <span class="hljs-string">"knownBot"</span>,
   <span class="hljs-comment">// or:</span>
-  rateLimits: <span class="hljs-string">"verifiedBot"</span>,
+  <span class="hljs-attr">rateLimits</span>: <span class="hljs-string">"verifiedBot"</span>,
   <span class="hljs-comment">// or:</span>
-  rateLimits: {
+  <span class="hljs-attr">rateLimits</span>: {
     <span class="hljs-attr">highPrivmsgLimits</span>: <span class="hljs-number">100</span>,
     <span class="hljs-attr">lowPrivmsgLimits</span>: <span class="hljs-number">20</span>
   },
 
   <span class="hljs-comment">// Configuration options for the backing connections:</span>
   <span class="hljs-comment">// Plain TCP or TLS</span>
-  connection: {
+  <span class="hljs-attr">connection</span>: {
     <span class="hljs-attr">type</span>: <span class="hljs-string">"tcp"</span>, <span class="hljs-comment">// tcp by default</span>
-    secure: <span class="hljs-literal">false</span>, <span class="hljs-comment">// true by default</span>
+    <span class="hljs-attr">secure</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">// true by default</span>
     <span class="hljs-comment">// host and port must both be specified at once</span>
-    host: <span class="hljs-string">"custom-chat-server.com"</span>, <span class="hljs-comment">// irc.chat.twitch.tv by default</span>
-    port: <span class="hljs-number">1234</span> <span class="hljs-comment">// 6697/6667 by default, depending on the "secure" setting</span>
+    <span class="hljs-attr">host</span>: <span class="hljs-string">"custom-chat-server.com"</span>, <span class="hljs-comment">// irc.chat.twitch.tv by default</span>
+    <span class="hljs-attr">port</span>: <span class="hljs-number">1234</span> <span class="hljs-comment">// 6697/6667 by default, depending on the "secure" setting</span>
   },
   <span class="hljs-comment">// or:</span>
-  connection: {
+  <span class="hljs-attr">connection</span>: {
     <span class="hljs-attr">type</span>: <span class="hljs-string">"websocket"</span>,
     <span class="hljs-attr">secure</span>: <span class="hljs-literal">true</span> <span class="hljs-comment">// use preset URL of irc-ws.chat.twitch.tv</span>
   },
   <span class="hljs-comment">// or:</span>
-  connection: {
+  <span class="hljs-attr">connection</span>: {
     <span class="hljs-attr">type</span>: <span class="hljs-string">"websocket"</span>,
     <span class="hljs-attr">url</span>: <span class="hljs-string">"wss://custom-url.com/abc/def"</span> <span class="hljs-comment">// custom URL</span>
   },
   <span class="hljs-comment">// or:</span>
-  connection: {
+  <span class="hljs-attr">connection</span>: {
     <span class="hljs-attr">type</span>: <span class="hljs-string">"duplex"</span>,
     <span class="hljs-attr">stream</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> aNodeJsDuplexInstance, <span class="hljs-comment">// read and write to a custom object</span>
     <span class="hljs-comment">// implementing the Duplex interface from Node.js</span>
     <span class="hljs-comment">// the function you specify is called for each new connection</span>
 
-    preSetup: <span class="hljs-literal">true</span> <span class="hljs-comment">// false by default, makes the lib skip login</span>
+    <span class="hljs-attr">preSetup</span>: <span class="hljs-literal">true</span> <span class="hljs-comment">// false by default, makes the lib skip login</span>
     <span class="hljs-comment">// and capabilities negotiation on connection startup</span>
   },
 
   <span class="hljs-comment">// how many channels each individual connection should join at max</span>
-  maxChannelCountPerConnection: <span class="hljs-number">100</span>, <span class="hljs-comment">// 50 by default</span>
+  <span class="hljs-attr">maxChannelCountPerConnection</span>: <span class="hljs-number">100</span>, <span class="hljs-comment">// 50 by default</span>
 
   <span class="hljs-comment">// custom parameters for connection rate limiting</span>
-  connectionRateLimits: {
+  <span class="hljs-attr">connectionRateLimits</span>: {
     <span class="hljs-attr">parallelConnections</span>: <span class="hljs-number">5</span>, <span class="hljs-comment">// 10 by default</span>
     <span class="hljs-comment">// time to wait after each connection before a new connection can begin</span>
-    releaseTime: <span class="hljs-number">20</span> * <span class="hljs-number">1000</span> <span class="hljs-comment">// in milliseconds, 10 seconds by default</span>
+    <span class="hljs-attr">releaseTime</span>: <span class="hljs-number">20</span> * <span class="hljs-number">1000</span> <span class="hljs-comment">// in milliseconds, 10 seconds by default</span>
   },
 
   <span class="hljs-comment">// I recommend you leave this off by default, it makes your bot faster</span>
   <span class="hljs-comment">// If you need live update of who's joining and leaving chat,</span>
   <span class="hljs-comment">// poll the tmi.twitch.tv chatters endpoint instead since it</span>
   <span class="hljs-comment">// is also more reliable</span>
-  requestMembershipCapability: <span class="hljs-literal">false</span>, <span class="hljs-comment">// false by default</span>
+  <span class="hljs-attr">requestMembershipCapability</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">// false by default</span>
 
   <span class="hljs-comment">// read more about mixins below</span>
   <span class="hljs-comment">// this disables the connection rate limiter, message rate limiter</span>
   <span class="hljs-comment">// and Room- and Userstate trackers (which are important for other mixins)</span>
-  installDefaultMixins: <span class="hljs-literal">false</span>, <span class="hljs-comment">// true by default</span>
+  <span class="hljs-attr">installDefaultMixins</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">// true by default</span>
 
   <span class="hljs-comment">// Silence UnandledPromiseRejectionWarnings on all client methods</span>
   <span class="hljs-comment">// that return promises.</span>
   <span class="hljs-comment">// With this option enabled, the returned promises will still be rejected/</span>
   <span class="hljs-comment">// resolved as without this option, this option ONLY silences the</span>
   <span class="hljs-comment">// UnhandledPromiseRejectionWarning.</span>
-  ignoreUnhandledPromiseRejections: <span class="hljs-literal">true</span> <span class="hljs-comment">// false by default</span>
+  <span class="hljs-attr">ignoreUnhandledPromiseRejections</span>: <span class="hljs-literal">true</span> <span class="hljs-comment">// false by default</span>
 });</code></pre>
 				<a href="#features" id="features" style="color: inherit; text-decoration: none;">
 					<h2>Features</h2>
@@ -1010,6 +1010,12 @@ npm run lintfix</code></pre>
 						<a href="interfaces/bitsbadgetierparameters.html" class="tsd-kind-icon">Bits<wbr>Badge<wbr>Tier<wbr>Parameters</a>
 					</li>
 					<li class=" tsd-kind-interface">
+						<a href="interfaces/cheerprivmsgmessage.html" class="tsd-kind-icon">Cheer<wbr>Privmsg<wbr>Message</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/cheerusernoticemessage.html" class="tsd-kind-icon">Cheer<wbr>Usernotice<wbr>Message</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="interfaces/clearchatclearchatmessage.html" class="tsd-kind-icon">Clear<wbr>Chat<wbr>Clearchat<wbr>Message</a>
 					</li>
 					<li class=" tsd-kind-interface">
@@ -1046,6 +1052,9 @@ npm run lintfix</code></pre>
 						<a href="interfaces/exitedhostmodehosttargetmessage.html" class="tsd-kind-icon">Exited<wbr>Host<wbr>Mode<wbr>Hosttarget<wbr>Message</a>
 					</li>
 					<li class=" tsd-kind-interface">
+						<a href="interfaces/fastspamresult.html" class="tsd-kind-icon">Fast<wbr>Spam<wbr>Result</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="interfaces/globaluserstate.html" class="tsd-kind-icon">Global<wbr>User<wbr>State</a>
 					</li>
 					<li class=" tsd-kind-interface">
@@ -1062,6 +1071,9 @@ npm run lintfix</code></pre>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/ircmessagetags.html" class="tsd-kind-icon">IRCMessage<wbr>Tags</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/lastmessage.html" class="tsd-kind-icon">Last<wbr>Message</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/messageratelimits.html" class="tsd-kind-icon">Message<wbr>Rate<wbr>Limits</a>
@@ -1253,13 +1265,58 @@ npm run lintfix</code></pre>
 						<a href="globals.html#max_outgoing_line_length" class="tsd-kind-icon">MAX_<wbr>OUTGOING_<wbr>LINE_<wbr>LENGTH</a>
 					</li>
 					<li class=" tsd-kind-variable">
+						<a href="globals.html#actionregex" class="tsd-kind-icon">action<wbr>Regex</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#anonymoususernameregex" class="tsd-kind-icon">anonymous<wbr>Username<wbr>Regex</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#badnoticeids" class="tsd-kind-icon">bad<wbr>NoticeIDs</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#camelcase" class="tsd-kind-icon">camel<wbr>Case</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#channelnameregex" class="tsd-kind-icon">channel<wbr>Name<wbr>Regex</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#chatroomregex" class="tsd-kind-icon">chat<wbr>Room<wbr>Regex</a>
+					</li>
+					<li class=" tsd-kind-variable">
 						<a href="globals.html#commandclassmap" class="tsd-kind-icon">command<wbr>Class<wbr>Map</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#connectionidcounter" class="tsd-kind-icon">connectionIDCounter</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#decodelookupregex" class="tsd-kind-icon">decode<wbr>Lookup<wbr>Regex</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#eachmiddleparameterregex" class="tsd-kind-icon">each<wbr>Middle<wbr>Parameter<wbr>Regex</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#failurenoticeids" class="tsd-kind-icon">failure<wbr>NoticeIDs</a>
 					</li>
 					<li class=" tsd-kind-variable">
 						<a href="globals.html#invisiblesuffix" class="tsd-kind-icon">invisible<wbr>Suffix</a>
 					</li>
 					<li class=" tsd-kind-variable">
 						<a href="globals.html#ircparseregex" class="tsd-kind-icon">irc<wbr>Parse<wbr>Regex</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#log" class="tsd-kind-icon">log</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#ms" class="tsd-kind-icon">ms</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#pickby" class="tsd-kind-icon">pick<wbr>By</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#rgbcolorregex" class="tsd-kind-icon">rgb<wbr>Color<wbr>Regex</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#successnoticeids" class="tsd-kind-icon">success<wbr>NoticeIDs</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#acknowledgescapabilities" class="tsd-kind-icon">acknowledges<wbr>Capabilities</a>
@@ -1281,6 +1338,9 @@ npm run lintfix</code></pre>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#asserterrorchain" class="tsd-kind-icon">assert<wbr>Error<wbr>Chain</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#assertlink" class="tsd-kind-icon">assert<wbr>Link</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#assertthrowschain" class="tsd-kind-icon">assert<wbr>Throws<wbr>Chain</a>
@@ -1357,6 +1417,9 @@ npm run lintfix</code></pre>
 					<li class=" tsd-kind-function tsd-has-type-parameter">
 						<a href="globals.html#findandpushtoend" class="tsd-kind-icon">find<wbr>And<wbr>Push<wbr>ToEnd</a>
 					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#findbypredicate" class="tsd-kind-icon">find<wbr>ByPredicate</a>
+					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#getcamelcasedname" class="tsd-kind-icon">get<wbr>Camel<wbr>Cased<wbr>Name</a>
 					</li>
@@ -1397,7 +1460,13 @@ npm run lintfix</code></pre>
 						<a href="globals.html#matchingnotice" class="tsd-kind-icon">matching<wbr>Notice</a>
 					</li>
 					<li class=" tsd-kind-function">
+						<a href="globals.html#maxjoinedchannels" class="tsd-kind-icon">max<wbr>Joined<wbr>Channels</a>
+					</li>
+					<li class=" tsd-kind-function">
 						<a href="globals.html#me" class="tsd-kind-icon">me</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#mustnotbejoined" class="tsd-kind-icon">must<wbr>Not<wbr>BeJoined</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#parseactionandmessage" class="tsd-kind-icon">parse<wbr>Action<wbr>And<wbr>Message</a>
@@ -1448,6 +1517,9 @@ npm run lintfix</code></pre>
 						<a href="globals.html#partnothingtodo" class="tsd-kind-icon">part<wbr>Nothing<wbr>ToDo</a>
 					</li>
 					<li class=" tsd-kind-function">
+						<a href="globals.html#randompingidentifier" class="tsd-kind-icon">random<wbr>Ping<wbr>Identifier</a>
+					</li>
+					<li class=" tsd-kind-function">
 						<a href="globals.html#reasonforvalue" class="tsd-kind-icon">reason<wbr>For<wbr>Value</a>
 					</li>
 					<li class=" tsd-kind-function">
@@ -1493,6 +1565,9 @@ npm run lintfix</code></pre>
 						<a href="globals.html#splitintochunks" class="tsd-kind-icon">split<wbr>Into<wbr>Chunks</a>
 					</li>
 					<li class=" tsd-kind-function">
+						<a href="globals.html#successresponsesforchannelchunk" class="tsd-kind-icon">success<wbr>Responses<wbr>For<wbr>Channel<wbr>Chunk</a>
+					</li>
+					<li class=" tsd-kind-function">
 						<a href="globals.html#tagparserfor" class="tsd-kind-icon">tag<wbr>Parser<wbr>For</a>
 					</li>
 					<li class=" tsd-kind-function">
@@ -1509,6 +1584,18 @@ npm run lintfix</code></pre>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#whisper" class="tsd-kind-icon">whisper</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#configdefaults" class="tsd-kind-icon">config<wbr>Defaults</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#convertersmap" class="tsd-kind-icon">converters<wbr>Map</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#decodemap" class="tsd-kind-icon">decode<wbr>Map</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#defaults" class="tsd-kind-icon">defaults</a>
 					</li>
 					<li class=" tsd-kind-object-literal">
 						<a href="globals.html#messageratelimitpresets" class="tsd-kind-icon">message<wbr>Rate<wbr>Limit<wbr>Presets</a>

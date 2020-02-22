@@ -86,12 +86,6 @@
 					</li>
 				</ul>
 			</section>
-			<section class="tsd-panel">
-				<h3>Implements</h3>
-				<ul class="tsd-hierarchy">
-					<li><span class="tsd-signature-type">Error</span></li>
-				</ul>
-			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
@@ -106,9 +100,9 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="protocolerror.html#cause" class="tsd-kind-icon">cause</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="protocolerror.html#message" class="tsd-kind-icon">message</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="protocolerror.html#name" class="tsd-kind-icon">name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="protocolerror.html#stack" class="tsd-kind-icon">stack</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="protocolerror.html#message" class="tsd-kind-icon">message</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="protocolerror.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="protocolerror.html#stack" class="tsd-kind-icon">stack</a></li>
 							</ul>
 						</section>
 					</div>
@@ -128,7 +122,7 @@
 								<p>Inherited from <a href="baseerror.html">BaseError</a>.<a href="baseerror.html#constructor">constructor</a></p>
 								<p>Overrides BaseError.__constructor</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/7c27a6a/lib/utils/base-error.ts#L3">utils/base-error.ts:3</a></li>
+									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/7652b84/lib/utils/base-error.ts#L3">lib/utils/base-error.ts:3</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -152,42 +146,45 @@
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> cause</h3>
 					<div class="tsd-signature tsd-kind-icon">cause<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Error</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from BaseError.cause</p>
+						<p>Inherited from <a href="baseerror.html">BaseError</a>.<a href="baseerror.html#cause">cause</a></p>
 						<ul>
-							<li>Defined in /home/circleci/project/node_modules/make-error-cause/dist/index.d.ts:6</li>
+							<li>Defined in node_modules/make-error-cause/dist/index.d.ts:6</li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
 					<a name="message" class="tsd-anchor"></a>
 					<h3>message</h3>
 					<div class="tsd-signature tsd-kind-icon">message<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from BaseError.message</p>
+						<p>Inherited from <a href="baseerror.html">BaseError</a>.<a href="baseerror.html#message">message</a></p>
+						<p>Overrides Error.message</p>
 						<ul>
-							<li>Defined in /home/circleci/project/node_modules/make-error/index.d.ts:21</li>
+							<li>Defined in node_modules/make-error/index.d.ts:28</li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
 					<a name="name" class="tsd-anchor"></a>
 					<h3>name</h3>
 					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from BaseError.name</p>
+						<p>Inherited from <a href="baseerror.html">BaseError</a>.<a href="baseerror.html#name">name</a></p>
+						<p>Overrides Error.name</p>
 						<ul>
-							<li>Defined in /home/circleci/project/node_modules/make-error/index.d.ts:22</li>
+							<li>Defined in node_modules/make-error/index.d.ts:29</li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
 					<a name="stack" class="tsd-anchor"></a>
 					<h3>stack</h3>
 					<div class="tsd-signature tsd-kind-icon">stack<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from BaseError.stack</p>
+						<p>Inherited from <a href="baseerror.html">BaseError</a>.<a href="baseerror.html#stack">stack</a></p>
+						<p>Overrides Error.stack</p>
 						<ul>
-							<li>Defined in /home/circleci/project/node_modules/make-error/index.d.ts:23</li>
+							<li>Defined in node_modules/make-error/index.d.ts:30</li>
 						</ul>
 					</aside>
 				</section>
@@ -214,13 +211,13 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="protocolerror.html#cause" class="tsd-kind-icon">cause</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
 								<a href="protocolerror.html#message" class="tsd-kind-icon">message</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
 								<a href="protocolerror.html#name" class="tsd-kind-icon">name</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
 								<a href="protocolerror.html#stack" class="tsd-kind-icon">stack</a>
 							</li>
 						</ul>

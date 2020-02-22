@@ -77,12 +77,6 @@
 					</li>
 				</ul>
 			</section>
-			<section class="tsd-panel">
-				<h3>Implements</h3>
-				<ul class="tsd-hierarchy">
-					<li><span class="tsd-signature-type">Error</span></li>
-				</ul>
-			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
@@ -99,10 +93,10 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="usertimeouterror.html#cause" class="tsd-kind-icon">cause</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="usertimeouterror.html#channelname" class="tsd-kind-icon">channel<wbr>Name</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="usertimeouterror.html#length" class="tsd-kind-icon">length</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="usertimeouterror.html#message" class="tsd-kind-icon">message</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="usertimeouterror.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="usertimeouterror.html#message" class="tsd-kind-icon">message</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="usertimeouterror.html#name" class="tsd-kind-icon">name</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="usertimeouterror.html#reason" class="tsd-kind-icon">reason</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="usertimeouterror.html#stack" class="tsd-kind-icon">stack</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="usertimeouterror.html#stack" class="tsd-kind-icon">stack</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="usertimeouterror.html#username" class="tsd-kind-icon">username</a></li>
 							</ul>
 						</section>
@@ -122,7 +116,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="baseerror.html">BaseError</a>.<a href="baseerror.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/7c27a6a/lib/operations/timeout.ts#L13">operations/timeout.ts:13</a></li>
+									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/7652b84/lib/operations/timeout.ts#L13">lib/operations/timeout.ts:13</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -158,9 +152,9 @@
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> cause</h3>
 					<div class="tsd-signature tsd-kind-icon">cause<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Error</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from BaseError.cause</p>
+						<p>Inherited from <a href="baseerror.html">BaseError</a>.<a href="baseerror.html#cause">cause</a></p>
 						<ul>
-							<li>Defined in /home/circleci/project/node_modules/make-error-cause/dist/index.d.ts:6</li>
+							<li>Defined in node_modules/make-error-cause/dist/index.d.ts:6</li>
 						</ul>
 					</aside>
 				</section>
@@ -170,7 +164,7 @@
 					<div class="tsd-signature tsd-kind-icon">channel<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/7c27a6a/lib/operations/timeout.ts#L10">operations/timeout.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/7652b84/lib/operations/timeout.ts#L10">lib/operations/timeout.ts:10</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -180,29 +174,31 @@
 					<div class="tsd-signature tsd-kind-icon">length<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/7c27a6a/lib/operations/timeout.ts#L12">operations/timeout.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/7652b84/lib/operations/timeout.ts#L12">lib/operations/timeout.ts:12</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
 					<a name="message" class="tsd-anchor"></a>
 					<h3>message</h3>
 					<div class="tsd-signature tsd-kind-icon">message<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from BaseError.message</p>
+						<p>Inherited from <a href="baseerror.html">BaseError</a>.<a href="baseerror.html#message">message</a></p>
+						<p>Overrides Error.message</p>
 						<ul>
-							<li>Defined in /home/circleci/project/node_modules/make-error/index.d.ts:21</li>
+							<li>Defined in node_modules/make-error/index.d.ts:28</li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
 					<a name="name" class="tsd-anchor"></a>
 					<h3>name</h3>
 					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from BaseError.name</p>
+						<p>Inherited from <a href="baseerror.html">BaseError</a>.<a href="baseerror.html#name">name</a></p>
+						<p>Overrides Error.name</p>
 						<ul>
-							<li>Defined in /home/circleci/project/node_modules/make-error/index.d.ts:22</li>
+							<li>Defined in node_modules/make-error/index.d.ts:29</li>
 						</ul>
 					</aside>
 				</section>
@@ -212,18 +208,19 @@
 					<div class="tsd-signature tsd-kind-icon">reason<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/7c27a6a/lib/operations/timeout.ts#L13">operations/timeout.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/7652b84/lib/operations/timeout.ts#L13">lib/operations/timeout.ts:13</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
 					<a name="stack" class="tsd-anchor"></a>
 					<h3>stack</h3>
 					<div class="tsd-signature tsd-kind-icon">stack<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from BaseError.stack</p>
+						<p>Inherited from <a href="baseerror.html">BaseError</a>.<a href="baseerror.html#stack">stack</a></p>
+						<p>Overrides Error.stack</p>
 						<ul>
-							<li>Defined in /home/circleci/project/node_modules/make-error/index.d.ts:23</li>
+							<li>Defined in node_modules/make-error/index.d.ts:30</li>
 						</ul>
 					</aside>
 				</section>
@@ -233,7 +230,7 @@
 					<div class="tsd-signature tsd-kind-icon">username<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/7c27a6a/lib/operations/timeout.ts#L11">operations/timeout.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/7652b84/lib/operations/timeout.ts#L11">lib/operations/timeout.ts:11</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -266,16 +263,16 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="usertimeouterror.html#length" class="tsd-kind-icon">length</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
 								<a href="usertimeouterror.html#message" class="tsd-kind-icon">message</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
 								<a href="usertimeouterror.html#name" class="tsd-kind-icon">name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="usertimeouterror.html#reason" class="tsd-kind-icon">reason</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
 								<a href="usertimeouterror.html#stack" class="tsd-kind-icon">stack</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
