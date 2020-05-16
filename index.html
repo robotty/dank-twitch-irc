@@ -673,6 +673,13 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
 				</a>
 				<p>Pass options to the <code>ChatClient</code> constructor. More available options are
 				documented in the Below are all possible options and their default values:</p>
+				<p><strong>Note! ALL of these configuration options are <em>optional</em>!</strong> I highly recommend you
+				only set the very config options you need, the rest are usually at a reasonable default.<br>For most bots, you only need to set <code>username</code> and <code>password</code>:</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">let</span> client = <span class="hljs-keyword">new</span> ChatClient({
+  <span class="hljs-attr">username</span>: <span class="hljs-string">"your-bot-username"</span>,
+  <span class="hljs-attr">password</span>: <span class="hljs-string">"0123456789abcdef1234567"</span>
+});</code></pre>
+				<p>Nevertheless, here are examples of all possible config options:</p>
 				<pre><code class="language-javascript"><span class="hljs-keyword">let</span> client = <span class="hljs-keyword">new</span> ChatClient({
   <span class="hljs-attr">username</span>: <span class="hljs-string">"your-bot-username"</span>, <span class="hljs-comment">// justinfan12345 by default - For anonymous chat connection</span>
   <span class="hljs-attr">password</span>: <span class="hljs-string">"0123456789abcdef1234567"</span>, <span class="hljs-comment">// undefined by default (no password)</span>
@@ -725,9 +732,9 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
 
   <span class="hljs-comment">// custom parameters for connection rate limiting</span>
   <span class="hljs-attr">connectionRateLimits</span>: {
-    <span class="hljs-attr">parallelConnections</span>: <span class="hljs-number">5</span>, <span class="hljs-comment">// 10 by default</span>
+    <span class="hljs-attr">parallelConnections</span>: <span class="hljs-number">5</span>, <span class="hljs-comment">// 1 by default</span>
     <span class="hljs-comment">// time to wait after each connection before a new connection can begin</span>
-    <span class="hljs-attr">releaseTime</span>: <span class="hljs-number">20</span> * <span class="hljs-number">1000</span> <span class="hljs-comment">// in milliseconds, 10 seconds by default</span>
+    <span class="hljs-attr">releaseTime</span>: <span class="hljs-number">1000</span> <span class="hljs-comment">// in milliseconds, 2 seconds by default</span>
   },
 
   <span class="hljs-comment">// I recommend you leave this off by default, it makes your bot faster</span>
