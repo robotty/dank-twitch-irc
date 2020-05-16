@@ -1,5 +1,6 @@
 import * as debugLogger from "debug-logger";
 import { ClientConfiguration } from "../config/config";
+import { Color } from "../message/color";
 import { ClientMixin, ConnectionMixin } from "../mixins/base-mixin";
 import { IgnoreUnhandledPromiseRejectionsMixin } from "../mixins/ignore-promise-rejections";
 import { ConnectionRateLimiter } from "../mixins/ratelimiters/connection";
@@ -12,6 +13,7 @@ import { partChannel, partNothingToDo } from "../operations/part";
 import { sendPing } from "../operations/ping";
 import { sendPrivmsg } from "../operations/privmsg";
 import { me, say } from "../operations/say";
+import { setColor } from "../operations/set-color";
 import { timeout } from "../operations/timeout";
 import { whisper } from "../operations/whisper";
 import { anyCauseInstanceof } from "../utils/any-cause-instanceof";
@@ -200,6 +202,10 @@ export class ChatClient extends BaseClient {
   public async whisper(username: string, message: string): Promise<void> {
     validateChannelName(username);
     await whisper(this.requireConnection(), username, message);
+  }
+
+  public async setColor(color: Color): Promise<void> {
+    await setColor(this.requireConnection(), color);
   }
 
   public async ping(): Promise<void> {

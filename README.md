@@ -604,6 +604,8 @@ You probably will want to use these functions on `ChatClient` most frequently:
   `PONG` response. You can use this to measure server latency, for example.
 - `client.whisper(username: string, message: string)` - Send the user a whisper
   from the bot.
+- `client.setColor(color: Color)` - set the username color of your bot account.
+  E.g. `client.setColor({ r: 255, g: 0, b: 127 })`.
 
 Extra functionality:
 
