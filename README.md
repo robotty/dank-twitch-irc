@@ -695,7 +695,7 @@ let client = new ChatClient({
   },
 
   // how many channels each individual connection should join at max
-  maxChannelCountPerConnection: 100, // 50 by default
+  maxChannelCountPerConnection: 100, // 90 by default
 
   // custom parameters for connection rate limiting
   connectionRateLimits: {
