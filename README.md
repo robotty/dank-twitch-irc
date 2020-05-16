@@ -633,6 +633,19 @@ https://robotty.github.io/dank-twitch-irc
 Pass options to the `ChatClient` constructor. More available options are
 documented in the Below are all possible options and their default values:
 
+**Note! ALL of these configuration options are _optional_!** I highly recommend you
+only set the very config options you need, the rest are usually at a reasonable default.  
+For most bots, you only need to set `username` and `password`:
+
+```javascript
+let client = new ChatClient({
+  username: "your-bot-username",
+  password: "0123456789abcdef1234567"
+});
+```
+
+Nevertheless, here are examples of all possible config options:
+
 ```javascript
 let client = new ChatClient({
   username: "your-bot-username", // justinfan12345 by default - For anonymous chat connection
@@ -686,9 +699,9 @@ let client = new ChatClient({
 
   // custom parameters for connection rate limiting
   connectionRateLimits: {
-    parallelConnections: 5, // 10 by default
+    parallelConnections: 5, // 1 by default
     // time to wait after each connection before a new connection can begin
-    releaseTime: 20 * 1000 // in milliseconds, 10 seconds by default
+    releaseTime: 1000 // in milliseconds, 2 seconds by default
   },
 
   // I recommend you leave this off by default, it makes your bot faster
