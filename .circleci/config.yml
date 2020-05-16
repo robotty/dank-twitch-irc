@@ -100,6 +100,7 @@ jobs:
       - run: cp -r ./docs/. ../docs/
       - run: mkdir ../docs/.circleci
       - run: cp ./.circleci/noop.yml ../docs/.circleci/config.yml
+      - run: git clean -ffxd
       - run: git checkout gh-pages || git checkout --orphan gh-pages
       - run: find -not -path "./.git/*" -not -name ".git" -delete
       - run: cp -r ../docs/. .
