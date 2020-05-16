@@ -50,7 +50,7 @@ const defaults: Omit<
   password: undefined,
   requestMembershipCapability: false,
 
-  maxChannelCountPerConnection: 50,
+  maxChannelCountPerConnection: 90,
 
   connection: {
     type: "tcp",
@@ -58,8 +58,8 @@ const defaults: Omit<
   },
 
   connectionRateLimits: {
-    parallelConnections: 10,
-    releaseTime: 10 * 1000
+    parallelConnections: 1,
+    releaseTime: 2000 // 2 seconds
   },
 
   installDefaultMixins: true,
