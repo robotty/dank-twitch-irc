@@ -2,25 +2,21 @@ module.exports = {
   parser: "@typescript-eslint/parser",
   env: {
     es6: true,
-    node: true
+    node: true,
   },
-  extends: [
-    "plugin:@typescript-eslint/recommended",
-    "prettier/@typescript-eslint"
-  ],
-  plugins: ["@typescript-eslint", "@typescript-eslint/tslint", "prettier"],
+  extends: ["plugin:@typescript-eslint/recommended"],
+  plugins: ["@typescript-eslint"],
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: "module",
-    project: "tsconfig.json"
+    project: "tsconfig.json",
   },
   rules: {
-    "prettier/prettier": "error",
     "@typescript-eslint/explicit-function-return-type": [
       "warn",
       {
-        allowExpressions: true
-      }
+        allowExpressions: true,
+      },
     ],
     "@typescript-eslint/no-parameter-properties": ["off"],
     "@typescript-eslint/no-explicit-any": "off",
@@ -28,17 +24,13 @@ module.exports = {
     "@typescript-eslint/prefer-interface": "off",
     "@typescript-eslint/interface-name-prefix": "off",
     "@typescript-eslint/no-use-before-define": "off",
-    "@typescript-eslint/tslint/config": [
-      "warn",
-      {
-        lintFile: "./tslint.json"
-      }
-    ],
     "@typescript-eslint/array-type": "off",
     "@typescript-eslint/triple-slash-reference": "off",
-    "@typescript-eslint/ban-ts-ignore": "off",
-    // already done by tslint
-    "@typescript-eslint/no-empty-function": "off"
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    // this one doesn't allow usage of `object` which is stupid
+    "@typescript-eslint/ban-types": "off",
     // "no-warning-comments": "warn"
-  }
+  },
 };
