@@ -4,10 +4,10 @@ import { promisify } from "util";
 import { fakeClient } from "../helpers.spec";
 import {
   AlternateMessageModifier,
-  invisibleSuffix
+  invisibleSuffix,
 } from "./alternate-message-modifier";
 
-describe("./modules/alternate-message-modifier", function() {
+describe("./modules/alternate-message-modifier", function () {
   describe("AlternateMessageModifier", () => {
     it("should have the correct escape for the invisible suffix", () => {
       // 1 (space) + 2 (invisible character)
@@ -15,7 +15,7 @@ describe("./modules/alternate-message-modifier", function() {
       assert.strictEqual([...invisibleSuffix].length, 2);
     });
 
-    it("should append invisible character if last message is equal", async function() {
+    it("should append invisible character if last message is equal", async function () {
       const { client, emitAndEnd } = fakeClient();
       client.configuration.username = "randers";
       const messageModifier = new AlternateMessageModifier(client);
@@ -96,7 +96,7 @@ describe("./modules/alternate-message-modifier", function() {
       );
     });
 
-    it("should not append invisible character if fast spam is enabled (mod, VIP, etc.)", async function() {
+    it("should not append invisible character if fast spam is enabled (mod, VIP, etc.)", async function () {
       const { client, emitAndEnd } = fakeClient();
       client.configuration.username = "randers";
       const messageModifier = new AlternateMessageModifier(client);
@@ -160,7 +160,7 @@ describe("./modules/alternate-message-modifier", function() {
       );
     });
 
-    it("should append invisible character through the say() function (case where we are joined to channel)", async function() {
+    it("should append invisible character through the say() function (case where we are joined to channel)", async function () {
       const { client, end, transports } = fakeClient();
       client.configuration.username = "randers";
       client.connections[0].joinedChannels.add("forsen");
@@ -174,7 +174,7 @@ describe("./modules/alternate-message-modifier", function() {
       await promisify(setImmediate);
 
       assert.deepStrictEqual(transports[1].data, [
-        "PRIVMSG #forsen :Kappa Keepo PogChamp\r\n"
+        "PRIVMSG #forsen :Kappa Keepo PogChamp\r\n",
       ]);
 
       transports[1].emit(
@@ -233,7 +233,7 @@ describe("./modules/alternate-message-modifier", function() {
       );
     });
 
-    it("should append invisible character through the say() function (case where we are not joined to channel)", async function() {
+    it("should append invisible character through the say() function (case where we are not joined to channel)", async function () {
       const { client, end, transports } = fakeClient();
       client.configuration.username = "randers";
 
@@ -245,7 +245,7 @@ describe("./modules/alternate-message-modifier", function() {
       await promisify(setImmediate);
 
       assert.deepStrictEqual(transports[0].data, [
-        "PRIVMSG #forsen :Kappa Keepo PogChamp\r\n"
+        "PRIVMSG #forsen :Kappa Keepo PogChamp\r\n",
       ]);
 
       transports[0].emit(
@@ -282,7 +282,7 @@ describe("./modules/alternate-message-modifier", function() {
       end();
     });
 
-    it("should append invisible character through the me() function (case where we are joined to channel)", async function() {
+    it("should append invisible character through the me() function (case where we are joined to channel)", async function () {
       const { client, end, transports } = fakeClient();
       client.configuration.username = "randers";
       client.connections[0].joinedChannels.add("forsen");
@@ -296,7 +296,7 @@ describe("./modules/alternate-message-modifier", function() {
       await promisify(setImmediate);
 
       assert.deepStrictEqual(transports[1].data, [
-        "PRIVMSG #forsen :/me Kappa Keepo PogChamp\r\n"
+        "PRIVMSG #forsen :/me Kappa Keepo PogChamp\r\n",
       ]);
 
       transports[1].emit(
@@ -355,7 +355,7 @@ describe("./modules/alternate-message-modifier", function() {
       );
     });
 
-    it("should append invisible character through the me() function (case where we are not joined to channel)", async function() {
+    it("should append invisible character through the me() function (case where we are not joined to channel)", async function () {
       const { client, end, transports } = fakeClient();
       client.configuration.username = "randers";
 
@@ -367,7 +367,7 @@ describe("./modules/alternate-message-modifier", function() {
       await promisify(setImmediate);
 
       assert.deepStrictEqual(transports[0].data, [
-        "PRIVMSG #forsen :/me Kappa Keepo PogChamp\r\n"
+        "PRIVMSG #forsen :/me Kappa Keepo PogChamp\r\n",
       ]);
 
       transports[0].emit(

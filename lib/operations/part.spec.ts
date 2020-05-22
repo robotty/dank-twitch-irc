@@ -5,9 +5,9 @@ import { assertErrorChain, fakeConnection } from "../helpers.spec";
 import { joinNothingToDo } from "./join";
 import { partChannel, PartError, partNothingToDo } from "./part";
 
-describe("./operations/part", function() {
-  describe("#partNothingToDo()", function() {
-    it("should be true if channel is not joined or wanted", function() {
+describe("./operations/part", function () {
+  describe("#partNothingToDo()", function () {
+    it("should be true if channel is not joined or wanted", function () {
       // channel is not joined and is not wanted either
       // (e.g. no join in progress)
       const { client } = fakeConnection();
@@ -19,7 +19,7 @@ describe("./operations/part", function() {
       assert.isTrue(partNothingToDo(client, "pajlada"));
     });
 
-    it("should be false if channel is joined but not wanted", function() {
+    it("should be false if channel is joined but not wanted", function () {
       // e.g. previous PART command failed, and channel remained joined
       // but not wanted.
       const { client } = fakeConnection();
@@ -32,7 +32,7 @@ describe("./operations/part", function() {
       assert.isFalse(partNothingToDo(client, "pajlada"));
     });
 
-    it("should be false if channel is not joined but wanted", function() {
+    it("should be false if channel is not joined but wanted", function () {
       // e.g. JOIN is currently in progress and we want to part already
       // again
 
@@ -46,7 +46,7 @@ describe("./operations/part", function() {
       assert.isFalse(partNothingToDo(client, "pajlada"));
     });
 
-    it("should be false if channel is joined and wanted", function() {
+    it("should be false if channel is joined and wanted", function () {
       // normal situation where channel is joined and wanted and must be
       // parted.
       const { client } = fakeConnection();
@@ -60,8 +60,8 @@ describe("./operations/part", function() {
     });
   });
 
-  describe("#partChannel()", function() {
-    it("should send the correct wire command", function() {
+  describe("#partChannel()", function () {
+    it("should send the correct wire command", function () {
       sinon.useFakeTimers();
 
       const { client, data } = fakeConnection();
@@ -73,7 +73,7 @@ describe("./operations/part", function() {
       assert.deepStrictEqual(data, ["PART #pajlada\r\n"]);
     });
 
-    it("should do nothing if channel is neither wanted nor joined", async function() {
+    it("should do nothing if channel is neither wanted nor joined", async function () {
       const { client, data } = fakeConnection();
 
       await partChannel(client, "pajlada");
@@ -81,7 +81,7 @@ describe("./operations/part", function() {
       assert.deepStrictEqual(data, []);
     });
 
-    it("should remove channel from wanted channels even on timeout error", async function() {
+    it("should remove channel from wanted channels even on timeout error", async function () {
       sinon.useFakeTimers();
 
       const { client, clientError } = fakeConnection();
@@ -112,7 +112,7 @@ describe("./operations/part", function() {
       assert.sameMembers([...client.wantedChannels], []);
     });
 
-    it("should remove channel from joined and wanted channels on success", async function() {
+    it("should remove channel from joined and wanted channels on success", async function () {
       const { client, emitAndEnd, clientError } = fakeConnection();
       client.joinedChannels.add("pajlada");
       client.wantedChannels.add("pajlada");

@@ -38,7 +38,7 @@ const failureNoticeIDs = [
   "bad_timeout_mod",
   "bad_timeout_self",
   "bad_timeout_staff",
-  "usage_timeout"
+  "usage_timeout",
 ];
 
 const successNoticeIDs = ["timeout_success", "already_banned"];
@@ -69,6 +69,6 @@ export async function timeout(
       new UserTimeoutError(channelName, username, length, reason, msg, cause),
     errorMessage:
       `Failed to timeout ${username} for ` +
-      `${ms(length * 1000)} in #${channelName}`
+      `${ms(length * 1000)} in #${channelName}`,
   });
 }

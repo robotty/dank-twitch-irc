@@ -1,20 +1,20 @@
 import { assert } from "chai";
 import { findAndPushToEnd } from "./find-and-push-to-end";
 
-describe("./utils/find-and-push-to-end", function() {
+describe("./utils/find-and-push-to-end", function () {
   describe("findAndPushToEnd", () => {
     it("empty array", () => {
-      assert.isUndefined(findAndPushToEnd([], e => e === 1));
+      assert.isUndefined(findAndPushToEnd([], (e) => e === 1));
     });
 
     it("no filter match", () => {
-      assert.isUndefined(findAndPushToEnd([1, 2, 3], e => e === 4));
+      assert.isUndefined(findAndPushToEnd([1, 2, 3], (e) => e === 4));
     });
 
     it("mutated correctly 1", () => {
       const inArr = [1, 2, 3];
       assert.strictEqual(
-        findAndPushToEnd(inArr, e => e === 1),
+        findAndPushToEnd(inArr, (e) => e === 1),
         1
       );
 
@@ -24,7 +24,7 @@ describe("./utils/find-and-push-to-end", function() {
     it("mutated correctly 2", () => {
       const inArr = [1, 2, 3];
       assert.strictEqual(
-        findAndPushToEnd(inArr, e => e === 2),
+        findAndPushToEnd(inArr, (e) => e === 2),
         2
       );
 

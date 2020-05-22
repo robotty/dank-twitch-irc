@@ -8,7 +8,7 @@ export class ReconnectError extends ConnectionError {
 }
 
 export function handleReconnectMessage(conn: SingleConnection): void {
-  conn.on("RECONNECT", msg => {
+  conn.on("RECONNECT", (msg) => {
     process.nextTick(() => {
       conn.emitError(
         new ReconnectError(

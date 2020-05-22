@@ -2,9 +2,9 @@ import { assert } from "chai";
 import { parseTwitchMessage } from "../parser/twitch-message";
 import { ClearchatMessage } from "./clearchat";
 
-describe("./message/twitch-types/clearchat", function() {
-  describe("ClearchatMessage", function() {
-    it("should be able to parse a real CLEARCHAT timeout message from twitch", function() {
+describe("./message/twitch-types/clearchat", function () {
+  describe("ClearchatMessage", function () {
+    it("should be able to parse a real CLEARCHAT timeout message from twitch", function () {
       const msgText =
         "@ban-duration=600;room-id=40286300;target-user-id=70948394;" +
         "tmi-sent-ts=1563051113633 :tmi.twitch.tv CLEARCHAT #randers :weeb123";
@@ -23,7 +23,7 @@ describe("./message/twitch-types/clearchat", function() {
       assert.isFalse(msg.isPermaban());
     });
 
-    it("should be able to parse a real CLEARCHAT ban message from twitch", function() {
+    it("should be able to parse a real CLEARCHAT ban message from twitch", function () {
       const msgText =
         "@room-id=40286300;target-user-id=70948394;tmi-sent-ts=1563051758128 " +
         ":tmi.twitch.tv CLEARCHAT #randers :weeb123";
@@ -42,7 +42,7 @@ describe("./message/twitch-types/clearchat", function() {
       assert.isTrue(msg.isPermaban());
     });
 
-    it("should be able to parse a real CLEARCHAT chat clear message from twitch", function() {
+    it("should be able to parse a real CLEARCHAT chat clear message from twitch", function () {
       const msgText =
         "@room-id=40286300;tmi-sent-ts=1563051778390 :tmi.twitch.tv CLEARCHAT #randers";
 

@@ -10,7 +10,7 @@ function randomPingIdentifier(): string {
   const randomHexString = randomstring.generate({
     charset: "hex",
     length: 32,
-    capitalization: "lowercase"
+    capitalization: "lowercase",
   });
   return `dank-twitch-irc:manual:${randomHexString}`;
 }
@@ -23,10 +23,10 @@ export async function sendPing(
   conn.sendRaw(`PING :${pingIdentifier}`);
 
   return (await awaitResponse(conn, {
-    success: msg =>
+    success: (msg) =>
       msg instanceof PongMessage && msg.argument === pingIdentifier,
     timeout,
     errorType: (message, cause) => new PingTimeoutError(message, cause),
-    errorMessage: "Server did not PONG back"
+    errorMessage: "Server did not PONG back",
   })) as PongMessage;
 }

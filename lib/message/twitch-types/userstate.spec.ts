@@ -3,9 +3,9 @@ import { TwitchBadgesList } from "../badges";
 import { parseTwitchMessage } from "../parser/twitch-message";
 import { UserstateMessage } from "./userstate";
 
-describe("./message/twitch-types/userstate", function() {
-  describe("UserstateMessage", function() {
-    it("should be able to parse a real userstate message", function() {
+describe("./message/twitch-types/userstate", function () {
+  describe("UserstateMessage", function () {
+    it("should be able to parse a real userstate message", function () {
       const msg = parseTwitchMessage(
         "@badge-info=;badges=;color=#FF0000;" +
           "display-name=zwb3_pyramids;emote-sets=0;mod=0;subscriber=0;user-type=" +
@@ -25,7 +25,7 @@ describe("./message/twitch-types/userstate", function() {
       assert.deepStrictEqual(msg.color, {
         r: 0xff,
         g: 0x00,
-        b: 0x00
+        b: 0x00,
       });
       assert.strictEqual(msg.colorRaw, "#FF0000");
 
@@ -38,7 +38,7 @@ describe("./message/twitch-types/userstate", function() {
       assert.strictEqual(msg.isModRaw, "0");
     });
 
-    it("should extract the correct values with extractUserState()", function() {
+    it("should extract the correct values with extractUserState()", function () {
       const msg = parseTwitchMessage(
         "@badge-info=;badges=;color=#FF0000;" +
           "display-name=zwb3_pyramids;emote-sets=0;mod=0;subscriber=0;user-type=" +
@@ -56,7 +56,7 @@ describe("./message/twitch-types/userstate", function() {
         emoteSets: ["0"],
         emoteSetsRaw: "0",
         isMod: false,
-        isModRaw: "0"
+        isModRaw: "0",
       });
     });
   });

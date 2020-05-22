@@ -2,8 +2,8 @@ import { assert } from "chai";
 import { assertThrowsChain } from "../helpers.spec";
 import { splitIntoChunks } from "./split-into-chunks";
 
-describe("./utils/split-into-chunks", function() {
-  describe("#splitIntoChunks()", function() {
+describe("./utils/split-into-chunks", function () {
+  describe("#splitIntoChunks()", function () {
     describe("splitIntoChunks", () => {
       it("should return an empty array when an empty array is passed", () => {
         assert.deepStrictEqual(splitIntoChunks([], " ", 500), []);
@@ -15,7 +15,7 @@ describe("./utils/split-into-chunks", function() {
 
       it("should return a two-element array that does not need to be split as is", () => {
         assert.deepStrictEqual(splitIntoChunks(["test", "abc"], " ", 500), [
-          ["test", "abc"]
+          ["test", "abc"],
         ]);
       });
 
@@ -41,7 +41,7 @@ describe("./utils/split-into-chunks", function() {
           "eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam".split(
             " "
           ),
-          "voluptua. At vero eos et accusam et justo duo dolores".split(" ")
+          "voluptua. At vero eos et accusam et justo duo dolores".split(" "),
         ]);
       });
 

@@ -37,7 +37,7 @@ export class PrivmsgMessageRateLimiter implements ClientMixin {
     applyReplacements(this, client, {
       say: genericReplament,
       me: genericReplament,
-      privmsg: genericReplament
+      privmsg: genericReplament,
     });
   }
 

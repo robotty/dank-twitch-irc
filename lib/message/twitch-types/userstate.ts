@@ -69,7 +69,7 @@ export class UserstateMessage extends ChannelIRCMessage implements UserState {
       emoteSets: this.emoteSets,
       emoteSetsRaw: this.emoteSetsRaw,
       isMod: this.isMod,
-      isModRaw: this.isModRaw
+      isModRaw: this.isModRaw,
     };
   }
 }

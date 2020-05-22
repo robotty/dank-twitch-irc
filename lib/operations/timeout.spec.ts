@@ -5,15 +5,15 @@ import { assertErrorChain, fakeConnection } from "../helpers.spec";
 import { ValidationError } from "../validation/validation-error";
 import { timeout, UserTimeoutError } from "./timeout";
 
-describe("./operations/timeout", function() {
-  describe("UserTimeoutError", function() {
-    it("should not be instanceof ConnectionError", function() {
+describe("./operations/timeout", function () {
+  describe("UserTimeoutError", function () {
+    it("should not be instanceof ConnectionError", function () {
       assert.notInstanceOf(
         new UserTimeoutError("pajlada", "weeb123", 120, "read the rules >("),
         ConnectionError
       );
     });
-    it("should not be instanceof ClientError", function() {
+    it("should not be instanceof ClientError", function () {
       assert.notInstanceOf(
         new UserTimeoutError("pajlada", "weeb123", 120, "read the rules >("),
         ClientError
@@ -21,32 +21,32 @@ describe("./operations/timeout", function() {
     });
   });
 
-  describe("#timeout()", function() {
-    it("should send the correct wire command if no reason is given", async function() {
+  describe("#timeout()", function () {
+    it("should send the correct wire command if no reason is given", async function () {
       sinon.useFakeTimers();
       const { client, data } = fakeConnection();
 
       timeout(client, "pajlada", "weeb123", 120);
 
       assert.deepStrictEqual(data, [
-        "PRIVMSG #pajlada :/timeout weeb123 120\r\n"
+        "PRIVMSG #pajlada :/timeout weeb123 120\r\n",
       ]);
     });
 
-    it("should send the correct wire command if a reason is given", async function() {
+    it("should send the correct wire command if a reason is given", async function () {
       sinon.useFakeTimers();
       const { client, clientError, end, data } = fakeConnection();
 
       timeout(client, "pajlada", "weeb123", 120, "read the rules >(");
 
       assert.deepStrictEqual(data, [
-        "PRIVMSG #pajlada :/timeout weeb123 120 read the rules >(\r\n"
+        "PRIVMSG #pajlada :/timeout weeb123 120 read the rules >(\r\n",
       ]);
       end();
       await clientError;
     });
 
-    it("should validate the given channel name", async function() {
+    it("should validate the given channel name", async function () {
       const { client, clientError, end, data } = fakeConnection();
 
       const promise = timeout(client, "PAJLADA", "weeb123", 120);
@@ -60,7 +60,7 @@ describe("./operations/timeout", function() {
       assert.isEmpty(data);
     });
 
-    it("should validate the given username", async function() {
+    it("should validate the given username", async function () {
       const { client, clientError, end, data } = fakeConnection();
 
       const promise = timeout(client, "pajlada", "WEEB123", 120);
@@ -74,7 +74,7 @@ describe("./operations/timeout", function() {
       assert.isEmpty(data);
     });
 
-    it("should not send newlines in the reason", async function() {
+    it("should not send newlines in the reason", async function () {
       const { client, clientError, end, data } = fakeConnection();
 
       const promise = timeout(
@@ -95,7 +95,7 @@ describe("./operations/timeout", function() {
       assert.isEmpty(data);
     });
 
-    it("should resolve on incoming timeout_success", async function() {
+    it("should resolve on incoming timeout_success", async function () {
       const { client, emitAndEnd, clientError } = fakeConnection();
 
       const promise = timeout(
@@ -114,7 +114,7 @@ describe("./operations/timeout", function() {
       await clientError;
     });
 
-    it("should reject on incoming no_permission", async function() {
+    it("should reject on incoming no_permission", async function () {
       const { client, emitAndEnd, clientError } = fakeConnection();
 
       const promise = timeout(

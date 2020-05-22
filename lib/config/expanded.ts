@@ -6,11 +6,11 @@ import {
   RateLimitsConfig,
   TcpTransportConfiguration,
   TransportConfiguration,
-  WebSocketTransportConfiguration
+  WebSocketTransportConfiguration,
 } from "./config";
 import {
   messageRateLimitPresets,
-  MessageRateLimits
+  MessageRateLimits,
 } from "./message-rate-limits";
 
 export type ExpandedDuplexTransportConfiguration = Required<
@@ -54,16 +54,16 @@ const defaults: Omit<
 
   connection: {
     type: "tcp",
-    secure: true
+    secure: true,
   },
 
   connectionRateLimits: {
     parallelConnections: 1,
-    releaseTime: 2000 // 2 seconds
+    releaseTime: 2000, // 2 seconds
   },
 
   installDefaultMixins: true,
-  ignoreUnhandledPromiseRejections: false
+  ignoreUnhandledPromiseRejections: false,
 };
 
 export function expandTransportConfig(
@@ -71,7 +71,7 @@ export function expandTransportConfig(
 ): ExpandedTransportConfiguration {
   if (config == null) {
     return expandTransportConfig({
-      secure: true
+      secure: true,
     });
   }
 
@@ -94,7 +94,7 @@ export function expandTransportConfig(
         secure: config.secure,
         host,
         port,
-        preSetup: false
+        preSetup: false,
       };
 
     case "duplex":
@@ -111,7 +111,7 @@ export function expandTransportConfig(
       return {
         type: "websocket",
         url,
-        preSetup: false
+        preSetup: false,
       };
 
     default:

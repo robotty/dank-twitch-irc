@@ -5,5 +5,5 @@ module.exports = {
   include: ["lib/**/*.ts"],
   instrument: true,
   reporter: ["text-summary", "html", "lcovonly", "json"],
-  sourceMap: true
+  sourceMap: true,
 };

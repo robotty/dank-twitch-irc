@@ -2,7 +2,7 @@ import * as EventEmitter from "eventemitter3";
 import { ChatClient } from "../client/client";
 import {
   GlobalUserState,
-  GlobaluserstateMessage
+  GlobaluserstateMessage,
 } from "../message/twitch-types/globaluserstate";
 import { PrivmsgMessage } from "../message/twitch-types/privmsg";
 import { UserState, UserstateMessage } from "../message/twitch-types/userstate";

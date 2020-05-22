@@ -4,9 +4,9 @@ import { promisify } from "util";
 import { fakeClient } from "../helpers.spec";
 import { RoomStateTracker } from "./roomstate-tracker";
 
-describe("./mixins/roomstate-tracker", function() {
-  describe("RoomstateTracker", function() {
-    it("should set client.roomstateTracker on the client when applied", function() {
+describe("./mixins/roomstate-tracker", function () {
+  describe("RoomstateTracker", function () {
+    it("should set client.roomstateTracker on the client when applied", function () {
       const { client } = fakeClient(false);
       const roomStateTracker = new RoomStateTracker();
 
@@ -17,7 +17,7 @@ describe("./mixins/roomstate-tracker", function() {
       assert.strictEqual(client.roomStateTracker, roomStateTracker);
     });
 
-    it("should save/update incoming ROOMSTATE messages", async function() {
+    it("should save/update incoming ROOMSTATE messages", async function () {
       const { client, emit, emitAndEnd } = fakeClient();
       const roomStateTracker = new RoomStateTracker();
 
@@ -45,7 +45,7 @@ describe("./mixins/roomstate-tracker", function() {
         slowModeDurationRaw: "0",
 
         subscribersOnly: false,
-        subscribersOnlyRaw: "0"
+        subscribersOnlyRaw: "0",
       });
 
       // enable r9k (full roomstate)
@@ -69,7 +69,7 @@ describe("./mixins/roomstate-tracker", function() {
         slowModeDurationRaw: "0",
 
         subscribersOnly: false,
-        subscribersOnlyRaw: "0"
+        subscribersOnlyRaw: "0",
       });
 
       // enable sub mode (partial roomstate)
@@ -92,11 +92,11 @@ describe("./mixins/roomstate-tracker", function() {
         slowModeDurationRaw: "0",
 
         subscribersOnly: true,
-        subscribersOnlyRaw: "1"
+        subscribersOnlyRaw: "1",
       });
     });
 
-    it("should ignore partial ROOMSTATE messages before the first full ROOMSTATE message", async function() {
+    it("should ignore partial ROOMSTATE messages before the first full ROOMSTATE message", async function () {
       const { client, emitAndEnd } = fakeClient();
       const roomStateTracker = new RoomStateTracker();
 
@@ -112,7 +112,7 @@ describe("./mixins/roomstate-tracker", function() {
       assert.isUndefined(roomStateTracker.getChannelState("randers"));
     });
 
-    it("should emit newChannelState on new roomstate", async function() {
+    it("should emit newChannelState on new roomstate", async function () {
       const { client, emit } = fakeClient();
       const roomStateTracker = new RoomStateTracker();
       client.use(roomStateTracker);
@@ -135,7 +135,7 @@ describe("./mixins/roomstate-tracker", function() {
       );
     });
 
-    it("should emit newChannelState on updated roomstate", async function() {
+    it("should emit newChannelState on updated roomstate", async function () {
       const { client, emit, emitAndEnd } = fakeClient();
       const roomStateTracker = new RoomStateTracker();
       client.use(roomStateTracker);

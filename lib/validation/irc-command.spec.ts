@@ -2,9 +2,9 @@ import { assertThrowsChain } from "../helpers.spec";
 import { validateIRCCommand } from "./irc-command";
 import { ValidationError } from "./validation-error";
 
-describe("./validation/irc-command", function() {
-  describe("#validateIRCCommand", function() {
-    it("should reject newlines", function() {
+describe("./validation/irc-command", function () {
+  describe("#validateIRCCommand", function () {
+    it("should reject newlines", function () {
       assertThrowsChain(
         () => validateIRCCommand("JOIN\n"),
         ValidationError,
@@ -27,7 +27,7 @@ describe("./validation/irc-command", function() {
       );
     });
 
-    it("should reject carriage returns", function() {
+    it("should reject carriage returns", function () {
       assertThrowsChain(
         () => validateIRCCommand("JOIN\r"),
         ValidationError,
@@ -50,7 +50,7 @@ describe("./validation/irc-command", function() {
       );
     });
 
-    it("should pass normal IRC commands", function() {
+    it("should pass normal IRC commands", function () {
       validateIRCCommand("JOIN");
       validateIRCCommand("");
       validateIRCCommand("PRIVMSG #forsen :asd");

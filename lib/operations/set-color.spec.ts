@@ -5,15 +5,15 @@ import { ClientError, ConnectionError, MessageError } from "../client/errors";
 import { assertErrorChain, fakeConnection } from "../helpers.spec";
 import { setColor, SetColorError } from "./set-color";
 
-describe("./operations/set-color", function() {
-  describe("SetColorError", function() {
-    it("should not be instanceof ConnectionError", function() {
+describe("./operations/set-color", function () {
+  describe("SetColorError", function () {
+    it("should not be instanceof ConnectionError", function () {
       assert.notInstanceOf(
         new SetColorError({ r: 255, g: 0, b: 0 }),
         ConnectionError
       );
     });
-    it("should not be instanceof ClientError", function() {
+    it("should not be instanceof ClientError", function () {
       assert.notInstanceOf(
         new SetColorError({ r: 255, g: 0, b: 0 }),
         ClientError
@@ -21,19 +21,19 @@ describe("./operations/set-color", function() {
     });
   });
 
-  describe("#setColor()", function() {
-    it("should send the correct wire command", function() {
+  describe("#setColor()", function () {
+    it("should send the correct wire command", function () {
       sinon.useFakeTimers();
       const { data, client } = fakeConnection();
 
       setColor(client, { r: 255, g: 0, b: 1 });
 
       assert.deepStrictEqual(data, [
-        "PRIVMSG #justinfan12345 :/color #ff0001\r\n"
+        "PRIVMSG #justinfan12345 :/color #ff0001\r\n",
       ]);
     });
 
-    it("should fail after 2000 milliseconds of no response", async function() {
+    it("should fail after 2000 milliseconds of no response", async function () {
       sinon.useFakeTimers();
       const { client, clientError } = fakeConnection();
 
@@ -60,7 +60,7 @@ describe("./operations/set-color", function() {
       );
     });
 
-    it("should be rejected on incoming bad NOTICE (type 1)", async function() {
+    it("should be rejected on incoming bad NOTICE (type 1)", async function () {
       const { client, clientError, emitAndEnd } = fakeConnection();
 
       const promise = setColor(client, { r: 255, g: 0, b: 1 });
@@ -108,7 +108,7 @@ describe("./operations/set-color", function() {
       );
     });
 
-    it("should be rejected on incoming bad NOTICE (type 2)", async function() {
+    it("should be rejected on incoming bad NOTICE (type 2)", async function () {
       const { client, clientError, emitAndEnd } = fakeConnection();
 
       const promise = setColor(client, { r: 255, g: 0, b: 1 });
@@ -138,7 +138,7 @@ describe("./operations/set-color", function() {
       );
     });
 
-    it("should resolve on good NOTICE", async function() {
+    it("should resolve on good NOTICE", async function () {
       const { client, clientError, emitAndEnd } = fakeConnection();
 
       const promise = setColor(client, { r: 255, g: 0, b: 1 });

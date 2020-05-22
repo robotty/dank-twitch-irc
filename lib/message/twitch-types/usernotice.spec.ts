@@ -8,72 +8,72 @@ import {
   extractEventParams,
   ResubUsernoticeMessage,
   SubEventParams,
-  UsernoticeMessage
+  UsernoticeMessage,
 } from "./usernotice";
 
-describe("./message/twitch-types/usernotice", function() {
-  describe("#extractEventParams()", function() {
-    it("should camelCase all properties that start with msg-param-", function() {
+describe("./message/twitch-types/usernotice", function () {
+  describe("#extractEventParams()", function () {
+    it("should camelCase all properties that start with msg-param-", function () {
       assert.deepStrictEqual(
         extractEventParams({
           "msg-param-user-name": "pajlada",
           "msg-id": "abc123efg",
-          "msg-parameter-msg-id": "987398274923"
+          "msg-parameter-msg-id": "987398274923",
         }),
         {
-          username: "pajlada"
+          username: "pajlada",
         }
       );
     });
 
-    it("should parse integer properties and add a raw- property for them", function() {
+    it("should parse integer properties and add a raw- property for them", function () {
       assert.deepStrictEqual(
         extractEventParams({
-          "msg-param-months": "12"
+          "msg-param-months": "12",
         }),
         {
           months: 12,
-          monthsRaw: "12"
+          monthsRaw: "12",
         }
       );
     });
 
-    it("should parse boolean properties and add a raw- property for them", function() {
+    it("should parse boolean properties and add a raw- property for them", function () {
       assert.deepStrictEqual(
         extractEventParams({
-          "msg-param-should-share-streak": "1"
+          "msg-param-should-share-streak": "1",
         }),
         {
           shouldShareStreak: true,
-          shouldShareStreakRaw: "1"
+          shouldShareStreakRaw: "1",
         }
       );
 
       assert.deepStrictEqual(
         extractEventParams({
-          "msg-param-should-share-streak": "0"
+          "msg-param-should-share-streak": "0",
         }),
         {
           shouldShareStreak: false,
-          shouldShareStreakRaw: "0"
+          shouldShareStreakRaw: "0",
         }
       );
     });
 
-    it("should camelCase -id as ID", function() {
+    it("should camelCase -id as ID", function () {
       assert.deepStrictEqual(
         extractEventParams({
-          "msg-param-user-id": "1234567"
+          "msg-param-user-id": "1234567",
         }),
         {
-          userID: "1234567"
+          userID: "1234567",
         }
       );
     });
   });
 
-  describe("UsernoticeMessage", function() {
-    it("should be able to parse a USERNOTICE with no message, only system-msg", function() {
+  describe("UsernoticeMessage", function () {
+    it("should be able to parse a USERNOTICE with no message, only system-msg", function () {
       const msgText =
         "@badge-info=subscriber/5;badges=subscriber/3;color=;display-name=kakarot127;" +
         "emotes=;flags=;id=5dc14bb3-684b-4c04-8fbb-3c870958ac69;login=kakarot127;mod=0;msg-id=resub;" +
@@ -130,7 +130,7 @@ describe("./message/twitch-types/usernotice", function() {
         shouldShareStreak: false,
         shouldShareStreakRaw: "0",
         subPlanName: "Channel Subscription (faker)",
-        subPlan: "1000"
+        subPlan: "1000",
       });
 
       assert.isTrue(msg.isResub());
@@ -145,7 +145,7 @@ describe("./message/twitch-types/usernotice", function() {
       }
     });
 
-    it("should be able to parse a resub with message", function() {
+    it("should be able to parse a resub with message", function () {
       const msg = parseTwitchMessage(
         "@badge-info=subscriber/15;badges=subscriber/12;color=#00CCBE" +
           ";display-name=5weatyNuts;emotes=1076725:0-10;flags=;id=fda4d92" +
@@ -161,7 +161,7 @@ describe("./message/twitch-types/usernotice", function() {
 
       assert.strictEqual(msg.messageText, "dafranPrime Clap");
       assert.deepStrictEqual(msg.emotes, [
-        new TwitchEmote("1076725", 0, 11, "dafranPrime")
+        new TwitchEmote("1076725", 0, 11, "dafranPrime"),
       ]);
       assert.strictEqual(msg.emotesRaw, "1076725:0-10");
 

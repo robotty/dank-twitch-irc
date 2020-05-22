@@ -8,19 +8,19 @@ export class CapabilitiesError extends ConnectionError {}
 export function acknowledgesCapabilities(
   requestedCapabilities: string[]
 ): Condition {
-  return e =>
+  return (e) =>
     e instanceof CapMessage &&
     e.subCommand === "ACK" &&
-    requestedCapabilities.every(cap => e.capabilities.includes(cap));
+    requestedCapabilities.every((cap) => e.capabilities.includes(cap));
 }
 
 export function deniedAnyCapability(
   requestedCapabilities: string[]
 ): Condition {
-  return e =>
+  return (e) =>
     e instanceof CapMessage &&
     e.subCommand === "NAK" &&
-    requestedCapabilities.some(cap => e.capabilities.includes(cap));
+    requestedCapabilities.some((cap) => e.capabilities.includes(cap));
 }
 
 export async function requestCapabilities(
@@ -41,6 +41,6 @@ export async function requestCapabilities(
     errorType: (message, cause) => new CapabilitiesError(message, cause),
     errorMessage: `Failed to request server capabilities ${capabilities.join(
       ", "
-    )}`
+    )}`,
   });
 }

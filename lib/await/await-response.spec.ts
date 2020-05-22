@@ -8,20 +8,20 @@ import { ignoreErrors } from "../utils/ignore-errors";
 import { awaitResponse, ResponseAwaiter } from "./await-response";
 import { TimeoutError } from "./timeout-error";
 
-describe("./await/await-response", function() {
-  describe("ResponseAwaiter", function() {
-    it("should add itself to list of waiters", function() {
+describe("./await/await-response", function () {
+  describe("ResponseAwaiter", function () {
+    it("should add itself to list of waiters", function () {
       const { client, end } = fakeConnection();
 
       const awaiter1 = new ResponseAwaiter(client, {
         errorType: (message, cause) => new BaseError(message, cause),
-        errorMessage: "test awaiter 1 failure"
+        errorMessage: "test awaiter 1 failure",
       });
       awaiter1.promise.catch(ignoreErrors);
 
       const awaiter2 = new ResponseAwaiter(client, {
         errorType: (message, cause) => new BaseError(message, cause),
-        errorMessage: "test awaiter 2 failure"
+        errorMessage: "test awaiter 2 failure",
       });
       awaiter2.promise.catch(ignoreErrors);
 
@@ -30,15 +30,15 @@ describe("./await/await-response", function() {
       end();
     });
 
-    it("should resolve on matching incoming message", async function() {
+    it("should resolve on matching incoming message", async function () {
       const { client, end } = fakeConnection();
 
       const wantedMsg = parseTwitchMessage("PONG :tmi.twitch.tv");
 
       const promise = awaitResponse(client, {
-        success: msg => msg === wantedMsg,
+        success: (msg) => msg === wantedMsg,
         errorType: (message, cause) => new BaseError(message, cause),
-        errorMessage: "test awaiter failure"
+        errorMessage: "test awaiter failure",
       });
 
       client.emitMessage(wantedMsg);
@@ -49,15 +49,15 @@ describe("./await/await-response", function() {
       assert.deepStrictEqual(client.pendingResponses, []);
     });
 
-    it("should reject on matching incoming message", async function() {
+    it("should reject on matching incoming message", async function () {
       const { client, clientError, emitAndEnd } = fakeConnection();
 
       const wantedMsg = "PONG :tmi.twitch.tv";
 
       const promise = awaitResponse(client, {
-        failure: msg => msg.rawSource === wantedMsg,
+        failure: (msg) => msg.rawSource === wantedMsg,
         errorType: (message, cause) => new BaseError(message, cause),
-        errorMessage: "test awaiter failure"
+        errorMessage: "test awaiter failure",
       });
 
       emitAndEnd(wantedMsg);
@@ -80,12 +80,12 @@ describe("./await/await-response", function() {
       );
     });
 
-    it("should reject on connection close (no error)", async function() {
+    it("should reject on connection close (no error)", async function () {
       const { client, end, clientError } = fakeConnection();
 
       const promise = awaitResponse(client, {
         errorType: (message, cause) => new BaseError(message, cause),
-        errorMessage: "test awaiter failure"
+        errorMessage: "test awaiter failure",
       });
 
       end();
@@ -108,12 +108,12 @@ describe("./await/await-response", function() {
       await clientError;
     });
 
-    it("should reject on connection close (with error)", async function() {
+    it("should reject on connection close (with error)", async function () {
       const { client, end, clientError } = fakeConnection();
 
       const promise = awaitResponse(client, {
         errorType: (message, cause) => new BaseError(message, cause),
-        errorMessage: "test awaiter failure"
+        errorMessage: "test awaiter failure",
       });
 
       end(new Error("peer reset connection"));
@@ -122,7 +122,7 @@ describe("./await/await-response", function() {
       const clientErrorAfterClose = new Promise((resolve, reject) => {
         let counter = 0;
         const target = 1;
-        client.on("error", e => {
+        client.on("error", (e) => {
           if (counter++ === target) {
             reject(e);
           }
@@ -162,7 +162,7 @@ describe("./await/await-response", function() {
       );
     });
 
-    it("should timeout after specified timeout (noResponseAction = failure)", async function() {
+    it("should timeout after specified timeout (noResponseAction = failure)", async function () {
       sinon.useFakeTimers();
       const { client, clientError } = fakeConnection();
 
@@ -173,7 +173,7 @@ describe("./await/await-response", function() {
       const promise = awaitResponse(client, {
         errorType: (message, cause) => new BaseError(message, cause),
         errorMessage: "test awaiter failure",
-        timeout: 3000
+        timeout: 3000,
       });
 
       sinon.clock.tick(3000);
@@ -187,7 +187,7 @@ describe("./await/await-response", function() {
       );
     });
 
-    it("should timeout after specified timeout (noResponseAction = success)", async function() {
+    it("should timeout after specified timeout (noResponseAction = success)", async function () {
       sinon.useFakeTimers();
       const { client, clientError, end } = fakeConnection();
 
@@ -199,7 +199,7 @@ describe("./await/await-response", function() {
         errorType: (message, cause) => new BaseError(message, cause),
         errorMessage: "test awaiter failure",
         timeout: 3000,
-        noResponseAction: "success"
+        noResponseAction: "success",
       });
 
       sinon.clock.tick(3000);
@@ -208,20 +208,20 @@ describe("./await/await-response", function() {
       await Promise.all([promise, clientError]);
     });
 
-    it("should begin timeout only once awaiter is moved to head of queue", async function() {
+    it("should begin timeout only once awaiter is moved to head of queue", async function () {
       sinon.useFakeTimers();
       const { client, clientError } = fakeConnection();
 
       const promise1 = awaitResponse(client, {
         errorType: (message, cause) => new BaseError(message, cause),
         errorMessage: "test awaiter1 failure",
-        timeout: 1000
+        timeout: 1000,
       });
 
       const promise2 = awaitResponse(client, {
         errorType: (message, cause) => new BaseError(message, cause),
         errorMessage: "test awaiter2 failure",
-        timeout: 1000
+        timeout: 1000,
       });
 
       sinon.clock.tick(1000);
@@ -245,19 +245,19 @@ describe("./await/await-response", function() {
       );
     });
 
-    it("should notify other awaiters that they are outpaced", async function() {
+    it("should notify other awaiters that they are outpaced", async function () {
       const { client, emitAndEnd, clientError } = fakeConnection();
 
       const promise1 = awaitResponse(client, {
         errorType: (message, cause) => new BaseError(message, cause),
-        errorMessage: "test awaiter1 failure"
+        errorMessage: "test awaiter1 failure",
       });
       const expectedMsg = "PONG :tmi.twitch.tv";
 
       const promise2 = awaitResponse(client, {
-        success: msg => msg.rawSource === expectedMsg,
+        success: (msg) => msg.rawSource === expectedMsg,
         errorType: (message, cause) => new BaseError(message, cause),
-        errorMessage: "test awaiter2 failure"
+        errorMessage: "test awaiter2 failure",
       });
 
       // awaiter2 will resolve -> awaiter1 will be rejected because it was

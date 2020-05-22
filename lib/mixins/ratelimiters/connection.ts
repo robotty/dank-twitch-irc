@@ -29,7 +29,7 @@ export class ConnectionRateLimiter implements ClientMixin, ConnectionMixin {
     const unsubscribers: (() => void)[] = [];
 
     const unsubscribe = (): void => {
-      unsubscribers.forEach(e => e());
+      unsubscribers.forEach((e) => e());
     };
 
     const done = (): void => {
@@ -59,7 +59,7 @@ export class ConnectionRateLimiter implements ClientMixin, ConnectionMixin {
           originalFn(connectionListener);
           this.releaseOnConnect(connection);
         });
-      }
+      },
     });
   }
 }

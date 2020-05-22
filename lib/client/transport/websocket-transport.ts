@@ -20,7 +20,7 @@ export class WebSocketTransport implements Transport {
     this.writable = new PassThrough({ decodeStrings: false, objectMode: true });
     this.stream = duplexify(this.writable, this.readable, {
       decodeStrings: false,
-      objectMode: true
+      objectMode: true,
     });
   }
 
@@ -28,7 +28,7 @@ export class WebSocketTransport implements Transport {
     this.wsStream = new WebSocketDuplex({
       url: this.config.url,
       decodeStrings: false,
-      objectMode: true
+      objectMode: true,
     });
     if (connectionListener != null) {
       this.wsStream.once("connect", connectionListener);

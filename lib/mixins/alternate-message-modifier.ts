@@ -73,14 +73,14 @@ export class AlternateMessageModifier implements ClientMixin {
         // message)
         this.lastMessages[channelName] = {
           messageText: newMsg,
-          action
+          action,
         };
       }
     };
 
     applyReplacements(this, client, {
       say: genericReplament(false),
-      me: genericReplament(true)
+      me: genericReplament(true),
     });
 
     client.on("PRIVMSG", this.onPrivmsgMessage.bind(this));
@@ -94,7 +94,7 @@ export class AlternateMessageModifier implements ClientMixin {
 
     this.lastMessages[message.channelName] = {
       messageText: message.messageText,
-      action: message.isAction
+      action: message.isAction,
     };
   }
 }

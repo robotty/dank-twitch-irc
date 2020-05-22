@@ -21,7 +21,7 @@ export class IgnoreUnhandledPromiseRejectionsMixin implements ClientMixin {
       say: genericReplacement,
       me: genericReplacement,
       whisper: genericReplacement,
-      ping: genericReplacement
+      ping: genericReplacement,
     });
   }
 }

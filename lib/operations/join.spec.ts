@@ -7,9 +7,9 @@ import { parseTwitchMessage } from "../message/parser/twitch-message";
 import { JoinMessage } from "../message/twitch-types/membership/join";
 import { joinChannel, JoinError, joinNothingToDo } from "./join";
 
-describe("./operations/join", function() {
-  describe("#joinNotingToDo()", function() {
-    it("should be false if channel is not joined or wanted", function() {
+describe("./operations/join", function () {
+  describe("#joinNotingToDo()", function () {
+    it("should be false if channel is not joined or wanted", function () {
       // typical situation where channel is not joined and is now being
       // joined.
       const { client } = fakeConnection();
@@ -21,7 +21,7 @@ describe("./operations/join", function() {
       assert.isFalse(joinNothingToDo(client, "pajlada"));
     });
 
-    it("should be false if channel is joined but not wanted", function() {
+    it("should be false if channel is joined but not wanted", function () {
       // situation where we are still joined but don't want to be, e.g.
       // a part is in progress, but we can already begin re-joining
       const { client } = fakeConnection();
@@ -34,7 +34,7 @@ describe("./operations/join", function() {
       assert.isFalse(joinNothingToDo(client, "pajlada"));
     });
 
-    it("should be false if channel is not joined but wanted", function() {
+    it("should be false if channel is not joined but wanted", function () {
       // e.g. previously failed JOIN, allow the join to be retried
       const { client } = fakeConnection();
 
@@ -46,7 +46,7 @@ describe("./operations/join", function() {
       assert.isFalse(joinNothingToDo(client, "pajlada"));
     });
 
-    it("should be true if channel is joined and wanted", function() {
+    it("should be true if channel is joined and wanted", function () {
       // channel is both joined and supposed to be joined, only in
       // this case is nothing to do.
       const { client } = fakeConnection();
@@ -60,15 +60,15 @@ describe("./operations/join", function() {
     });
   });
 
-  describe("#joinChannel()", function() {
-    it("sends the correct wire command", function() {
+  describe("#joinChannel()", function () {
+    it("sends the correct wire command", function () {
       sinon.useFakeTimers(); // prevent the promise timing out
       const { data, client } = fakeConnection();
       joinChannel(client, "pajlada");
       assert.deepEqual(data, ["JOIN #pajlada\r\n"]);
     });
 
-    it("does nothing if channel is joined and wanted", function() {
+    it("does nothing if channel is joined and wanted", function () {
       sinon.useFakeTimers(); // prevent the promise timing out
       const { data, client } = fakeConnection();
       client.wantedChannels.add("pajlada");
@@ -77,7 +77,7 @@ describe("./operations/join", function() {
       assert.deepEqual(data, []);
     });
 
-    it("sends the command if channel is not in joinedChannels but in wantedChannels", function() {
+    it("sends the command if channel is not in joinedChannels but in wantedChannels", function () {
       sinon.useFakeTimers(); // prevent the promise timing out
       const { data, client } = fakeConnection();
       client.wantedChannels.add("pajlada");
@@ -85,7 +85,7 @@ describe("./operations/join", function() {
       assert.deepEqual(data, ["JOIN #pajlada\r\n"]);
     });
 
-    it("resolves on incoming JOIN", async function() {
+    it("resolves on incoming JOIN", async function () {
       const { emitAndEnd, client, clientError } = fakeConnection();
 
       const promise = joinChannel(client, "pajlada");
@@ -107,7 +107,7 @@ describe("./operations/join", function() {
       await clientError;
     });
 
-    it("adds channel to channel list on success", async function() {
+    it("adds channel to channel list on success", async function () {
       const { emitAndEnd, client, clientError } = fakeConnection();
 
       const promise = joinChannel(client, "pajlada");
@@ -125,7 +125,7 @@ describe("./operations/join", function() {
       assert.deepStrictEqual([...client.joinedChannels], ["pajlada"]);
     });
 
-    it("only adds to wantedChannels on msg_channel_suspended failure", async function() {
+    it("only adds to wantedChannels on msg_channel_suspended failure", async function () {
       // given
       const { client, emitAndEnd, clientError } = fakeConnection();
 
@@ -163,7 +163,7 @@ describe("./operations/join", function() {
       assert.deepStrictEqual([...client.joinedChannels], []);
     });
 
-    it("only adds to wantedChannels on connection close (no error)", async function() {
+    it("only adds to wantedChannels on connection close (no error)", async function () {
       // given
       const { end, client, clientError } = fakeConnection();
 
@@ -188,7 +188,7 @@ describe("./operations/join", function() {
       assert.deepStrictEqual([...client.joinedChannels], []);
     });
 
-    it("only adds to wantedChannels on connection close (with error)", async function() {
+    it("only adds to wantedChannels on connection close (with error)", async function () {
       // given
       const { end, client, clientError } = fakeConnection();
 
@@ -226,7 +226,7 @@ describe("./operations/join", function() {
       assert.deepStrictEqual([...client.joinedChannels], []);
     });
 
-    it("should fail on timeout of 2000 ms", async function() {
+    it("should fail on timeout of 2000 ms", async function () {
       // given
       sinon.useFakeTimers();
       const { client, clientError } = fakeConnection();
@@ -256,11 +256,11 @@ describe("./operations/join", function() {
     });
   });
 
-  describe("JoinError", function() {
-    it("should not be instanceof ConnectionError", function() {
+  describe("JoinError", function () {
+    it("should not be instanceof ConnectionError", function () {
       assert.notInstanceOf(new JoinError("test"), ConnectionError);
     });
-    it("should not be instanceof ClientError", function() {
+    it("should not be instanceof ClientError", function () {
       assert.notInstanceOf(new JoinError("test"), ClientError);
     });
   });

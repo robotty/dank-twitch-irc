@@ -4,22 +4,22 @@ import { TwitchBadgesList } from "../badges";
 import { parseTwitchMessage } from "../parser/twitch-message";
 import { parseActionAndMessage, PrivmsgMessage } from "./privmsg";
 
-describe("./message/twitch-types/privmsg", function() {
-  describe("#parseActionAndMessage()", function() {
-    it("should return non-actions unmodified", function() {
+describe("./message/twitch-types/privmsg", function () {
+  describe("#parseActionAndMessage()", function () {
+    it("should return non-actions unmodified", function () {
       assert.deepStrictEqual(parseActionAndMessage("HeyGuys"), {
         isAction: false,
-        message: "HeyGuys"
+        message: "HeyGuys",
       });
 
       assert.deepStrictEqual(parseActionAndMessage("\u0001ACTION HeyGuys"), {
         isAction: false,
-        message: "\u0001ACTION HeyGuys"
+        message: "\u0001ACTION HeyGuys",
       });
 
       assert.deepStrictEqual(parseActionAndMessage("HeyGuys\u0001"), {
         isAction: false,
-        message: "HeyGuys\u0001"
+        message: "HeyGuys\u0001",
       });
 
       // missing space
@@ -27,17 +27,17 @@ describe("./message/twitch-types/privmsg", function() {
         parseActionAndMessage("\u0001ACTIONHeyGuys\u0001"),
         {
           isAction: false,
-          message: "\u0001ACTIONHeyGuys\u0001"
+          message: "\u0001ACTIONHeyGuys\u0001",
         }
       );
     });
 
-    it("should remove action prefix and suffix on valid actions", function() {
+    it("should remove action prefix and suffix on valid actions", function () {
       assert.deepStrictEqual(
         parseActionAndMessage("\u0001ACTION HeyGuys\u0001"),
         {
           isAction: true,
-          message: "HeyGuys"
+          message: "HeyGuys",
         }
       );
 
@@ -46,14 +46,14 @@ describe("./message/twitch-types/privmsg", function() {
         parseActionAndMessage("\u0001ACTION \u0001ACTION HeyGuys\u0001\u0001"),
         {
           isAction: true,
-          message: "\u0001ACTION HeyGuys\u0001"
+          message: "\u0001ACTION HeyGuys\u0001",
         }
       );
     });
   });
 
-  describe("PrivmsgMessage", function() {
-    it("should be able to parse a real PRIVMSG message", function() {
+  describe("PrivmsgMessage", function () {
+    it("should be able to parse a real PRIVMSG message", function () {
       const msgText =
         "@badge-info=subscriber/5;badges=broadcaster/1,subscriber/0;" +
         "color=#19E6E6;display-name=randers;emotes=;flags=;id=7eb848c9-1060-4e5e-9f4c-612877982e79;" +
@@ -121,7 +121,7 @@ describe("./message/twitch-types/privmsg", function() {
         colorRaw: "#19E6E6",
         displayName: "randers",
         isMod: false,
-        isModRaw: "0"
+        isModRaw: "0",
       });
 
       assert.isFalse(msg.isCheer());

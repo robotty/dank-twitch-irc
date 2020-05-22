@@ -5,32 +5,32 @@ import { assertErrorChain, fakeConnection } from "../helpers.spec";
 import { sendPing } from "./ping";
 import { whisper, WhisperError } from "./whisper";
 
-describe("./operations/whisper", function() {
-  describe("WhisperError", function() {
-    it("should not be instanceof ConnectionError", function() {
+describe("./operations/whisper", function () {
+  describe("WhisperError", function () {
+    it("should not be instanceof ConnectionError", function () {
       assert.notInstanceOf(
         new WhisperError("pajlada", "test"),
         ConnectionError
       );
     });
-    it("should not be instanceof ClientError", function() {
+    it("should not be instanceof ClientError", function () {
       assert.notInstanceOf(new WhisperError("pajlada", "test"), ClientError);
     });
   });
 
-  describe("#whisper()", function() {
-    it("should send the correct wire command", function() {
+  describe("#whisper()", function () {
+    it("should send the correct wire command", function () {
       sinon.useFakeTimers();
       const { data, client } = fakeConnection();
 
       whisper(client, "pajlada", "hello world");
 
       assert.deepStrictEqual(data, [
-        "PRIVMSG #justinfan12345 :/w pajlada hello world\r\n"
+        "PRIVMSG #justinfan12345 :/w pajlada hello world\r\n",
       ]);
     });
 
-    it("should resolve after 1000 milliseconds", async function() {
+    it("should resolve after 1000 milliseconds", async function () {
       sinon.useFakeTimers();
       const { client, clientError, end } = fakeConnection();
 
@@ -44,7 +44,7 @@ describe("./operations/whisper", function() {
       await clientError;
     });
 
-    it("should resolve if outpaced by other command response", async function() {
+    it("should resolve if outpaced by other command response", async function () {
       const { client, clientError, emitAndEnd } = fakeConnection();
 
       const whisperPromise = whisper(client, "pajlada", "hello world");
@@ -57,7 +57,7 @@ describe("./operations/whisper", function() {
       await clientError;
     });
 
-    it("should be rejected on incoming bad NOTICE", async function() {
+    it("should be rejected on incoming bad NOTICE", async function () {
       const { client, clientError, emitAndEnd } = fakeConnection();
 
       const promise = whisper(client, "pajlada", "hello world");

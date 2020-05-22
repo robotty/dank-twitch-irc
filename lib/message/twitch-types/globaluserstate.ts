@@ -64,7 +64,7 @@ export class GlobaluserstateMessage extends IRCMessage
       displayName: this.displayName,
       emoteSets: this.emoteSets,
       emoteSetsRaw: this.emoteSetsRaw,
-      userID: this.userID
+      userID: this.userID,
     };
   }
 }

@@ -10,5 +10,5 @@ export function parseEmoteSets(emoteSetsSrc: string): TwitchEmoteSets {
     return [];
   }
 
-  return emoteSetsSrc.split(",").filter(str => str.length > 0);
+  return emoteSetsSrc.split(",").filter((str) => str.length > 0);
 }

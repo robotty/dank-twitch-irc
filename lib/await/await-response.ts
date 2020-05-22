@@ -63,7 +63,7 @@ const configDefaults = {
   success: alwaysFalse,
   failure: alwaysFalse,
   timeout: 2000,
-  noResponseAction: "failure"
+  noResponseAction: "failure",
 };
 
 export class ResponseAwaiter {
@@ -117,7 +117,7 @@ export class ResponseAwaiter {
   }
 
   private unsubscribe(): void {
-    this.unsubscribers.forEach(fn => fn());
+    this.unsubscribers.forEach((fn) => fn());
   }
 
   private resolve(msg: IRCMessage | undefined): void {
@@ -181,7 +181,7 @@ export class ResponseAwaiter {
       removedAwaiters.pop();
 
       // notify the other awaiters they were outpaced
-      removedAwaiters.forEach(awaiter => awaiter.outpaced());
+      removedAwaiters.forEach((awaiter) => awaiter.outpaced());
 
       // notify the new queue head to begin its timeout
       const newQueueHead = this.conn.pendingResponses[0];

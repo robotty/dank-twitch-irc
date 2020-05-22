@@ -61,14 +61,14 @@ export function parseIRCMessage(messageSrc: string): IRCMessage {
     ircPrefix = {
       nickname: undefined,
       username: undefined,
-      hostname: matches.groups!.hostname
+      hostname: matches.groups!.hostname,
     };
   } else if (matches.groups!.nickname != null) {
     // Variant 2: Nickname, username?, hostname?
     ircPrefix = {
       nickname: matches.groups!.nickname,
       username: matches.groups!.username,
-      hostname: matches.groups!.hostname2
+      hostname: matches.groups!.hostname2,
     };
   } else {
     ircPrefix = undefined;
@@ -90,6 +90,6 @@ export function parseIRCMessage(messageSrc: string): IRCMessage {
     ircPrefix,
     ircCommand,
     ircParameters,
-    ircTags
+    ircTags,
   });
 }

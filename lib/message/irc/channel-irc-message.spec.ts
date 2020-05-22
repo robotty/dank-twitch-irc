@@ -5,9 +5,9 @@ import { MissingDataError } from "../parser/missing-data-error";
 import { ParseError } from "../parser/parse-error";
 import { ChannelIRCMessage, getIRCChannelName } from "./channel-irc-message";
 
-describe("./message/irc/channel-irc-message", function() {
-  describe("#getIRCChannelName()", function() {
-    it("should return valid channel names, trimmed of the leading # character", function() {
+describe("./message/irc/channel-irc-message", function () {
+  describe("#getIRCChannelName()", function () {
+    it("should return valid channel names, trimmed of the leading # character", function () {
       assert.strictEqual(
         getIRCChannelName({ ircParameters: ["#pajlada"] }),
         "pajlada"
@@ -23,11 +23,11 @@ describe("./message/irc/channel-irc-message", function() {
       );
     });
 
-    it("should handle chatroom channel ID normally", function() {
+    it("should handle chatroom channel ID normally", function () {
       const ircParameters = [
         "#chatrooms:11148817:85c31777-b181-46ab-8e08-73e4ecd7a386",
         "more",
-        "arguments"
+        "arguments",
       ];
       assert.strictEqual(
         getIRCChannelName({ ircParameters }),
@@ -35,7 +35,7 @@ describe("./message/irc/channel-irc-message", function() {
       );
     });
 
-    it("should throw ParseError if no argument is present", function() {
+    it("should throw ParseError if no argument is present", function () {
       assertThrowsChain(
         () => getIRCChannelName({ ircParameters: [] }),
         MissingDataError,
@@ -43,7 +43,7 @@ describe("./message/irc/channel-irc-message", function() {
       );
     });
 
-    it("should throw ParseError on empty first argument", function() {
+    it("should throw ParseError on empty first argument", function () {
       assertThrowsChain(
         () => getIRCChannelName({ ircParameters: [""] }),
         ParseError,
@@ -51,7 +51,7 @@ describe("./message/irc/channel-irc-message", function() {
       );
     });
 
-    it("should throw ParseError if argument does not begin with a # character", function() {
+    it("should throw ParseError if argument does not begin with a # character", function () {
       assertThrowsChain(
         () => getIRCChannelName({ ircParameters: ["abc"] }),
         ParseError,
@@ -64,7 +64,7 @@ describe("./message/irc/channel-irc-message", function() {
       );
     });
 
-    it("should throw ParseError on standalone # character", function() {
+    it("should throw ParseError on standalone # character", function () {
       assertThrowsChain(
         () => getIRCChannelName({ ircParameters: ["#"] }),
         ParseError,
@@ -73,13 +73,13 @@ describe("./message/irc/channel-irc-message", function() {
     });
   });
 
-  describe("ChannelIRCMessage", function() {
-    it("should parse argument 0 into #channelName", function() {
+  describe("ChannelIRCMessage", function () {
+    it("should parse argument 0 into #channelName", function () {
       const msg = new ChannelIRCMessage(parseIRCMessage("PRIVMSG #pajlada"));
       assert.strictEqual(msg.channelName, "pajlada");
     });
 
-    it("should throw ParseError on error parsing the channel name", function() {
+    it("should throw ParseError on error parsing the channel name", function () {
       // some examples from above
       assertThrowsChain(
         () => new ChannelIRCMessage(parseIRCMessage("PRIVMSG #")),

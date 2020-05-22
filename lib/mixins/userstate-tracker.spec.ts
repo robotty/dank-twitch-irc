@@ -8,9 +8,9 @@ import { GlobaluserstateMessage } from "../message/twitch-types/globaluserstate"
 import { UserstateMessage } from "../message/twitch-types/userstate";
 import { UserStateTracker } from "./userstate-tracker";
 
-describe("./mixins/userstate-tracker", function() {
-  describe("UserstateTracker", function() {
-    it("should set client.userstateTracker on the client when applied", function() {
+describe("./mixins/userstate-tracker", function () {
+  describe("UserstateTracker", function () {
+    it("should set client.userstateTracker on the client when applied", function () {
       const { client } = fakeClient(false);
       const userStateTracker = new UserStateTracker(client);
 
@@ -21,7 +21,7 @@ describe("./mixins/userstate-tracker", function() {
       assert.strictEqual(client.userStateTracker, userStateTracker);
     });
 
-    it("should save incoming USERSTATE messages", async function() {
+    it("should save incoming USERSTATE messages", async function () {
       const { client, emitAndEnd } = fakeClient();
       const userStateTracker = new UserStateTracker(client);
 
@@ -50,7 +50,7 @@ describe("./mixins/userstate-tracker", function() {
       );
     });
 
-    it("should emit newChannelState on new USERSTATE", async function() {
+    it("should emit newChannelState on new USERSTATE", async function () {
       const { client, emitAndEnd } = fakeClient();
       const userStateTracker = new UserStateTracker(client);
       client.use(userStateTracker);
@@ -77,7 +77,7 @@ describe("./mixins/userstate-tracker", function() {
       );
     });
 
-    it("should save incoming GLOBALUSERSTATE messages", async function() {
+    it("should save incoming GLOBALUSERSTATE messages", async function () {
       const { client, emitAndEnd } = fakeClient();
       const userStateTracker = new UserStateTracker(client);
 
@@ -104,7 +104,7 @@ describe("./mixins/userstate-tracker", function() {
       assert.deepStrictEqual(userStateTracker.getGlobalState(), expectedState);
     });
 
-    it("should emit newGlobalState on new GLOBALUSERSTATE", async function() {
+    it("should emit newGlobalState on new GLOBALUSERSTATE", async function () {
       const { client, emitAndEnd } = fakeClient();
       const userStateTracker = new UserStateTracker(client);
       client.use(userStateTracker);
@@ -129,7 +129,7 @@ describe("./mixins/userstate-tracker", function() {
       );
     });
 
-    it("should update the userstate on PRIVMSG coming from the logged in user", async function() {
+    it("should update the userstate on PRIVMSG coming from the logged in user", async function () {
       const { client, emit, emitAndEnd } = fakeClient();
       client.configuration.username = "randers";
 
@@ -209,7 +209,7 @@ describe("./mixins/userstate-tracker", function() {
         [
           new TwitchBadge("broadcaster", "1"),
           new TwitchBadge("subscriber", "0"),
-          new TwitchBadge("glhf-pledge", "1")
+          new TwitchBadge("glhf-pledge", "1"),
         ]
       );
 

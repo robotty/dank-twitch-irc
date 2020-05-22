@@ -4,7 +4,7 @@ import { TwitchEmoteList } from "../emotes";
 import {
   IRCMessage,
   requireNickname,
-  requireParameter
+  requireParameter,
 } from "../irc/irc-message";
 import { tagParserFor } from "../parser/tag-values";
 

@@ -2,9 +2,9 @@ import { assert } from "chai";
 import { parseTwitchMessage } from "../../parser/twitch-message";
 import { JoinMessage } from "./join";
 
-describe("./message/twitch-types/membership/join", function() {
-  describe("JoinMessage", function() {
-    it("should be able to parse a real JOIN message", function() {
+describe("./message/twitch-types/membership/join", function () {
+  describe("JoinMessage", function () {
+    it("should be able to parse a real JOIN message", function () {
       const msg = parseTwitchMessage(
         ":justinfan11111!justinfan11111@justinfan11111.tmi.twitch.tv JOIN #pajlada"
       ) as JoinMessage;

@@ -43,7 +43,7 @@ export class SlowModeRateLimiter implements ClientMixin {
     applyReplacements(this, client, {
       say: genericReplament,
       me: genericReplament,
-      privmsg: genericReplament
+      privmsg: genericReplament,
     });
 
     if (client.roomStateTracker != null) {

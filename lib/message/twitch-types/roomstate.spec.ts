@@ -2,9 +2,9 @@ import { assert } from "chai";
 import { parseTwitchMessage } from "../parser/twitch-message";
 import { hasAllStateTags, RoomstateMessage } from "./roomstate";
 
-describe("./message/twitch-types/roomstate", function() {
-  describe("#hasAllStateTags()", function() {
-    it("should return true if all properties are present", function() {
+describe("./message/twitch-types/roomstate", function () {
+  describe("#hasAllStateTags()", function () {
+    it("should return true if all properties are present", function () {
       assert.isTrue(
         hasAllStateTags({
           emoteOnly: true,
@@ -20,12 +20,12 @@ describe("./message/twitch-types/roomstate", function() {
           slowModeDurationRaw: "0",
 
           subscribersOnly: false,
-          subscribersOnlyRaw: "0"
+          subscribersOnlyRaw: "0",
         })
       );
     });
 
-    it("should return false if one property is absent", function() {
+    it("should return false if one property is absent", function () {
       assert.isFalse(
         hasAllStateTags({
           followersOnlyDuration: -1,
@@ -38,7 +38,7 @@ describe("./message/twitch-types/roomstate", function() {
           slowModeDurationRaw: "0",
 
           subscribersOnly: false,
-          subscribersOnlyRaw: "0"
+          subscribersOnlyRaw: "0",
         })
       );
       assert.isFalse(
@@ -53,7 +53,7 @@ describe("./message/twitch-types/roomstate", function() {
           slowModeDurationRaw: "0",
 
           subscribersOnly: false,
-          subscribersOnlyRaw: "0"
+          subscribersOnlyRaw: "0",
         })
       );
       assert.isFalse(
@@ -68,7 +68,7 @@ describe("./message/twitch-types/roomstate", function() {
           slowModeDurationRaw: "0",
 
           subscribersOnly: false,
-          subscribersOnlyRaw: "0"
+          subscribersOnlyRaw: "0",
         })
       );
       assert.isFalse(
@@ -83,7 +83,7 @@ describe("./message/twitch-types/roomstate", function() {
           r9kRaw: "0",
 
           subscribersOnly: false,
-          subscribersOnlyRaw: "0"
+          subscribersOnlyRaw: "0",
         })
       );
       assert.isFalse(
@@ -98,47 +98,47 @@ describe("./message/twitch-types/roomstate", function() {
           r9kRaw: "0",
 
           slowModeDuration: 0,
-          slowModeDurationRaw: "0"
+          slowModeDurationRaw: "0",
         })
       );
     });
 
-    it("should return false if only one property is present", function() {
+    it("should return false if only one property is present", function () {
       assert.isFalse(
         hasAllStateTags({
           emoteOnly: true,
-          emoteOnlyRaw: "1"
+          emoteOnlyRaw: "1",
         })
       );
       assert.isFalse(
         hasAllStateTags({
           followersOnlyDuration: -1,
-          followersOnlyDurationRaw: "-1"
+          followersOnlyDurationRaw: "-1",
         })
       );
       assert.isFalse(
         hasAllStateTags({
           r9k: false,
-          r9kRaw: "0"
+          r9kRaw: "0",
         })
       );
       assert.isFalse(
         hasAllStateTags({
           slowModeDuration: 0,
-          slowModeDurationRaw: "0"
+          slowModeDurationRaw: "0",
         })
       );
       assert.isFalse(
         hasAllStateTags({
           subscribersOnly: false,
-          subscribersOnlyRaw: "0"
+          subscribersOnlyRaw: "0",
         })
       );
     });
   });
 
-  describe("RoomstateMessage", function() {
-    it("should be able to parse a fully-populated ROOMSTATE message", function() {
+  describe("RoomstateMessage", function () {
+    it("should be able to parse a fully-populated ROOMSTATE message", function () {
       const msgText =
         "@emote-only=0;followers-only=-1;r9k=0;rituals=0;room-id=40286300;" +
         "slow=0;subs-only=0 :tmi.twitch.tv ROOMSTATE #randers";
@@ -180,13 +180,13 @@ describe("./message/twitch-types/roomstate", function() {
         slowModeDurationRaw: "0",
 
         subscribersOnly: false,
-        subscribersOnlyRaw: "0"
+        subscribersOnlyRaw: "0",
       });
 
       assert.isTrue(hasAllStateTags(msg.extractRoomState()));
     });
 
-    it("should be able to parse a single property change ROOMSTATE message", function() {
+    it("should be able to parse a single property change ROOMSTATE message", function () {
       const msgText =
         "@emote-only=1;room-id=40286300 :tmi.twitch.tv ROOMSTATE #randers";
 
@@ -212,7 +212,7 @@ describe("./message/twitch-types/roomstate", function() {
 
       assert.deepStrictEqual(msg.extractRoomState(), {
         emoteOnly: true,
-        emoteOnlyRaw: "1"
+        emoteOnlyRaw: "1",
       });
 
       assert.isFalse(hasAllStateTags(msg.extractRoomState()));

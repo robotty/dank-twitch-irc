@@ -16,7 +16,7 @@ export interface ClientPingConfig {
 
 const configDefaults: ClientPingConfig = {
   interval: 60 * 1000,
-  timeout: 2 * 1000
+  timeout: 2 * 1000,
 };
 
 export function sendClientPings(

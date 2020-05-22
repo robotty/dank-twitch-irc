@@ -6,7 +6,7 @@ const decodeMap: Record<string, string> = {
   "\\s": " ",
   "\\n": "\n",
   "\\r": "\r",
-  "\\": "" // remove invalid backslashes
+  "\\": "", // remove invalid backslashes
 };
 
 const decodeLookupRegex = /\\\\|\\:|\\s|\\n|\\r|\\/g;
@@ -16,7 +16,7 @@ export function decodeValue(value: string | undefined): string | null {
   if (value == null) {
     return null;
   }
-  return value.replace(decodeLookupRegex, m => decodeMap[m] || "");
+  return value.replace(decodeLookupRegex, (m) => decodeMap[m] || "");
 }
 
 export function parseTags(tagsSrc: string | undefined): IRCMessageTags {

@@ -123,6 +123,6 @@ export function tagParserFor(ircTags: IRCMessageTags): TagValueParser {
       requireData(ircTags, key, convertToEmotes, messageText),
     getEmoteSets: (key: string) => getData(ircTags, key, convertToEmoteSets),
     requireEmoteSets: (key: string) =>
-      requireData(ircTags, key, convertToEmoteSets)
+      requireData(ircTags, key, convertToEmoteSets),
   };
 }

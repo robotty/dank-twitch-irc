@@ -46,13 +46,13 @@ const { ChatClient } = require("dank-twitch-irc");
 let client = new ChatClient();
 
 client.on("ready", () => console.log("Successfully connected to chat"));
-client.on("close", error => {
+client.on("close", (error) => {
   if (error != null) {
     console.error("Client closed due to error", error);
   }
 });
 
-client.on("PRIVMSG", msg => {
+client.on("PRIVMSG", (msg) => {
   console.log(`[#${msg.channelName}] ${msg.displayName}: ${msg.messageText}`);
 });
 
@@ -93,7 +93,7 @@ client.join("forsen");
   For example:
 
   ```javascript
-  client.on("CLEARCHAT", msg => {
+  client.on("CLEARCHAT", (msg) => {
     if (msg.isTimeout()) {
       console.log(
         `${msg.targetUsername} just got timed out for ` +
@@ -156,7 +156,9 @@ listed above) will still be emitted under their command name as an
 ```javascript
 // :tmi.twitch.tv 372 botfactory :You are in a maze of twisty passages, all alike.
 // msg will be an instance of IRCMessage
-client.on("372", msg => console.log(`Server MOTD is: ${msg.ircParameters[1]}`));
+client.on("372", (msg) =>
+  console.log(`Server MOTD is: ${msg.ircParameters[1]}`)
+);
 ```
 
 ## Handling `USERNOTICE` messages
@@ -193,7 +195,7 @@ When a user subscribes or resubscribes with his own money/prime (this is NOT
 sent for gift subs, see below)
 
 ```javascript
-chatClient.on("USERNOTICE", msg => {
+chatClient.on("USERNOTICE", (msg) => {
   // sub and resub messages have the same parameters, so we can handle them both the same way
   if (!msg.isSub() && !msg.isResub()) {
     return;
@@ -279,7 +281,7 @@ Twitch says:
 > in the community.)
 
 ```javascript
-chatClient.on("USERNOTICE", msg => {
+chatClient.on("USERNOTICE", (msg) => {
   if (!msg.isRaid()) {
     return;
   }
@@ -317,7 +319,7 @@ chatClient.on("USERNOTICE", msg => {
 When a user gifts somebody else a subscription.
 
 ```javascript
-chatClient.on("USERNOTICE", msg => {
+chatClient.on("USERNOTICE", (msg) => {
   if (!msg.isSubgift()) {
     return;
   }
@@ -381,7 +383,7 @@ chatClient.on("USERNOTICE", msg => {
 When an anonymous user gifts a subscription to a viewer.
 
 ```javascript
-chatClient.on("USERNOTICE", msg => {
+chatClient.on("USERNOTICE", (msg) => {
   if (!msg.isAnonSubgift()) {
     return;
   }
@@ -440,7 +442,7 @@ When a user commits to continue the gift sub by another user (or an anonymous
 gifter).
 
 ```javascript
-chatClient.on("USERNOTICE", msg => {
+chatClient.on("USERNOTICE", (msg) => {
   if (!msg.isAnonGiftPaidUpgrade()) {
     return;
   }
@@ -470,7 +472,7 @@ chatClient.on("USERNOTICE", msg => {
 ```
 
 ```javascript
-chatClient.on("USERNOTICE", msg => {
+chatClient.on("USERNOTICE", (msg) => {
   if (!msg.isGiftPaidUpgrade()) {
     return;
   }
@@ -516,7 +518,7 @@ Channel ritual. Twitch says:
 > for the first time).
 
 ```javascript
-chatClient.on("USERNOTICE", msg => {
+chatClient.on("USERNOTICE", (msg) => {
   if (!msg.isRitual()) {
     return;
   }
@@ -551,7 +553,7 @@ just cheered more than/exactly 10000 bits in total, and just earned themselves
 the 10k bits badge)
 
 ```javascript
-chatClient.on("USERNOTICE", msg => {
+chatClient.on("USERNOTICE", (msg) => {
   if (!msg.isBitsBadgeTier()) {
     return;
   }
@@ -642,7 +644,7 @@ For most bots, you only need to set `username` and `password`:
 ```javascript
 let client = new ChatClient({
   username: "your-bot-username",
-  password: "0123456789abcdef1234567"
+  password: "0123456789abcdef1234567",
 });
 ```
 
@@ -663,7 +665,7 @@ let client = new ChatClient({
   // or:
   rateLimits: {
     highPrivmsgLimits: 100,
-    lowPrivmsgLimits: 20
+    lowPrivmsgLimits: 20,
   },
 
   // Configuration options for the backing connections:
@@ -673,17 +675,17 @@ let client = new ChatClient({
     secure: false, // true by default
     // host and port must both be specified at once
     host: "custom-chat-server.com", // irc.chat.twitch.tv by default
-    port: 1234 // 6697/6667 by default, depending on the "secure" setting
+    port: 1234, // 6697/6667 by default, depending on the "secure" setting
   },
   // or:
   connection: {
     type: "websocket",
-    secure: true // use preset URL of irc-ws.chat.twitch.tv
+    secure: true, // use preset URL of irc-ws.chat.twitch.tv
   },
   // or:
   connection: {
     type: "websocket",
-    url: "wss://custom-url.com/abc/def" // custom URL
+    url: "wss://custom-url.com/abc/def", // custom URL
   },
   // or:
   connection: {
@@ -692,7 +694,7 @@ let client = new ChatClient({
     // implementing the Duplex interface from Node.js
     // the function you specify is called for each new connection
 
-    preSetup: true // false by default, makes the lib skip login
+    preSetup: true, // false by default, makes the lib skip login
     // and capabilities negotiation on connection startup
   },
 
@@ -703,7 +705,7 @@ let client = new ChatClient({
   connectionRateLimits: {
     parallelConnections: 5, // 1 by default
     // time to wait after each connection before a new connection can begin
-    releaseTime: 1000 // in milliseconds, 2 seconds by default
+    releaseTime: 1000, // in milliseconds, 2 seconds by default
   },
 
   // I recommend you leave this off by default, it makes your bot faster
@@ -722,7 +724,7 @@ let client = new ChatClient({
   // With this option enabled, the returned promises will still be rejected/
   // resolved as without this option, this option ONLY silences the
   // UnhandledPromiseRejectionWarning.
-  ignoreUnhandledPromiseRejections: true // false by default
+  ignoreUnhandledPromiseRejections: true, // false by default
 });
 ```
 

@@ -22,16 +22,16 @@ export function awaitJoinResponse(
   channelName: string
 ): Promise<JoinMessage> {
   return awaitResponse(conn, {
-    success: msg =>
+    success: (msg) =>
       msg instanceof JoinMessage &&
       msg.channelName === channelName &&
       msg.joinedUsername === conn.configuration.username,
-    failure: msg =>
+    failure: (msg) =>
       msg instanceof NoticeMessage &&
       msg.channelName === channelName &&
       msg.messageID === "msg_channel_suspended",
     errorType: (m, e) => new JoinError(channelName, m, e),
-    errorMessage: `Failed to join channel ${channelName}`
+    errorMessage: `Failed to join channel ${channelName}`,
   }) as Promise<JoinMessage>;
 }
 

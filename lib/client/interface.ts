@@ -7,7 +7,7 @@ export enum ClientState {
   CONNECTING,
   CONNECTED,
   READY,
-  CLOSED
+  CLOSED,
 }
 
 export interface ClientStateChangeEvent {

@@ -4,9 +4,9 @@ import { TwitchBadgesList } from "../badges";
 import { parseTwitchMessage } from "../parser/twitch-message";
 import { GlobaluserstateMessage } from "./globaluserstate";
 
-describe("./message/twitch-types/globaluserstate", function() {
-  describe("GlobaluserstateMessage", function() {
-    it("should be able to parse a real extensive GLOBALUSERSTATE message from twitch", function() {
+describe("./message/twitch-types/globaluserstate", function () {
+  describe("GlobaluserstateMessage", function () {
+    it("should be able to parse a real extensive GLOBALUSERSTATE message from twitch", function () {
       const msgText =
         "@badge-info=;badges=bits-charity/1;color=#19E6E6;display-name=RANDERS;" +
         "emote-sets=0,42,237,1564,1627,1937,2344,2470,4236,14417,15961,19194,198648,241281," +
@@ -58,7 +58,7 @@ describe("./message/twitch-types/globaluserstate", function() {
         "1641460",
         "1641461",
         "1641462",
-        "300206295"
+        "300206295",
       ]);
       assert.strictEqual(
         msg.emoteSetsRaw,
@@ -105,17 +105,17 @@ describe("./message/twitch-types/globaluserstate", function() {
           "1641460",
           "1641461",
           "1641462",
-          "300206295"
+          "300206295",
         ],
         emoteSetsRaw:
           "0,42,237,1564,1627,1937,2344,2470,4236,14417,15961,19194,198648," +
           "241281,445556,520063,771848,905510,1056965,1537462,1598955,1641460,1641461,1641462,300206295",
 
-        userID: "40286300"
+        userID: "40286300",
       });
     });
 
-    it("should be able to parse a real minimal GLOBALUSERSTATE message from twitch", function() {
+    it("should be able to parse a real minimal GLOBALUSERSTATE message from twitch", function () {
       const msgText =
         "@badge-info=;badges=;color=;display-name=receivertest3;emote-sets=0;user-id=422021310;" +
         "user-type= :tmi.twitch.tv GLOBALUSERSTATE";
@@ -157,7 +157,7 @@ describe("./message/twitch-types/globaluserstate", function() {
         emoteSets: ["0"],
         emoteSetsRaw: "0",
 
-        userID: "422021310"
+        userID: "422021310",
       });
     });
   });

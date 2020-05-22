@@ -1,8 +1,8 @@
 import { assert } from "chai";
 import { removeInPlace } from "./remove-in-place";
 
-describe("./utils/remove-in-place", function() {
-  describe("#removeInPlace()", function() {
+describe("./utils/remove-in-place", function () {
+  describe("#removeInPlace()", function () {
     it("empty array", () => {
       const arr: number[] = [];
       removeInPlace(arr, 1);

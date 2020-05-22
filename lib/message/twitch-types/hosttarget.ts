@@ -65,7 +65,7 @@ export function parseHosttargetParameter(
 
   return {
     hostedChannelName: parseHostedChannelName(rawHostedChannelName),
-    viewerCount: parseViewerCount(rawViewerCount)
+    viewerCount: parseViewerCount(rawViewerCount),
   };
 }
 

@@ -7,25 +7,25 @@ import { joinAll } from "./join-all";
 
 function successResponsesForChannelChunk(channels: string[]): string[] {
   return channels.map(
-    ch =>
+    (ch) =>
       `:justinfan12345!justinfan12345@justinfan12345.tmi.twitch.tv JOIN #${ch}`
   );
 }
 
-describe("./operations/join-all", function() {
-  describe("#joinAll()", function() {
-    it("should send the correct wire command for a single chunk", function() {
+describe("./operations/join-all", function () {
+  describe("#joinAll()", function () {
+    it("should send the correct wire command for a single chunk", function () {
       sinon.useFakeTimers();
       const { client, data } = fakeConnection();
 
       joinAll(client, ["pajlada", "randers", "nymn_hs", "forsen"]);
 
       assert.deepStrictEqual(data, [
-        "JOIN #pajlada,#randers,#nymn_hs,#forsen\r\n"
+        "JOIN #pajlada,#randers,#nymn_hs,#forsen\r\n",
       ]);
     });
 
-    it("should send the correct wire command for a multiple chunks", async function() {
+    it("should send the correct wire command for a multiple chunks", async function () {
       const { client, clientError, emitAndEnd, emit, data } = fakeConnection();
 
       const firstChunkChannels = [
@@ -371,7 +371,7 @@ describe("./operations/join-all", function() {
         "akonel89",
         "akretsch10",
         "akse1234",
-        "akselmaron"
+        "akselmaron",
       ];
 
       const secondChunkChannels = ["pajlada", "nymn_hs", "forsen"];
@@ -382,7 +382,7 @@ describe("./operations/join-all", function() {
 
       // method sends first chunk...
       assert.deepStrictEqual(data, [
-        "JOIN #" + firstChunkChannels.join(",#") + "\r\n"
+        "JOIN #" + firstChunkChannels.join(",#") + "\r\n",
       ]);
 
       // then awaits all responses/failures for that chunk...
@@ -390,11 +390,11 @@ describe("./operations/join-all", function() {
       emit(...successResponsesForChannelChunk(firstChunkChannels));
 
       // wait for promised to be settled in the response handling
-      await new Promise(resolve => setImmediate(resolve));
+      await new Promise((resolve) => setImmediate(resolve));
 
       assert.deepStrictEqual(data, [
         "JOIN #" + firstChunkChannels.join(",#") + "\r\n",
-        "JOIN #pajlada,#nymn_hs,#forsen\r\n"
+        "JOIN #pajlada,#nymn_hs,#forsen\r\n",
       ]);
 
       // leave out nymn_hs so nymn_hs should have an error (outpaced)

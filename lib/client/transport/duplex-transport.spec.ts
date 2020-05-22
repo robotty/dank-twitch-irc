@@ -4,16 +4,16 @@ import { Duplex } from "stream";
 import { ExpandedDuplexTransportConfiguration } from "../../config/expanded";
 import { DuplexTransport } from "./duplex-transport";
 
-describe("./client/transport/duplex-transport", function() {
-  describe("DuplexTransport", function() {
-    it("should call the stream-getter function from the config once", function() {
+describe("./client/transport/duplex-transport", function () {
+  describe("DuplexTransport", function () {
+    it("should call the stream-getter function from the config once", function () {
       const stream = new Duplex();
 
       const streamGetter = sinon.fake.returns(stream);
       const config: ExpandedDuplexTransportConfiguration = {
         type: "duplex",
         stream: streamGetter,
-        preSetup: false
+        preSetup: false,
       };
 
       const transport = new DuplexTransport(config);

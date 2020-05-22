@@ -16,7 +16,7 @@ export class SetColorError extends MessageError {
 
 const badNoticeIDs = [
   "turbo_only_color", // Only turbo users can specify an arbitrary hex color. Use one of the following instead: <list of colors>.
-  "usage_color" // Usage: “/color” <color> - Change your username color. Color must be in hex (#000000) [...]
+  "usage_color", // Usage: “/color” <color> - Change your username color. Color must be in hex (#000000) [...]
 ];
 
 export async function setColor(
@@ -27,15 +27,15 @@ export async function setColor(
   sendPrivmsg(conn, conn.configuration.username, `/color ${colorAsHex}`);
 
   await awaitResponse(conn, {
-    failure: msg =>
+    failure: (msg) =>
       msg instanceof NoticeMessage &&
       msg.channelName === conn.configuration.username &&
       badNoticeIDs.includes(msg.messageID!),
-    success: msg =>
+    success: (msg) =>
       msg instanceof NoticeMessage &&
       msg.channelName === conn.configuration.username &&
       msg.messageID === "color_changed",
     errorType: (msg, cause) => new SetColorError(color, msg, cause),
-    errorMessage: `Failed to set color to ${colorAsHex}`
+    errorMessage: `Failed to set color to ${colorAsHex}`,
   });
 }

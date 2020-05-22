@@ -5,9 +5,9 @@ import { ClientError, ConnectionError } from "../client/errors";
 import { assertErrorChain, fakeConnection } from "../helpers.spec";
 import { PingTimeoutError, sendPing } from "./ping";
 
-describe("./operations/ping", function() {
-  describe("#sendPing()", function() {
-    it("should send the correct wire command if ping identifier is specified", function() {
+describe("./operations/ping", function () {
+  describe("#sendPing()", function () {
+    it("should send the correct wire command if ping identifier is specified", function () {
       sinon.useFakeTimers(); // prevent the promise timing out
       const { data, client } = fakeConnection();
 
@@ -16,7 +16,7 @@ describe("./operations/ping", function() {
       assert.deepStrictEqual(data, ["PING :some identifier\r\n"]);
     });
 
-    it("should send a random ping identifier if no ping identifier is specified", function() {
+    it("should send a random ping identifier if no ping identifier is specified", function () {
       sinon.useFakeTimers(); // prevent the promise timing out
       const { data, client } = fakeConnection();
 
@@ -26,7 +26,7 @@ describe("./operations/ping", function() {
       assert.match(data[0], /^PING :dank-twitch-irc:manual:[0-9a-f]{32}\r\n$/);
     });
 
-    it("should resolve on matching PONG", async function() {
+    it("should resolve on matching PONG", async function () {
       const { client, emitAndEnd, clientError } = fakeConnection();
 
       const promise = sendPing(client, "some identifier");
@@ -39,7 +39,7 @@ describe("./operations/ping", function() {
       await clientError;
     });
 
-    it("should reject on timeout of 2000 milliseconds by default", async function() {
+    it("should reject on timeout of 2000 milliseconds by default", async function () {
       sinon.useFakeTimers();
       const { client, clientError } = fakeConnection();
 
@@ -65,11 +65,11 @@ describe("./operations/ping", function() {
     });
   });
 
-  describe("PingTimeoutError", function() {
-    it("should be instanceof ConnectionError", function() {
+  describe("PingTimeoutError", function () {
+    it("should be instanceof ConnectionError", function () {
       assert.instanceOf(new PingTimeoutError(), ConnectionError);
     });
-    it("should not be instanceof ClientError", function() {
+    it("should not be instanceof ClientError", function () {
       assert.notInstanceOf(new PingTimeoutError(), ClientError);
     });
   });

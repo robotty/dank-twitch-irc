@@ -3,30 +3,30 @@ import { assertThrowsChain } from "../../helpers.spec";
 import { parseIntThrowing } from "./common";
 import { ParseError } from "./parse-error";
 
-describe("./message/parser/common", function() {
-  describe("#parseIntThrowing()", function() {
-    it("should fail on undefined", function() {
+describe("./message/parser/common", function () {
+  describe("#parseIntThrowing()", function () {
+    it("should fail on undefined", function () {
       assertThrowsChain(
         () => parseIntThrowing(undefined),
         ParseError,
         "String source for integer is null/undefined"
       );
     });
-    it("should fail on null", function() {
+    it("should fail on null", function () {
       assertThrowsChain(
         () => parseIntThrowing(null),
         ParseError,
         "String source for integer is null/undefined"
       );
     });
-    it("should fail on non-number string input", function() {
+    it("should fail on non-number string input", function () {
       assertThrowsChain(
         () => parseIntThrowing("xd"),
         ParseError,
         'Invalid integer for string "xd"'
       );
     });
-    it("should parse integers normally", function() {
+    it("should parse integers normally", function () {
       assert.strictEqual(parseIntThrowing("0"), 0);
       assert.strictEqual(parseIntThrowing("1"), 1);
       assert.strictEqual(parseIntThrowing("1.0"), 1);

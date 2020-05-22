@@ -12,7 +12,7 @@ export type PresetKeys = "default" | "knownBot" | "verifiedBot";
 export const messageRateLimitPresets: Record<PresetKeys, MessageRateLimits> = {
   default: {
     highPrivmsgLimits: 100,
-    lowPrivmsgLimits: 20
+    lowPrivmsgLimits: 20,
 
     // whispersPerSecond: 3,
     // whispersPerMinute: 100,
@@ -20,7 +20,7 @@ export const messageRateLimitPresets: Record<PresetKeys, MessageRateLimits> = {
   },
   knownBot: {
     highPrivmsgLimits: 100,
-    lowPrivmsgLimits: 50
+    lowPrivmsgLimits: 50,
 
     // whispersPerSecond: 10,
     // whispersPerMinute: 200,
@@ -28,10 +28,10 @@ export const messageRateLimitPresets: Record<PresetKeys, MessageRateLimits> = {
   },
   verifiedBot: {
     highPrivmsgLimits: 7500,
-    lowPrivmsgLimits: 7500
+    lowPrivmsgLimits: 7500,
 
     // whispersPerSecond: 20,
     // whispersPerMinute: 1200,
     // whisperTargetsPerDay: 100000
-  }
+  },
 };

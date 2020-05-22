@@ -76,7 +76,7 @@ export const commandClassMap: {
   RECONNECT: ReconnectMessage,
   PING: PingMessage,
   PONG: PongMessage,
-  CAP: CapMessage
+  CAP: CapMessage,
 } as const;
 
 export type TwitchCommands = typeof commandClassMap;

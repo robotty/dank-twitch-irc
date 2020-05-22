@@ -4,7 +4,7 @@ import { ChatClient } from "../client/client";
 import {
   hasAllStateTags,
   RoomState,
-  RoomstateMessage
+  RoomstateMessage,
 } from "../message/twitch-types/roomstate";
 import { ClientMixin } from "./base-mixin";
 

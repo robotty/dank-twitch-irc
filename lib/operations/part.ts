@@ -22,12 +22,12 @@ export async function awaitPartResponse(
 ): Promise<PartMessage> {
   return awaitResponse(conn, {
     // :justinfan12345!justinfan12345@justinfan12345.tmi.twitch.tv PART #pajlada
-    success: msg =>
+    success: (msg) =>
       msg instanceof PartMessage &&
       msg.channelName === channelName &&
       msg.partedUsername === conn.configuration.username,
     errorType: (m, e) => new PartError(channelName, m, e),
-    errorMessage: `Failed to part channel ${channelName}`
+    errorMessage: `Failed to part channel ${channelName}`,
   }) as Promise<PartMessage>;
 }
 

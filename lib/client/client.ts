@@ -32,11 +32,11 @@ const alwaysTrue = (): true => true as const;
 
 export class ChatClient extends BaseClient {
   public get wantedChannels(): Set<string> {
-    return unionSets(this.connections.map(c => c.wantedChannels));
+    return unionSets(this.connections.map((c) => c.wantedChannels));
   }
 
   public get joinedChannels(): Set<string> {
-    return unionSets(this.connections.map(c => c.joinedChannels));
+    return unionSets(this.connections.map((c) => c.joinedChannels));
   }
 
   public roomStateTracker?: RoomStateTracker;
@@ -60,17 +60,17 @@ export class ChatClient extends BaseClient {
       this.use(new IgnoreUnhandledPromiseRejectionsMixin());
     }
 
-    this.on("error", error => {
+    this.on("error", (error) => {
       if (anyCauseInstanceof(error, ClientError)) {
         process.nextTick(() => {
           this.emitClosed(error);
-          this.connections.forEach(conn => conn.destroy(error));
+          this.connections.forEach((conn) => conn.destroy(error));
         });
       }
     });
 
     this.on("close", () => {
-      this.connections.forEach(conn => conn.close());
+      this.connections.forEach((conn) => conn.close());
     });
   }
 
@@ -107,7 +107,7 @@ export class ChatClient extends BaseClient {
   public async join(channelName: string): Promise<void> {
     validateChannelName(channelName);
 
-    if (this.connections.some(c => joinNothingToDo(c, channelName))) {
+    if (this.connections.some((c) => joinNothingToDo(c, channelName))) {
       // are we joined already?
       return;
     }
@@ -121,12 +121,14 @@ export class ChatClient extends BaseClient {
   public async part(channelName: string): Promise<void> {
     validateChannelName(channelName);
 
-    if (this.connections.every(c => partNothingToDo(c, channelName))) {
+    if (this.connections.every((c) => partNothingToDo(c, channelName))) {
       // are we parted already?
       return;
     }
 
-    const conn = this.requireConnection(c => !partNothingToDo(c, channelName));
+    const conn = this.requireConnection(
+      (c) => !partNothingToDo(c, channelName)
+    );
     await partChannel(conn, channelName);
   }
 
@@ -136,8 +138,8 @@ export class ChatClient extends BaseClient {
     channelNames.forEach(validateChannelName);
 
     const needToJoin: string[] = channelNames.filter(
-      channelName =>
-        !this.connections.some(c => joinNothingToDo(c, channelName))
+      (channelName) =>
+        !this.connections.some((c) => joinNothingToDo(c, channelName))
     );
 
     const promises: Promise<Record<string, Error | undefined>>[] = [];
@@ -224,8 +226,8 @@ export class ChatClient extends BaseClient {
     conn.on("connecting", () => this.emitConnecting());
     conn.on("connect", () => this.emitConnected());
     conn.on("ready", () => this.emitReady());
-    conn.on("error", error => this.emitError(error));
-    conn.on("close", hadError => {
+    conn.on("error", (error) => this.emitError(error));
+    conn.on("close", (hadError) => {
       if (hadError) {
         log.warn(`Connection ${conn.connectionID} was closed due to error`);
       } else {
@@ -244,7 +246,7 @@ export class ChatClient extends BaseClient {
     });
 
     // forward events to this client
-    conn.on("message", message => {
+    conn.on("message", (message) => {
       // only forward whispers from the currently active whisper connection
       if (message.ircCommand === "WHISPER") {
         if (this.activeWhisperConn == null) {
@@ -302,11 +304,11 @@ export class ChatClient extends BaseClient {
 }
 
 function maxJoinedChannels(maxChannelCount: number): ConnectionPredicate {
-  return conn => conn.wantedChannels.size < maxChannelCount;
+  return (conn) => conn.wantedChannels.size < maxChannelCount;
 }
 
 function mustNotBeJoined(channelName: string): ConnectionPredicate {
-  return conn =>
+  return (conn) =>
     !conn.wantedChannels.has(channelName) &&
     !conn.joinedChannels.has(channelName);
 }

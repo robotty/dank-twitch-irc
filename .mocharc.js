@@ -3,5 +3,5 @@ module.exports = {
   reporter: "mochawesome",
   recursive: true,
   spec: "lib/**/*.spec.ts",
-  extension: [".spec.ts"]
+  extension: [".spec.ts"],
 };

@@ -49,6 +49,6 @@ export function canSpamFast(
       userState.badges.hasVIP ||
       userState.badges.hasModerator ||
       userState.badges.hasBroadcaster,
-    certain: true
+    certain: true,
   };
 }

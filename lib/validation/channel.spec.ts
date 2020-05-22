@@ -2,9 +2,9 @@ import { assertThrowsChain } from "../helpers.spec";
 import { validateChannelName } from "./channel";
 import { ValidationError } from "./validation-error";
 
-describe("./validation/channel", function() {
-  describe("#validateChannelName()", function() {
-    it("rejects undefined", function() {
+describe("./validation/channel", function () {
+  describe("#validateChannelName()", function () {
+    it("rejects undefined", function () {
       assertThrowsChain(
         () => validateChannelName(undefined),
         ValidationError,
@@ -12,7 +12,7 @@ describe("./validation/channel", function() {
       );
     });
 
-    it("rejects null", function() {
+    it("rejects null", function () {
       assertThrowsChain(
         () => validateChannelName(null),
         ValidationError,
@@ -20,7 +20,7 @@ describe("./validation/channel", function() {
       );
     });
 
-    it("rejects empty strings", function() {
+    it("rejects empty strings", function () {
       assertThrowsChain(
         () => validateChannelName(""),
         ValidationError,
@@ -28,21 +28,21 @@ describe("./validation/channel", function() {
       );
     });
 
-    it("allows single letters", function() {
+    it("allows single letters", function () {
       validateChannelName("a");
       validateChannelName("b");
       validateChannelName("x");
       validateChannelName("z");
     });
 
-    it("allows underscores", function() {
+    it("allows underscores", function () {
       validateChannelName("a_b");
       validateChannelName("b___c");
       validateChannelName("lack_of_sanity");
       validateChannelName("just__get__a__house");
     });
 
-    it("rejects uppercase letters", function() {
+    it("rejects uppercase letters", function () {
       assertThrowsChain(
         () => validateChannelName("Pajlada"),
         ValidationError,
@@ -50,11 +50,11 @@ describe("./validation/channel", function() {
       );
     });
 
-    describe("allows chatroom channel names", function() {
-      it("allows ID 0", function() {
+    describe("allows chatroom channel names", function () {
+      it("allows ID 0", function () {
         validateChannelName("chatrooms:0:85c31777-b181-46ab-8e08-73e4ecd7a386");
       });
-      it("doesn't allow no user ID", function() {
+      it("doesn't allow no user ID", function () {
         assertThrowsChain(
           () =>
             validateChannelName(
@@ -65,15 +65,15 @@ describe("./validation/channel", function() {
             "is invalid/malformed"
         );
       });
-      it("allows ID 123", function() {
+      it("allows ID 123", function () {
         validateChannelName("chatrooms:1:85c31777-b181-46ab-8e08-73e4ecd7a386");
       });
-      it("allows random normal ID from a real user", function() {
+      it("allows random normal ID from a real user", function () {
         validateChannelName(
           "chatrooms:11148817:85c31777-b181-46ab-8e08-73e4ecd7a386"
         );
       });
-      it("allows different UUIDs", function() {
+      it("allows different UUIDs", function () {
         validateChannelName(
           "chatrooms:11148817:7ca40445-41f9-4151-a6ac-76188d1ec3ac"
         );
@@ -105,12 +105,12 @@ describe("./validation/channel", function() {
           "chatrooms:11148817:0be13de5-812a-41a3-b124-6736f1fd65c0"
         );
       });
-      it("allows maximum 64 bit integer user ID", function() {
+      it("allows maximum 64 bit integer user ID", function () {
         validateChannelName(
           "chatrooms:9223372036854775807:85c31777-b181-46ab-8e08-73e4ecd7a386"
         );
       });
-      it('doesn\'t allow capizalization in "chatrooms"', function() {
+      it('doesn\'t allow capizalization in "chatrooms"', function () {
         assertThrowsChain(
           () =>
             validateChannelName(
@@ -121,7 +121,7 @@ describe("./validation/channel", function() {
             "is invalid/malformed"
         );
       });
-      it("doesn't allow capizalization in the UUID", function() {
+      it("doesn't allow capizalization in the UUID", function () {
         assertThrowsChain(
           () =>
             validateChannelName(
@@ -132,7 +132,7 @@ describe("./validation/channel", function() {
             "is invalid/malformed"
         );
       });
-      it("doesn't allow non-hex characters in the UUID", function() {
+      it("doesn't allow non-hex characters in the UUID", function () {
         assertThrowsChain(
           () =>
             validateChannelName(
@@ -143,7 +143,7 @@ describe("./validation/channel", function() {
             "is invalid/malformed"
         );
       });
-      it("doesn't allow non-dashes in the UUID", function() {
+      it("doesn't allow non-dashes in the UUID", function () {
         assertThrowsChain(
           () =>
             validateChannelName(
@@ -154,7 +154,7 @@ describe("./validation/channel", function() {
             "is invalid/malformed"
         );
       });
-      it("doesn't allow partial matches", function() {
+      it("doesn't allow partial matches", function () {
         assertThrowsChain(
           () =>
             validateChannelName(

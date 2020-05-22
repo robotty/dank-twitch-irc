@@ -2,9 +2,9 @@ import { assert } from "chai";
 import { parseTwitchMessage } from "../parser/twitch-message";
 import { ClearmsgMessage } from "./clearmsg";
 
-describe("./message/twitch-types/clearmsg", function() {
-  describe("ClearmsgMessage", function() {
-    it("should be able to parse a real CLEARMSG message from twitch", function() {
+describe("./message/twitch-types/clearmsg", function () {
+  describe("ClearmsgMessage", function () {
+    it("should be able to parse a real CLEARMSG message from twitch", function () {
       const msgText =
         "@login=supibot;room-id=;target-msg-id=25fd76d9-4731-4907-978e-a391134ebd67;" +
         "tmi-sent-ts=-6795364578871 :tmi.twitch.tv CLEARMSG #randers :Pong! Uptime: 6h, " +

@@ -7,12 +7,12 @@ import {
   acknowledgesCapabilities,
   CapabilitiesError,
   deniedAnyCapability,
-  requestCapabilities
+  requestCapabilities,
 } from "./request-capabilities";
 
-describe("./operations/request-capabilities", function() {
-  describe("#acknowledgesCapabilities()", function() {
-    it("should only return true if given capabilities are a subset of requested capabilities", function() {
+describe("./operations/request-capabilities", function () {
+  describe("#acknowledgesCapabilities()", function () {
+    it("should only return true if given capabilities are a subset of requested capabilities", function () {
       assert.isTrue(
         acknowledgesCapabilities(["a", "b", "c"])(
           parseTwitchMessage("CAP * ACK :a b c d")
@@ -32,7 +32,7 @@ describe("./operations/request-capabilities", function() {
       );
     });
 
-    it("should only consider the ACK subcommand", function() {
+    it("should only consider the ACK subcommand", function () {
       assert.isFalse(
         acknowledgesCapabilities(["a", "b", "c"])(
           parseTwitchMessage("CAP * DEF :a b c")
@@ -41,8 +41,8 @@ describe("./operations/request-capabilities", function() {
     });
   });
 
-  describe("#deniedAnyCapability()", function() {
-    it("should return true if any given capability is rejected", function() {
+  describe("#deniedAnyCapability()", function () {
+    it("should return true if any given capability is rejected", function () {
       assert.isTrue(
         deniedAnyCapability(["a", "b", "c"])(
           parseTwitchMessage("CAP * NAK :a b c")
@@ -62,7 +62,7 @@ describe("./operations/request-capabilities", function() {
       );
     });
 
-    it("should only consider the NAK subcommand", function() {
+    it("should only consider the NAK subcommand", function () {
       assert.isFalse(
         acknowledgesCapabilities(["a", "b", "c"])(
           parseTwitchMessage("CAP * DEF :a")
@@ -71,8 +71,8 @@ describe("./operations/request-capabilities", function() {
     });
   });
 
-  describe("#requestCapabilities()", function() {
-    it("should send the correct wire command", function() {
+  describe("#requestCapabilities()", function () {
+    it("should send the correct wire command", function () {
       sinon.useFakeTimers();
 
       const { client, data } = fakeConnection();
@@ -82,11 +82,11 @@ describe("./operations/request-capabilities", function() {
 
       assert.deepStrictEqual(data, [
         "CAP REQ :twitch.tv/commands twitch.tv/tags\r\n",
-        "CAP REQ :twitch.tv/commands twitch.tv/tags twitch.tv/membership\r\n"
+        "CAP REQ :twitch.tv/commands twitch.tv/tags twitch.tv/membership\r\n",
       ]);
     });
 
-    it("should resolve on CAP message acknowledging all capabilities", async function() {
+    it("should resolve on CAP message acknowledging all capabilities", async function () {
       const { client, clientError, emitAndEnd } = fakeConnection();
 
       const promise = requestCapabilities(client, false);
@@ -97,7 +97,7 @@ describe("./operations/request-capabilities", function() {
       await clientError;
     });
 
-    it("should reject on CAP message rejecting one or more of the requested capabilities", async function() {
+    it("should reject on CAP message rejecting one or more of the requested capabilities", async function () {
       const { client, clientError, emitAndEnd } = fakeConnection();
 
       const promise = requestCapabilities(client, false);
@@ -129,11 +129,11 @@ describe("./operations/request-capabilities", function() {
     });
   });
 
-  describe("CapabilitiesError", function() {
-    it("should be instanceof ConnectionError", function() {
+  describe("CapabilitiesError", function () {
+    it("should be instanceof ConnectionError", function () {
       assert.instanceOf(new CapabilitiesError(), ConnectionError);
     });
-    it("should not be instanceof ClientError", function() {
+    it("should not be instanceof ClientError", function () {
       assert.notInstanceOf(new CapabilitiesError(), ClientError);
     });
   });

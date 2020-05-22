@@ -5,7 +5,7 @@ import { ChannelIRCMessage } from "../irc/channel-irc-message";
 import {
   IRCMessage,
   requireNickname,
-  requireParameter
+  requireParameter,
 } from "../irc/irc-message";
 import { tagParserFor } from "../parser/tag-values";
 import { UserState } from "./userstate";
@@ -19,12 +19,12 @@ export function parseActionAndMessage(
   if (match == null) {
     return {
       isAction: false,
-      message: trailingParameter
+      message: trailingParameter,
     };
   } else {
     return {
       isAction: true,
-      message: match[1]
+      message: match[1],
     };
   }
 }
@@ -131,7 +131,7 @@ export class PrivmsgMessage extends ChannelIRCMessage
       colorRaw: this.colorRaw,
       displayName: this.displayName,
       isMod: this.isMod,
-      isModRaw: this.isModRaw
+      isModRaw: this.isModRaw,
     };
   }
 

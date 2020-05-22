@@ -1,16 +1,16 @@
 import { assert } from "chai";
 import {
   applyReplacement,
-  applyReplacements
+  applyReplacements,
 } from "./apply-function-replacements";
 
 // tslint:disable:max-classes-per-file
 
-describe("./utils/apply-function-replacements", function() {
-  describe("#applyReplacement", function() {
-    it("should delegate execution properly", function() {
+describe("./utils/apply-function-replacements", function () {
+  describe("#applyReplacement", function () {
+    it("should delegate execution properly", function () {
       const self = {
-        abc: "def"
+        abc: "def",
       };
 
       class Target {
@@ -37,7 +37,7 @@ describe("./utils/apply-function-replacements", function() {
       assert.strictEqual(target.a("1", "2", "3"), "KKona123def");
     });
 
-    it("should not create a enumerable property on the target object", function() {
+    it("should not create a enumerable property on the target object", function () {
       const self = {};
       class Target {
         public a(): string {
@@ -56,10 +56,10 @@ describe("./utils/apply-function-replacements", function() {
     });
   });
 
-  describe("#applyReplacements()", function() {
-    it("should apply all replacements given in functions map", function() {
+  describe("#applyReplacements()", function () {
+    it("should apply all replacements given in functions map", function () {
       const self = {
-        abc: "def"
+        abc: "def",
       };
 
       class Target {
@@ -85,7 +85,7 @@ describe("./utils/apply-function-replacements", function() {
         },
         c(originalFn) {
           return originalFn() + "z";
-        }
+        },
       });
 
       assert.strictEqual(target.a(), "ax");

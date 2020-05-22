@@ -2,9 +2,9 @@ import { assert } from "chai";
 import { parseTwitchMessage } from "../parser/twitch-message";
 import { NoticeMessage } from "./notice";
 
-describe("./message/twitch-types/notice", function() {
-  describe("NoticeMessage", function() {
-    it("should parse a normal NOTICE sent by the twitch server", function() {
+describe("./message/twitch-types/notice", function () {
+  describe("NoticeMessage", function () {
+    it("should parse a normal NOTICE sent by the twitch server", function () {
       const msgText =
         "@msg-id=msg_banned :tmi.twitch.tv NOTICE #forsen " +
         ":You are permanently banned from talking in forsen.";
@@ -21,7 +21,7 @@ describe("./message/twitch-types/notice", function() {
       assert.strictEqual(msg.messageID, "msg_banned");
     });
 
-    it("should parse a NOTICE message received before successfuly login", function() {
+    it("should parse a NOTICE message received before successfuly login", function () {
       const msgText = ":tmi.twitch.tv NOTICE * :Improperly formatted auth";
 
       const msg: NoticeMessage = parseTwitchMessage(msgText) as NoticeMessage;

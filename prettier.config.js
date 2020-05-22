@@ -1,4 +1,4 @@
 module.exports = {
   quoteProps: "consistent",
-  semi: true
+  semi: true,
 };

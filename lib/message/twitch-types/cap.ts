@@ -1,7 +1,7 @@
 import {
   IRCMessage,
   IRCMessageData,
-  requireParameter
+  requireParameter,
 } from "../irc/irc-message";
 
 // https://ircv3.net/specs/core/capability-negotiation.html

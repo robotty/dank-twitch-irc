@@ -59,7 +59,7 @@ const badNoticeIDs = [
   // https://www.twitch.tv/products/<broadcaster login name>/ticket?ref=subscriber_only_mode_chat.
   "msg_suspended", // Your account has been suspended.
   "msg_timedout", // You are banned from talking in <channel> for <number> more seconds.
-  "msg_verified_email" // 	This room requires a verified email address to chat. Please verify your email at
+  "msg_verified_email", // 	This room requires a verified email address to chat. Please verify your email at
   // https://www.twitch.tv/settings/profile.
 ];
 
@@ -86,14 +86,14 @@ export async function say(
   sendPrivmsg(conn, channelName, command);
 
   return awaitResponse(conn, {
-    success: msg =>
+    success: (msg) =>
       msg instanceof UserstateMessage && msg.channelName === channelName,
-    failure: msg =>
+    failure: (msg) =>
       msg instanceof NoticeMessage &&
       msg.channelName === channelName &&
       badNoticeIDs.includes(msg.messageID!),
     errorType,
-    errorMessage
+    errorMessage,
   }) as Promise<UserstateMessage>;
 }
 

@@ -10,7 +10,7 @@ import {
   convertToInt,
   convertToString,
   requireData,
-  tagParserFor
+  tagParserFor,
 } from "../parser/tag-values";
 
 const convertersMap: Record<string, (value: string) => any> = {
@@ -20,7 +20,7 @@ const convertersMap: Record<string, (value: string) => any> = {
   "msg-param-should-share-streak": convertToBoolean,
   "msg-param-streak-months": convertToInt,
   "msg-param-viewerCount": convertToInt,
-  "msg-param-threshold": convertToInt
+  "msg-param-threshold": convertToInt,
 };
 
 export function getCamelCasedName(tagKey: string): string {

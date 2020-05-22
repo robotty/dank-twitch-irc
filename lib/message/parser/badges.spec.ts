@@ -5,9 +5,9 @@ import { TwitchBadgesList } from "../badges";
 import { parseBadges, parseSingleBadge } from "./badges";
 import { ParseError } from "./parse-error";
 
-describe("./message/parser/badges", function() {
-  describe("#parseSingleBadge()", function() {
-    it("should parse correct badge normally", function() {
+describe("./message/parser/badges", function () {
+  describe("#parseSingleBadge()", function () {
+    it("should parse correct badge normally", function () {
       assert.deepStrictEqual(
         parseSingleBadge("subscriber/24"),
         new TwitchBadge("subscriber", "24")
@@ -22,7 +22,7 @@ describe("./message/parser/badges", function() {
       );
     });
 
-    it("should preserve non-integer versions as-is", function() {
+    it("should preserve non-integer versions as-is", function () {
       assert.deepStrictEqual(
         parseSingleBadge("vip/1.0"),
         new TwitchBadge("vip", "1.0")
@@ -45,7 +45,7 @@ describe("./message/parser/badges", function() {
       );
     });
 
-    it("should throw ParseError if no / is present", function() {
+    it("should throw ParseError if no / is present", function () {
       assertThrowsChain(
         () => parseSingleBadge("subscriber12"),
         ParseError,
@@ -63,7 +63,7 @@ describe("./message/parser/badges", function() {
       );
     });
 
-    it("should throw ParseError if badge name is empty", function() {
+    it("should throw ParseError if badge name is empty", function () {
       assertThrowsChain(
         () => parseSingleBadge("/5"),
         ParseError,
@@ -76,7 +76,7 @@ describe("./message/parser/badges", function() {
       );
     });
 
-    it("should throw ParseError if badge version is empty", function() {
+    it("should throw ParseError if badge version is empty", function () {
       assertThrowsChain(
         () => parseSingleBadge("subscriber/"),
         ParseError,
@@ -85,19 +85,19 @@ describe("./message/parser/badges", function() {
     });
   });
 
-  describe("#parseBadges()", function() {
-    it("should parse empty string as empty list", function() {
+  describe("#parseBadges()", function () {
+    it("should parse empty string as empty list", function () {
       assert.deepStrictEqual(parseBadges(""), new TwitchBadgesList());
     });
 
-    it("should parse badges tag with 1 badge correctly", function() {
+    it("should parse badges tag with 1 badge correctly", function () {
       const expected = new TwitchBadgesList();
       expected.push(new TwitchBadge("subscriber", "1"));
 
       assert.deepStrictEqual(parseBadges("subscriber/1"), expected);
     });
 
-    it("should parse badges tag with 2 badges correctly", function() {
+    it("should parse badges tag with 2 badges correctly", function () {
       const expected = new TwitchBadgesList();
       expected.push(new TwitchBadge("subscriber", "12"));
       expected.push(new TwitchBadge("vip", "1"));
@@ -105,7 +105,7 @@ describe("./message/parser/badges", function() {
       assert.deepStrictEqual(parseBadges("subscriber/12,vip/1"), expected);
     });
 
-    it("should parse badges tag with 3 badges correctly", function() {
+    it("should parse badges tag with 3 badges correctly", function () {
       const expected = new TwitchBadgesList();
       expected.push(new TwitchBadge("subscriber", "12"));
       expected.push(new TwitchBadge("vip", "1"));

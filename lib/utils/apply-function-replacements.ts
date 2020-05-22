@@ -53,7 +53,7 @@ export function applyReplacement<
     value: replacementFn,
     writable: true,
     enumerable: false,
-    configurable: true
+    configurable: true,
   });
 }
 

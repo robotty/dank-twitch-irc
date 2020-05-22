@@ -4,9 +4,9 @@ import { TwitchEmote } from "../emote";
 import { parseTwitchMessage } from "../parser/twitch-message";
 import { WhisperMessage } from "./whisper";
 
-describe("./message/twitch-types/whisper", function() {
-  describe("WhisperMessage", function() {
-    it("should be able to parse a real WHISPER message correctly", function() {
+describe("./message/twitch-types/whisper", function () {
+  describe("WhisperMessage", function () {
+    it("should be able to parse a real WHISPER message correctly", function () {
       const msg = parseTwitchMessage(
         "@badges=;color=#2E8B57;display-name=pajbot;emotes=25:7-11;message-id=" +
           "2034;thread-id=40286300_82008718;turbo=0;user-id=82008718;user-type= " +
@@ -28,12 +28,12 @@ describe("./message/twitch-types/whisper", function() {
       assert.deepStrictEqual(msg.color, {
         r: 0x2e,
         g: 0x8b,
-        b: 0x57
+        b: 0x57,
       });
       assert.strictEqual(msg.colorRaw, "#2E8B57");
 
       assert.deepStrictEqual(msg.emotes, [
-        new TwitchEmote("25", 7, 12, "Kappa")
+        new TwitchEmote("25", 7, 12, "Kappa"),
       ]);
       assert.strictEqual(msg.emotesRaw, "25:7-11");
 

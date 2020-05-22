@@ -13,11 +13,11 @@ import { SingleConnection } from "./client/connection";
 chai.config.includeStack = true;
 chai.use(chaiAsPromised);
 
-afterEach(function() {
+afterEach(function () {
   sinon.restore();
 });
 
-afterEach(function() {
+afterEach(function () {
   if (this.currentTest != null && this.currentTest.err != null) {
     // tslint:disable-next-line:no-console
     console.error(inspect(this.currentTest.err, { colors: true }));
@@ -27,7 +27,7 @@ afterEach(function() {
 });
 
 export function errorOf(p: Promise<any>): Promise<any> {
-  return p.catch(e => e);
+  return p.catch((e) => e);
 }
 
 export async function causeOf(p: Promise<any>): Promise<any> {
@@ -135,11 +135,11 @@ export function createMockTransport(): MockTransportData {
       callback();
     },
     // tslint:disable-next-line:no-empty
-    read(): void {}
+    read(): void {},
   });
 
   const emit = (...lines: string[]): void => {
-    transport.push(lines.map(line => line + "\r\n").join(""));
+    transport.push(lines.map((line) => line + "\r\n").join(""));
   };
 
   const end = (error?: Error): void => {
@@ -156,7 +156,7 @@ export function createMockTransport(): MockTransportData {
     data,
     emit,
     end,
-    emitAndEnd
+    emitAndEnd,
   };
 }
 
@@ -175,8 +175,8 @@ export function fakeConnection(): FakeConnectionData {
     connection: {
       type: "duplex",
       stream: () => transport.transport,
-      preSetup: true
-    }
+      preSetup: true,
+    },
   });
 
   fakeConn.connect();
@@ -185,9 +185,9 @@ export function fakeConnection(): FakeConnectionData {
     ...transport,
     client: fakeConn,
     clientError: new Promise<never>((resolve, reject) => {
-      fakeConn.once("error", e => reject(e));
+      fakeConn.once("error", (e) => reject(e));
       fakeConn.once("close", () => resolve());
-    })
+    }),
   };
 }
 
@@ -213,9 +213,9 @@ export function fakeClient(connect = true): FakeClientData {
     connection: {
       type: "duplex",
       stream: getStream,
-      preSetup: true
+      preSetup: true,
     },
-    installDefaultMixins: false
+    installDefaultMixins: false,
   });
 
   if (connect) {
@@ -233,9 +233,9 @@ export function fakeClient(connect = true): FakeClientData {
     },
     client,
     clientError: new Promise<never>((resolve, reject) => {
-      client.once("error", e => reject(e));
+      client.once("error", (e) => reject(e));
       client.once("close", () => resolve());
     }),
-    transports
+    transports,
   };
 }

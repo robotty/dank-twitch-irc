@@ -4,9 +4,9 @@ import { ClientError, ConnectionError, MessageError } from "../client/errors";
 import { assertErrorChain, fakeConnection } from "../helpers.spec";
 import { me, removeCommands, say, SayError } from "./say";
 
-describe("./operations/say", function() {
-  describe("#removeCommands()", function() {
-    it("should remove all twitch commands", function() {
+describe("./operations/say", function () {
+  describe("#removeCommands()", function () {
+    it("should remove all twitch commands", function () {
       assert.strictEqual(removeCommands("/me hi"), "/ /me hi");
       assert.strictEqual(removeCommands(".me hi"), "/ .me hi");
       assert.strictEqual(
@@ -15,38 +15,38 @@ describe("./operations/say", function() {
       );
     });
 
-    it("should not prepend a slash to other messages", function() {
+    it("should not prepend a slash to other messages", function () {
       assert.strictEqual(removeCommands(""), "");
       assert.strictEqual(removeCommands("\\me hi"), "\\me hi");
       assert.strictEqual(removeCommands("hello world!"), "hello world!");
     });
   });
 
-  describe("SayError", function() {
-    it("should not be instanceof ConnectionError", function() {
+  describe("SayError", function () {
+    it("should not be instanceof ConnectionError", function () {
       assert.notInstanceOf(
         new SayError("pajlada", "test", true),
         ConnectionError
       );
     });
-    it("should not be instanceof ClientError", function() {
+    it("should not be instanceof ClientError", function () {
       assert.notInstanceOf(new SayError("pajlada", "test", true), ClientError);
     });
   });
 
-  describe("#say()", function() {
-    it("should send the correct wire command", function() {
+  describe("#say()", function () {
+    it("should send the correct wire command", function () {
       sinon.useFakeTimers();
       const { data, client } = fakeConnection();
 
       say(client, "pajlada", "/test test abc KKona");
 
       assert.deepStrictEqual(data, [
-        "PRIVMSG #pajlada :/ /test test abc KKona\r\n"
+        "PRIVMSG #pajlada :/ /test test abc KKona\r\n",
       ]);
     });
 
-    it("should resolve on USERSTATE", async function() {
+    it("should resolve on USERSTATE", async function () {
       const { client, clientError, emitAndEnd } = fakeConnection();
 
       const promise = say(client, "pajlada", "/test test abc KKona");
@@ -62,7 +62,7 @@ describe("./operations/say", function() {
       await clientError;
     });
 
-    it("should reject on msg_channel_suspended", async function() {
+    it("should reject on msg_channel_suspended", async function () {
       const { client, clientError, emitAndEnd } = fakeConnection();
 
       const promise = say(client, "pajlada", "abc def");
@@ -96,19 +96,19 @@ describe("./operations/say", function() {
     });
   });
 
-  describe("#me()", function() {
-    it("should send the correct wire command", function() {
+  describe("#me()", function () {
+    it("should send the correct wire command", function () {
       sinon.useFakeTimers();
       const { data, client } = fakeConnection();
 
       me(client, "pajlada", "test abc KKona");
 
       assert.deepStrictEqual(data, [
-        "PRIVMSG #pajlada :/me test abc KKona\r\n"
+        "PRIVMSG #pajlada :/me test abc KKona\r\n",
       ]);
     });
 
-    it("should resolve on USERSTATE", async function() {
+    it("should resolve on USERSTATE", async function () {
       const { client, clientError, emitAndEnd } = fakeConnection();
 
       const promise = me(client, "pajlada", "test test abc KKona");
@@ -124,7 +124,7 @@ describe("./operations/say", function() {
       await clientError;
     });
 
-    it("should reject on msg_channel_suspended", async function() {
+    it("should reject on msg_channel_suspended", async function () {
       const { client, clientError, emitAndEnd } = fakeConnection();
 
       const promise = me(client, "pajlada", "abc def");

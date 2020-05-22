@@ -93,9 +93,9 @@ export class RoomstateMessage extends ChannelIRCMessage {
       slowModeDurationRaw: this.slowModeDurationRaw,
 
       subscribersOnly: this.subscribersOnly,
-      subscribersOnlyRaw: this.subscribersOnlyRaw
+      subscribersOnlyRaw: this.subscribersOnlyRaw,
     };
 
-    return pickBy(fullObj, v => v != null);
+    return pickBy(fullObj, (v) => v != null);
   }
 }

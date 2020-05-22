@@ -28,9 +28,9 @@ export async function sendLogin(
   // e.g. :tmi.twitch.tv NOTICE * :Improperly formatted auth
   // or :tmi.twitch.tv NOTICE * :Login authentication failed
   await awaitResponse(conn, {
-    success: msg => msg.ircCommand === "001",
-    failure: msg => msg instanceof NoticeMessage,
+    success: (msg) => msg.ircCommand === "001",
+    failure: (msg) => msg instanceof NoticeMessage,
     errorType: (message, cause) => new LoginError(message, cause),
-    errorMessage: "Failed to login"
+    errorMessage: "Failed to login",
   });
 }

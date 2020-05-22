@@ -35,7 +35,7 @@ export class SingleConnection extends BaseClient {
   public constructor(configuration?: ClientConfiguration) {
     super(configuration);
 
-    this.on("error", e => {
+    this.on("error", (e) => {
       if (anyCauseInstanceof(e, ConnectionError)) {
         process.nextTick(() => {
           this.emitClosed(e);
@@ -50,7 +50,7 @@ export class SingleConnection extends BaseClient {
     this.transport.stream.on("close", () => {
       this.emitClosed();
     });
-    this.transport.stream.on("error", e => {
+    this.transport.stream.on("error", (e) => {
       const emittedError = new ConnectionError(
         "Error occurred in transport layer",
         e
@@ -85,7 +85,7 @@ export class SingleConnection extends BaseClient {
           this,
           this.configuration.username,
           this.configuration.password
-        )
+        ),
       ];
 
       Promise.all(promises).then(() => this.emitReady(), ignoreErrors);
