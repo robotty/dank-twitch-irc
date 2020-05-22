@@ -42,6 +42,7 @@
     "ms": "^2.1.2",
     "randomstring": "^1.1.5",
     "semaphore-async-await": "^1.5.1",
+    "simple-websocket": "^9.0.0",
     "split2": "^3.1.1",
     "ts-toolbelt": "^6.9.0"
   },
@@ -71,7 +72,6 @@
     "mochawesome": "^6.1.1",
     "nyc": "^15.0.1",
     "prettier": "^2.0.5",
-    "simple-websocket": "^9.0.0",
     "sinon": "^9.0.2",
     "supports-color": "^7.1.0",
     "ts-node": "^8.10.1",
