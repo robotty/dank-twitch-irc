@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>UserStateTracker | dank-twitch-irc</title>
-	<meta name="description" content="">
+	<meta name="description" content="Documentation for dank-twitch-irc">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 </head>
@@ -13,7 +13,7 @@
 	<div class="tsd-page-toolbar">
 		<div class="container">
 			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.js" data-base="..">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
 					<div class="field">
 						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
 						<input id="tsd-search-field" type="text" />
@@ -57,7 +57,7 @@
 					<a href="userstatetracker.html">UserStateTracker</a>
 				</li>
 			</ul>
-			<h1>Class UserStateTracker</h1>
+			<h1>Class UserStateTracker&lt;Context&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -70,6 +70,14 @@
 						<p>Tracks the state of the logged in user (the bot) in all channels the bot operates in</p>
 					</div>
 				</div>
+			</section>
+			<section class="tsd-panel tsd-type-parameters">
+				<h3>Type parameters</h3>
+				<ul class="tsd-type-parameters">
+					<li>
+						<h4>Context<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></h4>
+					</li>
+				</ul>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
@@ -102,6 +110,16 @@
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
+							<h3>Type aliases</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-type-alias tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="userstatetracker.html#argumentmap" class="tsd-kind-icon">Argument<wbr>Map</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="userstatetracker.html#eventargs" class="tsd-kind-icon">Event<wbr>Args</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="userstatetracker.html#eventlistener" class="tsd-kind-icon">Event<wbr>Listener</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="userstatetracker.html#eventnames" class="tsd-kind-icon">Event<wbr>Names</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-class tsd-is-static"><a href="userstatetracker.html#valideventtypes" class="tsd-kind-icon">Valid<wbr>Event<wbr>Types</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="userstatetracker.html#constructor" class="tsd-kind-icon">constructor</a></li>
@@ -122,7 +140,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="userstatetracker.html#addlistener" class="tsd-kind-icon">add<wbr>Listener</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="userstatetracker.html#applytoclient" class="tsd-kind-icon">apply<wbr>ToClient</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="userstatetracker.html#emit" class="tsd-kind-icon">emit</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="userstatetracker.html#eventnames" class="tsd-kind-icon">event<wbr>Names</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="userstatetracker.html#eventnames-1" class="tsd-kind-icon">event<wbr>Names</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="userstatetracker.html#getchannelstate" class="tsd-kind-icon">get<wbr>Channel<wbr>State</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="userstatetracker.html#getglobalstate" class="tsd-kind-icon">get<wbr>Global<wbr>State</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="userstatetracker.html#listenercount" class="tsd-kind-icon">listener<wbr>Count</a></li>
@@ -138,6 +156,94 @@
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Type aliases</h2>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+					<a name="argumentmap" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Argument<wbr>Map</h3>
+					<div class="tsd-signature tsd-kind-icon">Argument<wbr>Map&lt;T&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{}</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/eventemitter3/index.d.ts:103</li>
+						</ul>
+					</aside>
+					<h4 class="tsd-type-parameters-title">Type parameters</h4>
+					<ul class="tsd-type-parameters">
+						<li>
+							<h4>T<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></h4>
+						</li>
+					</ul>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+					<a name="eventargs" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Event<wbr>Args</h3>
+					<div class="tsd-signature tsd-kind-icon">Event<wbr>Args&lt;T, K&gt;<span class="tsd-signature-symbol">:</span> <a href="../globals.html#parameters" class="tsd-signature-type">Parameters</a><span class="tsd-signature-symbol">&lt;</span><a href="userstatetracker.html#eventlistener" class="tsd-signature-type">EventListener</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/eventemitter3/index.d.ts:118</li>
+						</ul>
+					</aside>
+					<h4 class="tsd-type-parameters-title">Type parameters</h4>
+					<ul class="tsd-type-parameters">
+						<li>
+							<h4>T<span class="tsd-signature-symbol">: </span><a href="userstatetracker.html#valideventtypes" class="tsd-signature-type">ValidEventTypes</a></h4>
+						</li>
+						<li>
+							<h4>K<span class="tsd-signature-symbol">: </span><a href="userstatetracker.html#eventnames" class="tsd-signature-type">EventNames</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+					<a name="eventlistener" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Event<wbr>Listener</h3>
+					<div class="tsd-signature tsd-kind-icon">Event<wbr>Listener&lt;T, K&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> extends </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span><span class="tsd-signature-symbol"> ? </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> : </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ArgumentMap</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Exclude</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/eventemitter3/index.d.ts:111</li>
+						</ul>
+					</aside>
+					<h4 class="tsd-type-parameters-title">Type parameters</h4>
+					<ul class="tsd-type-parameters">
+						<li>
+							<h4>T<span class="tsd-signature-symbol">: </span><a href="userstatetracker.html#valideventtypes" class="tsd-signature-type">ValidEventTypes</a></h4>
+						</li>
+						<li>
+							<h4>K<span class="tsd-signature-symbol">: </span><a href="userstatetracker.html#eventnames" class="tsd-signature-type">EventNames</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+					<a name="eventnames" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Event<wbr>Names</h3>
+					<div class="tsd-signature tsd-kind-icon">Event<wbr>Names&lt;T&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> extends </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span><span class="tsd-signature-symbol"> ? </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> : </span><span class="tsd-signature-symbol">keyof </span><span class="tsd-signature-type">T</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/eventemitter3/index.d.ts:99</li>
+						</ul>
+					</aside>
+					<h4 class="tsd-type-parameters-title">Type parameters</h4>
+					<ul class="tsd-type-parameters">
+						<li>
+							<h4>T<span class="tsd-signature-symbol">: </span><a href="userstatetracker.html#valideventtypes" class="tsd-signature-type">ValidEventTypes</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-class tsd-is-static">
+					<a name="valideventtypes" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Valid<wbr>Event<wbr>Types</h3>
+					<div class="tsd-signature tsd-kind-icon">Valid<wbr>Event<wbr>Types<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{}</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in node_modules/eventemitter3/index.d.ts:94</li>
+						</ul>
+					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Constructors</h2>
 				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
 					<a name="constructor" class="tsd-anchor"></a>
@@ -149,7 +255,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/bcecce9/lib/mixins/userstate-tracker.ts#L23">lib/mixins/userstate-tracker.ts:23</a></li>
+									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/0b03669/lib/mixins/userstate-tracker.ts#L24">lib/mixins/userstate-tracker.ts:24</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -171,7 +277,7 @@
 					<div class="tsd-signature tsd-kind-icon">channel<wbr>States<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="../interfaces/userstate.html" class="tsd-signature-type">UserState</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/bcecce9/lib/mixins/userstate-tracker.ts#L22">lib/mixins/userstate-tracker.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/0b03669/lib/mixins/userstate-tracker.ts#L23">lib/mixins/userstate-tracker.ts:23</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -181,7 +287,7 @@
 					<div class="tsd-signature tsd-kind-icon">global<wbr>State<span class="tsd-signature-symbol">:</span> <a href="../interfaces/globaluserstate.html" class="tsd-signature-type">GlobalUserState</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/bcecce9/lib/mixins/userstate-tracker.ts#L21">lib/mixins/userstate-tracker.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/0b03669/lib/mixins/userstate-tracker.ts#L22">lib/mixins/userstate-tracker.ts:22</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -191,7 +297,7 @@
 					<div class="tsd-signature tsd-kind-icon">Event<wbr>Emitter<span class="tsd-signature-symbol">:</span> <a href="../interfaces/baseclient.eventemitterstatic.html" class="tsd-signature-type">EventEmitterStatic</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in node_modules/eventemitter3/index.d.ts:64</li>
+							<li>Defined in node_modules/eventemitter3/index.d.ts:123</li>
 						</ul>
 					</aside>
 				</section>
@@ -213,20 +319,20 @@
 					<a name="addlistener" class="tsd-anchor"></a>
 					<h3>add<wbr>Listener</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">add<wbr>Listener&lt;T&gt;<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, fn<span class="tsd-signature-symbol">: </span><a href="../interfaces/baseclient.listenerfn.html" class="tsd-signature-type">ListenerFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">EventArgs</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, context<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+						<li class="tsd-signature tsd-kind-icon">add<wbr>Listener&lt;T&gt;<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, fn<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventEmitter.EventListener</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>, context<span class="tsd-signature-symbol">?: </span><a href="" class="tsd-signature-type">Context</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="baseclient.html">BaseClient</a>.<a href="baseclient.html#addlistener">addListener</a></p>
 								<ul>
-									<li>Defined in node_modules/eventemitter3/index.d.ts:36</li>
+									<li>Defined in node_modules/eventemitter3/index.d.ts:45</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>T<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventNames</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">&gt;</span></h4>
+									<h4>T<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventEmitter.EventNames</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">&gt;</span></h4>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -235,10 +341,10 @@
 									<h5>event: <span class="tsd-signature-type">T</span></h5>
 								</li>
 								<li>
-									<h5>fn: <a href="../interfaces/baseclient.listenerfn.html" class="tsd-signature-type">ListenerFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">EventArgs</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>fn: <span class="tsd-signature-type">EventEmitter.EventListener</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> context: <span class="tsd-signature-type">any</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> context: <a href="" class="tsd-signature-type">Context</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -256,7 +362,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/clientmixin.html">ClientMixin</a>.<a href="../interfaces/clientmixin.html#applytoclient">applyToClient</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/bcecce9/lib/mixins/userstate-tracker.ts#L38">lib/mixins/userstate-tracker.ts:38</a></li>
+									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/0b03669/lib/mixins/userstate-tracker.ts#L39">lib/mixins/userstate-tracker.ts:39</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -273,14 +379,14 @@
 					<a name="emit" class="tsd-anchor"></a>
 					<h3>emit</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">emit&lt;T&gt;<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, <span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventArgs</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon">emit&lt;T&gt;<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, <span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventEmitter.EventArgs</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="baseclient.html">BaseClient</a>.<a href="baseclient.html#emit">emit</a></p>
 								<ul>
-									<li>Defined in node_modules/eventemitter3/index.d.ts:30</li>
+									<li>Defined in node_modules/eventemitter3/index.d.ts:32</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -291,7 +397,7 @@
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>T<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventNames</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">&gt;</span></h4>
+									<h4>T<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventEmitter.EventNames</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">&gt;</span></h4>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -300,7 +406,7 @@
 									<h5>event: <span class="tsd-signature-type">T</span></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>args: <span class="tsd-signature-type">EventArgs</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>args: <span class="tsd-signature-type">EventEmitter.EventArgs</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -308,15 +414,15 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<a name="eventnames" class="tsd-anchor"></a>
+					<a name="eventnames-1" class="tsd-anchor"></a>
 					<h3>event<wbr>Names</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">event<wbr>Names<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="twitchbadgeslist.html#array" class="tsd-signature-type">Array</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">EventNames</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">event<wbr>Names<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="twitchbadgeslist.html#array" class="tsd-signature-type">Array</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">EventEmitter.EventNames</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="baseclient.html">BaseClient</a>.<a href="baseclient.html#eventnames">eventNames</a></p>
+								<p>Inherited from <a href="baseclient.html">BaseClient</a>.<a href="baseclient.html#eventnames-1">eventNames</a></p>
 								<ul>
 									<li>Defined in node_modules/eventemitter3/index.d.ts:15</li>
 								</ul>
@@ -327,7 +433,7 @@
 									listeners.</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <a href="twitchbadgeslist.html#array" class="tsd-signature-type">Array</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">EventNames</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="twitchbadgeslist.html#array" class="tsd-signature-type">Array</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">EventEmitter.EventNames</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -341,7 +447,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/bcecce9/lib/mixins/userstate-tracker.ts#L30">lib/mixins/userstate-tracker.ts:30</a></li>
+									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/0b03669/lib/mixins/userstate-tracker.ts#L31">lib/mixins/userstate-tracker.ts:31</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -364,7 +470,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/bcecce9/lib/mixins/userstate-tracker.ts#L34">lib/mixins/userstate-tracker.ts:34</a></li>
+									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/0b03669/lib/mixins/userstate-tracker.ts#L35">lib/mixins/userstate-tracker.ts:35</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/globaluserstate.html" class="tsd-signature-type">GlobalUserState</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
@@ -375,14 +481,14 @@
 					<a name="listenercount" class="tsd-anchor"></a>
 					<h3>listener<wbr>Count</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">listener<wbr>Count<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventNames</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+						<li class="tsd-signature tsd-kind-icon">listener<wbr>Count<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventEmitter.EventNames</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="baseclient.html">BaseClient</a>.<a href="baseclient.html#listenercount">listenerCount</a></p>
 								<ul>
-									<li>Defined in node_modules/eventemitter3/index.d.ts:25</li>
+									<li>Defined in node_modules/eventemitter3/index.d.ts:27</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -393,7 +499,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>event: <span class="tsd-signature-type">EventNames</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>event: <span class="tsd-signature-type">EventEmitter.EventNames</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -404,7 +510,7 @@
 					<a name="listeners" class="tsd-anchor"></a>
 					<h3>listeners</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">listeners&lt;T&gt;<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="twitchbadgeslist.html#array" class="tsd-signature-type">Array</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/baseclient.listenerfn.html" class="tsd-signature-type">ListenerFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">EventArgs</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">listeners&lt;T&gt;<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="twitchbadgeslist.html#array" class="tsd-signature-type">Array</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">EventEmitter.EventListener</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -422,7 +528,7 @@
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>T<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventNames</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">&gt;</span></h4>
+									<h4>T<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventEmitter.EventNames</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">&gt;</span></h4>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -431,7 +537,7 @@
 									<h5>event: <span class="tsd-signature-type">T</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="twitchbadgeslist.html#array" class="tsd-signature-type">Array</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/baseclient.listenerfn.html" class="tsd-signature-type">ListenerFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">EventArgs</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="twitchbadgeslist.html#array" class="tsd-signature-type">Array</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">EventEmitter.EventListener</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -439,20 +545,20 @@
 					<a name="off" class="tsd-anchor"></a>
 					<h3>off</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">off&lt;T&gt;<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, fn<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">EventEmitter.ListenerFn</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">EventArgs</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, context<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span>, once<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+						<li class="tsd-signature tsd-kind-icon">off&lt;T&gt;<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, fn<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">EventEmitter.EventListener</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>, context<span class="tsd-signature-symbol">?: </span><a href="" class="tsd-signature-type">Context</a>, once<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="baseclient.html">BaseClient</a>.<a href="baseclient.html#off">off</a></p>
 								<ul>
-									<li>Defined in node_modules/eventemitter3/index.d.ts:47</li>
+									<li>Defined in node_modules/eventemitter3/index.d.ts:69</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>T<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventNames</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">&gt;</span></h4>
+									<h4>T<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventEmitter.EventNames</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">&gt;</span></h4>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -461,10 +567,10 @@
 									<h5>event: <span class="tsd-signature-type">T</span></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> fn: <span class="tsd-signature-type">EventEmitter.ListenerFn</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">EventArgs</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> fn: <span class="tsd-signature-type">EventEmitter.EventListener</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> context: <span class="tsd-signature-type">any</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> context: <a href="" class="tsd-signature-type">Context</a></h5>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> once: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></h5>
@@ -478,14 +584,14 @@
 					<a name="on" class="tsd-anchor"></a>
 					<h3>on</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">on&lt;T&gt;<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, fn<span class="tsd-signature-symbol">: </span><a href="../interfaces/baseclient.listenerfn.html" class="tsd-signature-type">ListenerFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">EventArgs</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, context<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+						<li class="tsd-signature tsd-kind-icon">on&lt;T&gt;<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, fn<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventEmitter.EventListener</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>, context<span class="tsd-signature-symbol">?: </span><a href="" class="tsd-signature-type">Context</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="baseclient.html">BaseClient</a>.<a href="baseclient.html#on">on</a></p>
 								<ul>
-									<li>Defined in node_modules/eventemitter3/index.d.ts:35</li>
+									<li>Defined in node_modules/eventemitter3/index.d.ts:40</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -496,7 +602,7 @@
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>T<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventNames</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">&gt;</span></h4>
+									<h4>T<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventEmitter.EventNames</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">&gt;</span></h4>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -505,10 +611,10 @@
 									<h5>event: <span class="tsd-signature-type">T</span></h5>
 								</li>
 								<li>
-									<h5>fn: <a href="../interfaces/baseclient.listenerfn.html" class="tsd-signature-type">ListenerFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">EventArgs</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>fn: <span class="tsd-signature-type">EventEmitter.EventListener</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> context: <span class="tsd-signature-type">any</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> context: <a href="" class="tsd-signature-type">Context</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -519,14 +625,14 @@
 					<a name="once" class="tsd-anchor"></a>
 					<h3>once</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">once&lt;T&gt;<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, fn<span class="tsd-signature-symbol">: </span><a href="../interfaces/baseclient.listenerfn.html" class="tsd-signature-type">ListenerFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">EventArgs</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, context<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+						<li class="tsd-signature tsd-kind-icon">once&lt;T&gt;<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, fn<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventEmitter.EventListener</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>, context<span class="tsd-signature-symbol">?: </span><a href="" class="tsd-signature-type">Context</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="baseclient.html">BaseClient</a>.<a href="baseclient.html#once">once</a></p>
 								<ul>
-									<li>Defined in node_modules/eventemitter3/index.d.ts:41</li>
+									<li>Defined in node_modules/eventemitter3/index.d.ts:54</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -537,7 +643,7 @@
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>T<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventNames</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">&gt;</span></h4>
+									<h4>T<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventEmitter.EventNames</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">&gt;</span></h4>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -546,10 +652,10 @@
 									<h5>event: <span class="tsd-signature-type">T</span></h5>
 								</li>
 								<li>
-									<h5>fn: <a href="../interfaces/baseclient.listenerfn.html" class="tsd-signature-type">ListenerFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">EventArgs</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>fn: <span class="tsd-signature-type">EventEmitter.EventListener</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> context: <span class="tsd-signature-type">any</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> context: <a href="" class="tsd-signature-type">Context</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -560,14 +666,14 @@
 					<a name="removealllisteners" class="tsd-anchor"></a>
 					<h3>remove<wbr>All<wbr>Listeners</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">remove<wbr>All<wbr>Listeners<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">EventNames</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+						<li class="tsd-signature tsd-kind-icon">remove<wbr>All<wbr>Listeners<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">EventEmitter.EventNames</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="baseclient.html">BaseClient</a>.<a href="baseclient.html#removealllisteners">removeAllListeners</a></p>
 								<ul>
-									<li>Defined in node_modules/eventemitter3/index.d.ts:52</li>
+									<li>Defined in node_modules/eventemitter3/index.d.ts:79</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -578,7 +684,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> event: <span class="tsd-signature-type">EventNames</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> event: <span class="tsd-signature-type">EventEmitter.EventNames</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -589,14 +695,14 @@
 					<a name="removelistener" class="tsd-anchor"></a>
 					<h3>remove<wbr>Listener</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">remove<wbr>Listener&lt;T&gt;<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, fn<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">EventEmitter.ListenerFn</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">EventArgs</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, context<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span>, once<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+						<li class="tsd-signature tsd-kind-icon">remove<wbr>Listener&lt;T&gt;<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, fn<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">EventEmitter.EventListener</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>, context<span class="tsd-signature-symbol">?: </span><a href="" class="tsd-signature-type">Context</a>, once<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="baseclient.html">BaseClient</a>.<a href="baseclient.html#removelistener">removeListener</a></p>
 								<ul>
-									<li>Defined in node_modules/eventemitter3/index.d.ts:46</li>
+									<li>Defined in node_modules/eventemitter3/index.d.ts:63</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -607,7 +713,7 @@
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>T<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventNames</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">&gt;</span></h4>
+									<h4>T<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventEmitter.EventNames</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">&gt;</span></h4>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -616,10 +722,10 @@
 									<h5>event: <span class="tsd-signature-type">T</span></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> fn: <span class="tsd-signature-type">EventEmitter.ListenerFn</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">EventArgs</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> fn: <span class="tsd-signature-type">EventEmitter.EventListener</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/userstatetrackerevents.html" class="tsd-signature-type">UserStateTrackerEvents</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> context: <span class="tsd-signature-type">any</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> context: <a href="" class="tsd-signature-type">Context</a></h5>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> once: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></h5>
@@ -643,7 +749,7 @@
 				<ul class="before-current">
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-class">
+					<li class="current tsd-kind-class tsd-has-type-parameter">
 						<a href="userstatetracker.html" class="tsd-kind-icon">User<wbr>State<wbr>Tracker</a>
 						<ul>
 							<li class=" tsd-kind-interface tsd-parent-kind-class">
@@ -651,6 +757,21 @@
 							</li>
 							<li class=" tsd-kind-interface tsd-parent-kind-class tsd-has-type-parameter">
 								<a href="../interfaces/userstatetracker.listenerfn.html" class="tsd-kind-icon">Listener<wbr>Fn</a>
+							</li>
+							<li class=" tsd-kind-type-alias tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+								<a href="userstatetracker.html#argumentmap" class="tsd-kind-icon">Argument<wbr>Map</a>
+							</li>
+							<li class=" tsd-kind-type-alias tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+								<a href="userstatetracker.html#eventargs" class="tsd-kind-icon">Event<wbr>Args</a>
+							</li>
+							<li class=" tsd-kind-type-alias tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+								<a href="userstatetracker.html#eventlistener" class="tsd-kind-icon">Event<wbr>Listener</a>
+							</li>
+							<li class=" tsd-kind-type-alias tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+								<a href="userstatetracker.html#eventnames" class="tsd-kind-icon">Event<wbr>Names</a>
+							</li>
+							<li class=" tsd-kind-type-alias tsd-parent-kind-class tsd-is-static">
+								<a href="userstatetracker.html#valideventtypes" class="tsd-kind-icon">Valid<wbr>Event<wbr>Types</a>
 							</li>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
 								<a href="userstatetracker.html#constructor" class="tsd-kind-icon">constructor</a>
@@ -677,7 +798,7 @@
 								<a href="userstatetracker.html#emit" class="tsd-kind-icon">emit</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="userstatetracker.html#eventnames" class="tsd-kind-icon">event<wbr>Names</a>
+								<a href="userstatetracker.html#eventnames-1" class="tsd-kind-icon">event<wbr>Names</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="userstatetracker.html#getchannelstate" class="tsd-kind-icon">get<wbr>Channel<wbr>State</a>
@@ -720,57 +841,21 @@
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
-				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
-				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
-				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
-				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
-				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
-				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
-				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
-				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
-				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
-				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
-				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
-				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
-				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
 				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
 				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
-				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
-				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
 			</ul>
 		</div>
 	</div>

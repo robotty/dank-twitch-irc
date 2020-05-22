@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>dank-twitch-irc</title>
-	<meta name="description" content="">
+	<meta name="description" content="Documentation for dank-twitch-irc">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
 </head>
@@ -13,7 +13,7 @@
 	<div class="tsd-page-toolbar">
 		<div class="container">
 			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
 					<div class="field">
 						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
 						<input id="tsd-search-field" type="text" />
@@ -111,13 +111,13 @@
 <span class="hljs-keyword">let</span> client = <span class="hljs-keyword">new</span> ChatClient();
 
 client.on(<span class="hljs-string">"ready"</span>, () =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Successfully connected to chat"</span>));
-client.on(<span class="hljs-string">"close"</span>, error =&gt; {
+client.on(<span class="hljs-string">"close"</span>, (error) =&gt; {
   <span class="hljs-keyword">if</span> (error != <span class="hljs-literal">null</span>) {
     <span class="hljs-built_in">console</span>.error(<span class="hljs-string">"Client closed due to error"</span>, error);
   }
 });
 
-client.on(<span class="hljs-string">"PRIVMSG"</span>, msg =&gt; {
+client.on(<span class="hljs-string">"PRIVMSG"</span>, (msg) =&gt; {
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`[#<span class="hljs-subst">${msg.channelName}</span>] <span class="hljs-subst">${msg.displayName}</span>: <span class="hljs-subst">${msg.messageText}</span>`</span>);
 });
 
@@ -161,7 +161,7 @@ client.join(<span class="hljs-string">"forsen"</span>);</code></pre>
 							always instanceof <code>PrivmsgMessage</code>. (See the API documentation for what
 						properties exist on all <code>PrivmsgMessage</code> instances)</p>
 						<p>For example:</p>
-						<pre><code class="language-javascript">client.on(<span class="hljs-string">"CLEARCHAT"</span>, msg =&gt; {
+						<pre><code class="language-javascript">client.on(<span class="hljs-string">"CLEARCHAT"</span>, (msg) =&gt; {
   <span class="hljs-keyword">if</span> (msg.isTimeout()) {
     <span class="hljs-built_in">console</span>.log(
       <span class="hljs-string">`<span class="hljs-subst">${msg.targetUsername}</span> just got timed out for `</span> +
@@ -222,8 +222,10 @@ client.join(<span class="hljs-string">"forsen"</span>);</code></pre>
 				<a href="https://robotty.github.io/dank-twitch-irc/classes/ircmessage.html"><code>IRCMessage</code></a>, e.g.:</p>
 				<pre><code class="language-javascript"><span class="hljs-comment">// :tmi.twitch.tv 372 botfactory :You are in a maze of twisty passages, all alike.</span>
 <span class="hljs-comment">// msg will be an instance of IRCMessage</span>
-client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Server MOTD is: <span class="hljs-subst">${msg.ircParameters[<span class="hljs-number">1</span>]}</span>`</span>));</code></pre>
-				<a href="#handling-codeusernoticecode-messages" id="handling-codeusernoticecode-messages" style="color: inherit; text-decoration: none;">
+client.on(<span class="hljs-string">"372"</span>, (msg) =&gt;
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Server MOTD is: <span class="hljs-subst">${msg.ircParameters[<span class="hljs-number">1</span>]}</span>`</span>)
+);</code></pre>
+				<a href="#handling-usernotice-messages" id="handling-usernotice-messages" style="color: inherit; text-decoration: none;">
 					<h2>Handling <code>USERNOTICE</code> messages</h2>
 				</a>
 				<p>The <code>USERNOTICE</code> message type is special because it encapsulates a wide range of
@@ -254,7 +256,7 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
 				</a>
 				<p>When a user subscribes or resubscribes with his own money/prime (this is NOT
 				sent for gift subs, see below)</p>
-				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, msg =&gt; {
+				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, (msg) =&gt; {
   <span class="hljs-comment">// sub and resub messages have the same parameters, so we can handle them both the same way</span>
   <span class="hljs-keyword">if</span> (!msg.isSub() &amp;&amp; !msg.isResub()) {
     <span class="hljs-keyword">return</span>;
@@ -338,7 +340,7 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
 						send their viewers to another channel, to help support and grow other members
 					in the community.)</p>
 				</blockquote>
-				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, msg =&gt; {
+				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, (msg) =&gt; {
   <span class="hljs-keyword">if</span> (!msg.isRaid()) {
     <span class="hljs-keyword">return</span>;
   }
@@ -373,7 +375,7 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
 					<h3>Subgift</h3>
 				</a>
 				<p>When a user gifts somebody else a subscription.</p>
-				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, msg =&gt; {
+				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, (msg) =&gt; {
   <span class="hljs-keyword">if</span> (!msg.isSubgift()) {
     <span class="hljs-keyword">return</span>;
   }
@@ -434,7 +436,7 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
 					<h3>Anonsubgift</h3>
 				</a>
 				<p>When an anonymous user gifts a subscription to a viewer.</p>
-				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, msg =&gt; {
+				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, (msg) =&gt; {
   <span class="hljs-keyword">if</span> (!msg.isAnonSubgift()) {
     <span class="hljs-keyword">return</span>;
   }
@@ -490,7 +492,7 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
 				</a>
 				<p>When a user commits to continue the gift sub by another user (or an anonymous
 				gifter).</p>
-				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, msg =&gt; {
+				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, (msg) =&gt; {
   <span class="hljs-keyword">if</span> (!msg.isAnonGiftPaidUpgrade()) {
     <span class="hljs-keyword">return</span>;
   }
@@ -517,7 +519,7 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
       <span class="hljs-string">" gift sub they got from an anonymous user!"</span>
   );
 });</code></pre>
-				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, msg =&gt; {
+				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, (msg) =&gt; {
   <span class="hljs-keyword">if</span> (!msg.isGiftPaidUpgrade()) {
     <span class="hljs-keyword">return</span>;
   }
@@ -561,7 +563,7 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
 						these messages to other viewer milestones (initially, a new viewer chatting
 					for the first time).</p>
 				</blockquote>
-				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, msg =&gt; {
+				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, (msg) =&gt; {
   <span class="hljs-keyword">if</span> (!msg.isRitual()) {
     <span class="hljs-keyword">return</span>;
   }
@@ -593,7 +595,7 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
 				<p>When a user cheers and earns himself a new bits badge with that cheer (e.g. they
 					just cheered more than/exactly 10000 bits in total, and just earned themselves
 				the 10k bits badge)</p>
-				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, msg =&gt; {
+				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, (msg) =&gt; {
   <span class="hljs-keyword">if</span> (!msg.isBitsBadgeTier()) {
     <span class="hljs-keyword">return</span>;
   }
@@ -679,7 +681,7 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
 				only set the very config options you need, the rest are usually at a reasonable default.<br>For most bots, you only need to set <code>username</code> and <code>password</code>:</p>
 				<pre><code class="language-javascript"><span class="hljs-keyword">let</span> client = <span class="hljs-keyword">new</span> ChatClient({
   <span class="hljs-attr">username</span>: <span class="hljs-string">"your-bot-username"</span>,
-  <span class="hljs-attr">password</span>: <span class="hljs-string">"0123456789abcdef1234567"</span>
+  <span class="hljs-attr">password</span>: <span class="hljs-string">"0123456789abcdef1234567"</span>,
 });</code></pre>
 				<p>Nevertheless, here are examples of all possible config options:</p>
 				<pre><code class="language-javascript"><span class="hljs-keyword">let</span> client = <span class="hljs-keyword">new</span> ChatClient({
@@ -696,7 +698,7 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
   <span class="hljs-comment">// or:</span>
   <span class="hljs-attr">rateLimits</span>: {
     <span class="hljs-attr">highPrivmsgLimits</span>: <span class="hljs-number">100</span>,
-    <span class="hljs-attr">lowPrivmsgLimits</span>: <span class="hljs-number">20</span>
+    <span class="hljs-attr">lowPrivmsgLimits</span>: <span class="hljs-number">20</span>,
   },
 
   <span class="hljs-comment">// Configuration options for the backing connections:</span>
@@ -706,17 +708,17 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
     <span class="hljs-attr">secure</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">// true by default</span>
     <span class="hljs-comment">// host and port must both be specified at once</span>
     <span class="hljs-attr">host</span>: <span class="hljs-string">"custom-chat-server.com"</span>, <span class="hljs-comment">// irc.chat.twitch.tv by default</span>
-    <span class="hljs-attr">port</span>: <span class="hljs-number">1234</span> <span class="hljs-comment">// 6697/6667 by default, depending on the "secure" setting</span>
+    <span class="hljs-attr">port</span>: <span class="hljs-number">1234</span>, <span class="hljs-comment">// 6697/6667 by default, depending on the "secure" setting</span>
   },
   <span class="hljs-comment">// or:</span>
   <span class="hljs-attr">connection</span>: {
     <span class="hljs-attr">type</span>: <span class="hljs-string">"websocket"</span>,
-    <span class="hljs-attr">secure</span>: <span class="hljs-literal">true</span> <span class="hljs-comment">// use preset URL of irc-ws.chat.twitch.tv</span>
+    <span class="hljs-attr">secure</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// use preset URL of irc-ws.chat.twitch.tv</span>
   },
   <span class="hljs-comment">// or:</span>
   <span class="hljs-attr">connection</span>: {
     <span class="hljs-attr">type</span>: <span class="hljs-string">"websocket"</span>,
-    <span class="hljs-attr">url</span>: <span class="hljs-string">"wss://custom-url.com/abc/def"</span> <span class="hljs-comment">// custom URL</span>
+    <span class="hljs-attr">url</span>: <span class="hljs-string">"wss://custom-url.com/abc/def"</span>, <span class="hljs-comment">// custom URL</span>
   },
   <span class="hljs-comment">// or:</span>
   <span class="hljs-attr">connection</span>: {
@@ -725,7 +727,7 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
     <span class="hljs-comment">// implementing the Duplex interface from Node.js</span>
     <span class="hljs-comment">// the function you specify is called for each new connection</span>
 
-    <span class="hljs-attr">preSetup</span>: <span class="hljs-literal">true</span> <span class="hljs-comment">// false by default, makes the lib skip login</span>
+    <span class="hljs-attr">preSetup</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// false by default, makes the lib skip login</span>
     <span class="hljs-comment">// and capabilities negotiation on connection startup</span>
   },
 
@@ -736,7 +738,7 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
   <span class="hljs-attr">connectionRateLimits</span>: {
     <span class="hljs-attr">parallelConnections</span>: <span class="hljs-number">5</span>, <span class="hljs-comment">// 1 by default</span>
     <span class="hljs-comment">// time to wait after each connection before a new connection can begin</span>
-    <span class="hljs-attr">releaseTime</span>: <span class="hljs-number">1000</span> <span class="hljs-comment">// in milliseconds, 2 seconds by default</span>
+    <span class="hljs-attr">releaseTime</span>: <span class="hljs-number">1000</span>, <span class="hljs-comment">// in milliseconds, 2 seconds by default</span>
   },
 
   <span class="hljs-comment">// I recommend you leave this off by default, it makes your bot faster</span>
@@ -755,7 +757,7 @@ client.on(<span class="hljs-string">"372"</span>, msg =&gt; <span class="hljs-bu
   <span class="hljs-comment">// With this option enabled, the returned promises will still be rejected/</span>
   <span class="hljs-comment">// resolved as without this option, this option ONLY silences the</span>
   <span class="hljs-comment">// UnhandledPromiseRejectionWarning.</span>
-  <span class="hljs-attr">ignoreUnhandledPromiseRejections</span>: <span class="hljs-literal">true</span> <span class="hljs-comment">// false by default</span>
+  <span class="hljs-attr">ignoreUnhandledPromiseRejections</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// false by default</span>
 });</code></pre>
 				<a href="#features" id="features" style="color: inherit; text-decoration: none;">
 					<h2>Features</h2>
@@ -850,7 +852,7 @@ npm run lintfix</code></pre>
 					<li class=" tsd-kind-class">
 						<a href="classes/alternatemessagemodifier.html" class="tsd-kind-icon">Alternate<wbr>Message<wbr>Modifier</a>
 					</li>
-					<li class=" tsd-kind-class">
+					<li class=" tsd-kind-class tsd-has-type-parameter">
 						<a href="classes/baseclient.html" class="tsd-kind-icon">Base<wbr>Client</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -865,7 +867,7 @@ npm run lintfix</code></pre>
 					<li class=" tsd-kind-class">
 						<a href="classes/channelircmessage.html" class="tsd-kind-icon">ChannelIRCMessage</a>
 					</li>
-					<li class=" tsd-kind-class">
+					<li class=" tsd-kind-class tsd-has-type-parameter">
 						<a href="classes/chatclient.html" class="tsd-kind-icon">Chat<wbr>Client</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -958,7 +960,7 @@ npm run lintfix</code></pre>
 					<li class=" tsd-kind-class">
 						<a href="classes/responseawaiter.html" class="tsd-kind-icon">Response<wbr>Awaiter</a>
 					</li>
-					<li class=" tsd-kind-class">
+					<li class=" tsd-kind-class tsd-has-type-parameter">
 						<a href="classes/roomstatetracker.html" class="tsd-kind-icon">Room<wbr>State<wbr>Tracker</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -970,7 +972,7 @@ npm run lintfix</code></pre>
 					<li class=" tsd-kind-class">
 						<a href="classes/setcolorerror.html" class="tsd-kind-icon">Set<wbr>Color<wbr>Error</a>
 					</li>
-					<li class=" tsd-kind-class">
+					<li class=" tsd-kind-class tsd-has-type-parameter">
 						<a href="classes/singleconnection.html" class="tsd-kind-icon">Single<wbr>Connection</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -991,7 +993,7 @@ npm run lintfix</code></pre>
 					<li class=" tsd-kind-class">
 						<a href="classes/twitchemote.html" class="tsd-kind-icon">Twitch<wbr>Emote</a>
 					</li>
-					<li class=" tsd-kind-class">
+					<li class=" tsd-kind-class tsd-has-type-parameter">
 						<a href="classes/userstatetracker.html" class="tsd-kind-icon">User<wbr>State<wbr>Tracker</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -1631,57 +1633,21 @@ npm run lintfix</code></pre>
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
-				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
-				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
-				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
-				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
-				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
-				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
-				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
-				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
-				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
-				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
-				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
-				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
-				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
 				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
 				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
-				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
-				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
 			</ul>
 		</div>
 	</div>
