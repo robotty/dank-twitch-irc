@@ -10,7 +10,7 @@
     "lib"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && sed -i '1,1 s/types=\"debug-logger\"/path=\"\\.\\.\\/types\\/debug-logger\\/index.d.ts\"/' ./dist/index.d.ts",
     "check-format": "prettier --check \"**/*.md\" \"**/*.js\" \"**/*.ts\" \"**/*.yml\" \"**/*.json\"",
     "reformat": "prettier --write \"**/*.md\" \"**/*.js\" \"**/*.ts\" \"**/*.yml\" \"**/*.json\"",
     "lint": "eslint --format codeframe --ext .ts --ext .js .",
