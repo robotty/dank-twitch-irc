@@ -5,8 +5,9 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist/**/*",
-    "types/**/*"
+    "dist",
+    "types",
+    "lib"
   ],
   "scripts": {
     "build": "tsc",
