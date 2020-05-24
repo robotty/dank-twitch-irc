@@ -1,7 +1,7 @@
 import { Color } from "../color";
 import { ParseError } from "./parse-error";
 
-const rgbColorRegex = /^#(?<r>[0-9a-fA-F]{2})(?<g>[0-9a-fA-F]{2})(?<b>[0-9a-fA-F]{2})$/;
+const rgbColorRegex = /^#([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/;
 
 export function parseColor(colorSrc: string): Color {
   const match = rgbColorRegex.exec(colorSrc);
@@ -11,9 +11,9 @@ export function parseColor(colorSrc: string): Color {
     );
   }
 
-  const r = parseInt(match.groups!.r, 16);
-  const g = parseInt(match.groups!.g, 16);
-  const b = parseInt(match.groups!.b, 16);
+  const r = parseInt(match[1], 16);
+  const g = parseInt(match[2], 16);
+  const b = parseInt(match[3], 16);
 
   return { r, g, b };
 }
