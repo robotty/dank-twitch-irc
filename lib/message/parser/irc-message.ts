@@ -1,88 +1,171 @@
 import { IRCMessage } from "../irc/irc-message";
-import { IRCMessagePrefix } from "../irc/prefix";
+import { IRCMessageTags } from "../irc/tags";
 import { ParseError } from "./parse-error";
 import { parseTags } from "./tags";
 
-// relevant RFC: https://tools.ietf.org/html/rfc2812#section-2.3.1
-// also this should be helpful :) https://tools.ietf.org/html/rfc5234
-// the regex below tries to follow the described format when possible,
-// but ridiculous validation tasks like URL validation are not performed
-
-export const ircParseRegex = new RegExp(
-  "^(?:@(?<tags>[^ ]+) )?(?::(?<prefix>(?<hostname>[a-zA-Z0-9-_]+\\" +
-    ".[a-zA-Z0-9-_.]+)|(?:(?<nickname>[a-zA-Z0-9-[\\]\\\\`_^{|}]+)(?:(?:!(?<username>[^\\x00\\r\\n @]+))?@" +
-    "(?<hostname2>[a-zA-Z0-9-_.]+))?)) )?(?<command>[a-zA-Z]+|[0-9]{3})(?<middleParameters>(?: [^\\x00\\r\\" +
-    "n :][^\\x00\\r\\n ]*){0,14})?(?: :(?<trailingParameter>[^\\x00\\r\\n]*))?$"
-);
-
-// splits the "middleParameters" group returned by the main parse regex
-// into the individual arguments
-const eachMiddleParameterRegex = /(?<= )[^\x00\r\n :][^\x00\r\n ]*/g;
-
-/**
- * Parses what the "middleParameters" group of the main regex matched into a list
- * of "middle" parameters. E.g. in PRIVMSG #pajlada :xD the
- * `middleParametersRaw` would be ` #pajlada` (notice the leading space)
- * and the expected results would be `['#pajlada']`.
- * If no middle parameters were matched `middleParametersRaw` will be an empty string.
- *
- * @param middleParametersRaw The raw middle parameters from the regex match.
- */
-export function parseMiddleParameters(
-  middleParametersRaw: string | undefined
-): string[] {
-  if (middleParametersRaw == null || middleParametersRaw.length <= 0) {
-    return [];
-  }
-
-  // middleParametersRaw an arguments list like:
-  // " #pajlada anotherarg thirdarg" (each argument prefixed with a space)
-  let match;
-  const parameters: string[] = [];
-  while ((match = eachMiddleParameterRegex.exec(middleParametersRaw)) != null) {
-    parameters.push(match[0]);
-  }
-  return parameters;
-}
+const VALID_CMD_REGEX = /^(?:[a-zA-Z]+|[0-9]{3})$/;
 
 export function parseIRCMessage(messageSrc: string): IRCMessage {
-  const matches = ircParseRegex.exec(messageSrc);
-  if (matches == null) {
-    throw new ParseError(`IRC message malformed (given line: "${messageSrc}")`);
+  let remainder = messageSrc;
+
+  let ircTags: IRCMessageTags;
+  if (messageSrc.startsWith("@")) {
+    remainder = remainder.slice(1); // remove @ sign
+
+    const spaceIdx = remainder.indexOf(" ");
+    if (spaceIdx < 0) {
+      // not found
+      throw new ParseError(
+        `No space found after tags declaration (given src: "${messageSrc}")`
+      );
+    }
+
+    const tagsSrc = remainder.slice(0, spaceIdx);
+
+    if (tagsSrc.length === 0) {
+      throw new ParseError(
+        `Empty tags declaration (nothing after @ sign) (given src: "${messageSrc}")`
+      );
+    }
+
+    ircTags = parseTags(tagsSrc);
+    remainder = remainder.slice(spaceIdx + 1);
+  } else {
+    ircTags = {};
   }
 
-  const ircTagsRaw: string | undefined = matches.groups!.tags;
-  const ircTags = parseTags(ircTagsRaw);
+  let ircPrefix;
+  let ircPrefixRaw;
+  if (remainder.startsWith(":")) {
+    remainder = remainder.slice(1); // remove : sign
 
-  const ircPrefixRaw: string | undefined = matches.groups!.prefix;
-  let ircPrefix: IRCMessagePrefix | undefined;
-  if (matches.groups!.hostname != null) {
-    // Variant 1: Just a hostname
-    ircPrefix = {
-      nickname: undefined,
-      username: undefined,
-      hostname: matches.groups!.hostname,
-    };
-  } else if (matches.groups!.nickname != null) {
-    // Variant 2: Nickname, username?, hostname?
-    ircPrefix = {
-      nickname: matches.groups!.nickname,
-      username: matches.groups!.username,
-      hostname: matches.groups!.hostname2,
-    };
+    const spaceIdx = remainder.indexOf(" ");
+    if (spaceIdx < 0) {
+      // not found
+      throw new ParseError(
+        `No space found after prefix declaration (given src: "${messageSrc}")`
+      );
+    }
+
+    ircPrefixRaw = remainder.slice(0, spaceIdx);
+    remainder = remainder.slice(spaceIdx + 1);
+
+    if (ircPrefixRaw.length === 0) {
+      throw new ParseError(
+        `Empty prefix declaration (nothing after : sign) (given src: "${messageSrc}")`
+      );
+    }
+
+    if (!ircPrefixRaw.includes("@")) {
+      // just a hostname or just a nickname
+      ircPrefix = {
+        nickname: undefined,
+        username: undefined,
+        hostname: ircPrefixRaw,
+      };
+    } else {
+      // full prefix (nick[[!user]@host])
+      // valid forms:
+      // nick (but this is not really possible to differentiate
+      //       from the hostname only, so if we don't get any @
+      //       we just assume it's a hostname.)
+      // nick@host
+      // nick!user@host
+
+      // split on @ first, then on !
+      const atIndex = ircPrefixRaw.indexOf("@");
+      const nickAndUser = ircPrefixRaw.slice(0, atIndex);
+      const host = ircPrefixRaw.slice(atIndex + 1);
+
+      // now nickAndUser is either "nick" or "nick!user"
+      // => split on !
+      const exclamationIndex = nickAndUser.indexOf("!");
+      let nick;
+      let user;
+      if (exclamationIndex < 0) {
+        // no ! found
+        nick = nickAndUser;
+        user = undefined;
+      } else {
+        nick = nickAndUser.slice(0, exclamationIndex);
+        user = nickAndUser.slice(exclamationIndex + 1);
+      }
+
+      if (
+        host.length === 0 ||
+        nick.length === 0 ||
+        (user != null && user.length === 0)
+      ) {
+        throw new ParseError(
+          `Host, nick or user is empty in prefix (given src: "${messageSrc}")`
+        );
+      }
+
+      ircPrefix = {
+        nickname: nick,
+        username: user,
+        hostname: host,
+      };
+    }
   } else {
     ircPrefix = undefined;
+    ircPrefixRaw = undefined;
   }
 
-  const ircCommand = matches.groups!.command.toUpperCase();
+  const spaceAfterCommandIdx = remainder.indexOf(" ");
 
-  const middleParametersRaw = matches.groups!.middleParameters;
-  const ircParameters = parseMiddleParameters(middleParametersRaw);
+  let ircCommand;
+  let ircParameters;
 
-  const trailingParameterRaw = matches.groups!.trailingParameter;
-  if (trailingParameterRaw != null) {
-    ircParameters.push(trailingParameterRaw);
+  if (spaceAfterCommandIdx < 0) {
+    // no space after commands, i.e. no params.
+    ircCommand = remainder;
+    ircParameters = [];
+  } else {
+    // split command off
+    ircCommand = remainder.slice(0, spaceAfterCommandIdx);
+    remainder = remainder.slice(spaceAfterCommandIdx + 1);
+
+    ircParameters = [];
+
+    // introduce a new variable so it can be null (typescript shenanigans)
+    let paramsRemainder: string | null = remainder;
+    while (paramsRemainder !== null) {
+      if (paramsRemainder.startsWith(":")) {
+        // trailing param, remove : and consume the rest of the input
+        ircParameters.push(paramsRemainder.slice(1));
+        paramsRemainder = null;
+      } else {
+        // middle param
+        const spaceIdx = paramsRemainder.indexOf(" ");
+
+        let param;
+        if (spaceIdx < 0) {
+          // no space found
+          param = paramsRemainder;
+          paramsRemainder = null;
+        } else {
+          param = paramsRemainder.slice(0, spaceIdx);
+          paramsRemainder = paramsRemainder.slice(spaceIdx + 1);
+        }
+
+        if (param.length === 0) {
+          throw new ParseError(
+            `Too many spaces found while trying to parse middle parameters (given src: "${messageSrc}")`
+          );
+        }
+        ircParameters.push(param);
+      }
+    }
   }
+
+  if (!VALID_CMD_REGEX.test(ircCommand)) {
+    throw new ParseError(
+      `Invalid format for IRC command (given src: "${messageSrc}")`
+    );
+  }
+
+  ircCommand = ircCommand.toUpperCase();
 
   return new IRCMessage({
     rawSource: messageSrc,

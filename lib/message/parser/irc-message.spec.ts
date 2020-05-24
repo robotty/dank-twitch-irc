@@ -1,58 +1,16 @@
 import { assert } from "chai";
 import { assertThrowsChain } from "../../helpers.spec";
 import { IRCMessage } from "../irc/irc-message";
-import {
-  ircParseRegex,
-  parseIRCMessage,
-  parseMiddleParameters,
-} from "./irc-message";
+import { parseIRCMessage } from "./irc-message";
 import { ParseError } from "./parse-error";
 
 describe("./message/parser/irc-message", function () {
-  describe("#ircParseRegex", function () {
-    it("should be equal to the expanded version", function () {
-      // making sure there are no copy paste or escaping errors
-      assert.strictEqual(
-        ircParseRegex.source,
-        "^(?:@(?<tags>[^ ]+) )?(?::(?<prefix>(?<hostname>[a-zA-Z0-9-_]+\\" +
-          ".[a-zA-Z0-9-_.]+)|(?:(?<nickname>[a-zA-Z0-9-[\\]\\\\`_^{|}]+)(?:(?:!(?<username>[^\\x00\\r\\n @]+))?@" +
-          "(?<hostname2>[a-zA-Z0-9-_.]+))?)) )?(?<command>[a-zA-Z]+|[0-9]{3})(?<middleParameters>(?: [^\\x00\\r" +
-          "\\n :][^\\x00\\r\\n ]*){0,14})?(?: :(?<trailingParameter>[^\\x00\\r\\n]*))?$"
-      );
-    });
-  });
-
-  describe("#parseMiddleParameters()", function () {
-    it("should return an empty array on undefined input", function () {
-      assert.deepStrictEqual(parseMiddleParameters(undefined), []);
-    });
-    it("should return an empty array on empty string input", function () {
-      assert.deepStrictEqual(parseMiddleParameters(""), []);
-    });
-    it("should parse a single argument correctly", function () {
-      assert.deepStrictEqual(parseMiddleParameters(" #pajlada"), ["#pajlada"]);
-    });
-    it("should parse two arguments correctly", function () {
-      assert.deepStrictEqual(parseMiddleParameters(" #pajlada *"), [
-        "#pajlada",
-        "*",
-      ]);
-    });
-    it("should parse three arguments correctly", function () {
-      assert.deepStrictEqual(parseMiddleParameters(" #pajlada * ACK"), [
-        "#pajlada",
-        "*",
-        "ACK",
-      ]);
-    });
-  });
-
   describe("#parseIRCMessage", function () {
     it("should throw a ParseError on empty string input", function () {
       assertThrowsChain(
         () => parseIRCMessage(""),
         ParseError,
-        'IRC message malformed (given line: "")'
+        'Invalid format for IRC command (given src: "")'
       );
     });
     it("should throw a ParseError on malformed input", function () {
@@ -60,7 +18,29 @@ describe("./message/parser/irc-message", function () {
       assertThrowsChain(
         () => parseIRCMessage(":tmi.twitch.tv  PRIVMSG"),
         ParseError,
-        'IRC message malformed (given line: ":tmi.twitch.tv  PRIVMSG")'
+        'Invalid format for IRC command (given src: ":tmi.twitch.tv  PRIVMSG")'
+      );
+    });
+    it("should error on empty prefix", function () {
+      assertThrowsChain(
+        () => parseIRCMessage(": PING xD"),
+        ParseError,
+        'Empty prefix declaration (nothing after : sign) (given src: ": PING xD")'
+      );
+      assertThrowsChain(
+        () => parseIRCMessage(":a@ PING xD"),
+        ParseError,
+        'Host, nick or user is empty in prefix (given src: ":a@ PING xD")'
+      );
+      assertThrowsChain(
+        () => parseIRCMessage(":a!@b PING xD"),
+        ParseError,
+        'Host, nick or user is empty in prefix (given src: ":a!@b PING xD")'
+      );
+    });
+    it("should parse this one", function () {
+      parseIRCMessage(
+        ":justinfan12345.tmi.twitch.tv 353 justinfan12345 = #pajlada :justinfan12345"
       );
     });
     it("should parse tags optionally", function () {
@@ -175,17 +155,20 @@ describe("./message/parser/irc-message", function () {
         })
       );
     });
-    it("should recognize nickname-only prefixes", function () {
+    it("should recognize server-only prefixes", function () {
       const actual = parseIRCMessage(":leppunen PRIVMSG");
+      // note: this could also be a nickname-only prefix but those
+      // don't really exist on Twitch so we assume a :<single thing>
+      // prefix to be a hostname regardless of content
       assert.deepStrictEqual(
         actual,
         new IRCMessage({
           rawSource: ":leppunen PRIVMSG",
           ircPrefixRaw: "leppunen",
           ircPrefix: {
-            nickname: "leppunen",
+            nickname: undefined,
             username: undefined,
-            hostname: undefined,
+            hostname: "leppunen",
           },
           ircCommand: "PRIVMSG",
           ircParameters: [],
@@ -231,12 +214,12 @@ describe("./message/parser/irc-message", function () {
       assertThrowsChain(
         () => parseIRCMessage("01"),
         ParseError,
-        'IRC message malformed (given line: "01")'
+        'Invalid format for IRC command (given src: "01")'
       );
       assertThrowsChain(
         () => parseIRCMessage("0001"),
         ParseError,
-        'IRC message malformed (given line: "0001")'
+        'Invalid format for IRC command (given src: "0001")'
       );
     });
   });
