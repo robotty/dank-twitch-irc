@@ -123,7 +123,6 @@ export function createMockTransport(): MockTransportData {
     autoDestroy: true,
     emitClose: true,
     decodeStrings: false, // for write operations
-    // @ts-ignore XD https://github.com/DefinitelyTyped/DefinitelyTyped/issues/44990
     defaultEncoding: "utf-8", // for write operations
     encoding: "utf-8", // for read operations
     write(
