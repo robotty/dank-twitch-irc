@@ -106,25 +106,25 @@
 				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
 					<h2>Usage</h2>
 				</a>
-				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { ChatClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">"dank-twitch-irc"</span>);
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { ChatClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;dank-twitch-irc&quot;</span>);
 
 <span class="hljs-keyword">let</span> client = <span class="hljs-keyword">new</span> ChatClient();
 
-client.on(<span class="hljs-string">"ready"</span>, () =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Successfully connected to chat"</span>));
-client.on(<span class="hljs-string">"close"</span>, (error) =&gt; {
+client.on(<span class="hljs-string">&quot;ready&quot;</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;Successfully connected to chat&quot;</span>));
+client.on(<span class="hljs-string">&quot;close&quot;</span>, <span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> {
   <span class="hljs-keyword">if</span> (error != <span class="hljs-literal">null</span>) {
-    <span class="hljs-built_in">console</span>.error(<span class="hljs-string">"Client closed due to error"</span>, error);
+    <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&quot;Client closed due to error&quot;</span>, error);
   }
 });
 
-client.on(<span class="hljs-string">"PRIVMSG"</span>, (msg) =&gt; {
+client.on(<span class="hljs-string">&quot;PRIVMSG&quot;</span>, <span class="hljs-function">(<span class="hljs-params">msg</span>) =&gt;</span> {
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`[#<span class="hljs-subst">${msg.channelName}</span>] <span class="hljs-subst">${msg.displayName}</span>: <span class="hljs-subst">${msg.messageText}</span>`</span>);
 });
 
 <span class="hljs-comment">// See below for more events</span>
 
 client.connect();
-client.join(<span class="hljs-string">"forsen"</span>);</code></pre>
+client.join(<span class="hljs-string">&quot;forsen&quot;</span>);</code></pre>
 				<a href="#available-client-events" id="available-client-events" style="color: inherit; text-decoration: none;">
 					<h2>Available client events</h2>
 				</a>
@@ -161,7 +161,7 @@ client.join(<span class="hljs-string">"forsen"</span>);</code></pre>
 							always instanceof <code>PrivmsgMessage</code>. (See the API documentation for what
 						properties exist on all <code>PrivmsgMessage</code> instances)</p>
 						<p>For example:</p>
-						<pre><code class="language-javascript">client.on(<span class="hljs-string">"CLEARCHAT"</span>, (msg) =&gt; {
+						<pre><code class="language-javascript">client.on(<span class="hljs-string">&quot;CLEARCHAT&quot;</span>, <span class="hljs-function">(<span class="hljs-params">msg</span>) =&gt;</span> {
   <span class="hljs-keyword">if</span> (msg.isTimeout()) {
     <span class="hljs-built_in">console</span>.log(
       <span class="hljs-string">`<span class="hljs-subst">${msg.targetUsername}</span> just got timed out for `</span> +
@@ -222,7 +222,7 @@ client.join(<span class="hljs-string">"forsen"</span>);</code></pre>
 				<a href="https://robotty.github.io/dank-twitch-irc/classes/ircmessage.html"><code>IRCMessage</code></a>, e.g.:</p>
 				<pre><code class="language-javascript"><span class="hljs-comment">// :tmi.twitch.tv 372 botfactory :You are in a maze of twisty passages, all alike.</span>
 <span class="hljs-comment">// msg will be an instance of IRCMessage</span>
-client.on(<span class="hljs-string">"372"</span>, (msg) =&gt;
+client.on(<span class="hljs-string">&quot;372&quot;</span>, <span class="hljs-function">(<span class="hljs-params">msg</span>) =&gt;</span>
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Server MOTD is: <span class="hljs-subst">${msg.ircParameters[<span class="hljs-number">1</span>]}</span>`</span>)
 );</code></pre>
 				<a href="#handling-usernotice-messages" id="handling-usernotice-messages" style="color: inherit; text-decoration: none;">
@@ -256,7 +256,7 @@ client.on(<span class="hljs-string">"372"</span>, (msg) =&gt;
 				</a>
 				<p>When a user subscribes or resubscribes with his own money/prime (this is NOT
 				sent for gift subs, see below)</p>
-				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, (msg) =&gt; {
+				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">&quot;USERNOTICE&quot;</span>, <span class="hljs-function">(<span class="hljs-params">msg</span>) =&gt;</span> {
   <span class="hljs-comment">// sub and resub messages have the same parameters, so we can handle them both the same way</span>
   <span class="hljs-keyword">if</span> (!msg.isSub() &amp;&amp; !msg.isResub()) {
     <span class="hljs-keyword">return</span>;
@@ -266,17 +266,17 @@ client.on(<span class="hljs-string">"372"</span>, (msg) =&gt;
    * msg.eventParams are:
    *
    * {
-   *   "cumulativeMonths": 10,
-   *   "cumulativeMonthsRaw": "10",
-   *   "subPlan": "1000", // Prime, 1000, 2000 or 3000
-   *   "subPlanName": "The Ninjas",
+   *   &quot;cumulativeMonths&quot;: 10,
+   *   &quot;cumulativeMonthsRaw&quot;: &quot;10&quot;,
+   *   &quot;subPlan&quot;: &quot;1000&quot;, // Prime, 1000, 2000 or 3000
+   *   &quot;subPlanName&quot;: &quot;The Ninjas&quot;,
    *
    *   // if shouldShareStreak is false, then
    *   // streakMonths/streakMonthsRaw will be 0
    *   // (the user did not share their sub streak in chat)
-   *   "shouldShareStreak": true,
-   *   "streakMonths": 7,
-   *   "streakMonthsRaw": "7"
+   *   &quot;shouldShareStreak&quot;: true,
+   *   &quot;streakMonths&quot;: 7,
+   *   &quot;streakMonthsRaw&quot;: &quot;7&quot;
    * }
    * Sender user of the USERNOTICE message is the user subbing/resubbing.
    */</span>
@@ -285,36 +285,36 @@ client.on(<span class="hljs-string">"372"</span>, (msg) =&gt;
     <span class="hljs-comment">// Leppunen just subscribed to ninja with a tier 1000 (The Ninjas) sub for the first time!</span>
     <span class="hljs-built_in">console</span>.log(
       msg.displayName +
-        <span class="hljs-string">" just subscribed to "</span> +
+        <span class="hljs-string">&quot; just subscribed to &quot;</span> +
         msg.channelName +
-        <span class="hljs-string">" with a tier "</span> +
+        <span class="hljs-string">&quot; with a tier &quot;</span> +
         msg.eventParams.subPlan +
-        <span class="hljs-string">" ("</span> +
+        <span class="hljs-string">&quot; (&quot;</span> +
         msg.eventParams.subPlanName +
-        <span class="hljs-string">") sub for the first time!"</span>
+        <span class="hljs-string">&quot;) sub for the first time!&quot;</span>
     );
   } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (msg.isResub()) {
-    <span class="hljs-keyword">let</span> streakMessage = <span class="hljs-string">""</span>;
+    <span class="hljs-keyword">let</span> streakMessage = <span class="hljs-string">&quot;&quot;</span>;
     <span class="hljs-keyword">if</span> (msg.eventParams.shouldShareStreak) {
       streakMessage =
-        <span class="hljs-string">", currently "</span> + msg.eventParams.streakMonths + <span class="hljs-string">" months in a row"</span>;
+        <span class="hljs-string">&quot;, currently &quot;</span> + msg.eventParams.streakMonths + <span class="hljs-string">&quot; months in a row&quot;</span>;
     }
 
     <span class="hljs-comment">// Leppunen just resubscribed to ninja with a tier 1000 (The Ninjas) sub!</span>
     <span class="hljs-comment">// They are resubscribing for 10 months, currently 7 months in a row!</span>
     <span class="hljs-built_in">console</span>.log(
       msg.displayName +
-        <span class="hljs-string">" just resubscribed to "</span> +
+        <span class="hljs-string">&quot; just resubscribed to &quot;</span> +
         msg.channelName +
-        <span class="hljs-string">" with a tier "</span> +
+        <span class="hljs-string">&quot; with a tier &quot;</span> +
         msg.eventParams.subPlan +
-        <span class="hljs-string">" ("</span> +
+        <span class="hljs-string">&quot; (&quot;</span> +
         msg.eventParams.subPlanName +
-        <span class="hljs-string">") sub! They are resubscribing for "</span> +
+        <span class="hljs-string">&quot;) sub! They are resubscribing for &quot;</span> +
         msg.eventParams.cumulativeMonths +
-        <span class="hljs-string">" months"</span> +
+        <span class="hljs-string">&quot; months&quot;</span> +
         streakMessage +
-        <span class="hljs-string">"!"</span>
+        <span class="hljs-string">&quot;!&quot;</span>
     );
   }
 
@@ -324,11 +324,11 @@ client.on(<span class="hljs-string">"372"</span>, (msg) =&gt;
     <span class="hljs-comment">// msg.color, msg.emotes, msg.messageID, msg.serverTimestamp, etc...</span>
     <span class="hljs-built_in">console</span>.log(
       msg.displayName +
-        <span class="hljs-string">" shared the following message with the streamer: "</span> +
+        <span class="hljs-string">&quot; shared the following message with the streamer: &quot;</span> +
         msg.messageText
     );
   } <span class="hljs-keyword">else</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"They did not share a message with the streamer."</span>);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;They did not share a message with the streamer.&quot;</span>);
   }
 });</code></pre>
 				<a href="#incoming-raids" id="incoming-raids" style="color: inherit; text-decoration: none;">
@@ -340,7 +340,7 @@ client.on(<span class="hljs-string">"372"</span>, (msg) =&gt;
 						send their viewers to another channel, to help support and grow other members
 					in the community.)</p>
 				</blockquote>
-				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, (msg) =&gt; {
+				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">&quot;USERNOTICE&quot;</span>, <span class="hljs-function">(<span class="hljs-params">msg</span>) =&gt;</span> {
   <span class="hljs-keyword">if</span> (!msg.isRaid()) {
     <span class="hljs-keyword">return</span>;
   }
@@ -348,14 +348,14 @@ client.on(<span class="hljs-string">"372"</span>, (msg) =&gt;
   <span class="hljs-comment">/*
    * msg.eventParams are:
    * {
-   *   "displayName": "Leppunen",
-   *   "login": "leppunen",
-   *   "viewerCount": 12,
-   *   "viewerCountRaw": "12"
+   *   &quot;displayName&quot;: &quot;Leppunen&quot;,
+   *   &quot;login&quot;: &quot;leppunen&quot;,
+   *   &quot;viewerCount&quot;: 12,
+   *   &quot;viewerCountRaw&quot;: &quot;12&quot;
    * }
    * Sender user of the USERNOTICE message is the user raiding this channel.
    * Note that the display name and login present in msg.eventParams are
-   * the same as msg.displayName and msg.senderUsername, so it doesn't matter
+   * the same as msg.displayName and msg.senderUsername, so it doesn&#x27;t matter
    * which one you use (although I recommend the properties directly on the
    * message object, not in eventParams)
    */</span>
@@ -364,18 +364,18 @@ client.on(<span class="hljs-string">"372"</span>, (msg) =&gt;
   <span class="hljs-comment">// Leppunen just raided Supinic with 12 viewers!</span>
   <span class="hljs-built_in">console</span>.log(
     msg.displayName +
-      <span class="hljs-string">" just raided "</span> +
+      <span class="hljs-string">&quot; just raided &quot;</span> +
       msg.channelName +
-      <span class="hljs-string">" with "</span> +
+      <span class="hljs-string">&quot; with &quot;</span> +
       msg.eventParams.viewerCount +
-      <span class="hljs-string">" viewers!"</span>
+      <span class="hljs-string">&quot; viewers!&quot;</span>
   );
 });</code></pre>
 				<a href="#subgift" id="subgift" style="color: inherit; text-decoration: none;">
 					<h3>Subgift</h3>
 				</a>
 				<p>When a user gifts somebody else a subscription.</p>
-				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, (msg) =&gt; {
+				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">&quot;USERNOTICE&quot;</span>, <span class="hljs-function">(<span class="hljs-params">msg</span>) =&gt;</span> {
   <span class="hljs-keyword">if</span> (!msg.isSubgift()) {
     <span class="hljs-keyword">return</span>;
   }
@@ -383,13 +383,13 @@ client.on(<span class="hljs-string">"372"</span>, (msg) =&gt;
   <span class="hljs-comment">/*
    * msg.eventParams are:
    * {
-   *   "months": 5,
-   *   "monthsRaw": "5",
-   *   "recipientDisplayName": "Leppunen",
-   *   "recipientID": "42239452",
-   *   "recipientUsername": "leppunen",
-   *   "subPlan": "1000",
-   *   "subPlanName": "The Ninjas"
+   *   &quot;months&quot;: 5,
+   *   &quot;monthsRaw&quot;: &quot;5&quot;,
+   *   &quot;recipientDisplayName&quot;: &quot;Leppunen&quot;,
+   *   &quot;recipientID&quot;: &quot;42239452&quot;,
+   *   &quot;recipientUsername&quot;: &quot;leppunen&quot;,
+   *   &quot;subPlan&quot;: &quot;1000&quot;,
+   *   &quot;subPlanName&quot;: &quot;The Ninjas&quot;
    * }
    * Sender user of the USERNOTICE message is the user gifting the subscription.
    */</span>
@@ -398,45 +398,45 @@ client.on(<span class="hljs-string">"372"</span>, (msg) =&gt;
     <span class="hljs-comment">// Leppunen just gifted NymN a fresh tier 1000 (The Ninjas) sub to ninja!</span>
     <span class="hljs-built_in">console</span>.log(
       msg.displayName +
-        <span class="hljs-string">" just gifted "</span> +
+        <span class="hljs-string">&quot; just gifted &quot;</span> +
         msg.eventParams.recipientDisplayName +
-        <span class="hljs-string">" a fresh tier "</span> +
+        <span class="hljs-string">&quot; a fresh tier &quot;</span> +
         msg.eventParams.subPlan +
-        <span class="hljs-string">" ("</span> +
+        <span class="hljs-string">&quot; (&quot;</span> +
         msg.eventParams +
-        <span class="hljs-string">") sub to "</span> +
+        <span class="hljs-string">&quot;) sub to &quot;</span> +
         msg.channelName +
-        <span class="hljs-string">"!"</span>
+        <span class="hljs-string">&quot;!&quot;</span>
     );
   } <span class="hljs-keyword">else</span> {
-    <span class="hljs-comment">// Leppunen just gifted NymN a tier 1000 (The Ninjas) resub to ninja, that's 7 months in a row!</span>
+    <span class="hljs-comment">// Leppunen just gifted NymN a tier 1000 (The Ninjas) resub to ninja, that&#x27;s 7 months in a row!</span>
     <span class="hljs-built_in">console</span>.log(
       msg.displayName +
-        <span class="hljs-string">" just gifted "</span> +
+        <span class="hljs-string">&quot; just gifted &quot;</span> +
         msg.eventParams.recipientDisplayName +
-        <span class="hljs-string">" a tier "</span> +
+        <span class="hljs-string">&quot; a tier &quot;</span> +
         msg.eventParams.subPlan +
-        <span class="hljs-string">" ("</span> +
+        <span class="hljs-string">&quot; (&quot;</span> +
         msg.eventParams +
-        <span class="hljs-string">") resub to "</span> +
+        <span class="hljs-string">&quot;) resub to &quot;</span> +
         msg.channelName +
-        <span class="hljs-string">", that's "</span> +
+        <span class="hljs-string">&quot;, that&#x27;s &quot;</span> +
         msg.eventParams.months +
-        <span class="hljs-string">" in a row!"</span>
+        <span class="hljs-string">&quot; in a row!&quot;</span>
     );
   }
 
   <span class="hljs-comment">// note: if the subgift was from an anonymous user, the sender user for the USERNOTICE message will be</span>
   <span class="hljs-comment">// AnAnonymousGifter (user ID 274598607)</span>
-  <span class="hljs-keyword">if</span> (msg.senderUserID === <span class="hljs-string">"274598607"</span>) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"That (re)sub was gifted anonymously!"</span>);
+  <span class="hljs-keyword">if</span> (msg.senderUserID === <span class="hljs-string">&quot;274598607&quot;</span>) {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;That (re)sub was gifted anonymously!&quot;</span>);
   }
 });</code></pre>
 				<a href="#anonsubgift" id="anonsubgift" style="color: inherit; text-decoration: none;">
 					<h3>Anonsubgift</h3>
 				</a>
 				<p>When an anonymous user gifts a subscription to a viewer.</p>
-				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, (msg) =&gt; {
+				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">&quot;USERNOTICE&quot;</span>, <span class="hljs-function">(<span class="hljs-params">msg</span>) =&gt;</span> {
   <span class="hljs-keyword">if</span> (!msg.isAnonSubgift()) {
     <span class="hljs-keyword">return</span>;
   }
@@ -444,13 +444,13 @@ client.on(<span class="hljs-string">"372"</span>, (msg) =&gt;
   <span class="hljs-comment">/*
    * msg.eventParams are:
    * {
-   *   "months": 5,
-   *   "monthsRaw": "5",
-   *   "recipientDisplayName": "Leppunen",
-   *   "recipientID": "42239452",
-   *   "recipientUsername": "leppunen",
-   *   "subPlan": "1000",
-   *   "subPlanName": "The Ninjas"
+   *   &quot;months&quot;: 5,
+   *   &quot;monthsRaw&quot;: &quot;5&quot;,
+   *   &quot;recipientDisplayName&quot;: &quot;Leppunen&quot;,
+   *   &quot;recipientID&quot;: &quot;42239452&quot;,
+   *   &quot;recipientUsername&quot;: &quot;leppunen&quot;,
+   *   &quot;subPlan&quot;: &quot;1000&quot;,
+   *   &quot;subPlanName&quot;: &quot;The Ninjas&quot;
    * }
    *
    * WARNING! Sender user of the USERNOTICE message is the broadcaster (e.g. Ninja
@@ -460,30 +460,30 @@ client.on(<span class="hljs-string">"372"</span>, (msg) =&gt;
   <span class="hljs-keyword">if</span> (msg.eventParams.months === <span class="hljs-number">1</span>) {
     <span class="hljs-comment">// An anonymous gifter just gifted NymN a fresh tier 1000 (The Ninjas) sub to ninja!</span>
     <span class="hljs-built_in">console</span>.log(
-      <span class="hljs-string">"An anonymous gifter just gifted "</span> +
+      <span class="hljs-string">&quot;An anonymous gifter just gifted &quot;</span> +
         msg.eventParams.recipientDisplayName +
-        <span class="hljs-string">" a fresh tier "</span> +
+        <span class="hljs-string">&quot; a fresh tier &quot;</span> +
         msg.eventParams.subPlan +
-        <span class="hljs-string">" ("</span> +
+        <span class="hljs-string">&quot; (&quot;</span> +
         msg.eventParams +
-        <span class="hljs-string">") sub to "</span> +
+        <span class="hljs-string">&quot;) sub to &quot;</span> +
         msg.channelName +
-        <span class="hljs-string">"!"</span>
+        <span class="hljs-string">&quot;!&quot;</span>
     );
   } <span class="hljs-keyword">else</span> {
-    <span class="hljs-comment">// An anonymous gifter just gifted NymN a tier 1000 (The Ninjas) resub to ninja, that's 7 months in a row!</span>
+    <span class="hljs-comment">// An anonymous gifter just gifted NymN a tier 1000 (The Ninjas) resub to ninja, that&#x27;s 7 months in a row!</span>
     <span class="hljs-built_in">console</span>.log(
-      <span class="hljs-string">"An anonymous gifter just gifted "</span> +
+      <span class="hljs-string">&quot;An anonymous gifter just gifted &quot;</span> +
         msg.eventParams.recipientDisplayName +
-        <span class="hljs-string">" a tier "</span> +
+        <span class="hljs-string">&quot; a tier &quot;</span> +
         msg.eventParams.subPlan +
-        <span class="hljs-string">" ("</span> +
+        <span class="hljs-string">&quot; (&quot;</span> +
         msg.eventParams +
-        <span class="hljs-string">") resub to "</span> +
+        <span class="hljs-string">&quot;) resub to &quot;</span> +
         msg.channelName +
-        <span class="hljs-string">", that's "</span> +
+        <span class="hljs-string">&quot;, that&#x27;s &quot;</span> +
         msg.eventParams.months +
-        <span class="hljs-string">" in a row!"</span>
+        <span class="hljs-string">&quot; in a row!&quot;</span>
     );
   }
 });</code></pre>
@@ -492,7 +492,7 @@ client.on(<span class="hljs-string">"372"</span>, (msg) =&gt;
 				</a>
 				<p>When a user commits to continue the gift sub by another user (or an anonymous
 				gifter).</p>
-				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, (msg) =&gt; {
+				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">&quot;USERNOTICE&quot;</span>, <span class="hljs-function">(<span class="hljs-params">msg</span>) =&gt;</span> {
   <span class="hljs-keyword">if</span> (!msg.isAnonGiftPaidUpgrade()) {
     <span class="hljs-keyword">return</span>;
   }
@@ -501,9 +501,9 @@ client.on(<span class="hljs-string">"372"</span>, (msg) =&gt;
    * msg.eventParams are:
    * EITHER: (ONLY when a promotion is running!)
    * {
-   *   "promoName": "Subtember 2018",
-   *   "promoGiftTotal": 3987234,
-   *   "promoGiftTotalRaw": "3987234"
+   *   &quot;promoName&quot;: &quot;Subtember 2018&quot;,
+   *   &quot;promoGiftTotal&quot;: 3987234,
+   *   &quot;promoGiftTotalRaw&quot;: &quot;3987234&quot;
    * }
    * OR: (when no promotion is running)
    * {}
@@ -514,12 +514,12 @@ client.on(<span class="hljs-string">"372"</span>, (msg) =&gt;
   <span class="hljs-comment">// Leppunen is continuing their ninja gift sub they got from an anonymous user!</span>
   <span class="hljs-built_in">console</span>.log(
     msg.displayName +
-      <span class="hljs-string">" is continuing their "</span> +
+      <span class="hljs-string">&quot; is continuing their &quot;</span> +
       msg.channelName +
-      <span class="hljs-string">" gift sub they got from an anonymous user!"</span>
+      <span class="hljs-string">&quot; gift sub they got from an anonymous user!&quot;</span>
   );
 });</code></pre>
-				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, (msg) =&gt; {
+				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">&quot;USERNOTICE&quot;</span>, <span class="hljs-function">(<span class="hljs-params">msg</span>) =&gt;</span> {
   <span class="hljs-keyword">if</span> (!msg.isGiftPaidUpgrade()) {
     <span class="hljs-keyword">return</span>;
   }
@@ -528,16 +528,16 @@ client.on(<span class="hljs-string">"372"</span>, (msg) =&gt;
    * msg.eventParams are:
    * EITHER: (ONLY when a promotion is running!)
    * {
-   *   "promoName": "Subtember 2018",
-   *   "promoGiftTotal": 3987234,
-   *   "promoGiftTotalRaw": "3987234",
-   *   "senderLogin": "krakenbul",
-   *   "senderName": "Krakenbul"
+   *   &quot;promoName&quot;: &quot;Subtember 2018&quot;,
+   *   &quot;promoGiftTotal&quot;: 3987234,
+   *   &quot;promoGiftTotalRaw&quot;: &quot;3987234&quot;,
+   *   &quot;senderLogin&quot;: &quot;krakenbul&quot;,
+   *   &quot;senderName&quot;: &quot;Krakenbul&quot;
    * }
    * OR: (when no promotion is running)
    * {
-   *   "senderLogin": "krakenbul",
-   *   "senderName": "Krakenbul"
+   *   &quot;senderLogin&quot;: &quot;krakenbul&quot;,
+   *   &quot;senderName&quot;: &quot;Krakenbul&quot;
    * }
    *
    * Sender user of the USERNOTICE message is the user continuing their sub.
@@ -546,11 +546,11 @@ client.on(<span class="hljs-string">"372"</span>, (msg) =&gt;
   <span class="hljs-comment">// Leppunen is continuing their ninja gift sub they got from Krakenbul!</span>
   <span class="hljs-built_in">console</span>.log(
     msg.displayName +
-      <span class="hljs-string">" is continuing their "</span> +
+      <span class="hljs-string">&quot; is continuing their &quot;</span> +
       msg.channelName +
-      <span class="hljs-string">" gift sub they got from "</span> +
+      <span class="hljs-string">&quot; gift sub they got from &quot;</span> +
       msg.msgParam.senderName +
-      <span class="hljs-string">"!"</span>
+      <span class="hljs-string">&quot;!&quot;</span>
   );
 });</code></pre>
 				<a href="#ritual" id="ritual" style="color: inherit; text-decoration: none;">
@@ -563,7 +563,7 @@ client.on(<span class="hljs-string">"372"</span>, (msg) =&gt;
 						these messages to other viewer milestones (initially, a new viewer chatting
 					for the first time).</p>
 				</blockquote>
-				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, (msg) =&gt; {
+				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">&quot;USERNOTICE&quot;</span>, <span class="hljs-function">(<span class="hljs-params">msg</span>) =&gt;</span> {
   <span class="hljs-keyword">if</span> (!msg.isRitual()) {
     <span class="hljs-keyword">return</span>;
   }
@@ -571,21 +571,21 @@ client.on(<span class="hljs-string">"372"</span>, (msg) =&gt;
   <span class="hljs-comment">/*
    * msg.eventParams are:
    * {
-   *   "ritualName": "new_chatter"
+   *   &quot;ritualName&quot;: &quot;new_chatter&quot;
    * }
    *
    * Sender user of the USERNOTICE message is the user performing the
    * ritual (e.g. the new chatter).
    */</span>
 
-  <span class="hljs-comment">// Leppunen is new to ninja's chat! Say hello!</span>
-  <span class="hljs-keyword">if</span> (msg.eventParams.ritualName === <span class="hljs-string">"new_chatter"</span>) {
+  <span class="hljs-comment">// Leppunen is new to ninja&#x27;s chat! Say hello!</span>
+  <span class="hljs-keyword">if</span> (msg.eventParams.ritualName === <span class="hljs-string">&quot;new_chatter&quot;</span>) {
     <span class="hljs-built_in">console</span>.log(
-      msg.displayName + <span class="hljs-string">" is new to "</span> + msg.channelName + <span class="hljs-string">"'s chat! Say hello!"</span>
+      msg.displayName + <span class="hljs-string">&quot; is new to &quot;</span> + msg.channelName + <span class="hljs-string">&quot;&#x27;s chat! Say hello!&quot;</span>
     );
   } <span class="hljs-keyword">else</span> {
     <span class="hljs-built_in">console</span>.warn(
-      <span class="hljs-string">"Unknown (unhandled) ritual type: "</span> + msg.eventParams.ritualName
+      <span class="hljs-string">&quot;Unknown (unhandled) ritual type: &quot;</span> + msg.eventParams.ritualName
     );
   }
 });</code></pre>
@@ -595,7 +595,7 @@ client.on(<span class="hljs-string">"372"</span>, (msg) =&gt;
 				<p>When a user cheers and earns himself a new bits badge with that cheer (e.g. they
 					just cheered more than/exactly 10000 bits in total, and just earned themselves
 				the 10k bits badge)</p>
-				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">"USERNOTICE"</span>, (msg) =&gt; {
+				<pre><code class="language-javascript">chatClient.on(<span class="hljs-string">&quot;USERNOTICE&quot;</span>, <span class="hljs-function">(<span class="hljs-params">msg</span>) =&gt;</span> {
   <span class="hljs-keyword">if</span> (!msg.isBitsBadgeTier()) {
     <span class="hljs-keyword">return</span>;
   }
@@ -603,21 +603,21 @@ client.on(<span class="hljs-string">"372"</span>, (msg) =&gt;
   <span class="hljs-comment">/*
    * msg.eventParams are:
    * {
-   *   "threshold": 10000,
-   *   "thresholdRaw": "10000",
+   *   &quot;threshold&quot;: 10000,
+   *   &quot;thresholdRaw&quot;: &quot;10000&quot;,
    * }
    *
    * Sender user of the USERNOTICE message is the user cheering the bits.
    */</span>
 
-  <span class="hljs-comment">// Leppunen just earned themselves the 10000 bits badge in ninja's channel!</span>
+  <span class="hljs-comment">// Leppunen just earned themselves the 10000 bits badge in ninja&#x27;s channel!</span>
   <span class="hljs-built_in">console</span>.log(
     msg.displayName +
-      <span class="hljs-string">" just earned themselves the "</span> +
+      <span class="hljs-string">&quot; just earned themselves the &quot;</span> +
       msg.threshold +
-      <span class="hljs-string">" bits badge in "</span> +
+      <span class="hljs-string">&quot; bits badge in &quot;</span> +
       msg.channelName +
-      <span class="hljs-string">"'s channel!"</span>
+      <span class="hljs-string">&quot;&#x27;s channel!&quot;</span>
   );
 });</code></pre>
 				<a href="#chatclient-api" id="chatclient-api" style="color: inherit; text-decoration: none;">
@@ -680,21 +680,21 @@ client.on(<span class="hljs-string">"372"</span>, (msg) =&gt;
 				<p><strong>Note! ALL of these configuration options are <em>optional</em>!</strong> I highly recommend you
 				only set the very config options you need, the rest are usually at a reasonable default.<br>For most bots, you only need to set <code>username</code> and <code>password</code>:</p>
 				<pre><code class="language-javascript"><span class="hljs-keyword">let</span> client = <span class="hljs-keyword">new</span> ChatClient({
-  <span class="hljs-attr">username</span>: <span class="hljs-string">"your-bot-username"</span>,
-  <span class="hljs-attr">password</span>: <span class="hljs-string">"0123456789abcdef1234567"</span>,
+  <span class="hljs-attr">username</span>: <span class="hljs-string">&quot;your-bot-username&quot;</span>,
+  <span class="hljs-attr">password</span>: <span class="hljs-string">&quot;0123456789abcdef1234567&quot;</span>,
 });</code></pre>
 				<p>Nevertheless, here are examples of all possible config options:</p>
 				<pre><code class="language-javascript"><span class="hljs-keyword">let</span> client = <span class="hljs-keyword">new</span> ChatClient({
-  <span class="hljs-attr">username</span>: <span class="hljs-string">"your-bot-username"</span>, <span class="hljs-comment">// justinfan12345 by default - For anonymous chat connection</span>
-  <span class="hljs-attr">password</span>: <span class="hljs-string">"0123456789abcdef1234567"</span>, <span class="hljs-comment">// undefined by default (no password)</span>
+  <span class="hljs-attr">username</span>: <span class="hljs-string">&quot;your-bot-username&quot;</span>, <span class="hljs-comment">// justinfan12345 by default - For anonymous chat connection</span>
+  <span class="hljs-attr">password</span>: <span class="hljs-string">&quot;0123456789abcdef1234567&quot;</span>, <span class="hljs-comment">// undefined by default (no password)</span>
 
   <span class="hljs-comment">// Message rate limits configuration for verified and known bots</span>
   <span class="hljs-comment">// pick one of the presets or configure custom rates as shown below:</span>
-  <span class="hljs-attr">rateLimits</span>: <span class="hljs-string">"default"</span>,
+  <span class="hljs-attr">rateLimits</span>: <span class="hljs-string">&quot;default&quot;</span>,
   <span class="hljs-comment">// or:</span>
-  <span class="hljs-attr">rateLimits</span>: <span class="hljs-string">"knownBot"</span>,
+  <span class="hljs-attr">rateLimits</span>: <span class="hljs-string">&quot;knownBot&quot;</span>,
   <span class="hljs-comment">// or:</span>
-  <span class="hljs-attr">rateLimits</span>: <span class="hljs-string">"verifiedBot"</span>,
+  <span class="hljs-attr">rateLimits</span>: <span class="hljs-string">&quot;verifiedBot&quot;</span>,
   <span class="hljs-comment">// or:</span>
   <span class="hljs-attr">rateLimits</span>: {
     <span class="hljs-attr">highPrivmsgLimits</span>: <span class="hljs-number">100</span>,
@@ -704,26 +704,26 @@ client.on(<span class="hljs-string">"372"</span>, (msg) =&gt;
   <span class="hljs-comment">// Configuration options for the backing connections:</span>
   <span class="hljs-comment">// Plain TCP or TLS</span>
   <span class="hljs-attr">connection</span>: {
-    <span class="hljs-attr">type</span>: <span class="hljs-string">"tcp"</span>, <span class="hljs-comment">// tcp by default</span>
+    <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;tcp&quot;</span>, <span class="hljs-comment">// tcp by default</span>
     <span class="hljs-attr">secure</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">// true by default</span>
     <span class="hljs-comment">// host and port must both be specified at once</span>
-    <span class="hljs-attr">host</span>: <span class="hljs-string">"custom-chat-server.com"</span>, <span class="hljs-comment">// irc.chat.twitch.tv by default</span>
-    <span class="hljs-attr">port</span>: <span class="hljs-number">1234</span>, <span class="hljs-comment">// 6697/6667 by default, depending on the "secure" setting</span>
+    <span class="hljs-attr">host</span>: <span class="hljs-string">&quot;custom-chat-server.com&quot;</span>, <span class="hljs-comment">// irc.chat.twitch.tv by default</span>
+    <span class="hljs-attr">port</span>: <span class="hljs-number">1234</span>, <span class="hljs-comment">// 6697/6667 by default, depending on the &quot;secure&quot; setting</span>
   },
   <span class="hljs-comment">// or:</span>
   <span class="hljs-attr">connection</span>: {
-    <span class="hljs-attr">type</span>: <span class="hljs-string">"websocket"</span>,
+    <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;websocket&quot;</span>,
     <span class="hljs-attr">secure</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// use preset URL of irc-ws.chat.twitch.tv</span>
   },
   <span class="hljs-comment">// or:</span>
   <span class="hljs-attr">connection</span>: {
-    <span class="hljs-attr">type</span>: <span class="hljs-string">"websocket"</span>,
-    <span class="hljs-attr">url</span>: <span class="hljs-string">"wss://custom-url.com/abc/def"</span>, <span class="hljs-comment">// custom URL</span>
+    <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;websocket&quot;</span>,
+    <span class="hljs-attr">url</span>: <span class="hljs-string">&quot;wss://custom-url.com/abc/def&quot;</span>, <span class="hljs-comment">// custom URL</span>
   },
   <span class="hljs-comment">// or:</span>
   <span class="hljs-attr">connection</span>: {
-    <span class="hljs-attr">type</span>: <span class="hljs-string">"duplex"</span>,
-    <span class="hljs-attr">stream</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> aNodeJsDuplexInstance, <span class="hljs-comment">// read and write to a custom object</span>
+    <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;duplex&quot;</span>,
+    <span class="hljs-attr">stream</span>: <span class="hljs-function">() =&gt;</span> aNodeJsDuplexInstance, <span class="hljs-comment">// read and write to a custom object</span>
     <span class="hljs-comment">// implementing the Duplex interface from Node.js</span>
     <span class="hljs-comment">// the function you specify is called for each new connection</span>
 
@@ -742,7 +742,7 @@ client.on(<span class="hljs-string">"372"</span>, (msg) =&gt;
   },
 
   <span class="hljs-comment">// I recommend you leave this off by default, it makes your bot faster</span>
-  <span class="hljs-comment">// If you need live update of who's joining and leaving chat,</span>
+  <span class="hljs-comment">// If you need live update of who&#x27;s joining and leaving chat,</span>
   <span class="hljs-comment">// poll the tmi.twitch.tv chatters endpoint instead since it</span>
   <span class="hljs-comment">// is also more reliable</span>
   <span class="hljs-attr">requestMembershipCapability</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">// false by default</span>
@@ -789,7 +789,7 @@ client.on(<span class="hljs-string">"372"</span>, (msg) =&gt;
 				<p>There are some features you might find useful in your bot that are not necessary
 					for general client/bot operations, so they were packaged as <strong>mixins</strong>. You can
 				activate mixins by calling:</p>
-				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { ChatClient, AlternateMessageModifier } = <span class="hljs-built_in">require</span>(<span class="hljs-string">"dank-twitch-irc"</span>);
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { ChatClient, AlternateMessageModifier } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;dank-twitch-irc&quot;</span>);
 
 <span class="hljs-keyword">let</span> client = <span class="hljs-keyword">new</span> ChatClient();
 
@@ -1651,6 +1651,5 @@ npm run lintfix</code></pre>
 </div>
 <div class="overlay"></div>
 <script src="assets/js/main.js"></script>
-<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
 </body>
 </html>
