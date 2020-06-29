@@ -43,7 +43,8 @@ export class GlobaluserstateMessage extends IRCMessage
     this.badgesRaw = tagParser.requireString("badges");
     this.color = tagParser.getColor("color");
     this.colorRaw = tagParser.requireString("color");
-    this.displayName = tagParser.requireString("display-name");
+    // trim: Twitch workaround for unsanitized data, see https://github.com/robotty/dank-twitch-irc/issues/33
+    this.displayName = tagParser.requireString("display-name").trim();
     this.emoteSets = tagParser.requireEmoteSets("emote-sets");
     this.emoteSetsRaw = tagParser.requireString("emote-sets");
     this.userID = tagParser.requireString("user-id");

@@ -103,7 +103,8 @@ export class PrivmsgMessage extends ChannelIRCMessage
     this.color = tagParser.getColor("color");
     this.colorRaw = tagParser.requireString("color");
 
-    this.displayName = tagParser.requireString("display-name");
+    // trim: Twitch workaround for unsanitized data, see https://github.com/robotty/dank-twitch-irc/issues/33
+    this.displayName = tagParser.requireString("display-name").trim();
 
     this.emotes = tagParser.requireEmotes("emotes", this.messageText);
     this.emotesRaw = tagParser.requireString("emotes");
