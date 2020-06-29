@@ -167,5 +167,22 @@ describe("./message/twitch-types/usernotice", function () {
 
       assert(msg.isResub());
     });
+
+    it("trims spaces at the end of display names", function () {
+      const msg = parseTwitchMessage(
+        "@badge-info=subscriber/15;badges=subscriber/12;color=#00CCBE" +
+          ";display-name=5weatyNuts;emotes=1076725:0-10;flags=;id=fda4d92" +
+          "4-cde3-421d-8eea-713401194446;login=5weatynutss;mod=0;msg-id=resu" +
+          "b;msg-param-cumulative-months=15;msg-param-months=0;msg-param-sh" +
+          "ould-share-streak=0;msg-param-sub-plan-name=Channel\\sSubscripti" +
+          "on\\s(dafrancsgo);msg-param-sub-plan=Prime;room-id=41314239;subs" +
+          "criber=1;system-msg=5weatyNuts\\ssubscribed\\swith\\sTwitch\\sPri" +
+          "me.\\sThey've\\ssubscribed\\sfor\\s15\\smonths!;tmi-sent-ts=1565" +
+          "699032594;user-id=169613447;user-type= :tmi.twitch.tv USERNOTICE " +
+          "#dafran :dafranPrime Clap"
+      ) as UsernoticeMessage;
+
+      assert.strictEqual(msg.displayName, "5weatyNuts");
+    });
   });
 });

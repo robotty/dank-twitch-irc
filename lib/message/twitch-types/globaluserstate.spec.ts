@@ -160,5 +160,21 @@ describe("./message/twitch-types/globaluserstate", function () {
         userID: "422021310",
       });
     });
+
+    it("trims spaces at the end of display names", function () {
+      const msgText =
+        "@badge-info=;badges=;color=;display-name=receivertest3\\s;emote-sets=0;user-id=422021310;" +
+        "user-type= :tmi.twitch.tv GLOBALUSERSTATE";
+
+      const msg: GlobaluserstateMessage = parseTwitchMessage(
+        msgText
+      ) as GlobaluserstateMessage;
+
+      assert.strictEqual(msg.displayName, "receivertest3");
+      assert.strictEqual(
+        msg.extractGlobalUserState().displayName,
+        "receivertest3"
+      );
+    });
   });
 });

@@ -19,6 +19,7 @@ describe("./message/twitch-types/whisper", function () {
 
       assert.strictEqual(msg.senderUsername, "pajbot");
       assert.strictEqual(msg.senderUserID, "82008718");
+      assert.strictEqual(msg.displayName, "pajbot");
 
       assert.strictEqual(msg.recipientUsername, "randers");
 
@@ -39,6 +40,16 @@ describe("./message/twitch-types/whisper", function () {
 
       assert.strictEqual(msg.messageID, "2034");
       assert.strictEqual(msg.threadID, "40286300_82008718");
+    });
+
+    it("trims spaces at the end of display names", function () {
+      const msg = parseTwitchMessage(
+        "@badges=;color=#2E8B57;display-name=pajbot\\s;emotes=25:7-11;message-id=" +
+          "2034;thread-id=40286300_82008718;turbo=0;user-id=82008718;user-type= " +
+          ":pajbot!pajbot@pajbot.tmi.twitch.tv WHISPER randers :Riftey Kappa"
+      ) as WhisperMessage;
+
+      assert.strictEqual(msg.displayName, "pajbot");
     });
   });
 });

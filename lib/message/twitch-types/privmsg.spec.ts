@@ -126,5 +126,18 @@ describe("./message/twitch-types/privmsg", function () {
 
       assert.isFalse(msg.isCheer());
     });
+
+    it("trims spaces at the end of display names", function () {
+      const msgText =
+        "@badge-info=subscriber/5;badges=broadcaster/1,subscriber/0;" +
+        "color=#19E6E6;display-name=randers\\s;emotes=;flags=;id=7eb848c9-1060-4e5e-9f4c-612877982e79;" +
+        "mod=0;room-id=40286300;subscriber=1;tmi-sent-ts=1563096499780;turbo=0;" +
+        "user-id=40286300;user-type= :randers!randers@randers.tmi.twitch.tv PRIVMSG #randers :test";
+
+      const msg: PrivmsgMessage = parseTwitchMessage(msgText) as PrivmsgMessage;
+
+      assert.strictEqual(msg.displayName, "randers");
+      assert.strictEqual(msg.extractUserState().displayName, "randers");
+    });
   });
 });
