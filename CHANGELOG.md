@@ -1,5 +1,65 @@
 # Changelog
 
+## v3.3.0
+
+- Minor: Updated dependencies
+- Bugfix: To work around unsanitized data returned by Twitch, display names are now always trimmed of leading and trailing spaces (#33).
+
+## v3.2.6
+
+- Bugfix: Make regex in color parser compatible with older regex engines (e.g. older browsers)
+
+## v3.2.5
+
+- Bugfix: Replace regex-based string parsing with discrete string message parsing
+
+## v3.2.4
+
+- Bugfix: Generated build output (typescript definition files) no longer needs to be manually edited to work correctly when included by other projects
+
+## v3.2.3
+
+- Bugfix: Include `lib` in distribution package to make sure source maps work correctly
+
+## v3.2.2
+
+- Bugfix: Moved `simple-websocket` to production dependencies
+
+## v3.2.1
+
+- Minor: updated dependencies
+- Bugfix: Fixed compile errors on latest typescript
+
+## v3.2.0
+
+- Added setColor method to ChatClient
+
+## v3.1.2
+
+- Bugfix: Include updated package-lock file
+
+## v3.1.1
+
+- Bugfix: Updated README to reflect changes introduced in v3.1.0.
+
+## v3.1.0
+
+- Minor: Updated default config values to different, now well-tested defaults
+- Minor: Updated README with more concrete instructions for configuration
+- Minor: Updated dependencies
+
+## v3.0.7
+
+Only internal changes
+
+## v3.0.6
+
+- Bugfix: Updated typescript and depdencies, fixing build errors with newer typescript versions
+
+## v3.0.5
+
+- Bugfix: Fixed client totally disconnecting if login attempt failed due to connection problems
+
 ## v3.0.4
 
 - Minor: Improved performance of the tags parser.
