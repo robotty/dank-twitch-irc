@@ -28,7 +28,7 @@ export function parseEmotes(
 
   for (const emoteInstancesSrc of emotesSrc.split("/")) {
     const [emoteID, instancesSrc] = emoteInstancesSrc.split(":", 2);
-    let emojiCount = 0
+    let emojiCount = 0;
     for (const instanceSrc of instancesSrc.split(",")) {
       let [startIndex, endIndexInclusive] = instanceSrc
         .split("-")
@@ -40,7 +40,10 @@ export function parseEmotes(
       }
 
       // Fix for when emojis exist before this emote.
-      emojiCount = emojis.filter(emojiIndex => emojiIndex <= (startIndex + (emojiCount > 0 ? emojiCount - 1 : 0))).length;
+      emojiCount = emojis.filter(
+        (emojiIndex) =>
+          emojiIndex <= startIndex + (emojiCount > 0 ? emojiCount - 1 : 0)
+      ).length;
       startIndex += emojiCount;
       endIndexInclusive += emojiCount;
 
