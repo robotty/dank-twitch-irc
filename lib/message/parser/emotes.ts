@@ -21,7 +21,7 @@ export function parseEmotes(
   const matchedEmojis = [...messageText.matchAll(regex)];
   for (let index = 0; index < matchedEmojis.length; index++) {
     const emoji = matchedEmojis[index];
-    if (emoji !== null && emoji.index !== undefined) {
+    if (emoji.index !== undefined) {
       emojis.push(emoji.index);
     }
   }
