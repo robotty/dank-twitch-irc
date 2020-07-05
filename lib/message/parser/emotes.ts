@@ -13,17 +13,14 @@ export function parseEmotes(
     return emotes;
   }
 
-  // Gets emojis in text
-  const emojis = [];
-
   // Lodash library regexp for matching emojis.
   const regex = /(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff])[\ufe0e\ufe0f]?(?:[\u0300-\u036f\ufe20-\ufe23\u20d0-\u20f0]|\ud83c[\udffb-\udfff])?(?:\u200d(?:[^\ud800-\udfff]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff])[\ufe0e\ufe0f]?(?:[\u0300-\u036f\ufe20-\ufe23\u20d0-\u20f0]|\ud83c[\udffb-\udfff])?)*/g;
-  const matchedEmojis = [...messageText.matchAll(regex)];
-  for (let index = 0; index < matchedEmojis.length; index++) {
-    const emoji = matchedEmojis[index];
-    if (emoji.index !== undefined) {
-      emojis.push(emoji.index);
-    }
+
+  const emojiIndexes = [];
+
+  let m;
+  while ((m = regex.exec(messageText))) {
+    emojiIndexes.push(m.index);
   }
 
   for (const emoteInstancesSrc of emotesSrc.split("/")) {
@@ -40,7 +37,7 @@ export function parseEmotes(
       }
 
       // Fix for when emojis exist before this emote.
-      emojiCount = emojis.filter(
+      emojiCount = emojiIndexes.filter(
         (emojiIndex) =>
           emojiIndex <= startIndex + (emojiCount > 0 ? emojiCount - 1 : 0)
       ).length;
