@@ -45,7 +45,7 @@ export function parseEmotes(
 
       // to make endIndex exclusive
       const endIndex = endIndexInclusive + 1;
-      if (endIndex > (messageText.length + emojiCount)) {
+      if (endIndex > messageText.length + emojiCount) {
         throw new ParseError(
           `End index ${endIndexInclusive} is out of range for given message string`
         );
