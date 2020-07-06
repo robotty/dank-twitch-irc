@@ -25,7 +25,6 @@ export function parseEmotes(
 
   for (const emoteInstancesSrc of emotesSrc.split("/")) {
     const [emoteID, instancesSrc] = emoteInstancesSrc.split(":", 2);
-    let emojiCount = 0;
     for (const instanceSrc of instancesSrc.split(",")) {
       let [startIndex, endIndexInclusive] = instanceSrc
         .split("-")
@@ -37,16 +36,16 @@ export function parseEmotes(
       }
 
       // Fix for when emojis exist before this emote.
-      emojiCount = emojiIndexes.filter(
-        (emojiIndex) =>
-          emojiIndex <= startIndex + (emojiCount > 0 ? emojiCount - 1 : 0)
-      ).length;
+      const emojiCount = emojiIndexes.reduce((acc, emojiIndex) => {
+        const addOne = emojiIndex <= startIndex + acc;
+        return addOne ? acc + 1 : acc;
+      }, 0);
       startIndex += emojiCount;
       endIndexInclusive += emojiCount;
 
       // to make endIndex exclusive
       const endIndex = endIndexInclusive + 1;
-      if (endIndex > messageText.length) {
+      if (endIndex > (messageText.length + emojiCount)) {
         throw new ParseError(
           `End index ${endIndexInclusive} is out of range for given message string`
         );

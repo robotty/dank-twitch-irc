@@ -78,5 +78,32 @@ describe("./message/parser/emotes", function () {
         "End index 5 is out of range for given message string"
       );
     });
+
+    it("should parse single emote if preceeded by emoji", function () {
+      assert.deepStrictEqual(parseEmotes("👉 <3", "445:2-3"), [
+        new TwitchEmote("445", 3, 5, "<3"),
+      ]);
+    });
+
+    it("should parse multiple instances of the same emote if preceeded by emoji", function () {
+      assert.deepStrictEqual(parseEmotes("👉 <3 👉 <3", "445:2-3,7-8"), [
+        new TwitchEmote("445", 3, 5, "<3"),
+        new TwitchEmote("445", 9, 11, "<3"),
+      ]);
+    });
+
+    it("should parse multiple emotes in the same message when multiple emojis exist between them", function () {
+      assert.deepStrictEqual(
+        parseEmotes(
+          "🌚 Kappa 🌚 🐈 Keepo 🐈 🎨 KappaRoss 🎨",
+          "25:2-6/1902:12-16/70433:22-30"
+        ),
+        [
+          new TwitchEmote("25", 3, 8, "Kappa"),
+          new TwitchEmote("1902", 15, 20, "Keepo"),
+          new TwitchEmote("70433", 27, 36, "KappaRoss"),
+        ]
+      );
+    });
   });
 });
