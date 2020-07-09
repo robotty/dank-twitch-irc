@@ -78,5 +78,11 @@ describe("./message/parser/emotes", function () {
         "End index 5 is out of range for given message string"
       );
     });
+
+    it("should parse correctly with emoji present", function () {
+      assert.deepStrictEqual(parseEmotes("-tags 👉 <3", "483:8-9"), [
+        new TwitchEmote("483", 8, 10, "<3"),
+      ]);
+    });
   });
 });

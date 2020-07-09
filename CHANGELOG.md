@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Bugfix: Emotes occurring after emojis are now correctly parsed (#35)
+
 ## v3.3.0
 
 - Minor: Updated dependencies
