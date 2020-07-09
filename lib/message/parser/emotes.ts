@@ -13,6 +13,8 @@ export function parseEmotes(
     return emotes;
   }
 
+  const messageCharacters = [...messageText];
+
   for (const emoteInstancesSrc of emotesSrc.split("/")) {
     const [emoteID, instancesSrc] = emoteInstancesSrc.split(":", 2);
     for (const instanceSrc of instancesSrc.split(",")) {
@@ -27,13 +29,13 @@ export function parseEmotes(
 
       // to make endIndex exclusive
       const endIndex = endIndexInclusive + 1;
-      if (endIndex > messageText.length) {
+      if (endIndex > messageCharacters.length) {
         throw new ParseError(
           `End index ${endIndexInclusive} is out of range for given message string`
         );
       }
 
-      const emoteText = messageText.slice(startIndex, endIndex);
+      const emoteText = messageCharacters.slice(startIndex, endIndex).join("");
 
       emotes.push(new TwitchEmote(emoteID, startIndex, endIndex, emoteText));
     }

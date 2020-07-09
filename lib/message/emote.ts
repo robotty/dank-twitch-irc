@@ -8,12 +8,18 @@ export class TwitchEmote {
   public id: string;
 
   /**
-   * inclusive start index in the original message text
+   * inclusive start index in the original message text.
+   * Note that we count unicode code points, not bytes with this.
+   * If you use this, make sure your code splits or indexes strings by their
+   * unicode code points, and not their bytes.
    */
   public startIndex: number;
 
   /**
-   * exclusive end index in the original message text
+   * exclusive end index in the original message text.
+   * Note that we count unicode code points, not bytes with this.
+   * If you use this, make sure your code splits or indexes strings by their
+   * unicode code points, and not their bytes.
    */
   public endIndex: number;
 
