@@ -37,11 +37,13 @@ export function parseFlags(
 
     const categories: TwitchFlag["categories"] = [];
     for (const instanceSrc of instancesSrc.split("/")) {
-      const [category, score] = instanceSrc.split(".");
-      categories.push({
-        category,
-        score: parseIntThrowing(score),
-      });
+      if (instanceSrc.length > 0) {
+        const [category, score] = instanceSrc.split(".");
+        categories.push({
+          category,
+          score: parseIntThrowing(score),
+        });
+      }
     }
 
     flags.push(new TwitchFlag(startIndex, endIndex, flagText, categories));
