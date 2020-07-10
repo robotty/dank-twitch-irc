@@ -1,6 +1,7 @@
 import { TwitchBadgesList } from "../badges";
 import { Color } from "../color";
 import { TwitchEmoteList } from "../emotes";
+import { TwitchFlagList } from "../flags";
 import { ChannelIRCMessage } from "../irc/channel-irc-message";
 import {
   IRCMessage,
@@ -65,6 +66,9 @@ export class PrivmsgMessage extends ChannelIRCMessage
   public readonly emotes: TwitchEmoteList;
   public readonly emotesRaw: string;
 
+  public readonly flags: TwitchFlagList;
+  public readonly flagsRaw: string;
+
   public readonly messageID: string;
 
   public readonly isMod: boolean;
@@ -108,6 +112,9 @@ export class PrivmsgMessage extends ChannelIRCMessage
 
     this.emotes = tagParser.requireEmotes("emotes", this.messageText);
     this.emotesRaw = tagParser.requireString("emotes");
+
+    this.flags = tagParser.requireFlags("flags", this.messageText);
+    this.flagsRaw = tagParser.requireString("flags");
 
     this.messageID = tagParser.requireString("id");
 
