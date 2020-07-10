@@ -10,31 +10,31 @@ describe("./message/parser/flags", function () {
       assert.deepStrictEqual(parseFlags("", ""), []);
     });
 
-    it("should parse single flag, I category", function () {
+    it("should parse single flag, with one I category", function () {
       assert.deepStrictEqual(parseFlags("retard streamer", "0-5:I.3"), [
         new TwitchFlag(0, 6, "retard", [{ category: "I", score: 3 }]),
       ]);
     });
 
-    it("should parse single flag, S category", function () {
+    it("should parse single flag, with one S category", function () {
       assert.deepStrictEqual(parseFlags("a phallic object", "2-8:S.7"), [
         new TwitchFlag(2, 9, "phallic", [{ category: "S", score: 7 }]),
       ]);
     });
 
-    it("should parse single flag, A category", function () {
+    it("should parse single flag, with one A category", function () {
       assert.deepStrictEqual(parseFlags("you kill", "4-7:A.7"), [
         new TwitchFlag(4, 8, "kill", [{ category: "A", score: 7 }]),
       ]);
     });
 
-    it("should parse single flag, P category", function () {
+    it("should parse single flag, with one P category", function () {
       assert.deepStrictEqual(parseFlags("stfu", "0-3:P.6"), [
         new TwitchFlag(0, 4, "stfu", [{ category: "P", score: 6 }]),
       ]);
     });
 
-    it("should parse multiple instances of the same flag, P category", function () {
+    it("should parse multiple instances of the same flag, with one P category", function () {
       assert.deepStrictEqual(
         parseFlags("shit in my asshole", "0-3:P.6,11-17:P.6"),
         [
