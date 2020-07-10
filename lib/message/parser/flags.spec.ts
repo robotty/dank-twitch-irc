@@ -121,7 +121,7 @@ describe("./message/parser/flags", function () {
       );
     });
 
-    it.only("should parse single flag, but with empty categories", function () {
+    it("should parse single flag, but with empty categories", function () {
       assert.deepStrictEqual(parseFlags("$test xanax", "6-10:"), [
         new TwitchFlag(6, 11, "xanax", []),
       ]);
