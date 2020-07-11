@@ -1,5 +1,7 @@
 /**
  * Single instance of a twitch automod flagged word in a message string.
+ *
+ * **Note:** This is an undocumented Twitch IRC feature and may change at any time, use at your own risk.
  */
 export class TwitchFlag {
   /**
@@ -24,8 +26,6 @@ export class TwitchFlag {
   public word: string;
 
   /**
-   * **Note:** This is an undocumented Twitch IRC feature, use at your own risk.
-   *
    * Flag category, as per the AutoMod moderation categories:
    * * **I:** Identity language - Words referring to race, religion, gender,
    * orientation, disability, or similar. Hate speech falls under this category.

@@ -1,6 +1,5 @@
 import { TwitchFlag } from "../flag";
 import { TwitchFlagList } from "../flags";
-import { parseIntThrowing } from "./common";
 import { ParseError } from "./parse-error";
 
 export function parseFlags(
@@ -9,7 +8,11 @@ export function parseFlags(
 ): TwitchFlagList {
   const flags: TwitchFlagList = [];
 
-  if (flagsSrc.length <= 0) {
+  const regex = /^((?:[0-9]+-[0-9]+:)(?:(?:[ISAP]\.[0-9]+\/?)+,?)?)+$/g;
+
+  const matchFlagsSrc = flagsSrc.match(regex);
+
+  if (flagsSrc.length <= 0 || matchFlagsSrc === null) {
     return flags;
   }
 
@@ -20,10 +23,7 @@ export function parseFlags(
 
     const [startIndex, endIndexInclusive] = indexes
       .split("-")
-      .map(parseIntThrowing);
-    if (endIndexInclusive == null) {
-      throw new ParseError(`No - found in flag index range "${indexes}"`);
-    }
+      .map((s) => Number(s));
 
     // to make endIndex exclusive
     const endIndex = endIndexInclusive + 1;
@@ -41,7 +41,7 @@ export function parseFlags(
         const [category, score] = instanceSrc.split(".");
         categories.push({
           category,
-          score: parseIntThrowing(score),
+          score: Number(score),
         });
       }
     }

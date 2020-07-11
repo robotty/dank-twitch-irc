@@ -59,46 +59,6 @@ describe("./message/parser/flags", function () {
       );
     });
 
-    it("should throw a ParseError if flag index range has no dash", function () {
-      assertThrowsChain(
-        () => parseFlags("", "3:P.7"),
-        ParseError,
-        'No - found in flag index range "3"'
-      );
-    });
-
-    it("should throw a ParseError if the from index is not a valid integer", function () {
-      assertThrowsChain(
-        () => parseFlags("", "abc-3:P.7"),
-        ParseError,
-        'Invalid integer for string "abc"'
-      );
-    });
-
-    it("should throw a ParseError if the to index is not a valid integer", function () {
-      assertThrowsChain(
-        () => parseFlags("", "0-abc:P.7"),
-        ParseError,
-        'Invalid integer for string "abc"'
-      );
-    });
-
-    it("should throw a ParseError if a end index is out of range", function () {
-      assertThrowsChain(
-        () => parseFlags("stfu", "0-4:P.6"),
-        ParseError,
-        "End index 4 is out of range for given message string"
-      );
-    });
-
-    it("should throw a ParseError if category's score is a string", function () {
-      assertThrowsChain(
-        () => parseFlags("stfu", "0-3:P.abc"),
-        ParseError,
-        'Invalid integer for string "abc"'
-      );
-    });
-
     it("should parse four flags, with multiple categories", function () {
       assert.deepStrictEqual(
         parseFlags(
@@ -125,6 +85,38 @@ describe("./message/parser/flags", function () {
       assert.deepStrictEqual(parseFlags("$test xanax", "6-10:"), [
         new TwitchFlag(6, 11, "xanax", []),
       ]);
+    });
+
+    it("should throw a ParseError if a end index is out of range", function () {
+      assertThrowsChain(
+        () => parseFlags("stfu", "0-4:P.6"),
+        ParseError,
+        "End index 4 is out of range for given message string"
+      );
+    });
+
+    it("should parse normal string with no flags, as no flags", function () {
+      assert.deepStrictEqual(parseFlags("Kappa Keepo KappaRoss", ""), []);
+    });
+
+    it("should parse no flag if the category's score is a string", function () {
+      assert.deepStrictEqual(parseFlags("stfu", "0-3:P.abc"), []);
+    });
+
+    it("should parse no flag if the flag index range has no dash", function () {
+      assert.deepStrictEqual(parseFlags("", "3:P.7"), []);
+    });
+
+    it("should parse no flag if the from index is not a valid integer", function () {
+      assert.deepStrictEqual(parseFlags("", "abc-3:P.7"), []);
+    });
+
+    it("should parse no flag if the to index is not a valid integer", function () {
+      assert.deepStrictEqual(parseFlags("", "0-abc:P.7"), []);
+    });
+
+    it("should parse no flag, in case Twitch changes the functionality", function () {
+      assert.deepStrictEqual(parseFlags("stfu", "0-3=PRO.100%"), []);
     });
   });
 });
