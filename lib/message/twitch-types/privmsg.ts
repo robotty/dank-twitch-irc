@@ -75,6 +75,12 @@ export class PrivmsgMessage extends ChannelIRCMessage
 
   /**
    * Twitch AutoMod raw flags string.
+   *
+   * If the `flags` tag is missing or of a unparseable format, this will be `undefined`. This is unlike most other
+   * attributes which when missing or malformed will fail the message parsing. However since this attribute is
+   * completely undocumented we cannot rely on the `flags` tag being stable, so this soft fallback is used instead.
+   * In short, ensure your implementation can handle the case where this is `undefined` or is in
+   * a format you don't expect.
    */
   public readonly flagsRaw: string | undefined;
 
