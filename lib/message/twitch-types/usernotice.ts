@@ -227,7 +227,13 @@ export class UsernoticeMessage extends ChannelIRCMessage {
   /**
    * Can be an array of Twitch AutoMod flagged words, for use in moderation and/or filtering purposes.
    *
-   * **Note:** This is an undocumented Twitch IRC feature and may change at any time, use at your own risk.
+   * If the `flags` tag is missing or of a unparseable format, this will be `undefined`. This is unlike most other
+   * attributes which when missing or malformed will fail the message parsing. However since this attribute is
+   * completely undocumented we cannot rely on the `flags` tag being stable, so this soft fallback is used instead.
+   * While it will be a major version release if this attribute changes format in dank-twitch-irc, using this is still
+   * at your own risk since it may suddenly contain unexpected data or turn `undefined` one day as
+   * Twitch changes something. In short: **Use at your own risk** and make sure your
+   * implementation can handle the case where this is `undefined`.
    */
   public readonly flags: TwitchFlagList | undefined;
 
