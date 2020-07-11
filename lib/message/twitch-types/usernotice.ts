@@ -2,6 +2,7 @@ import camelCase = require("lodash.camelcase");
 import { TwitchBadgesList } from "../badges";
 import { Color } from "../color";
 import { TwitchEmoteList } from "../emotes";
+import { TwitchFlagList } from "../flags";
 import { ChannelIRCMessage } from "../irc/channel-irc-message";
 import { getParameter, IRCMessageData } from "../irc/irc-message";
 import { IRCMessageTags } from "../irc/tags";
@@ -223,6 +224,9 @@ export class UsernoticeMessage extends ChannelIRCMessage {
   public readonly emotes: TwitchEmoteList;
   public readonly emotesRaw: string;
 
+  public readonly flags: TwitchFlagList | undefined;
+  public readonly flagsRaw: string | undefined;
+
   public readonly messageID: string;
 
   public readonly isMod: boolean;
@@ -266,10 +270,13 @@ export class UsernoticeMessage extends ChannelIRCMessage {
 
     if (this.messageText != null) {
       this.emotes = tagParser.requireEmotes("emotes", this.messageText);
+      this.flags = tagParser.getFlags("flags", this.messageText);
     } else {
       this.emotes = [];
     }
     this.emotesRaw = tagParser.requireString("emotes");
+
+    this.flagsRaw = tagParser.getString("flags");
 
     this.messageID = tagParser.requireString("id");
 

@@ -109,7 +109,6 @@ export interface TagValueParser {
   getEmoteSets(key: string): TwitchEmoteSets | undefined;
   requireEmoteSets(key: string): TwitchEmoteSets;
   getFlags(key: string, messageText: string): TwitchFlagList | undefined;
-  requireFlags(key: string, messageText: string): TwitchFlagList;
 }
 
 export function tagParserFor(ircTags: IRCMessageTags): TagValueParser {
@@ -137,7 +136,5 @@ export function tagParserFor(ircTags: IRCMessageTags): TagValueParser {
       requireData(ircTags, key, convertToEmoteSets),
     getFlags: (key: string, messageText: string) =>
       getData(ircTags, key, convertToFlags, messageText),
-    requireFlags: (key: string, messageText: string) =>
-      requireData(ircTags, key, convertToFlags, messageText),
   };
 }

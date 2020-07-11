@@ -66,8 +66,8 @@ export class PrivmsgMessage extends ChannelIRCMessage
   public readonly emotes: TwitchEmoteList;
   public readonly emotesRaw: string;
 
-  public readonly flags: TwitchFlagList;
-  public readonly flagsRaw: string;
+  public readonly flags: TwitchFlagList | undefined;
+  public readonly flagsRaw: string | undefined;
 
   public readonly messageID: string;
 
@@ -113,8 +113,8 @@ export class PrivmsgMessage extends ChannelIRCMessage
     this.emotes = tagParser.requireEmotes("emotes", this.messageText);
     this.emotesRaw = tagParser.requireString("emotes");
 
-    this.flags = tagParser.requireFlags("flags", this.messageText);
-    this.flagsRaw = tagParser.requireString("flags");
+    this.flags = tagParser.getFlags("flags", this.messageText);
+    this.flagsRaw = tagParser.getString("flags");
 
     this.messageID = tagParser.requireString("id");
 
