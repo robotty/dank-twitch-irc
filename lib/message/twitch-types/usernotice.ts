@@ -224,7 +224,16 @@ export class UsernoticeMessage extends ChannelIRCMessage {
   public readonly emotes: TwitchEmoteList;
   public readonly emotesRaw: string;
 
+  /**
+   * Can be an array of Twitch AutoMod flagged words, for use in moderation and/or filtering purposes.
+   *
+   * **Note:** This is an undocumented Twitch IRC feature and may change at any time, use at your own risk.
+   */
   public readonly flags: TwitchFlagList | undefined;
+
+  /**
+   * Twitch AutoMod raw flags string.
+   */
   public readonly flagsRaw: string | undefined;
 
   public readonly messageID: string;
