@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Minor: Added `flags` and `flagsRaw` properties to `PrivmsgMessage` and `UsernoticeMessage` classes, allowing inspection of AutoMod message rating results. (#38)
 - Bugfix: Emotes occurring after emojis are now correctly parsed (#35)
 
 ## v3.3.0

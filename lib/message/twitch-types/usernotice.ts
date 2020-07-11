@@ -2,6 +2,7 @@ import camelCase = require("lodash.camelcase");
 import { TwitchBadgesList } from "../badges";
 import { Color } from "../color";
 import { TwitchEmoteList } from "../emotes";
+import { TwitchFlagList } from "../flags";
 import { ChannelIRCMessage } from "../irc/channel-irc-message";
 import { getParameter, IRCMessageData } from "../irc/irc-message";
 import { IRCMessageTags } from "../irc/tags";
@@ -223,6 +224,30 @@ export class UsernoticeMessage extends ChannelIRCMessage {
   public readonly emotes: TwitchEmoteList;
   public readonly emotesRaw: string;
 
+  /**
+   * Can be an array of Twitch AutoMod flagged words, for use in moderation and/or filtering purposes.
+   *
+   * If the `flags` tag is missing or of a unparseable format, this will be `undefined`. This is unlike most other
+   * attributes which when missing or malformed will fail the message parsing. However since this attribute is
+   * completely undocumented we cannot rely on the `flags` tag being stable, so this soft fallback is used instead.
+   * While it will be a major version release if this attribute changes format in dank-twitch-irc, using this is still
+   * at your own risk since it may suddenly contain unexpected data or turn `undefined` one day as
+   * Twitch changes something. In short: **Use at your own risk** and make sure your
+   * implementation can handle the case where this is `undefined`.
+   */
+  public readonly flags: TwitchFlagList | undefined;
+
+  /**
+   * Twitch AutoMod raw flags string.
+   *
+   * If the `flags` tag is missing or of a unparseable format, this will be `undefined`. This is unlike most other
+   * attributes which when missing or malformed will fail the message parsing. However since this attribute is
+   * completely undocumented we cannot rely on the `flags` tag being stable, so this soft fallback is used instead.
+   * In short, ensure your implementation can handle the case where this is `undefined` or is in
+   * a format you don't expect.
+   */
+  public readonly flagsRaw: string | undefined;
+
   public readonly messageID: string;
 
   public readonly isMod: boolean;
@@ -266,10 +291,13 @@ export class UsernoticeMessage extends ChannelIRCMessage {
 
     if (this.messageText != null) {
       this.emotes = tagParser.requireEmotes("emotes", this.messageText);
+      this.flags = tagParser.getFlags("flags", this.messageText);
     } else {
       this.emotes = [];
     }
     this.emotesRaw = tagParser.requireString("emotes");
+
+    this.flagsRaw = tagParser.getString("flags");
 
     this.messageID = tagParser.requireString("id");
 

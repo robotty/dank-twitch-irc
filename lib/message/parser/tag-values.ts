@@ -1,11 +1,13 @@
 import { TwitchBadgesList } from "../badges";
 import { Color } from "../color";
 import { TwitchEmoteList } from "../emotes";
+import { TwitchFlagList } from "../flags";
 import { IRCMessageTags } from "../irc/tags";
 import { parseBadges } from "./badges";
 import { parseColor } from "./color";
 import { parseEmoteSets, TwitchEmoteSets } from "./emote-sets";
 import { parseEmotes } from "./emotes";
+import { parseFlags } from "./flags";
 import { MissingTagError } from "./missing-tag-error";
 import { ParseError } from "./parse-error";
 
@@ -82,6 +84,13 @@ export function convertToEmoteSets(value: string): TwitchEmoteSets {
   return parseEmoteSets(value);
 }
 
+export function convertToFlags(
+  value: string,
+  messageText: string
+): TwitchFlagList {
+  return parseFlags(messageText, value);
+}
+
 export interface TagValueParser {
   getString(key: string): string | undefined;
   requireString(key: string): string;
@@ -99,6 +108,7 @@ export interface TagValueParser {
   requireEmotes(key: string, messageText: string): TwitchEmoteList;
   getEmoteSets(key: string): TwitchEmoteSets | undefined;
   requireEmoteSets(key: string): TwitchEmoteSets;
+  getFlags(key: string, messageText: string): TwitchFlagList | undefined;
 }
 
 export function tagParserFor(ircTags: IRCMessageTags): TagValueParser {
@@ -124,5 +134,7 @@ export function tagParserFor(ircTags: IRCMessageTags): TagValueParser {
     getEmoteSets: (key: string) => getData(ircTags, key, convertToEmoteSets),
     requireEmoteSets: (key: string) =>
       requireData(ircTags, key, convertToEmoteSets),
+    getFlags: (key: string, messageText: string) =>
+      getData(ircTags, key, convertToFlags, messageText),
   };
 }
