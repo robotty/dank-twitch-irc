@@ -19,7 +19,7 @@ export class TwitchFlag {
   public endIndex: number;
 
   /**
-   * The part of the original message string that was recognizes as flagged, e.g. "stfu".
+   * The part of the original message string that was recognized as flagged, e.g. "stfu".
    */
   public word: string;
 
