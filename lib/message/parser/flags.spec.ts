@@ -119,7 +119,7 @@ describe("./message/parser/flags", function () {
       assert.deepStrictEqual(parseFlags("stfu", "0-3=PRO.100%"), []);
     });
 
-    it("should parse single flag, with 3 categories", function () {
+    it("should parse single flag, with three categories", function () {
       assert.deepStrictEqual(
         parseFlags("shut the fuck up", "0-15:A.7/I.6/P.6"),
         [
