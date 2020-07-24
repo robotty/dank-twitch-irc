@@ -8,7 +8,7 @@ export function parseFlags(
 ): TwitchFlagList {
   const flags: TwitchFlagList = [];
 
-  const regex = /^((?:[0-9]+-[0-9]+:)(?:(?:[ISAP]\.[0-9]+\/?)+,?)?)+$/g;
+  const regex = /^(,?(?:[0-9]+-[0-9]+:)(?:(?:[ISAP]\.[0-9]+\/?)+)?)+$/g;
 
   const matchFlagsSrc = flagsSrc.match(regex);
 

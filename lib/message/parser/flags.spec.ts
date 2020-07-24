@@ -118,5 +118,52 @@ describe("./message/parser/flags", function () {
     it("should parse no flag, in case Twitch changes the functionality", function () {
       assert.deepStrictEqual(parseFlags("stfu", "0-3=PRO.100%"), []);
     });
+
+    it("should parse single flag, with three categories", function () {
+      assert.deepStrictEqual(
+        parseFlags("shut the fuck up", "0-15:A.7/I.6/P.6"),
+        [
+          new TwitchFlag(0, 16, "shut the fuck up", [
+            { category: "A", score: 7 },
+            { category: "I", score: 6 },
+            { category: "P", score: 6 },
+          ]),
+        ]
+      );
+    });
+
+    it("should parse two flags, but both with empty categories", function () {
+      assert.deepStrictEqual(
+        parseFlags("$test xanax and xanax", "6-10:,16-20:"),
+        [
+          new TwitchFlag(6, 11, "xanax", []),
+          new TwitchFlag(16, 21, "xanax", []),
+        ]
+      );
+    });
+
+    it("should parse six flags, four with multiple categories and two with empty categories", function () {
+      assert.deepStrictEqual(
+        parseFlags(
+          "shut the fuck up retard streamer you kill a phallic object and xanax and xanax",
+          "0-15:A.7/I.6/P.6,17-22:A.7/I.6,37-40:A.7,44-50:S.7,63-67:,73-77:"
+        ),
+        [
+          new TwitchFlag(0, 16, "shut the fuck up", [
+            { category: "A", score: 7 },
+            { category: "I", score: 6 },
+            { category: "P", score: 6 },
+          ]),
+          new TwitchFlag(17, 23, "retard", [
+            { category: "A", score: 7 },
+            { category: "I", score: 6 },
+          ]),
+          new TwitchFlag(37, 41, "kill", [{ category: "A", score: 7 }]),
+          new TwitchFlag(44, 51, "phallic", [{ category: "S", score: 7 }]),
+          new TwitchFlag(63, 68, "xanax", []),
+          new TwitchFlag(73, 78, "xanax", []),
+        ]
+      );
+    });
   });
 });
