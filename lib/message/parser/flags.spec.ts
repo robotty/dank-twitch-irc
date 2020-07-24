@@ -120,20 +120,26 @@ describe("./message/parser/flags", function () {
     });
 
     it("should parse single flag, with 3 categories", function () {
-      assert.deepStrictEqual(parseFlags("shut the fuck up", "0-15:A.7/I.6/P.6"), [
-        new TwitchFlag(0, 16, "shut the fuck up", [
-          { category: "A", score: 7 },
-          { category: "I", score: 6 },
-          { category: "P", score: 6 },
-        ]),
-      ]);
+      assert.deepStrictEqual(
+        parseFlags("shut the fuck up", "0-15:A.7/I.6/P.6"),
+        [
+          new TwitchFlag(0, 16, "shut the fuck up", [
+            { category: "A", score: 7 },
+            { category: "I", score: 6 },
+            { category: "P", score: 6 },
+          ]),
+        ]
+      );
     });
 
     it("should parse two flags, but both with empty categories", function () {
-      assert.deepStrictEqual(parseFlags("$test xanax and xanax", "6-10:,16-20:"), [
-        new TwitchFlag(6, 11, "xanax", []),
-        new TwitchFlag(16, 21, "xanax", []),
-      ]);
+      assert.deepStrictEqual(
+        parseFlags("$test xanax and xanax", "6-10:,16-20:"),
+        [
+          new TwitchFlag(6, 11, "xanax", []),
+          new TwitchFlag(16, 21, "xanax", []),
+        ]
+      );
     });
 
     it("should parse six flags, four with multiple categories and two with empty categories", function () {
