@@ -71,12 +71,22 @@ describe("./message/parser/emotes", function () {
       );
     });
 
-    it("should throw a ParseError if a end index is out of range", function () {
-      assertThrowsChain(
-        () => parseEmotes("Kappa", "25:0-5"),
-        ParseError,
-        "End index 5 is out of range for given message string"
-      );
+    it("should gracefully handle it if a end index is out of range (1)", function () {
+      assert.deepStrictEqual(parseEmotes("Kappa", "25:0-5"), [
+        new TwitchEmote("25", 0, 5, "Kappa"),
+      ]);
+    });
+
+    it("should gracefully handle it if a start index is out of range (2)", function () {
+      assert.deepStrictEqual(parseEmotes("Kappa", "25:1-5"), [
+        new TwitchEmote("25", 1, 5, "appa"),
+      ]);
+    });
+
+    it("should gracefully handle it if an end index is extremely out of range", function () {
+      assert.deepStrictEqual(parseEmotes("Kappa", "25:2-10"), [
+        new TwitchEmote("25", 2, 5, "ppa"),
+      ]);
     });
 
     it("should parse correctly with emoji present", function () {

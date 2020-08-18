@@ -4,6 +4,7 @@
 
 - Minor: Added `flags` and `flagsRaw` properties to `PrivmsgMessage` and `UsernoticeMessage` classes, allowing inspection of AutoMod message rating results. (#38)
 - Bugfix: Emotes occurring after emojis are now correctly parsed (#35)
+- Bugfix: Messages with wrong emote indices (sent by Twitch) are now handled gracefully instead of failing the message parser. (#22)
 
 ## v3.3.0
 

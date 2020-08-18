@@ -18,21 +18,22 @@ export function parseEmotes(
   for (const emoteInstancesSrc of emotesSrc.split("/")) {
     const [emoteID, instancesSrc] = emoteInstancesSrc.split(":", 2);
     for (const instanceSrc of instancesSrc.split(",")) {
-      const [startIndex, endIndexInclusive] = instanceSrc
-        .split("-")
-        .map(parseIntThrowing);
-      if (endIndexInclusive == null) {
+      let [startIndex, endIndex] = instanceSrc.split("-").map(parseIntThrowing);
+      if (endIndex == null) {
         throw new ParseError(
           `No - found in emote index range "${instanceSrc}"`
         );
       }
 
       // to make endIndex exclusive
-      const endIndex = endIndexInclusive + 1;
+      endIndex = endIndex + 1;
+
+      // workaround for Twitch bug: https://github.com/twitchdev/issues/issues/104
+      if (startIndex < 0) {
+        startIndex = 0;
+      }
       if (endIndex > messageCharacters.length) {
-        throw new ParseError(
-          `End index ${endIndexInclusive} is out of range for given message string`
-        );
+        endIndex = messageCharacters.length;
       }
 
       const emoteText = messageCharacters.slice(startIndex, endIndex).join("");
