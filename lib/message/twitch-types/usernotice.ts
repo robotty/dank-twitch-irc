@@ -16,6 +16,8 @@ import {
 
 const convertersMap: Record<string, (value: string) => any> = {
   "msg-param-cumulative-months": convertToInt,
+  "msg-param-gift-months": convertToInt,
+  "msg-param-sender-count": convertToInt,
   "msg-param-months": convertToInt,
   "msg-param-promo-gift-total": convertToInt,
   "msg-param-should-share-streak": convertToBoolean,
@@ -38,7 +40,7 @@ export function getCamelCasedName(tagKey: string): string {
 
   // To be consistent with the rest of the library,
   // don't camelcase username as userName
-  newKey = newKey.replace(/userName/g, "username");
+  newKey = newKey.replace(/([uU])serName/g, "$1sername");
 
   return newKey;
 }

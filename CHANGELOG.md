@@ -4,6 +4,8 @@
 
 - Major: Removed support for chat rooms. Attempting to join a Twitch `chatrooms:` channel will result in a validation error.
 - Minor: Added `flags` and `flagsRaw` properties to `PrivmsgMessage` and `UsernoticeMessage` classes, allowing inspection of AutoMod message rating results. (#38)
+- Minor: Added parsing support for newer usernotice parameters (`msg-param-gift-months`, `msg-param-sender-count`)
+- Bugfix (**Potentially breaking, check your application**): In subgift and similar USERNOTICE messages, `recipientUserName` is now correctly camelcased as `recipientUsername` as was documented.
 - Bugfix: Emotes occurring after emojis are now correctly parsed (#35)
 - Bugfix: Messages with wrong emote indices (sent by Twitch) are now handled gracefully instead of failing the message parser. (#22)
 

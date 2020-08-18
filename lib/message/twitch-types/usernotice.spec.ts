@@ -184,5 +184,26 @@ describe("./message/twitch-types/usernotice", function () {
 
       assert.strictEqual(msg.displayName, "5weatyNuts");
     });
+
+    it("parses subgift params correctly (correct camelcasing)", function () {
+      const msg = parseTwitchMessage(
+        "@badge-info=;badges=sub-gifter/50;color=;display-name=AdamAtReflectStudios;emotes=;flags=;id=e21409b1-d25d-4a1a-b5cf-ef27d8b7030e;login=adamatreflectstudios;mod=0;msg-id=subgift;msg-param-gift-months=1;msg-param-months=2;msg-param-origin-id=da\\s39\\sa3\\see\\s5e\\s6b\\s4b\\s0d\\s32\\s55\\sbf\\sef\\s95\\s60\\s18\\s90\\saf\\sd8\\s07\\s09;msg-param-recipient-display-name=qatarking24xd;msg-param-recipient-id=236653628;msg-param-recipient-user-name=qatarking24xd;msg-param-sender-count=0;msg-param-sub-plan-name=Channel\\sSubscription\\s(xqcow);msg-param-sub-plan=1000;room-id=71092938;subscriber=0;system-msg=AdamAtReflectStudios\\sgifted\\sa\\sTier\\s1\\ssub\\sto\\sqatarking24xd!;tmi-sent-ts=1594583782376;user-id=211711554;user-type= :tmi.twitch.tv USERNOTICE #xqcow"
+      ) as UsernoticeMessage;
+
+      assert.deepStrictEqual(msg.eventParams, {
+        giftMonths: 1,
+        giftMonthsRaw: "1",
+        months: 2,
+        monthsRaw: "2",
+        originID: "da 39 a3 ee 5e 6b 4b 0d 32 55 bf ef 95 60 18 90 af d8 07 09",
+        recipientDisplayName: "qatarking24xd",
+        recipientID: "236653628",
+        recipientUsername: "qatarking24xd",
+        senderCount: 0,
+        senderCountRaw: "0",
+        subPlanName: "Channel Subscription (xqcow)",
+        subPlan: "1000",
+      });
+    });
   });
 });

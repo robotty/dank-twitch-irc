@@ -329,11 +329,15 @@ chatClient.on("USERNOTICE", (msg) => {
    * {
    *   "months": 5,
    *   "monthsRaw": "5",
+   *   "giftMonths": 5,
+   *   "giftMonthsRaw": "5",
    *   "recipientDisplayName": "Leppunen",
    *   "recipientID": "42239452",
    *   "recipientUsername": "leppunen",
    *   "subPlan": "1000",
-   *   "subPlanName": "The Ninjas"
+   *   "subPlanName": "The Ninjas",
+   *   "senderCount": 5,
+   *   "senderCountRaw": "5",
    * }
    * Sender user of the USERNOTICE message is the user gifting the subscription.
    */
