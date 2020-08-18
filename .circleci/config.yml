@@ -64,6 +64,11 @@ commands:
           name: Store typedoc documentation
           path: ./docs
 jobs:
+  build-nodejs-14:
+    docker:
+      - image: circleci/node:14
+    steps:
+      - run-all
   build-nodejs-12:
     docker:
       - image: circleci/node:12
@@ -119,6 +124,7 @@ workflows:
   version: 2
   build-all:
     jobs:
+      - build-nodejs-14
       - build-nodejs-12
       - build-nodejs-10
       - deploy-docs:
