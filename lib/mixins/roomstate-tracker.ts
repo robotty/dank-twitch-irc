@@ -12,7 +12,6 @@ const log = debugLogger("dank-twitch-irc:roomstate-tracker");
 
 export interface RoomStateTrackerEvents {
   newChannelState: [string, RoomState];
-  [idx: string]: any;
 }
 
 /**

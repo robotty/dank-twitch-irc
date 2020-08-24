@@ -11,7 +11,6 @@ import { ClientMixin } from "./base-mixin";
 export interface UserStateTrackerEvents {
   newGlobalState: [GlobalUserState];
   newChannelState: [string, UserState];
-  [idx: string]: any;
 }
 
 /**
