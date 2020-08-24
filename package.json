@@ -45,7 +45,7 @@
     "semaphore-async-await": "^1.5.1",
     "simple-websocket": "^9.0.0",
     "split2": "^3.2.1",
-    "ts-toolbelt": "^6.15.5"
+    "ts-toolbelt": "^8.0.3"
   },
   "devDependencies": {
     "@types/async-lock": "^1.1.2",
