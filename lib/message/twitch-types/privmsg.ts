@@ -41,7 +41,8 @@ interface CheerPrivmsgMessage extends PrivmsgMessage {
  */
 export type PrivmsgUserState = Omit<UserState, "emoteSets" | "emoteSetsRaw">;
 
-export class PrivmsgMessage extends ChannelIRCMessage
+export class PrivmsgMessage
+  extends ChannelIRCMessage
   implements PrivmsgUserState {
   public readonly messageText: string;
   public readonly isAction: boolean;

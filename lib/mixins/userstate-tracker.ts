@@ -17,7 +17,8 @@ export interface UserStateTrackerEvents {
 /**
  * Tracks the state of the logged in user (the bot) in all channels the bot operates in
  */
-export class UserStateTracker extends EventEmitter<UserStateTrackerEvents>
+export class UserStateTracker
+  extends EventEmitter<UserStateTrackerEvents>
   implements ClientMixin {
   public globalState?: GlobalUserState;
   public channelStates: Record<string, UserState> = {};
