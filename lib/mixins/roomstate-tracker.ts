@@ -18,7 +18,8 @@ export interface RoomStateTrackerEvents {
 /**
  * Tracks the state of the logged in user (the bot) in all channels the bot operates in
  */
-export class RoomStateTracker extends EventEmitter<RoomStateTrackerEvents>
+export class RoomStateTracker
+  extends EventEmitter<RoomStateTrackerEvents>
   implements ClientMixin {
   private readonly channelStates: Record<string, RoomState> = {};
 

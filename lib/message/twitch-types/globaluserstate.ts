@@ -20,7 +20,8 @@ export interface GlobalUserState {
   userID: string;
 }
 
-export class GlobaluserstateMessage extends IRCMessage
+export class GlobaluserstateMessage
+  extends IRCMessage
   implements GlobalUserState {
   public readonly badgeInfo: TwitchBadgesList;
   public readonly badgeInfoRaw: string;
