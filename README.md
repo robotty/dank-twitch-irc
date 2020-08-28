@@ -1,9 +1,6 @@
 # dank-twitch-irc
 
-[![CircleCI](https://circleci.com/gh/robotty/dank-twitch-irc.svg?style=svg)](https://circleci.com/gh/robotty/dank-twitch-irc)
-[![codecov](https://codecov.io/gh/robotty/dank-twitch-irc/branch/master/graph/badge.svg)](https://codecov.io/gh/robotty/dank-twitch-irc)
-[![Maintainability](https://api.codeclimate.com/v1/badges/ec6b5c956de4ed3071ab/maintainability)](https://codeclimate.com/github/robotty/dank-twitch-irc/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/ec6b5c956de4ed3071ab/test_coverage)](https://codeclimate.com/github/robotty/dank-twitch-irc/test_coverage)
+![Build](https://github.com/robotty/dank-twitch-irc/workflows/Build/badge.svg)
 
 Node.js-only Twitch IRC lib, written in TypeScript.
 
