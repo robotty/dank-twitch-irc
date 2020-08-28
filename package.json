@@ -13,7 +13,7 @@
     "build": "tsc && sed -i '1,1 s/types=\"debug-logger\"/path=\"\\.\\.\\/types\\/debug-logger\\/index.d.ts\"/' ./dist/index.d.ts",
     "check-format": "prettier --ignore-path .gitignore --check \"**/*.md\" \"**/*.js\" \"**/*.ts\" \"**/*.yml\" \"**/*.json\"",
     "reformat": "prettier --ignore-path .gitignore --write \"**/*.md\" \"**/*.js\" \"**/*.ts\" \"**/*.yml\" \"**/*.json\"",
-    "lint": "eslint --format codeframe --ext .ts --ext .js .",
+    "lint": "eslint --ignore-path .gitignore --format codeframe --ext .ts --ext .js .",
     "lintfix": "npm run lint -- --fix",
     "test": "nyc mocha",
     "clean": "rm -rf ./dist ./docs ./coverage ./.nyc_output ./mochawesome-report",

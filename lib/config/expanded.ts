@@ -77,7 +77,7 @@ export function expandTransportConfig(
 
   switch (config.type) {
     case "tcp":
-    case undefined:
+    case undefined: {
       let host;
       let port;
 
@@ -96,11 +96,11 @@ export function expandTransportConfig(
         port,
         preSetup: false,
       };
-
+    }
     case "duplex":
       return setDefaults(config, { preSetup: false });
 
-    case "websocket":
+    case "websocket": {
       let url;
       if ("url" in config) {
         url = config.url;
@@ -113,7 +113,7 @@ export function expandTransportConfig(
         url,
         preSetup: false,
       };
-
+    }
     default:
       throw new Error("Unknown transport type");
   }

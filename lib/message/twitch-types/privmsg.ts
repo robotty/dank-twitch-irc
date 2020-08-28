@@ -11,6 +11,7 @@ import {
 import { tagParserFor } from "../parser/tag-values";
 import { UserState } from "./userstate";
 
+// eslint-disable-next-line no-control-regex
 const actionRegex = /^\u0001ACTION (.*)\u0001$/;
 
 export function parseActionAndMessage(
