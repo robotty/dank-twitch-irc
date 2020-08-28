@@ -11,8 +11,7 @@ import { ClientMixin } from "./base-mixin";
 const log = debugLogger("dank-twitch-irc:roomstate-tracker");
 
 export interface RoomStateTrackerEvents {
-  newChannelState: [string, RoomState];
-  [idx: string]: any;
+  newChannelState(channelLogin: string, newState: RoomState): void;
 }
 
 /**
