@@ -9,9 +9,8 @@ import { UserState, UserstateMessage } from "../message/twitch-types/userstate";
 import { ClientMixin } from "./base-mixin";
 
 export interface UserStateTrackerEvents {
-  newGlobalState: [GlobalUserState];
-  newChannelState: [string, UserState];
-  [idx: string]: any;
+  newGlobalState(newState: GlobalUserState): void;
+  newChannelState(channelLogin: string, newState: UserState): void;
 }
 
 /**
