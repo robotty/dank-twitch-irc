@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased
+## Unversioned
+
+## v4.0.0
 
 - Major: Removed support for chat rooms. Attempting to join a Twitch `chatrooms:` channel will result in a validation error.
 - Minor: Added `flags` and `flagsRaw` properties to `PrivmsgMessage` and `UsernoticeMessage` classes, allowing inspection of AutoMod message rating results. (#38)
