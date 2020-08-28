@@ -21,7 +21,7 @@ jobs:
       - run: npm run docs
       - name: Deploy docs to GitHub Pages
         # only on version tags like v3.0.0
-        if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v') }}
+        if: ${{ matrix.node == '14' && github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v') }}
         uses: JamesIves/github-pages-deploy-action@3.5.9
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
