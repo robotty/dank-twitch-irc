@@ -65,10 +65,7 @@
 				<a href="#dank-twitch-irc" id="dank-twitch-irc" style="color: inherit; text-decoration: none;">
 					<h1>dank-twitch-irc</h1>
 				</a>
-				<p><a href="https://circleci.com/gh/robotty/dank-twitch-irc"><img src="https://circleci.com/gh/robotty/dank-twitch-irc.svg?style=svg" alt="CircleCI"></a>
-					<a href="https://codecov.io/gh/robotty/dank-twitch-irc"><img src="https://codecov.io/gh/robotty/dank-twitch-irc/branch/master/graph/badge.svg" alt="codecov"></a>
-					<a href="https://codeclimate.com/github/robotty/dank-twitch-irc/maintainability"><img src="https://api.codeclimate.com/v1/badges/ec6b5c956de4ed3071ab/maintainability" alt="Maintainability"></a>
-				<a href="https://codeclimate.com/github/robotty/dank-twitch-irc/test_coverage"><img src="https://api.codeclimate.com/v1/badges/ec6b5c956de4ed3071ab/test_coverage" alt="Test Coverage"></a></p>
+				<p><img src="https://github.com/robotty/dank-twitch-irc/workflows/Build/badge.svg" alt="Build"></p>
 				<p>Node.js-only Twitch IRC lib, written in TypeScript.</p>
 				<p>Requires Node.js 10 (LTS) or above.</p>
 				<ul>
@@ -385,11 +382,15 @@ client.on(<span class="hljs-string">&quot;372&quot;</span>, <span class="hljs-fu
    * {
    *   &quot;months&quot;: 5,
    *   &quot;monthsRaw&quot;: &quot;5&quot;,
+   *   &quot;giftMonths&quot;: 5,
+   *   &quot;giftMonthsRaw&quot;: &quot;5&quot;,
    *   &quot;recipientDisplayName&quot;: &quot;Leppunen&quot;,
    *   &quot;recipientID&quot;: &quot;42239452&quot;,
    *   &quot;recipientUsername&quot;: &quot;leppunen&quot;,
    *   &quot;subPlan&quot;: &quot;1000&quot;,
-   *   &quot;subPlanName&quot;: &quot;The Ninjas&quot;
+   *   &quot;subPlanName&quot;: &quot;The Ninjas&quot;,
+   *   &quot;senderCount&quot;: 5,
+   *   &quot;senderCountRaw&quot;: &quot;5&quot;,
    * }
    * Sender user of the USERNOTICE message is the user gifting the subscription.
    */</span>
@@ -825,7 +826,8 @@ client.use(<span class="hljs-keyword">new</span> AlternateMessageModifier(client
 				<a href="#tests" id="tests" style="color: inherit; text-decoration: none;">
 					<h2>Tests</h2>
 				</a>
-				<pre><code>npm <span class="hljs-keyword">run</span><span class="bash"> <span class="hljs-built_in">test</span></span></code></pre><p>Test run report is available in <code>./mochawesome-report/mochawesome.html</code>.
+				<pre><code>npm <span class="hljs-keyword">run</span><span class="bash"> <span class="hljs-built_in">test</span></span></code></pre>
+				<p>Test run report is available in <code>./mochawesome-report/mochawesome.html</code>.
 				Coverage report is produced as <code>./coverage/index.html</code>.</p>
 				<a href="#lint-and-check-code-style" id="lint-and-check-code-style" style="color: inherit; text-decoration: none;">
 					<h2>Lint and check code style</h2>
@@ -992,6 +994,9 @@ npm run lintfix</code></pre>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/twitchemote.html" class="tsd-kind-icon">Twitch<wbr>Emote</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/twitchflag.html" class="tsd-kind-icon">Twitch<wbr>Flag</a>
 					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter">
 						<a href="classes/userstatetracker.html" class="tsd-kind-icon">User<wbr>State<wbr>Tracker</a>
@@ -1270,6 +1275,9 @@ npm run lintfix</code></pre>
 						<a href="globals.html#twitchemotesets" class="tsd-kind-icon">Twitch<wbr>Emote<wbr>Sets</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#twitchflaglist" class="tsd-kind-icon">Twitch<wbr>Flag<wbr>List</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#twitchmessageevents" class="tsd-kind-icon">Twitch<wbr>Message<wbr>Events</a>
 					</li>
 					<li class=" tsd-kind-variable">
@@ -1295,9 +1303,6 @@ npm run lintfix</code></pre>
 					</li>
 					<li class=" tsd-kind-variable">
 						<a href="globals.html#channelnameregex" class="tsd-kind-icon">channel<wbr>Name<wbr>Regex</a>
-					</li>
-					<li class=" tsd-kind-variable">
-						<a href="globals.html#chatroomregex" class="tsd-kind-icon">chat<wbr>Room<wbr>Regex</a>
 					</li>
 					<li class=" tsd-kind-variable">
 						<a href="globals.html#commandclassmap" class="tsd-kind-icon">command<wbr>Class<wbr>Map</a>
@@ -1388,6 +1393,9 @@ npm run lintfix</code></pre>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#converttoemotes" class="tsd-kind-icon">convert<wbr>ToEmotes</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#converttoflags" class="tsd-kind-icon">convert<wbr>ToFlags</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#converttoint" class="tsd-kind-icon">convert<wbr>ToInt</a>
@@ -1496,6 +1504,9 @@ npm run lintfix</code></pre>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#parseemotes" class="tsd-kind-icon">parse<wbr>Emotes</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#parseflags" class="tsd-kind-icon">parse<wbr>Flags</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#parsehostedchannelname" class="tsd-kind-icon">parse<wbr>Hosted<wbr>Channel<wbr>Name</a>

@@ -72,45 +72,70 @@
 					</li>
 				</ul>
 			</section>
-			<section class="tsd-panel tsd-kind-interface">
-				<h3 class="tsd-before-signature">Indexable</h3>
-				<div class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">[</span>idx: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">any</span></div>
-			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Properties</h3>
+							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="userstatetrackerevents.html#newchannelstate" class="tsd-kind-icon">new<wbr>Channel<wbr>State</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="userstatetrackerevents.html#newglobalstate" class="tsd-kind-icon">new<wbr>Global<wbr>State</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="userstatetrackerevents.html#newchannelstate" class="tsd-kind-icon">new<wbr>Channel<wbr>State</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="userstatetrackerevents.html#newglobalstate" class="tsd-kind-icon">new<wbr>Global<wbr>State</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
 					<a name="newchannelstate" class="tsd-anchor"></a>
 					<h3>new<wbr>Channel<wbr>State</h3>
-					<div class="tsd-signature tsd-kind-icon">new<wbr>Channel<wbr>State<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="userstate.html" class="tsd-signature-type">UserState</a><span class="tsd-signature-symbol">]</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/81e3130/lib/mixins/userstate-tracker.ts#L13">lib/mixins/userstate-tracker.ts:13</a></li>
-						</ul>
-					</aside>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">new<wbr>Channel<wbr>State<span class="tsd-signature-symbol">(</span>channelLogin<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, newState<span class="tsd-signature-symbol">: </span><a href="userstate.html" class="tsd-signature-type">UserState</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/744fca4/lib/mixins/userstate-tracker.ts#L13">lib/mixins/userstate-tracker.ts:13</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>channelLogin: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>newState: <a href="userstate.html" class="tsd-signature-type">UserState</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
 					<a name="newglobalstate" class="tsd-anchor"></a>
 					<h3>new<wbr>Global<wbr>State</h3>
-					<div class="tsd-signature tsd-kind-icon">new<wbr>Global<wbr>State<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">[</span><a href="globaluserstate.html" class="tsd-signature-type">GlobalUserState</a><span class="tsd-signature-symbol">]</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/81e3130/lib/mixins/userstate-tracker.ts#L12">lib/mixins/userstate-tracker.ts:12</a></li>
-						</ul>
-					</aside>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">new<wbr>Global<wbr>State<span class="tsd-signature-symbol">(</span>newState<span class="tsd-signature-symbol">: </span><a href="globaluserstate.html" class="tsd-signature-type">GlobalUserState</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/744fca4/lib/mixins/userstate-tracker.ts#L12">lib/mixins/userstate-tracker.ts:12</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>newState: <a href="globaluserstate.html" class="tsd-signature-type">GlobalUserState</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
 				</section>
 			</section>
 		</div>
@@ -129,10 +154,10 @@
 					<li class="current tsd-kind-interface">
 						<a href="userstatetrackerevents.html" class="tsd-kind-icon">User<wbr>State<wbr>Tracker<wbr>Events</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="userstatetrackerevents.html#newchannelstate" class="tsd-kind-icon">new<wbr>Channel<wbr>State</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="userstatetrackerevents.html#newglobalstate" class="tsd-kind-icon">new<wbr>Global<wbr>State</a>
 							</li>
 						</ul>

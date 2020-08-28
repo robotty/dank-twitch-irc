@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>TwitchEmote | dank-twitch-irc</title>
+	<title>TwitchFlag | dank-twitch-irc</title>
 	<meta name="description" content="Documentation for dank-twitch-irc">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,10 +54,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="twitchemote.html">TwitchEmote</a>
+					<a href="twitchflag.html">TwitchFlag</a>
 				</li>
 			</ul>
-			<h1>Class TwitchEmote</h1>
+			<h1>Class TwitchFlag</h1>
 		</div>
 	</div>
 </header>
@@ -67,15 +67,16 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Single instance of a twitch emote in a message string.</p>
+						<p>Single instance of a twitch automod flagged word in a message string.</p>
 					</div>
+					<p><strong>Note:</strong> This is an undocumented Twitch IRC feature and may change at any time, use at your own risk.</p>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">TwitchEmote</span>
+						<span class="target">TwitchFlag</span>
 					</li>
 				</ul>
 			</section>
@@ -86,16 +87,16 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="twitchemote.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="twitchflag.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="twitchemote.html#code" class="tsd-kind-icon">code</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="twitchemote.html#endindex" class="tsd-kind-icon">end<wbr>Index</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="twitchemote.html#id" class="tsd-kind-icon">id</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="twitchemote.html#startindex" class="tsd-kind-icon">start<wbr>Index</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="twitchflag.html#categories" class="tsd-kind-icon">categories</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="twitchflag.html#endindex" class="tsd-kind-icon">end<wbr>Index</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="twitchflag.html#startindex" class="tsd-kind-icon">start<wbr>Index</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="twitchflag.html#word" class="tsd-kind-icon">word</a></li>
 							</ul>
 						</section>
 					</div>
@@ -107,20 +108,17 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Twitch<wbr>Emote<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, startIndex<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, endIndex<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, text<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="twitchemote.html" class="tsd-signature-type">TwitchEmote</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Twitch<wbr>Flag<span class="tsd-signature-symbol">(</span>startIndex<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, endIndex<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, text<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, category<span class="tsd-signature-symbol">: </span><a href="twitchbadgeslist.html#array" class="tsd-signature-type">Array</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span>category<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>score<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="twitchflag.html" class="tsd-signature-type">TwitchFlag</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/744fca4/lib/message/emote.ts#L29">lib/message/emote.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/744fca4/lib/message/flag.ts#L42">lib/message/flag.ts:42</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
-								<li>
-									<h5>id: <span class="tsd-signature-type">string</span></h5>
-								</li>
 								<li>
 									<h5>startIndex: <span class="tsd-signature-type">number</span></h5>
 								</li>
@@ -130,8 +128,11 @@
 								<li>
 									<h5>text: <span class="tsd-signature-type">string</span></h5>
 								</li>
+								<li>
+									<h5>category: <a href="twitchbadgeslist.html#array" class="tsd-signature-type">Array</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span>category<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>score<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="twitchemote.html" class="tsd-signature-type">TwitchEmote</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="twitchflag.html" class="tsd-signature-type">TwitchFlag</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -139,18 +140,30 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="code" class="tsd-anchor"></a>
-					<h3>code</h3>
-					<div class="tsd-signature tsd-kind-icon">code<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="categories" class="tsd-anchor"></a>
+					<h3>categories</h3>
+					<div class="tsd-signature tsd-kind-icon">categories<span class="tsd-signature-symbol">:</span> <a href="twitchbadgeslist.html#array" class="tsd-signature-type">Array</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span>category<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>score<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/744fca4/lib/message/emote.ts#L29">lib/message/emote.ts:29</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/744fca4/lib/message/flag.ts#L42">lib/message/flag.ts:42</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>The part of the original message string that was recognizes as an emote, e.g. &quot;Kappa&quot;.</p>
+							<p>Flag category, as per the AutoMod moderation categories:</p>
+							<ul>
+								<li><strong>I:</strong> Identity language - Words referring to race, religion, gender,
+								orientation, disability, or similar. Hate speech falls under this category.</li>
+								<li><strong>S:</strong> Sexually explicit language - Words or phrases referring to
+								sexual acts, sexual content, and body parts.</li>
+								<li><strong>A:</strong> Aggressive language - Hostility towards other people, often
+								associated with bullying.</li>
+								<li><strong>P:</strong> Profanity - Expletives, curse words, and vulgarity. This
+								filter especially helps those who wish to keep their community family-friendly.</li>
+							</ul>
 						</div>
+						<p>If this array is empty, this means that Twitch flagged it for a
+						non-specified reason.</p>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
@@ -159,7 +172,7 @@
 					<div class="tsd-signature tsd-kind-icon">end<wbr>Index<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/744fca4/lib/message/emote.ts#L24">lib/message/emote.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/744fca4/lib/message/flag.ts#L21">lib/message/flag.ts:21</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -172,27 +185,12 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="id" class="tsd-anchor"></a>
-					<h3>id</h3>
-					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/744fca4/lib/message/emote.ts#L8">lib/message/emote.ts:8</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Numeric ID identifying the emote.</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="startindex" class="tsd-anchor"></a>
 					<h3>start<wbr>Index</h3>
 					<div class="tsd-signature tsd-kind-icon">start<wbr>Index<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/744fca4/lib/message/emote.ts#L16">lib/message/emote.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/744fca4/lib/message/flag.ts#L13">lib/message/flag.ts:13</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -201,6 +199,21 @@
 								Note that we count unicode code points, not bytes with this.
 								If you use this, make sure your code splits or indexes strings by their
 							unicode code points, and not their bytes.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="word" class="tsd-anchor"></a>
+					<h3>word</h3>
+					<div class="tsd-signature tsd-kind-icon">word<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/744fca4/lib/message/flag.ts#L26">lib/message/flag.ts:26</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The part of the original message string that was recognized as flagged, e.g. &quot;stfu&quot;.</p>
 						</div>
 					</div>
 				</section>
@@ -219,22 +232,22 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class">
-						<a href="twitchemote.html" class="tsd-kind-icon">Twitch<wbr>Emote</a>
+						<a href="twitchflag.html" class="tsd-kind-icon">Twitch<wbr>Flag</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="twitchemote.html#constructor" class="tsd-kind-icon">constructor</a>
+								<a href="twitchflag.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="twitchemote.html#code" class="tsd-kind-icon">code</a>
+								<a href="twitchflag.html#categories" class="tsd-kind-icon">categories</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="twitchemote.html#endindex" class="tsd-kind-icon">end<wbr>Index</a>
+								<a href="twitchflag.html#endindex" class="tsd-kind-icon">end<wbr>Index</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="twitchemote.html#id" class="tsd-kind-icon">id</a>
+								<a href="twitchflag.html#startindex" class="tsd-kind-icon">start<wbr>Index</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="twitchemote.html#startindex" class="tsd-kind-icon">start<wbr>Index</a>
+								<a href="twitchflag.html#word" class="tsd-kind-icon">word</a>
 							</li>
 						</ul>
 					</li>
