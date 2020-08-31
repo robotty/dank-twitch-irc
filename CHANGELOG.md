@@ -2,6 +2,8 @@
 
 ## Unversioned
 
+- Bugfix: Fixed exception if new unstable "flags" parsing failed because of an out-of-bounds index.
+
 ## v4.0.0
 
 - Major: Removed support for chat rooms. Attempting to join a Twitch `chatrooms:` channel will result in a validation error.

@@ -1,6 +1,5 @@
 import { TwitchFlag } from "../flag";
 import { TwitchFlagList } from "../flags";
-import { ParseError } from "./parse-error";
 
 export function parseFlags(
   messageText: string,
@@ -21,16 +20,17 @@ export function parseFlags(
   for (const flagInstancesSrc of flagsSrc.split(",")) {
     const [indexes, instancesSrc] = flagInstancesSrc.split(":", 2);
 
-    const [startIndex, endIndexInclusive] = indexes
-      .split("-")
-      .map((s) => Number(s));
+    let [startIndex, endIndex] = indexes.split("-").map((s) => Number(s));
 
     // to make endIndex exclusive
-    const endIndex = endIndexInclusive + 1;
+    endIndex = endIndex + 1;
+
+    // flags tag can have wildly out-of-bounds indexes
+    if (startIndex < 0) {
+      startIndex = 0;
+    }
     if (endIndex > messageCharacters.length) {
-      throw new ParseError(
-        `End index ${endIndexInclusive} is out of range for given message string`
-      );
+      endIndex = messageCharacters.length;
     }
 
     const flagText = messageCharacters.slice(startIndex, endIndex).join("");

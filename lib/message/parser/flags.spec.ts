@@ -1,8 +1,6 @@
 import { assert } from "chai";
-import { assertThrowsChain } from "../../helpers.spec";
 import { TwitchFlag } from "../flag";
 import { parseFlags } from "./flags";
-import { ParseError } from "./parse-error";
 
 describe("./message/parser/flags", function () {
   describe("#parseFlags()", function () {
@@ -87,12 +85,16 @@ describe("./message/parser/flags", function () {
       ]);
     });
 
-    it("should throw a ParseError if a end index is out of range", function () {
-      assertThrowsChain(
-        () => parseFlags("stfu", "0-4:P.6"),
-        ParseError,
-        "End index 4 is out of range for given message string"
-      );
+    it("should gracefully handle if an end index is out of range", function () {
+      assert.deepStrictEqual(parseFlags("stfu", "0-4:P.6"), [
+        // if index wasnt out of range, this would be (0, 5)
+        new TwitchFlag(0, 4, "stfu", [{ category: "P", score: 6 }]),
+      ]);
+
+      assert.deepStrictEqual(parseFlags("stf", "0-4:P.6"), [
+        // if index wasnt out of range, this would be (0, 5)
+        new TwitchFlag(0, 3, "stf", [{ category: "P", score: 6 }]),
+      ]);
     });
 
     it("should parse normal string with no flags, as no flags", function () {
