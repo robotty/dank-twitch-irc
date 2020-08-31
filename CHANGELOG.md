@@ -2,6 +2,8 @@
 
 ## Unversioned
 
+- Bugfix: Fixed a single server message resolving/rejecting more than one promise (e.g. cases where many messages were sent to the same channel, the first success/error response would resolve/reject all the waiting promises) (#32, #65)
+
 ## v4.0.1
 
 - Bugfix: Fixed exception if new unstable "flags" parsing failed because of an out-of-bounds index.
