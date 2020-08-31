@@ -64,6 +64,15 @@ export class SingleConnection extends BaseClient {
 
     replyToServerPing(this);
     handleReconnectMessage(this);
+
+    this.on("message", (msg) => {
+      for (const awaiter of this.pendingResponses) {
+        const stop = awaiter.onConnectionMessage(msg);
+        if (stop) {
+          break;
+        }
+      }
+    });
   }
 
   public connect(): void {
