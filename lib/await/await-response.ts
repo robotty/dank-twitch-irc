@@ -85,7 +85,6 @@ export class ResponseAwaiter {
     });
 
     this.subscribeTo("close", this.onConnectionClosed);
-    this.subscribeTo("message", this.onConnectionMessage);
     this.joinPendingResponsesQueue();
   }
 
@@ -199,12 +198,17 @@ export class ResponseAwaiter {
     }
   }
 
-  private onConnectionMessage(msg: IRCMessage): void {
+  // returns true if something matched, preventing "later" matchers from
+  // running against that message
+  public onConnectionMessage(msg: IRCMessage): boolean {
     if (this.config.failure(msg)) {
       this.reject(new MessageError(`Bad response message: ${msg.rawSource}`));
+      return true;
     } else if (this.config.success(msg)) {
       this.resolve(msg);
+      return true;
     }
+    return false;
   }
 
   private subscribeTo(
