@@ -14,6 +14,8 @@ export type FunctionKeysOf<T extends object> = SelectKeys<
   (...args: any) => any
 >;
 export type Parameters<T> = T extends (...args: infer P) => any ? P : never;
+// (it complains that `R` is unused)
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export type ReturnType<T> = T extends (...args: any) => infer R ? R : any;
 
 export type FunctionAt<T extends object, K extends FunctionKeysOf<T>> = (
