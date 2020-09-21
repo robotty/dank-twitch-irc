@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>SubgiftParameters | dank-twitch-irc</title>
+	<title>GetUsersConfig | dank-twitch-irc</title>
 	<meta name="description" content="Documentation for dank-twitch-irc">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,10 +54,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="subgiftparameters.html">SubgiftParameters</a>
+					<a href="getusersconfig.html">GetUsersConfig</a>
 				</li>
 			</ul>
-			<h1>Interface SubgiftParameters</h1>
+			<h1>Interface GetUsersConfig</h1>
 		</div>
 	</div>
 </header>
@@ -68,18 +68,9 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="eventparams.html" class="tsd-signature-type">EventParams</a>
-						<ul class="tsd-hierarchy">
-							<li>
-								<span class="target">SubgiftParameters</span>
-							</li>
-						</ul>
+						<span class="target">GetUsersConfig</span>
 					</li>
 				</ul>
-			</section>
-			<section class="tsd-panel tsd-kind-interface">
-				<h3 class="tsd-before-signature">Indexable</h3>
-				<div class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">boolean</span></div>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
@@ -88,13 +79,12 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="subgiftparameters.html#months" class="tsd-kind-icon">months</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="subgiftparameters.html#monthsraw" class="tsd-kind-icon">months<wbr>Raw</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="subgiftparameters.html#recipientdisplayname" class="tsd-kind-icon">recipient<wbr>Display<wbr>Name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="subgiftparameters.html#recipientid" class="tsd-kind-icon">recipientID</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="subgiftparameters.html#recipientusername" class="tsd-kind-icon">recipient<wbr>Username</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="subgiftparameters.html#subplan" class="tsd-kind-icon">sub<wbr>Plan</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="subgiftparameters.html#subplanname" class="tsd-kind-icon">sub<wbr>Plan<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="getusersconfig.html#command" class="tsd-kind-icon">command</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="getusersconfig.html#msgiderror" class="tsd-kind-icon">msg<wbr>IdError</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="getusersconfig.html#msgidnone" class="tsd-kind-icon">msg<wbr>IdNone</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="getusersconfig.html#msgidsome" class="tsd-kind-icon">msg<wbr>IdSome</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="getusersconfig.html#somemessageprefix" class="tsd-kind-icon">some<wbr>Message<wbr>Prefix</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="getusersconfig.html#somemessagesuffix" class="tsd-kind-icon">some<wbr>Message<wbr>Suffix</a></li>
 							</ul>
 						</section>
 					</div>
@@ -103,72 +93,62 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="months" class="tsd-anchor"></a>
-					<h3>months</h3>
-					<div class="tsd-signature tsd-kind-icon">months<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<a name="command" class="tsd-anchor"></a>
+					<h3>command</h3>
+					<div class="tsd-signature tsd-kind-icon">command<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"mods"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"vips"</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/6c2767e/lib/message/twitch-types/usernotice.ts#L113">lib/message/twitch-types/usernotice.ts:113</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/6c2767e/lib/operations/get-mods-vips.ts#L8">lib/operations/get-mods-vips.ts:8</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="monthsraw" class="tsd-anchor"></a>
-					<h3>months<wbr>Raw</h3>
-					<div class="tsd-signature tsd-kind-icon">months<wbr>Raw<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="msgiderror" class="tsd-anchor"></a>
+					<h3>msg<wbr>IdError</h3>
+					<div class="tsd-signature tsd-kind-icon">msg<wbr>IdError<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/6c2767e/lib/message/twitch-types/usernotice.ts#L114">lib/message/twitch-types/usernotice.ts:114</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/6c2767e/lib/operations/get-mods-vips.ts#L9">lib/operations/get-mods-vips.ts:9</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="recipientdisplayname" class="tsd-anchor"></a>
-					<h3>recipient<wbr>Display<wbr>Name</h3>
-					<div class="tsd-signature tsd-kind-icon">recipient<wbr>Display<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="msgidnone" class="tsd-anchor"></a>
+					<h3>msg<wbr>IdNone</h3>
+					<div class="tsd-signature tsd-kind-icon">msg<wbr>IdNone<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/6c2767e/lib/message/twitch-types/usernotice.ts#L116">lib/message/twitch-types/usernotice.ts:116</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/6c2767e/lib/operations/get-mods-vips.ts#L10">lib/operations/get-mods-vips.ts:10</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="recipientid" class="tsd-anchor"></a>
-					<h3>recipientID</h3>
-					<div class="tsd-signature tsd-kind-icon">recipientID<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<a name="msgidsome" class="tsd-anchor"></a>
+					<h3>msg<wbr>IdSome</h3>
+					<div class="tsd-signature tsd-kind-icon">msg<wbr>IdSome<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/6c2767e/lib/message/twitch-types/usernotice.ts#L117">lib/message/twitch-types/usernotice.ts:117</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/6c2767e/lib/operations/get-mods-vips.ts#L11">lib/operations/get-mods-vips.ts:11</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="recipientusername" class="tsd-anchor"></a>
-					<h3>recipient<wbr>Username</h3>
-					<div class="tsd-signature tsd-kind-icon">recipient<wbr>Username<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="somemessageprefix" class="tsd-anchor"></a>
+					<h3>some<wbr>Message<wbr>Prefix</h3>
+					<div class="tsd-signature tsd-kind-icon">some<wbr>Message<wbr>Prefix<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/6c2767e/lib/message/twitch-types/usernotice.ts#L119">lib/message/twitch-types/usernotice.ts:119</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/6c2767e/lib/operations/get-mods-vips.ts#L12">lib/operations/get-mods-vips.ts:12</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="subplan" class="tsd-anchor"></a>
-					<h3>sub<wbr>Plan</h3>
-					<div class="tsd-signature tsd-kind-icon">sub<wbr>Plan<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="somemessagesuffix" class="tsd-anchor"></a>
+					<h3>some<wbr>Message<wbr>Suffix</h3>
+					<div class="tsd-signature tsd-kind-icon">some<wbr>Message<wbr>Suffix<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/6c2767e/lib/message/twitch-types/usernotice.ts#L121">lib/message/twitch-types/usernotice.ts:121</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="subplanname" class="tsd-anchor"></a>
-					<h3>sub<wbr>Plan<wbr>Name</h3>
-					<div class="tsd-signature tsd-kind-icon">sub<wbr>Plan<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/6c2767e/lib/message/twitch-types/usernotice.ts#L122">lib/message/twitch-types/usernotice.ts:122</a></li>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/6c2767e/lib/operations/get-mods-vips.ts#L13">lib/operations/get-mods-vips.ts:13</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -187,28 +167,25 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface">
-						<a href="subgiftparameters.html" class="tsd-kind-icon">Subgift<wbr>Parameters</a>
+						<a href="getusersconfig.html" class="tsd-kind-icon">Get<wbr>Users<wbr>Config</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="subgiftparameters.html#months" class="tsd-kind-icon">months</a>
+								<a href="getusersconfig.html#command" class="tsd-kind-icon">command</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="subgiftparameters.html#monthsraw" class="tsd-kind-icon">months<wbr>Raw</a>
+								<a href="getusersconfig.html#msgiderror" class="tsd-kind-icon">msg<wbr>IdError</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="subgiftparameters.html#recipientdisplayname" class="tsd-kind-icon">recipient<wbr>Display<wbr>Name</a>
+								<a href="getusersconfig.html#msgidnone" class="tsd-kind-icon">msg<wbr>IdNone</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="subgiftparameters.html#recipientid" class="tsd-kind-icon">recipientID</a>
+								<a href="getusersconfig.html#msgidsome" class="tsd-kind-icon">msg<wbr>IdSome</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="subgiftparameters.html#recipientusername" class="tsd-kind-icon">recipient<wbr>Username</a>
+								<a href="getusersconfig.html#somemessageprefix" class="tsd-kind-icon">some<wbr>Message<wbr>Prefix</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="subgiftparameters.html#subplan" class="tsd-kind-icon">sub<wbr>Plan</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="subgiftparameters.html#subplanname" class="tsd-kind-icon">sub<wbr>Plan<wbr>Name</a>
+								<a href="getusersconfig.html#somemessagesuffix" class="tsd-kind-icon">some<wbr>Message<wbr>Suffix</a>
 							</li>
 						</ul>
 					</li>

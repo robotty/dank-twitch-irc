@@ -650,6 +650,11 @@ client.on(<span class="hljs-string">&quot;372&quot;</span>, <span class="hljs-fu
 					from the bot.</li>
 					<li><code>client.setColor(color: Color)</code> - set the username color of your bot account.
 					E.g. <code>client.setColor({ r: 255, g: 0, b: 127 })</code>.</li>
+					<li><code>client.getMods(channelName: string)</code> and <code>client.getVips(channelName: string)</code> -
+						Get a list of moderators/VIPs in a channel. Returns
+						a promise that resolves to an array of strings (login names of the moderators/VIPs).
+						Note that due to Twitch&#39;s restrictions, this function cannot be used with anonymous chat clients.
+					(The request will time out if your chat client is logged in as anonymous.)</li>
 				</ul>
 				<p>Extra functionality:</p>
 				<ul>
@@ -894,6 +899,9 @@ npm run lintfix</code></pre>
 						<a href="classes/editabletimeout.html" class="tsd-kind-icon">Editable<wbr>Timeout</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="classes/getuserserror.html" class="tsd-kind-icon">Get<wbr>Users<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="classes/globaluserstatemessage.html" class="tsd-kind-icon">Globaluserstate<wbr>Message</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -1072,6 +1080,9 @@ npm run lintfix</code></pre>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/fastspamresult.html" class="tsd-kind-icon">Fast<wbr>Spam<wbr>Result</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/getusersconfig.html" class="tsd-kind-icon">Get<wbr>Users<wbr>Config</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/globaluserstate.html" class="tsd-kind-icon">Global<wbr>User<wbr>State</a>
@@ -1452,7 +1463,16 @@ npm run lintfix</code></pre>
 						<a href="globals.html#getircchannelname" class="tsd-kind-icon">getIRCChannel<wbr>Name</a>
 					</li>
 					<li class=" tsd-kind-function">
+						<a href="globals.html#getmods" class="tsd-kind-icon">get<wbr>Mods</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getmodsorvips" class="tsd-kind-icon">get<wbr>Mods<wbr>OrVips</a>
+					</li>
+					<li class=" tsd-kind-function">
 						<a href="globals.html#getparameter" class="tsd-kind-icon">get<wbr>Parameter</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getvips" class="tsd-kind-icon">get<wbr>Vips</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#handlereconnectmessage" class="tsd-kind-icon">handle<wbr>Reconnect<wbr>Message</a>
@@ -1624,6 +1644,12 @@ npm run lintfix</code></pre>
 					</li>
 					<li class=" tsd-kind-object-literal">
 						<a href="globals.html#defaults" class="tsd-kind-icon">defaults</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#getmodsinfo" class="tsd-kind-icon">get<wbr>Mods<wbr>Info</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#getvipsinfo" class="tsd-kind-icon">get<wbr>Vips<wbr>Info</a>
 					</li>
 					<li class=" tsd-kind-object-literal">
 						<a href="globals.html#messageratelimitpresets" class="tsd-kind-icon">message<wbr>Rate<wbr>Limit<wbr>Presets</a>
