@@ -2,6 +2,8 @@
 
 ## Unversioned
 
+## v4.1.0
+
 - Minor: Added `getMods` and `getVips` to Chat client API to easily fetch a list of mods and VIPs for a channel.
 
 ## v4.0.2
