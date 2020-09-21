@@ -609,6 +609,11 @@ You probably will want to use these functions on `ChatClient` most frequently:
   from the bot.
 - `client.setColor(color: Color)` - set the username color of your bot account.
   E.g. `client.setColor({ r: 255, g: 0, b: 127 })`.
+- `client.getMods(channelName: string)` and `client.getVips(channelName: string)` -
+  Get a list of moderators/VIPs in a channel. Returns
+  a promise that resolves to an array of strings (login names of the moderators/VIPs).
+  Note that due to Twitch's restrictions, this function cannot be used with anonymous chat clients.
+  (The request will time out if your chat client is logged in as anonymous.)
 
 Extra functionality:
 

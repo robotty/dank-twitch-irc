@@ -1,4 +1,5 @@
 import * as debugLogger from "debug-logger";
+import { getMods, getVips } from "../operations/get-mods-vips";
 import { ClientConfiguration } from "../config/config";
 import { Color } from "../message/color";
 import { ClientMixin, ConnectionMixin } from "../mixins/base-mixin";
@@ -208,6 +209,16 @@ export class ChatClient extends BaseClient {
 
   public async setColor(color: Color): Promise<void> {
     await setColor(this.requireConnection(), color);
+  }
+
+  public async getMods(channelName: string): Promise<string[]> {
+    validateChannelName(channelName);
+    return await getMods(this.requireConnection(), channelName);
+  }
+
+  public async getVips(channelName: string): Promise<string[]> {
+    validateChannelName(channelName);
+    return await getVips(this.requireConnection(), channelName);
   }
 
   public async ping(): Promise<void> {

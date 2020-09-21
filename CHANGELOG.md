@@ -2,6 +2,8 @@
 
 ## Unversioned
 
+- Minor: Added `getMods` and `getVips` to Chat client API to easily fetch a list of mods and VIPs for a channel.
+
 ## v4.0.2
 
 - Bugfix: Fixed a single server message resolving/rejecting more than one promise (e.g. cases where many messages were sent to the same channel, the first success/error response would resolve/reject all the waiting promises) (#32, #65)
