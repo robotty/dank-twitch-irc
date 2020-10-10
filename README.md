@@ -67,7 +67,7 @@ client.join("forsen");
   connects for the first time. This is called when the transport layer
   connections (e.g. TCP or WebSocket connection is established), not when login
   to IRC succeeds.
-- **`client.on("ready", ()) => { /* ... */ })`**: Called when the client becomes
+- **`client.on("ready", () => { /* ... */ })`**: Called when the client becomes
   ready for the first time (login to the chat server is successful.)
 - **`client.on("close", (error?: Error) => { /* ... */ })`**: Called when the
   client is terminated as a whole. Not called for individual connections that
