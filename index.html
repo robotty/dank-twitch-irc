@@ -134,7 +134,7 @@ client.join(<span class="hljs-string">&quot;forsen&quot;</span>);</code></pre>
 							connections (e.g. TCP or WebSocket connection is established), not when login
 						to IRC succeeds.</p>
 					</li>
-					<li><p><strong><code>client.on(&quot;ready&quot;, ()) =&gt; { /* ... */ })</code></strong>: Called when the client becomes
+					<li><p><strong><code>client.on(&quot;ready&quot;, () =&gt; { /* ... */ })</code></strong>: Called when the client becomes
 						ready for the first time (login to the chat server is successful.)</p>
 					</li>
 					<li><p><strong><code>client.on(&quot;close&quot;, (error?: Error) =&gt; { /* ... */ })</code></strong>: Called when the
@@ -146,6 +146,9 @@ client.join(<span class="hljs-string">&quot;forsen&quot;</span>);</code></pre>
 					<li><p><strong><code>client.on(&quot;error&quot;, (error: Error?) =&gt; { /* ... */ })</code></strong>: Called when any
 							error occurs on the client, including non-fatal errors such as a message that
 						could not be delivered due to an error.</p>
+					</li>
+					<li><p><strong><code>client.on(&quot;rawCommand&quot;, (cmd: string) =&gt; { /* ... */ })</code></strong>: Called when any
+						command is executed by the client.</p>
 					</li>
 					<li><p><strong><code>client.on(&quot;message&quot;, (message: IRCMessage) =&gt; { /* ... */ })</code></strong>: Called on
 							every incoming message. If the message is a message that is further parsed (I
@@ -1234,9 +1237,6 @@ npm run lintfix</code></pre>
 					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
 						<a href="globals.html#overridefunctions" class="tsd-kind-icon">Override<wbr>Functions</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
-						<a href="globals.html#parameters" class="tsd-kind-icon">Parameters</a>
-					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#presetkeys" class="tsd-kind-icon">Preset<wbr>Keys</a>
 					</li>
@@ -1251,9 +1251,6 @@ npm run lintfix</code></pre>
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#resubusernoticemessage" class="tsd-kind-icon">Resub<wbr>Usernotice<wbr>Message</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
-						<a href="globals.html#returntype" class="tsd-kind-icon">Return<wbr>Type</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#ritualusernoticemessage" class="tsd-kind-icon">Ritual<wbr>Usernotice<wbr>Message</a>
@@ -1416,6 +1413,9 @@ npm run lintfix</code></pre>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#converttotimestamp" class="tsd-kind-icon">convert<wbr>ToTimestamp</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#correctchannelname" class="tsd-kind-icon">correct<wbr>Channel<wbr>Name</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#createmocktransport" class="tsd-kind-icon">create<wbr>Mock<wbr>Transport</a>
