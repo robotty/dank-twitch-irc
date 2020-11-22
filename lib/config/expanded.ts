@@ -13,13 +13,9 @@ import {
   MessageRateLimits,
 } from "./message-rate-limits";
 
-export type ExpandedDuplexTransportConfiguration = Required<
-  DuplexTransportConfiguration
->;
+export type ExpandedDuplexTransportConfiguration = Required<DuplexTransportConfiguration>;
 
-export type ExpandedTcpTransportConfiguration = Required<
-  TcpTransportConfiguration
-> & {
+export type ExpandedTcpTransportConfiguration = Required<TcpTransportConfiguration> & {
   preSetup: false;
 };
 

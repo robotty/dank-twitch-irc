@@ -161,7 +161,7 @@ export function createMockTransport(): MockTransportData {
 
 export type FakeConnectionData = {
   client: SingleConnection;
-  clientError: Promise<never>;
+  clientError: Promise<void>;
 } & MockTransportData;
 
 export function fakeConnection(): FakeConnectionData {
@@ -183,7 +183,7 @@ export function fakeConnection(): FakeConnectionData {
   return {
     ...transport,
     client: fakeConn,
-    clientError: new Promise<never>((resolve, reject) => {
+    clientError: new Promise<void>((resolve, reject) => {
       fakeConn.once("error", (e) => reject(e));
       fakeConn.once("close", () => resolve());
     }),
@@ -192,7 +192,7 @@ export function fakeConnection(): FakeConnectionData {
 
 export type FakeClientData = {
   client: ChatClient;
-  clientError: Promise<never>;
+  clientError: Promise<void>;
   transports: MockTransportData[];
   emit: (...lines: string[]) => void;
   end: () => void;
@@ -231,7 +231,7 @@ export function fakeClient(connect = true): FakeClientData {
       client.destroy();
     },
     client,
-    clientError: new Promise<never>((resolve, reject) => {
+    clientError: new Promise<void>((resolve, reject) => {
       client.once("error", (e) => reject(e));
       client.once("close", () => resolve());
     }),

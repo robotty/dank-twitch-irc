@@ -24,15 +24,20 @@ describe("./utils/apply-function-replacements", function () {
 
       const target = new Target();
 
-      applyReplacement(self, target, "a", function a(
-        originalFn,
-        one: string,
-        two: string,
-        three: string
-      ): string {
-        // test for the "this" reference in the replacement function
-        return originalFn(one, two, three) + this.abc;
-      });
+      applyReplacement(
+        self,
+        target,
+        "a",
+        function a(
+          originalFn,
+          one: string,
+          two: string,
+          three: string
+        ): string {
+          // test for the "this" reference in the replacement function
+          return originalFn(one, two, three) + this.abc;
+        }
+      );
 
       assert.strictEqual(target.a("1", "2", "3"), "KKona123def");
     });

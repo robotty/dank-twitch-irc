@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v4.2.0
 
 - Bugfix: Fixed typescript compiling error (#154)
 - Minor: Added new event `rawCommand` emitted when a command is executed by the client.

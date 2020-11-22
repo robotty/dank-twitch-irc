@@ -13,10 +13,6 @@ export type FunctionKeysOf<T extends object> = SelectKeys<
   T,
   (...args: any) => any
 >;
-export type Parameters<T> = T extends (...args: infer P) => any ? P : never;
-// (it complains that `R` is unused)
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export type ReturnType<T> = T extends (...args: any) => infer R ? R : any;
 
 export type FunctionAt<T extends object, K extends FunctionKeysOf<T>> = (
   ...args: Parameters<T[K]>
@@ -47,6 +43,7 @@ export function applyReplacement<
     this: T,
     ...args: Parameters<typeof oldFn>
   ): ReturnType<typeof oldFn> {
+    // @ts-ignore complains that `args` does not have a '[Symbol.iterator]()' method that returns an iterator
     return newFn.call(self, oldFn.bind(this), ...args);
   }
 
