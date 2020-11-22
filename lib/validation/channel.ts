@@ -12,5 +12,5 @@ export function validateChannelName(input?: string | null): void {
 }
 
 export function correctChannelName(input: string): string {
-  return input.replace(/^#/, '');
+  return input.replace(/^#/, "");
 }
