@@ -268,6 +268,9 @@ export class ChatClient extends BaseClient {
       }
     });
 
+    // forward commands issued by this client
+    conn.on("rawCommmand", (cmd) => this.emit("rawCommmand", cmd));
+
     // forward events to this client
     conn.on("message", (message) => {
       // only forward whispers from the currently active whisper connection

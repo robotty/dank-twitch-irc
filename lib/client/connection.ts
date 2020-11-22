@@ -118,6 +118,7 @@ export class SingleConnection extends BaseClient {
 
   public sendRaw(command: string): void {
     validateIRCCommand(command);
+    this.emit("rawCommmand", command);
     this.log.trace(">", command);
     this.transport.stream.write(command + "\r\n");
   }

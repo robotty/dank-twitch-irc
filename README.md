@@ -77,6 +77,8 @@ client.join("forsen");
 - **`client.on("error", (error: Error?) => { /* ... */ })`**: Called when any
   error occurs on the client, including non-fatal errors such as a message that
   could not be delivered due to an error.
+- **`client.on("rawCommand", (cmd: string) => { /* ... */ })`**: Called when any
+  command is executed by the client.
 - **`client.on("message", (message: IRCMessage) => { /* ... */ })`**: Called on
   every incoming message. If the message is a message that is further parsed (I
   called these "twitch messages" in this library) then the `message` passed to

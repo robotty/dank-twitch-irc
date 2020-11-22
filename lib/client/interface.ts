@@ -35,6 +35,8 @@ export interface SpecificClientEvents {
   message: [IRCMessage];
 
   reconnect: [SingleConnection];
+
+  rawCommmand: [string];
 }
 
 // these are the events that are mapped to twitch messages (e.g. PRIVMSG)
