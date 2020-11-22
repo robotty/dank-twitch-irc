@@ -1,6 +1,12 @@
 # Changelog
 
-## Unversioned
+## Unreleased
+
+- Bugfix: Fixed typescript compiling error (#154)
+- Minor: Added new event `rawCommand` emitted when a command is executed by the client.
+- Minor: Made `client.connect()` return a promise which resolves when the client is ready.
+- Minor: Allowed `#` to be a prefix of the channelName passed into functions that require it.
+- Bugfix: Added `setColor` to promise rejections.
 
 ## v4.1.0
 
