@@ -21,7 +21,7 @@ import { anyCauseInstanceof } from "../utils/any-cause-instanceof";
 import { findAndPushToEnd } from "../utils/find-and-push-to-end";
 import { removeInPlace } from "../utils/remove-in-place";
 import { unionSets } from "../utils/union-sets";
-import { validateChannelName } from "../validation/channel";
+import { validateChannelName, correctChannelName } from "../validation/channel";
 import { BaseClient } from "./base-client";
 import { SingleConnection } from "./connection";
 import { ClientError } from "./errors";
@@ -107,6 +107,7 @@ export class ChatClient extends BaseClient {
   }
 
   public async join(channelName: string): Promise<void> {
+    channelName = correctChannelName(channelName);
     validateChannelName(channelName);
 
     if (this.connections.some((c) => joinNothingToDo(c, channelName))) {
@@ -121,6 +122,7 @@ export class ChatClient extends BaseClient {
   }
 
   public async part(channelName: string): Promise<void> {
+    channelName = correctChannelName(channelName);
     validateChannelName(channelName);
 
     if (this.connections.every((c) => partNothingToDo(c, channelName))) {
@@ -137,7 +139,11 @@ export class ChatClient extends BaseClient {
   public async joinAll(
     channelNames: string[]
   ): Promise<Record<string, Error | undefined>> {
-    channelNames.forEach(validateChannelName);
+    channelNames = channelNames.map((v) => {
+      v = correctChannelName(v);
+      validateChannelName(v);
+      return v;
+    });
 
     const needToJoin: string[] = channelNames.filter(
       (channelName) =>
@@ -166,11 +172,13 @@ export class ChatClient extends BaseClient {
   }
 
   public async privmsg(channelName: string, message: string): Promise<void> {
+    channelName = correctChannelName(channelName);
     validateChannelName(channelName);
     return sendPrivmsg(this.requireConnection(), channelName, message);
   }
 
   public async say(channelName: string, message: string): Promise<void> {
+    channelName = correctChannelName(channelName);
     validateChannelName(channelName);
     await say(
       this.requireConnection(mustNotBeJoined(channelName)),
@@ -180,6 +188,7 @@ export class ChatClient extends BaseClient {
   }
 
   public async me(channelName: string, message: string): Promise<void> {
+    channelName = correctChannelName(channelName);
     validateChannelName(channelName);
     await me(
       this.requireConnection(mustNotBeJoined(channelName)),
@@ -213,11 +222,13 @@ export class ChatClient extends BaseClient {
   }
 
   public async getMods(channelName: string): Promise<string[]> {
+    channelName = correctChannelName(channelName);
     validateChannelName(channelName);
     return await getMods(this.requireConnection(), channelName);
   }
 
   public async getVips(channelName: string): Promise<string[]> {
+    channelName = correctChannelName(channelName);
     validateChannelName(channelName);
     return await getVips(this.requireConnection(), channelName);
   }
