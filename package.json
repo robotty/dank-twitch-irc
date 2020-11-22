@@ -68,17 +68,17 @@
     "chai-as-promised": "^7.1.1",
     "clarify": "^2.1.0",
     "doctoc": "^1.4.0",
-    "eslint": "^7.8.0",
+    "eslint": "^7.14.0",
     "mocha": "^8.1.1",
     "mocha-junit-reporter": "^2.0.0",
     "mochawesome": "^6.1.1",
     "nyc": "^15.1.0",
-    "prettier": "^2.1.2",
+    "prettier": "^2.2.0",
     "sinon": "^9.0.3",
     "supports-color": "^7.1.0",
     "ts-node": "^9.0.0",
     "tsd": "^0.13.1",
     "typedoc": "^0.19.0",
-    "typescript": "^4.0.2"
+    "typescript": "^4.1.2"
   }
 }
