@@ -19,7 +19,7 @@
     "noImplicitReturns": true,
     "forceConsistentCasingInFileNames": true,
     "typeRoots": ["./types", "./node_modules/@types"],
-    "types": ["node", "mocha"]
+    "types": ["node", "mocha", "eventemitter3"]
   },
   "include": ["lib/**/*.ts", "types/**/*.ts", "**.js"]
 }
