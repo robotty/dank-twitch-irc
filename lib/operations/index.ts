@@ -1,3 +1,4 @@
+export * from "./ban";
 export * from "./join-all";
 export * from "./join";
 export * from "./login";
