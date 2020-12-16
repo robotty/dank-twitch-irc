@@ -61,7 +61,6 @@ export async function ban(
     failure: matchingNotice(channelName, failureNoticeIDs),
     errorType: (msg, cause) =>
       new UserBanError(channelName, username, reason, msg, cause),
-    errorMessage:
-      `Failed to ban ${username} in #${channelName}`,
+    errorMessage: `Failed to ban ${username} in #${channelName}`,
   });
 }

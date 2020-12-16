@@ -28,9 +28,7 @@ describe("./operations/ban", function () {
 
       ban(client, "pajlada", "weeb123");
 
-      assert.deepStrictEqual(data, [
-        "PRIVMSG #pajlada :/ban weeb123\r\n",
-      ]);
+      assert.deepStrictEqual(data, ["PRIVMSG #pajlada :/ban weeb123\r\n"]);
     });
 
     it("should send the correct wire command if a reason is given", async function () {
@@ -130,8 +128,7 @@ describe("./operations/ban", function () {
       await assertErrorChain(
         [promise, clientError],
         UserBanError,
-        "Failed to ban weeb123 in #forsen: Bad response message: " +
-          response,
+        "Failed to ban weeb123 in #forsen: Bad response message: " + response,
         MessageError,
         "Bad response message: " + response
       );

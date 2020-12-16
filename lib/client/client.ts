@@ -218,12 +218,7 @@ export class ChatClient extends BaseClient {
     username: string,
     reason?: string
   ): Promise<void> {
-    await ban(
-      this.requireConnection(),
-      channelName,
-      username,
-      reason
-    );
+    await ban(this.requireConnection(), channelName, username, reason);
   }
 
   public async whisper(username: string, message: string): Promise<void> {
