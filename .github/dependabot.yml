@@ -4,7 +4,15 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    labels:
+      - "no changelog entry needed"
+      - "dependencies"
+      - "github_actions"
   - package-ecosystem: npm
     directory: /
     schedule:
       interval: "daily"
+    labels:
+      - "no changelog entry needed"
+      - "dependencies"
+      - "javascript"
