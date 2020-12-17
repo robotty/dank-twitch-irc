@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+
 - Minor: Added `ban` method to `ChatClient` API (#186).
 
 ## v4.2.0
