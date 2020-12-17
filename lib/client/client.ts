@@ -16,6 +16,7 @@ import { sendPrivmsg } from "../operations/privmsg";
 import { me, say } from "../operations/say";
 import { setColor } from "../operations/set-color";
 import { timeout } from "../operations/timeout";
+import { ban } from "../operations/ban";
 import { whisper } from "../operations/whisper";
 import { anyCauseInstanceof } from "../utils/any-cause-instanceof";
 import { findAndPushToEnd } from "../utils/find-and-push-to-end";
@@ -210,6 +211,14 @@ export class ChatClient extends BaseClient {
       length,
       reason
     );
+  }
+
+  public async ban(
+    channelName: string,
+    username: string,
+    reason?: string
+  ): Promise<void> {
+    await ban(this.requireConnection(), channelName, username, reason);
   }
 
   public async whisper(username: string, message: string): Promise<void> {

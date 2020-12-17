@@ -605,6 +605,8 @@ You probably will want to use these functions on `ChatClient` most frequently:
 - `client.timeout(channelName: string, username: string, length: number, reason?: string): Promise<void>` -
   Timeout `username` for `length` seconds in `channelName`. Optionally accepts a
   reason to set.
+- `client.ban(channelName: string, username: string, reason?: string): Promise<void>` -
+  Ban `username` in `channelName`. Optionally accepts a reason to set.
 - `client.ping()` - Send a `PING` on a connection from the pool, and awaits the
   `PONG` response. You can use this to measure server latency, for example.
 - `client.whisper(username: string, message: string)` - Send the user a whisper
