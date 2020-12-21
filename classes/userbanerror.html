@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ConnectionError | dank-twitch-irc</title>
+	<title>UserBanError | dank-twitch-irc</title>
 	<meta name="description" content="Documentation for dank-twitch-irc">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,52 +54,24 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="connectionerror.html">ConnectionError</a>
+					<a href="userbanerror.html">UserBanError</a>
 				</li>
 			</ul>
-			<h1>Class ConnectionError</h1>
+			<h1>Class UserBanError</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-comment">
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>Marks an error that mandates a disconnect of a single connection,
-						but must not necessarily mean that a multi-connection client as a whole must disconnect</p>
-					</div>
-				</div>
-			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="baseerror.html" class="tsd-signature-type">BaseError</a>
+						<a href="messageerror.html" class="tsd-signature-type">MessageError</a>
 						<ul class="tsd-hierarchy">
 							<li>
-								<span class="target">ConnectionError</span>
-								<ul class="tsd-hierarchy">
-									<li>
-										<a href="protocolerror.html" class="tsd-signature-type">ProtocolError</a>
-									</li>
-									<li>
-										<a href="clienterror.html" class="tsd-signature-type">ClientError</a>
-									</li>
-									<li>
-										<a href="reconnecterror.html" class="tsd-signature-type">ReconnectError</a>
-									</li>
-									<li>
-										<a href="pingtimeouterror.html" class="tsd-signature-type">PingTimeoutError</a>
-									</li>
-									<li>
-										<a href="loginerror.html" class="tsd-signature-type">LoginError</a>
-									</li>
-									<li>
-										<a href="capabilitieserror.html" class="tsd-signature-type">CapabilitiesError</a>
-									</li>
-								</ul>
+								<span class="target">UserBanError</span>
 							</li>
 						</ul>
 					</li>
@@ -109,56 +81,67 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section tsd-is-inherited">
+						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="connectionerror.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="userbanerror.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section tsd-is-inherited">
+						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="connectionerror.html#cause" class="tsd-kind-icon">cause</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="connectionerror.html#message" class="tsd-kind-icon">message</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="connectionerror.html#name" class="tsd-kind-icon">name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="connectionerror.html#stack" class="tsd-kind-icon">stack</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="userbanerror.html#cause" class="tsd-kind-icon">cause</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="userbanerror.html#channelname" class="tsd-kind-icon">channel<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="userbanerror.html#message" class="tsd-kind-icon">message</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="userbanerror.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="userbanerror.html#reason" class="tsd-kind-icon">reason</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="userbanerror.html#stack" class="tsd-kind-icon">stack</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="userbanerror.html#username" class="tsd-kind-icon">username</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Connection<wbr>Error<span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span>, cause<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Error</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="connectionerror.html" class="tsd-signature-type">ConnectionError</a></li>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>User<wbr>Ban<wbr>Error<span class="tsd-signature-symbol">(</span>channelName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, username<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, reason<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span>, message<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span>, cause<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Error</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="userbanerror.html" class="tsd-signature-type">UserBanError</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="baseerror.html">BaseError</a>.<a href="baseerror.html#constructor">constructor</a></p>
-								<p>Overrides BaseError.__constructor</p>
+								<p>Overrides <a href="baseerror.html">BaseError</a>.<a href="baseerror.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/e32c861/lib/utils/base-error.ts#L3">lib/utils/base-error.ts:3</a></li>
+									<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/e32c861/lib/operations/ban.ts#L11">lib/operations/ban.ts:11</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
+									<h5>channelName: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>username: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>reason: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h5>
+								</li>
+								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> message: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> cause: <span class="tsd-signature-type">Error</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> cause: <span class="tsd-signature-type">Error</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="connectionerror.html" class="tsd-signature-type">ConnectionError</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="userbanerror.html" class="tsd-signature-type">UserBanError</a></h4>
 						</li>
 					</ul>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="cause" class="tsd-anchor"></a>
@@ -168,6 +151,16 @@
 						<p>Inherited from <a href="baseerror.html">BaseError</a>.<a href="baseerror.html#cause">cause</a></p>
 						<ul>
 							<li>Defined in node_modules/make-error-cause/dist/index.d.ts:6</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="channelname" class="tsd-anchor"></a>
+					<h3>channel<wbr>Name</h3>
+					<div class="tsd-signature tsd-kind-icon">channel<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/e32c861/lib/operations/ban.ts#L9">lib/operations/ban.ts:9</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -195,6 +188,16 @@
 						</ul>
 					</aside>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="reason" class="tsd-anchor"></a>
+					<h3>reason</h3>
+					<div class="tsd-signature tsd-kind-icon">reason<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/e32c861/lib/operations/ban.ts#L11">lib/operations/ban.ts:11</a></li>
+						</ul>
+					</aside>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
 					<a name="stack" class="tsd-anchor"></a>
 					<h3>stack</h3>
@@ -204,6 +207,16 @@
 						<p>Overrides Error.stack</p>
 						<ul>
 							<li>Defined in node_modules/make-error/index.d.ts:30</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="username" class="tsd-anchor"></a>
+					<h3>username</h3>
+					<div class="tsd-signature tsd-kind-icon">username<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/robotty/dank-twitch-irc/blob/e32c861/lib/operations/ban.ts#L10">lib/operations/ban.ts:10</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -222,22 +235,31 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class">
-						<a href="connectionerror.html" class="tsd-kind-icon">Connection<wbr>Error</a>
+						<a href="userbanerror.html" class="tsd-kind-icon">User<wbr>Ban<wbr>Error</a>
 						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
-								<a href="connectionerror.html#constructor" class="tsd-kind-icon">constructor</a>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+								<a href="userbanerror.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="connectionerror.html#cause" class="tsd-kind-icon">cause</a>
+								<a href="userbanerror.html#cause" class="tsd-kind-icon">cause</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="userbanerror.html#channelname" class="tsd-kind-icon">channel<wbr>Name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
-								<a href="connectionerror.html#message" class="tsd-kind-icon">message</a>
+								<a href="userbanerror.html#message" class="tsd-kind-icon">message</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
-								<a href="connectionerror.html#name" class="tsd-kind-icon">name</a>
+								<a href="userbanerror.html#name" class="tsd-kind-icon">name</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="userbanerror.html#reason" class="tsd-kind-icon">reason</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
-								<a href="connectionerror.html#stack" class="tsd-kind-icon">stack</a>
+								<a href="userbanerror.html#stack" class="tsd-kind-icon">stack</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="userbanerror.html#username" class="tsd-kind-icon">username</a>
 							</li>
 						</ul>
 					</li>

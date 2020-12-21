@@ -647,6 +647,8 @@ client.on(<span class="hljs-string">&quot;372&quot;</span>, <span class="hljs-fu
 					<li><code>client.timeout(channelName: string, username: string, length: number, reason?: string): Promise&lt;void&gt;</code> -
 						Timeout <code>username</code> for <code>length</code> seconds in <code>channelName</code>. Optionally accepts a
 					reason to set.</li>
+					<li><code>client.ban(channelName: string, username: string, reason?: string): Promise&lt;void&gt;</code> -
+					Ban <code>username</code> in <code>channelName</code>. Optionally accepts a reason to set.</li>
 					<li><code>client.ping()</code> - Send a <code>PING</code> on a connection from the pool, and awaits the
 					<code>PONG</code> response. You can use this to measure server latency, for example.</li>
 					<li><code>client.whisper(username: string, message: string)</code> - Send the user a whisper
@@ -1008,6 +1010,9 @@ npm run lintfix</code></pre>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/twitchflag.html" class="tsd-kind-icon">Twitch<wbr>Flag</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/userbanerror.html" class="tsd-kind-icon">User<wbr>Ban<wbr>Error</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/userstatetracker.html" class="tsd-kind-icon">User<wbr>State<wbr>Tracker</a>
@@ -1377,6 +1382,9 @@ npm run lintfix</code></pre>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#awaitresponse" class="tsd-kind-icon">await<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#ban" class="tsd-kind-icon">ban</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#canspamfast" class="tsd-kind-icon">can<wbr>Spam<wbr>Fast</a>
