@@ -17,7 +17,7 @@
     "lintfix": "npm run lint -- --fix",
     "test": "nyc mocha",
     "clean": "rm -rf ./dist ./docs ./coverage ./.nyc_output ./mochawesome-report",
-    "docs": "typedoc --mode file --excludeNotExported --excludePrivate --excludeProtected -out ./docs",
+    "docs": "typedoc --excludePrivate --excludeProtected -out ./docs",
     "generate-index": "npx create-ts-index@^1.10.2 create ./lib -w -i '.spec' && npm run reformat",
     "precommit": "npm run clean && npm run build && npm run test && npm run lintfix && npm run reformat && npm run lint -- --max-warnings=0",
     "generate-readme-toc": "doctoc README.md --github --title '## Table of Contents'"
