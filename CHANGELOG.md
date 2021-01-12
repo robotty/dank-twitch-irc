@@ -1,5 +1,9 @@
 # Changelog
 
+## Unversioned
+
+- Bugfix: connect() method now properly resolves if connect() is called on a client that is already `ready`. (#218)
+
 ## v4.3.0
 
 - Minor: Added `ban` method to `ChatClient` API (#186).
