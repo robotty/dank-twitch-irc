@@ -22,7 +22,7 @@ jobs:
       - name: Deploy docs to GitHub Pages
         # only on version tags like v3.0.0
         if: ${{ matrix.node == '14' && github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v') }}
-        uses: JamesIves/github-pages-deploy-action@4.0.0
+        uses: JamesIves/github-pages-deploy-action@4.1.0
         with:
           branch: gh-pages
           folder: docs
