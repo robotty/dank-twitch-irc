@@ -20,7 +20,7 @@ export function getIRCChannelName(
     return undefined;
   }
 
-  if (!parameter.startsWith("#") || parameter.length < 2) {
+  if (parameter.length < 2) {
     throw new ParseError(`Received malformed IRC channel name "${parameter}"`);
   }
 

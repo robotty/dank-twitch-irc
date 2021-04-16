@@ -1,8 +1,9 @@
 # Changelog
 
-## Unversioned
+## v4.3.2
 
 - Bugfix: `ChatClient#connect()` method now properly resolves if `connect()` is called on a client that is already `ready`. (#218)
+- Minor: Removed required use of # preceding channel name (only applied to `sendRaw` client method).
 
 ## v4.3.0
 

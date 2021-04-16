@@ -51,19 +51,6 @@ describe("./message/irc/channel-irc-message", function () {
       );
     });
 
-    it("should throw ParseError if argument does not begin with a # character", function () {
-      assertThrowsChain(
-        () => getIRCChannelName({ ircParameters: ["abc"] }),
-        ParseError,
-        'Received malformed IRC channel name "abc"'
-      );
-      assertThrowsChain(
-        () => getIRCChannelName({ ircParameters: ["pajlada"] }),
-        ParseError,
-        'Received malformed IRC channel name "pajlada"'
-      );
-    });
-
     it("should throw ParseError on standalone # character", function () {
       assertThrowsChain(
         () => getIRCChannelName({ ircParameters: ["#"] }),
