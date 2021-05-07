@@ -59,7 +59,7 @@
     "@types/node": "^15.0.2",
     "@types/randomstring": "^1.1.6",
     "@types/simple-websocket": "^7.0.1",
-    "@types/sinon": "^9.0.9",
+    "@types/sinon": "^10.0.0",
     "@types/split2": "^2.1.6",
     "@types/ws": "^7.2.6",
     "@typescript-eslint/eslint-plugin": "^4.10.0",
