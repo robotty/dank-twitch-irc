@@ -69,7 +69,7 @@
     "clarify": "^2.1.0",
     "doctoc": "^2.0.0",
     "eslint": "^7.16.0",
-    "mocha": "^8.1.1",
+    "mocha": "^9.0.0",
     "mocha-junit-reporter": "^2.0.0",
     "mochawesome": "^6.1.1",
     "nyc": "^15.1.0",
