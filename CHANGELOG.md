@@ -1,12 +1,14 @@
 # Changelog
 
-## Unversioned
+## v4.3.1
 
-- Bugfix: `ChatClient#connect()` method now properly resolves if `connect()` is called on a client that is already `ready`. (#218)
+- Minor: support for `messageTypeID:submysterygift` in `UserNoticeMessage`.
+  - Added `isMassSubgift()` to `UserNoticeMessage`
 
 ## v4.3.0
 
 - Minor: Added `ban` method to `ChatClient` API (#186).
+- Bugfix: `ChatClient#connect()` method now properly resolves if `connect()` is called on a client that is already `ready`. (#218)
 
 ## v4.2.0
 
