@@ -24,6 +24,9 @@ const convertersMap: Record<string, (value: string) => any> = {
   "msg-param-streak-months": convertToInt,
   "msg-param-viewerCount": convertToInt,
   "msg-param-threshold": convertToInt,
+  "msg-param-mass-gift-count": convertToInt,
+  "msg-param-origin-id": convertToString,
+  "msg-param-sub-plan": convertToString,
 };
 
 export function getCamelCasedName(tagKey: string): string {
@@ -123,6 +126,12 @@ export interface SubgiftParameters extends EventParams {
 }
 export type AnonSubgiftParameters = SubgiftParameters;
 
+// massgift
+export interface MassSubgiftParameters extends EventParams {
+  massGiftCount: number;
+  subPlan: string;
+}
+
 // anongiftpaidupgrade
 export type AnonGiftPaidUpgradeParameters = EventParams & {
   promoGiftTotal?: number;
@@ -171,6 +180,10 @@ export type SubgiftUsernoticeMessage = SpecificUsernoticeMessage<
   "subgift",
   SubgiftParameters
 >;
+export type MassSubgiftUsernoticeMessage = SpecificUsernoticeMessage<
+  "submysterygift",
+  MassSubgiftParameters
+  >;
 export type AnonSubgiftUsernoticeMessage = SpecificUsernoticeMessage<
   "anonsubgift",
   AnonSubgiftParameters
@@ -330,6 +343,10 @@ export class UsernoticeMessage extends ChannelIRCMessage {
 
   public isSubgift(): this is SubgiftUsernoticeMessage {
     return this.messageTypeID === "subgift";
+  }
+
+  public isMassSubgift(): this is MassSubgiftParameters {
+    return this.messageTypeID === "submysterygift";
   }
 
   public isAnonSubgift(): this is AnonSubgiftUsernoticeMessage {

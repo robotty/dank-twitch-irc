@@ -131,6 +131,7 @@ describe("./message/twitch-types/usernotice", function () {
         shouldShareStreakRaw: "0",
         subPlanName: "Channel Subscription (faker)",
         subPlan: "1000",
+        subPlanRaw: "1000"
       });
 
       assert.isTrue(msg.isResub());
@@ -196,6 +197,7 @@ describe("./message/twitch-types/usernotice", function () {
         months: 2,
         monthsRaw: "2",
         originID: "da 39 a3 ee 5e 6b 4b 0d 32 55 bf ef 95 60 18 90 af d8 07 09",
+        originIDRaw: "da 39 a3 ee 5e 6b 4b 0d 32 55 bf ef 95 60 18 90 af d8 07 09",
         recipientDisplayName: "qatarking24xd",
         recipientID: "236653628",
         recipientUsername: "qatarking24xd",
@@ -203,6 +205,32 @@ describe("./message/twitch-types/usernotice", function () {
         senderCountRaw: "0",
         subPlanName: "Channel Subscription (xqcow)",
         subPlan: "1000",
+        subPlanRaw: "1000"
+      });
+    });
+
+    it("should be able to parse a masssubgift with message", function () {
+      const msg = parseTwitchMessage(
+        "@badge-info=subscriber/12;badges=subscriber/12,premium/1;color=;display-name=realuser;emotes=;flags=;id=99b77ba7-c77f-4d92-ac3a-ad556e921672;login=realuser;mod=0;msg-id=submysterygift;msg-param-mass-gift-count=1;msg-param-origin-id=4e\\sd1\\s19\\sc5\\s33\\s80\\s68\\s8c\\sdc\\sc9\\s4d\\s96\\s73\\sd0\\sad\\s40\\s52\\sf3\\s19\\s02;msg-param-sender-count=1;msg-param-sub-plan=1000;room-id=38244999;subscriber=1;system-msg=realuser\\sis\\sgifting\\s1\\sTier\\s1\\sSubs\\sto\\sbroadcaster's\\scommunity!\\sThey've\\sgifted\\sa\\stotal\\sof\\s1\\sin\\sthe\\schannel!;tmi-sent-ts=1633549401426;user-id=239909999;user-type= :tmi.twitch.tv USERNOTICE #broadcaster"
+      ) as UsernoticeMessage;
+
+      assert.strictEqual(msg.ircCommand, "USERNOTICE");
+      assert.strictEqual(msg.ircParameters[0], "#broadcaster");
+      assert.strictEqual(msg.ircTags["msg-param-mass-gift-count"], "1");
+      assert.strictEqual(msg.systemMessage, "realuser is gifting 1 Tier 1 Subs to broadcaster's community! They've gifted a total of 1 in the channel!");
+      assert.strictEqual(msg.messageTypeID, "submysterygift");
+
+      assert.isTrue(msg.isMassSubgift());
+
+      assert.deepStrictEqual(msg.eventParams, {
+        massGiftCount: 1,
+        massGiftCountRaw: "1",
+        originID: "4e d1 19 c5 33 80 68 8c dc c9 4d 96 73 d0 ad 40 52 f3 19 02",
+        originIDRaw: "4e d1 19 c5 33 80 68 8c dc c9 4d 96 73 d0 ad 40 52 f3 19 02",
+        senderCount: 1,
+        senderCountRaw: "1",
+        subPlan: "1000",
+        subPlanRaw: "1000"
       });
     });
   });
