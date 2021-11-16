@@ -1,9 +1,9 @@
 # Changelog
 
-## v4.3.1
+## Unversioned
 
 - Minor: support for `messageTypeID:submysterygift` in `UserNoticeMessage`.
-  - Added `isMassSubgift()` to `UserNoticeMessage`
+- Added `isMassSubgift()` to `UserNoticeMessage`
 
 ## v4.3.0
 
