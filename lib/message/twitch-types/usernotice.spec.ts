@@ -131,7 +131,6 @@ describe("./message/twitch-types/usernotice", function () {
         shouldShareStreakRaw: "0",
         subPlanName: "Channel Subscription (faker)",
         subPlan: "1000",
-        subPlanRaw: "1000"
       });
 
       assert.isTrue(msg.isResub());
@@ -197,7 +196,6 @@ describe("./message/twitch-types/usernotice", function () {
         months: 2,
         monthsRaw: "2",
         originID: "da 39 a3 ee 5e 6b 4b 0d 32 55 bf ef 95 60 18 90 af d8 07 09",
-        originIDRaw: "da 39 a3 ee 5e 6b 4b 0d 32 55 bf ef 95 60 18 90 af d8 07 09",
         recipientDisplayName: "qatarking24xd",
         recipientID: "236653628",
         recipientUsername: "qatarking24xd",
@@ -205,7 +203,6 @@ describe("./message/twitch-types/usernotice", function () {
         senderCountRaw: "0",
         subPlanName: "Channel Subscription (xqcow)",
         subPlan: "1000",
-        subPlanRaw: "1000"
       });
     });
 
@@ -226,11 +223,9 @@ describe("./message/twitch-types/usernotice", function () {
         massGiftCount: 1,
         massGiftCountRaw: "1",
         originID: "4e d1 19 c5 33 80 68 8c dc c9 4d 96 73 d0 ad 40 52 f3 19 02",
-        originIDRaw: "4e d1 19 c5 33 80 68 8c dc c9 4d 96 73 d0 ad 40 52 f3 19 02",
         senderCount: 1,
         senderCountRaw: "1",
         subPlan: "1000",
-        subPlanRaw: "1000"
       });
     });
   });
