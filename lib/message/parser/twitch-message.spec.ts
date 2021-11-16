@@ -127,7 +127,6 @@ describe("./message/parser/twitch-message", function () {
     for (const { irc, instanceOf } of testCases) {
       const ircMessage = parseIRCMessage(irc);
       const command = ircMessage.ircCommand;
-      if (!instanceOf) continue;
 
       it(`should map ${command} to ${instanceOf.name}`, function () {
         const twitchMessage = parseTwitchMessage(irc);
