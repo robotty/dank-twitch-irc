@@ -183,7 +183,7 @@ export type SubgiftUsernoticeMessage = SpecificUsernoticeMessage<
 export type MassSubgiftUsernoticeMessage = SpecificUsernoticeMessage<
   "submysterygift",
   MassSubgiftParameters
-  >;
+>;
 export type AnonSubgiftUsernoticeMessage = SpecificUsernoticeMessage<
   "anonsubgift",
   AnonSubgiftParameters

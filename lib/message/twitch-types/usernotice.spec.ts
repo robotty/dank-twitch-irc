@@ -214,7 +214,10 @@ describe("./message/twitch-types/usernotice", function () {
       assert.strictEqual(msg.ircCommand, "USERNOTICE");
       assert.strictEqual(msg.ircParameters[0], "#broadcaster");
       assert.strictEqual(msg.ircTags["msg-param-mass-gift-count"], "1");
-      assert.strictEqual(msg.systemMessage, "realuser is gifting 1 Tier 1 Subs to broadcaster's community! They've gifted a total of 1 in the channel!");
+      assert.strictEqual(
+        msg.systemMessage,
+        "realuser is gifting 1 Tier 1 Subs to broadcaster's community! They've gifted a total of 1 in the channel!"
+      );
       assert.strictEqual(msg.messageTypeID, "submysterygift");
 
       assert.isTrue(msg.isMassSubgift());
