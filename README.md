@@ -1,5 +1,7 @@
 # dank-twitch-irc
 
+**I (randers) am no longer supporting or updating dank-twitch-irc. While it may continue to work, I'm no longer making sure it will continue to do so in the future. This package will also not receive any dependency or security updates. For this reason I recommend you to choose a different library in your projects, or to fork this project to continue development on it. If somebody makes a high-quality fork of this project, you can contact me and I can link to your fork in this README here. Thank you.**
+
 ![Build](https://github.com/robotty/dank-twitch-irc/workflows/Build/badge.svg)
 
 Node.js-only Twitch IRC lib, written in TypeScript.
