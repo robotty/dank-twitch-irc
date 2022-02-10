@@ -74,6 +74,18 @@ describe("./message/parser/twitch-message", function () {
       },
       {
         irc:
+          "@badge-info=subscriber/12;badges=subscriber/12,premium/1;color=;display-name=yurixxxxx14;" +
+          "emotes=;flags=;id=99b77ba7-c77f-4d92-ac3a-ad556e921672;login=yurixxxxx14;mod=0;msg-id=submysterygift;" +
+          "msg-param-mass-gift-count=1;msg-param-origin-id=4e\\sd1\\s19\\sc5\\s33\\s80\\s68\\" +
+          "s8c\\sdc\\sc9\\s4d\\s96\\s73\\sd0\\sad\\s40\\s52\\sf3\\s19\\s02;" +
+          "msg-param-sender-count=1;msg-param-sub-plan=1000;room-id=38884180;subscriber=1;" +
+          "system-msg=yurixxxxx14\\sis\\sgifting\\s1\\sTier\\s1\\sSubs\\sto\\susertag's\\scommunity!" +
+          "\\sThey've\\sgifted\\sa\\stotal\\sof\\s1\\sin\\sthe\\schannel!;tmi-sent-ts=1633549401426;" +
+          "user-id=238886165;user-type= :tmi.twitch.tv USERNOTICE #usertag",
+        instanceOf: UsernoticeMessage,
+      },
+      {
+        irc:
           "@badge-info=;badges=;color=;display-name=receivertest3;emote-sets=0;mod=0;" +
           "subscriber=0;user-type= :tmi.twitch.tv USERSTATE #randers",
         instanceOf: UserstateMessage,
